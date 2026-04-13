@@ -42,329 +42,149 @@
 </div>
 
 <main id="mainContent">
-<!-- ================= SECTION 1: INTRODUCTION TO C++ (DIPERPANJANG) ================= -->
+<!-- ================= SECTION 1: INTRODUCTION TO C++ ================= -->
 <section>
-    <h2>1. Pengantar C++ (Introduction to C++)</h2>
-    <p>C++ adalah bahasa pemrograman yang sangat populer dan powerful. Diciptakan oleh <strong>Bjarne Stroustrup</strong> pada tahun 1985 sebagai pengembangan dari bahasa C. C++ sering disebut sebagai bahasa <strong>tingkat menengah</strong> karena memberikan keseimbangan antara kemudahan (seperti bahasa tingkat tinggi) dan kontrol langsung terhadap perangkat keras (seperti bahasa tingkat rendah).</p>
+    <h2>1. Pengantar C++ (Introduction)</h2>
+    <p>C++ adalah bahasa pemrograman yang sangat populer dan <i>powerful</i>. Diciptakan oleh <strong>Bjarne Stroustrup</strong> pada tahun 1985 sebagai pengembangan dari bahasa C.</p>
     
-    <p>Bayangkan Anda ingin membangun sebuah rumah. Bahasa tingkat rendah (seperti bahasa mesin) adalah seperti Anda harus menyusun batu bata satu per satu, merekatkannya dengan semen, dan mengatur setiap detail teknis. Bahasa tingkat tinggi (seperti Python) adalah seperti Anda tinggal memberi perintah "bangun rumah" dan semuanya berjalan otomatis, tapi Anda tidak tahu persis bagaimana prosesnya. C++ berada di tengah: Anda bisa mengatur detail teknis jika perlu, tetapi juga bisa menggunakan komponen yang sudah jadi. Inilah mengapa C++ sangat fleksibel.</p>
-    
-    <h3>🔍 Bagaimana C++ Bekerja? (Kompilasi)</h3>
-    <p>Berbeda dengan bahasa seperti JavaScript atau Python yang langsung dijalankan (diinterpretasi), program C++ harus melalui proses <strong>kompilasi</strong>. Kompilasi adalah proses menerjemahkan kode C++ (yang bisa dibaca manusia) ke dalam bahasa mesin (kode biner yang dimengerti komputer). Hasil terjemahan ini disebut <strong>file executable</strong> (.exe di Windows). File inilah yang kemudian dijalankan oleh komputer.</p>
-    <div class="code">
-        // Kode sumber (source code) → ditulis programmer
-        #include &lt;iostream&gt;
-        using namespace std;
-        int main() {
-            cout &lt;&lt; "Hello, World!";
-            return 0;
-        }
-        
-        // Proses kompilasi: compiler (misal g++) mengubah ke bahasa mesin
-        // Hasil: file executable (a.out atau program.exe)
-        
-        // Saat dijalankan: komputer langsung mengeksekusi instruksi mesin
-    </div>
-    <p>Kelebihan kompilasi: program berjalan sangat cepat karena sudah dalam bentuk bahasa mesin. Kekurangan: setiap kali mengubah kode, harus dikompilasi ulang.</p>
-    
-    <h3>🧱 Struktur Dasar Program C++ (Kerangka Wajib)</h3>
-    <p>Setiap program C++ harus memiliki struktur berikut agar bisa dikompilasi dan dijalankan:</p>
-    <div class="code">
-        #include &lt;iostream&gt;    // 1. Menyertakan library
-        using namespace std;    // 2. Agar tidak perlu menulis std:: berulang
-        
-        int main() {            // 3. Fungsi utama (entry point)
-            // 4. Kode instruksi di sini
-            cout &lt;&lt; "Hello";
-            return 0;           // 5. Menandakan program sukses
-        }
-    </div>
-    <ul>
-        <li><strong>#include &lt;iostream&gt;</strong> → memanggil library Input-Output Stream, diperlukan untuk menggunakan <code>cout</code> (output) dan <code>cin</code> (input).</li>
-        <li><strong>using namespace std;</strong> → memberi tahu compiler bahwa kita menggunakan namespace standar C++, sehingga kita bisa menulis <code>cout</code> bukan <code>std::cout</code>.</li>
-        <li><strong>int main()</strong> → fungsi utama. Program selalu dimulai dari sini. Tanda kurung <code>()</code> bisa berisi parameter (kosong artinya tanpa parameter). Tanda kurung kurawal <code>{ }</code> membungkus badan program.</li>
-        <li><strong>return 0;</strong> → mengembalikan nilai 0 ke sistem operasi, menandakan program berakhir tanpa error. Nilai selain 0 biasanya menandakan error.</li>
-    </ul>
-    
-    <h3>🧩 Paradigma Pemrograman yang Didukung C++</h3>
-    <p>C++ adalah bahasa multi-paradigma, artinya Anda bisa memilih gaya pemrograman yang sesuai:</p>
-    <ul>
-        <li><strong>Prosedural</strong> → program ditulis sebagai urutan instruksi (seperti C). Cocok untuk program sederhana.</li>
-        <li><strong>Berorientasi Objek (OOP)</strong> → menggunakan <code>class</code> dan <code>object</code> untuk memodelkan dunia nyata. Ini memudahkan pengembangan program besar.</li>
-        <li><strong>Generik</strong> → menggunakan <code>template</code> sehingga fungsi/class bisa bekerja dengan berbagai tipe data tanpa menulis ulang kode.</li>
-    </ul>
-    <div class="code">
-        // Prosedural: fungsi biasa
-        int tambah(int a, int b) { return a + b; }
-        
-        // OOP: class
-        class Mobil { public: string merek; void klakson() { cout << "Beep!"; } };
-        
-        // Generik: template
-        template &lt;typename T&gt; T kali(T a, T b) { return a * b; }
+    <div class="info-box">
+        <h4>💡 Analogi Sederhana</h4>
+        <p>Bayangkan Anda ingin membangun rumah. Bahasa tingkat tinggi (seperti Python) ibarat Anda membeli rumah jadi (mudah tapi tidak bisa atur pondasi). Bahasa tingkat rendah (Assembly) ibarat Anda membuat batu bata sendiri dari pasir (sangat detail dan sulit). Nah, <strong>C++ ada di tengah-tengah</strong>: Anda bisa mengatur struktur dengan leluasa, tapi banyak bahan bangunan yang sudah disediakan.</p>
     </div>
     
-    <h3>🚀 Kelebihan C++ (Kenapa Banyak Dipakai?)</h3>
-    <ul>
-        <li><strong>Performa sangat tinggi</strong> → karena dikompilasi ke bahasa mesin, C++ sangat cepat, cocok untuk game, sistem operasi, dan aplikasi real-time.</li>
-        <li><strong>Kontrol memori langsung</strong> → Anda bisa mengatur alokasi dan dealokasi memori menggunakan <code>new</code> dan <code>delete</code> (atau malloc/free). Ini penting untuk program yang hemat memori.</li>
-        <li><strong>Dukungan multi-paradigma</strong> → tidak memaksa satu gaya, Anda bisa memilih yang paling sesuai.</li>
-        <li><strong>Portabilitas</strong> → program C++ dapat dikompilasi di berbagai sistem operasi (Windows, Linux, macOS) dengan perubahan minimal.</li>
-    </ul>
-    
-    <h3>🌍 Contoh Nyata Penggunaan C++</h3>
-    <ul>
-        <li>Game engine seperti Unreal Engine, Unity (bagian core-nya).</li>
-        <li>Sistem operasi: Windows, macOS, Linux (bagian kernel dan driver).</li>
-        <li>Software Adobe (Photoshop, Illustrator) menggunakan C++.</li>
-        <li>Browser: Chrome, Firefox (engine rendering).</li>
-        <li>Sistem embedded (mikrokontroler, IoT).</li>
-        <li>Sistem finansial real-time (perdagangan saham).</li>
-    </ul>
-    
-    <h3>⚠️ Hal yang Perlu Diperhatikan (Jebakan Pemula)</h3>
-    <p>C++ memberikan kebebasan penuh, tapi tanggung jawab juga besar. Kesalahan kecil bisa menyebabkan bug misterius atau crash. Contoh:</p>
+    <h3>🔍 Bagaimana C++ Bekerja?</h3>
+    <p>Berbeda dengan bahasa web yang langsung dibaca oleh browser, program C++ harus melalui proses yang disebut <strong>kompilasi</strong>. Ini adalah proses menerjemahkan kode yang Anda tulis menjadi "bahasa mesin" (kode biner 0 dan 1) agar bisa dijalankan oleh komputer.</p>
     <div class="code">
-        int angka = 3.5;   // Tidak error, tapi angka akan menjadi 3 (nilai desimal terpotong)
-        cout << angka;     // Output: 3
-    </div>
-    <p>Kode di atas tidak error karena C++ secara otomatis mengkonversi double ke int dengan memotong bagian desimal. Ini bisa menyebabkan hasil perhitungan salah jika tidak disadari.</p>
-    <p>Tips: selalu perhatikan tipe data, inisialisasi variabel sebelum digunakan, dan jangan lupa <code>delete</code> memori yang dialokasikan dengan <code>new</code>.</p>
+// 1. Anda menulis kode ini
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hello, World!";
+    return 0;
+}
+
+// 2. Compiler akan memprosesnya menjadi file program (.exe)
+// 3. Komputer akan mengeksekusi (menjalankan) file program tersebut</div>
+
+    <h3>🧱 Struktur Dasar Program (Kerangka Wajib)</h3>
+    <p>Setiap kali Anda membuat program C++, kerangka dasarnya akan selalu terlihat seperti ini:</p>
+    <div class="code">
+#include &lt;iostream&gt;    // 1. Memanggil buku panduan (library) bernama iostream
+using namespace std;   // 2. Jalan pintas agar tidak perlu menulis std:: terus
+
+int main() {           // 3. Ini adalah ruang mesin utama program Anda
     
-    <h3>🎯 Kesimpulan Section 1</h3>
-    <p>C++ adalah bahasa yang kuat, fleksibel, dan sangat cepat. Meskipun kurva belajarnya lebih curam daripada bahasa seperti Python, menguasai C++ akan memberi Anda pemahaman mendalam tentang bagaimana komputer bekerja. Di section berikutnya, kita akan mempelajari struktur dan syntax dasar C++ secara lebih detail.</p>
+    cout &lt;&lt; "Hello";   // 4. Semua instruksi ditulis di dalam kurung kurawal ini
+    
+    return 0;          // 5. Lapor ke komputer bahwa program berjalan lancar
+}</div>
+    
+    <h3>🚀 Kenapa Belajar C++?</h3>
+    <ul>
+        <li><strong>Kecepatan Maksimal:</strong> Karena langsung diubah ke bahasa mesin, C++ adalah salah satu bahasa tercepat di dunia.</li>
+        <li><strong>Membuat Sistem Besar:</strong> Windows, macOS, Photoshop, dan mesin pencari Google raksasa dibangun dengan bantuan C++.</li>
+        <li><strong>Raja Game Engine:</strong> Jika Anda ingin membuat game 3D dengan Unreal Engine, C++ adalah bahasa wajibnya.</li>
+    </ul>
+    
+    <div class="info-box warning">
+        <h4>⚠️ Hati-hati Jika Kamu Pemula!</h4>
+        <p>C++ ibarat mobil balap. Sangat cepat, namun tidak punya "rem otomatis". Kesalahan kecil (seperti lupa tanda titik koma <code>;</code>) bisa membuat program gagal berjalan. Tetap bersabar dan baca pesan <i>error</i>-nya ya!</p>
+    </div>
 </section>
 
-<!-- ================= SECTION 2: STRUKTUR DAN SYNTAX DASAR C++ (DIPERPANJANG) ================= -->
+<!-- ================= SECTION 2: STRUKTUR DAN SYNTAX DASAR C++ ================= -->
 <section>
     <h2>2. Struktur dan Syntax Dasar C++</h2>
-    <p>Setiap program C++ memiliki <strong>struktur baku</strong> yang harus diikuti. Memahami struktur ini sama pentingnya dengan memahami fondasi rumah: jika fondasi salah, rumah bisa roboh. Begitu juga program, jika struktur dasar salah, compiler akan menolak program Anda.</p>
+    <p>Setiap program C++ memiliki <strong>struktur baku</strong> yang harus diikuti. Jika struktur dasar ini salah, <i>compiler</i> akan menolak program Anda dengan memunculkan pesan <i>error</i>.</p>
     
-    <h3>🧱 Komponen Wajib dalam Program C++</h3>
-    <p>Program C++ minimal terdiri dari:</p>
-    <ul>
-        <li><strong>Library header</strong> (opsional tapi hampir selalu ada) – misal <code>#include &lt;iostream&gt;</code> untuk input/output.</li>
-        <li><strong>Fungsi main()</strong> – harus ada, karena compiler mencari fungsi ini sebagai titik awal.</li>
-        <li><strong>Pernyataan (statements)</strong> – instruksi yang diakhiri titik koma <code>;</code>.</li>
-        <li><strong>Return statement</strong> – mengembalikan nilai ke sistem operasi (biasanya <code>return 0;</code>).</li>
-    </ul>
-    <div class="code">
-        #include &lt;iostream&gt;   // header
-        int main() {          // fungsi utama
-            std::cout &lt;&lt; "Halo"; // statement
-            return 0;         // return
-        }
+    <div class="info-box">
+        <h4>💡 Analogi Struktur</h4>
+        <p>Sama seperti menulis surat resmi yang butuh Kop Surat, Salam Pembuka, Isi Surat, dan Penutup, program C++ juga butuh "surat pengantar" agar dimengerti oleh komputer.</p>
     </div>
-    <p>Tanpa <code>main()</code>, compiler akan error: <em>"undefined reference to `main'"</em>.</p>
     
     <h3>🔍 Anatomi Kode: Penjelasan Per Baris</h3>
-    <p>Mari kita bedah program "Hello World" yang sudah dimodifikasi sedikit:</p>
+    <p>Mari kita bedah program sederhana ini baris per baris:</p>
     <div class="code">
-        #include &lt;iostream&gt;   // baris 1: preprocessor directive, menyertakan library iostream
-        using namespace std;   // baris 2: menggunakan namespace std agar tidak perlu std:: di depan cout
-        
-        int main() {           // baris 3: deklarasi fungsi main, tipe data int (mengembalikan integer)
-            cout &lt;&lt; "Hello";  // baris 4: mencetak Hello ke layar, diikuti newline (endl)
-            return 0;          // baris 5: mengembalikan 0 (sukses) ke sistem operasi
-        }                      // baris 6: penutup kurung kurawal
-    </div>
+#include &lt;iostream&gt;   // Baris 1: Meminta izin pakai library input/output
+using namespace std;   // Baris 2: Memakai kamus standar (std)
+
+int main() {           // Baris 3: Titik awal program berjalan
+    cout &lt;&lt; "Halo";  // Baris 4: Menampilkan teks ke layar
+    return 0;          // Baris 5: Selesai tanpa error
+}                      // Baris 6: Tutup program</div>
+
     <ul>
-        <li><strong>Preprocessor directive</strong> dimulai dengan <code>#</code>. Di sini <code>#include</code> menyisipkan isi file iostream ke dalam program sebelum kompilasi.</li>
-        <li><strong>using namespace std;</strong> memberi akses ke semua nama dalam namespace std (seperti cout, cin, endl). Tanpa ini, kita harus menulis <code>std::cout</code>.</li>
-        <li><strong>int main()</strong> → tipe <code>int</code> menunjukkan bahwa fungsi mengembalikan nilai integer. Tanda kurung <code>()</code> bisa berisi parameter (kosong artinya tidak ada).</li>
-        <li><strong>cout &lt;&lt; "Hello";</strong> → <code>cout</code> (character output) adalah objek untuk menampilkan teks. Operator <code>&lt;&lt;</code> mengarahkan teks ke layar.</li>
-        <li><strong>return 0;</strong> → mengirimkan nilai 0 ke pemanggil (sistem operasi). Nilai 0 berarti program sukses.</li>
+        <li><strong><code>#include &lt;iostream&gt;</code></strong>: Menambahkan fitur <code>cout</code> (menampilkan teks) dan <code>cin</code> (meminta input) ke program Anda.</li>
+        <li><strong><code>using namespace std;</code></strong>: Agar Anda cukup menulis <code>cout</code>, tidak perlu repot-repot menulis panjang menjadi <code>std::cout</code> setiap saat.</li>
+        <li><strong><code>int main()</code></strong>: Fungsi utama. <strong>Wajib ada!</strong> Tanpa main, program tidak akan tahu dari mana harus mulai berjalan.</li>
+        <li><strong><code>return 0;</code></strong>: Kode rahasia ke Windows/Linux bahwa program berhasil dijalankan tanpa <i>crash</i>.</li>
     </ul>
-    
-    <h3>⚠️ Kesalahan Sintaks yang Paling Sering Dilakukan Pemula</h3>
-    <p>Compiler C++ sangat teliti. Kesalahan sekecil apapun bisa membuat program gagal dikompilasi. Berikut adalah tiga kesalahan paling umum:</p>
-    <ul>
-        <li><strong>Lupa titik koma (;)</strong> di akhir statement. C++ membutuhkan titik koma sebagai pemisah.</li>
-        <li><strong>Salah kapitalisasi</strong> – C++ case-sensitive, jadi <code>Cout</code> berbeda dengan <code>cout</code>. Hanya <code>cout</code> yang benar.</li>
-        <li><strong>Kurung kurawal tidak seimbang</strong> – setiap <code>{</code> harus ditutup dengan <code>}</code>.</li>
-    </ul>
-    <div class="code">
-        // ❌ ERROR: lupa titik koma
-        int main() {
-            cout << "Hello"
-            return 0;
-        }
-        
-        // ✅ BENAR
-        int main() {
-            cout << "Hello";
-            return 0;
-        }
+
+    <div class="info-box warning">
+        <h4>⚠️ Tiga Kesalahan Utama Pemula</h4>
+        <ol>
+            <li><strong>Lupa titik koma (<code>;</code>)</strong>. C++ butuh <code>;</code> di setiap akhir perintah.</li>
+            <li><strong>Salah Huruf Besar/Kecil</strong>. C++ sangat sensitif! <code>Cout</code> (salah) berbeda dengan <code>cout</code> (benar).</li>
+            <li><strong>Kurung tidak seimbang</strong>. Setiap buka <code>{</code> harus ada tutup <code>}</code>.</li>
+        </ol>
     </div>
-    
-    <h3>🧠 Cara Kerja Kompilasi (Lebih Detil)</h3>
-    <p>Proses mengubah kode C++ menjadi program yang bisa dijalankan terdiri dari 4 tahap:</p>
-    <ol>
-        <li><strong>Preprocessing</strong> → menangani semua perintah <code>#include</code>, <code>#define</code>, dll. Hasilnya adalah kode C++ "murni".</li>
-        <li><strong>Kompilasi</strong> → mengubah kode C++ menjadi bahasa assembly (kode tingkat rendah yang masih bisa dibaca manusia).</li>
-        <li><strong>Assembly</strong> → mengubah bahasa assembly menjadi kode mesin (object file .o atau .obj).</li>
-        <li><strong>Linking</strong> → menggabungkan semua object file dan library menjadi satu file executable (.exe).</li>
-    </ol>
-    <p>Sebagai pemula, Anda tidak perlu mendalami setiap tahap, cukup tahu bahwa compiler (seperti g++, clang, MSVC) melakukan semuanya secara otomatis.</p>
-    
-    <h3>💡 Cara Berpikir Seperti Programmer</h3>
-    <p>Pemrograman bukan hanya menghafal syntax, tetapi tentang <strong>logika</strong>. Setiap program pada dasarnya mengikuti pola:</p>
-    <div class="code">
-        INPUT → PROSES → OUTPUT
-    </div>
-    <p>Contoh: program yang menambahkan dua angka. Input: angka pertama dan kedua. Proses: menjumlahkan. Output: hasil penjumlahan.</p>
-    <div class="code">
-        int a, b;
-        cin >> a >> b;        // INPUT
-        int hasil = a + b;    // PROSES
-        cout << hasil;        // OUTPUT
-    </div>
-    <p>Jika Anda memahami pola ini, mempelajari konsep seperti fungsi, array, dan objek akan terasa lebih alami.</p>
-    
-    <h3>🚀 Tips Efektif Belajar C++ untuk Pemula</h3>
-    <ul>
-        <li>Jangan hanya membaca teori. Ketik setiap contoh kode sendiri, lalu ubah-ubah dan lihat hasilnya.</li>
-        <li>Gunakan compiler online (seperti onlinegdb.com) jika belum menginstal compiler lokal.</li>
-        <li>Baca pesan error dengan teliti. Compiler memberi tahu baris dan jenis error. Jangan panik, error adalah teman belajar.</li>
-        <li>Mulailah dengan program sederhana, lalu secara bertahap tingkatkan kompleksitas.</li>
-    </ul>
-    
-    <h3>🎯 Kesimpulan Section 2</h3>
-    <p>Struktur dasar program C++ sangat sederhana: <code>#include</code>, <code>using namespace std;</code>, <code>int main() { ... }</code>. Setiap statement diakhiri titik koma. Setelah menguasai struktur ini, Anda siap mempelajari konsep inti berikutnya: variabel, tipe data, dan operator.</p>
 </section>
 
-<!-- ================= SECTION 3: VARIABEL DALAM C++ (DIPERPANJANG) ================= -->
+<!-- ================= SECTION 3: VARIABEL DALAM C++ ================= -->
 <section>
-    <h2>3. Variabel dalam C++</h2>
-    <p>Variabel adalah konsep paling fundamental dalam pemrograman. Tanpa variabel, program tidak bisa menyimpan data. Bayangkan Anda sedang menghitung uang di dompet. Anda perlu "tempat" untuk menyimpan jumlah uang, lalu bisa menambah, mengurangi, atau menampilkan. Variabel adalah tempat penyimpanan data di memori komputer.</p>
+    <h2>3. Variabel: Menyimpan Data Anda</h2>
+    <p>Variabel adalah "kotak" tempat Anda menyimpan data di memori komputer. Karena C++ sangat peduli pada kerapian, setiap kotak (variabel) harus memiliki satu label nama dan <strong>tipe barang</strong> yang spesifik.</p>
     
-    <h3>📦 Analogi Sederhana: Kotak Penyimpanan</h3>
-    <p>Anggaplah variabel sebagai kotak dengan label. Setiap kotak memiliki:</p>
-    <ul>
-        <li><strong>Nama</strong> → label kotak (misal "umur", "nama", "tinggi").</li>
-        <li><strong>Tipe data</strong> → jenis barang yang boleh disimpan (misal kotak khusus untuk angka, atau kotak khusus untuk teks).</li>
-        <li><strong>Nilai</strong> → isi kotak (misal 20, "Andi", 170.5).</li>
-    </ul>
-    <div class="code">
-        [ umur ]   → 20
-        [ nama ]   → "Andi"
+    <div class="info-box">
+        <h4>💡 Analogi Variabel</h4>
+        <p>Anggaplah program Anda adalah dapur. Anda butuh toples bulat untuk gula (angka), dan butuh kulkas panjang untuk sayur (teks). Variabel bekerja persis seperti ini: menyedikan tempat yang pas untuk setiap jenis data.</p>
     </div>
     
-    <h3>🧱 Cara Mendeklarasikan Variabel</h3>
-    <p>Di C++, Anda harus <strong>mendeklarasikan</strong> variabel sebelum menggunakannya. Deklarasi memberi tahu compiler: "Saya akan menggunakan variabel dengan nama ini dan tipe ini". Bentuk umum:</p>
+    <h3>🧱 Cara Membuat Variabel</h3>
+    <p>Di C++, Anda harus <strong>mendeklarasikan</strong> variabel sebelum menggunakannya. Anda memberitahu komputer: *"Tolong siapkan kotak kecil bersisi angka, beri nama 'umur'"*.</p>
     <div class="code">
-        tipe_data nama_variabel;
-        // atau langsung diisi
-        tipe_data nama_variabel = nilai;
-    </div>
-    <p>Contoh deklarasi dengan inisialisasi:</p>
+int umur = 20;               // integer: bilangan bulat
+double tinggi = 170.5;       // double: bilangan desimal
+char kelas = 'A';            // char: 1 karakter tunggal
+string nama = "Budi";        // string: kalimat (butuh teks kutip dua)
+bool lulus = true;           // boolean: true atau false</div>
+    
+    <h3>🔄 Variabel Bisa Diubah Nilainya</h3>
+    <p>Sesuai namanya (<em>variabel</em>), isinya bisa diubah-ubah di tengah program berjalan tanpa perlu menyebut tipe datanya lagi.</p>
     <div class="code">
-        int umur = 20;               // variabel integer (bilangan bulat)
-        double tinggi = 170.5;       // variabel desimal (presisi ganda)
-        char grade = 'A';            // karakter tunggal (pakai kutip satu)
-        string nama = "Andi";        // teks (butuh #include &lt;string&gt;)
-        bool sudahMenikah = false;   // boolean (true/false)
+int skor = 0;      // Skor awal
+skor = 10;         // Skor sekarang menjadi 10
+skor = skor + 5;   // Skor bertambah 5 (menjadi 15)
+cout &lt;&lt; skor;      // Output akan menampilkan angka 15</div>
+
+    <div class="info-box warning">
+        <h4>⚠️ Jangan Lupakan Ini!</h4>
+        <p>1. Nama variabel **case-sensitive** (<code>Skor</code> tidak sama dengan <code>skor</code>).<br>2. Jangan buat variabel diawali dengan angka (seperti <code>1nama</code>).<br>3. Selalu beri nilai awal! Variabel kosong (misal cuma tulis <code>int skor;</code>) bisa dipenuhi data sampah rahasia peninggalan komputer yang membuat hasil error.</p>
     </div>
     
-    <h3>📊 Tipe Data Dasar yang Harus Diketahui</h3>
-    <ul>
-        <li><strong>int</strong> → bilangan bulat (…, -2, -1, 0, 1, 2, …). Ukuran biasanya 4 byte.</li>
-        <li><strong>double</strong> → bilangan desimal (1.5, 3.14, 0.0001). Presisi tinggi (15-16 digit desimal).</li>
-        <li><strong>float</strong> → bilangan desimal dengan presisi lebih rendah (6-7 digit). Lebih hemat memori tapi kurang akurat.</li>
-        <li><strong>char</strong> → satu karakter, ditulis dalam kutip tunggal ('A', '5', '&').</li>
-        <li><strong>string</strong> → kumpulan karakter (teks), butuh <code>#include &lt;string&gt;</code>.</li>
-        <li><strong>bool</strong> → hanya dua nilai: <code>true</code> (1) atau <code>false</code> (0).</li>
-    </ul>
-    <p>Memilih tipe data yang tepat penting untuk efisiensi memori dan akurasi. Misalnya, jika Anda menyimpan umur (bilangan bulat), gunakan <code>int</code>. Jika menyimpan suhu (bisa desimal), gunakan <code>double</code>.</p>
-    
-    <h3>🔄 Mengubah Nilai Variabel</h3>
-    <p>Variabel bersifat <strong>dinamis</strong>, artinya nilainya bisa berubah selama program berjalan.</p>
+    <h3>🧪 Coba Program Penuh Ini!</h3>
+    <p>Di bawah ini adalah contoh utuh menggunakan variabel string dan int. Tekan tombol <strong>"Coba kode ini"</strong> di bawah untuk bereksperimen langsung.</p>
     <div class="code">
-        int skor = 0;
-        skor = 10;          // sekarang skor berisi 10
-        skor = skor + 5;    // skor menjadi 15
-        cout << skor;       // output: 15
-    </div>
-    <p>Perhatikan bahwa Anda tidak perlu menulis ulang tipe data saat mengubah nilai. Cukup tulis nama variabel = nilai baru.</p>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    string nama = "Andi";
+    int usia = 20;
     
-    <h3>🔒 Konstanta: Variabel yang Tidak Bisa Diubah</h3>
-    <p>Kadang Anda ingin nilai tetap sepanjang program, misalnya nilai PI (3.14159) atau jumlah hari dalam seminggu (7). Gunakan kata kunci <code>const</code>.</p>
-    <div class="code">
-        const double PI = 3.14159;
-        const int HARI_DALAM_MINGGU = 7;
-        // PI = 3.14;   // ERROR! konstanta tidak bisa diubah
-    </div>
-    <p>Konstanta biasanya ditulis dengan huruf kapital untuk membedakan dari variabel biasa.</p>
+    cout &lt;&lt; "Halo " &lt;&lt; nama &lt;&lt; "!" &lt;&lt; endl;
+    cout &lt;&lt; "Tahun ini usia Anda " &lt;&lt; usia &lt;&lt; " tahun." &lt;&lt; endl;
+    cout &lt;&lt; "Tahun depan, usia Anda jadi " &lt;&lt; usia + 1 &lt;&lt; " tahun." &lt;&lt; endl;
     
-    <h3>📛 Aturan Penamaan Variabel (Identifier)</h3>
-    <p>Nama variabel harus mengikuti aturan tertentu, jika tidak compiler akan error:</p>
-    <ul>
-        <li>Hanya boleh terdiri dari huruf (a-z, A-Z), angka (0-9), dan garis bawah (_).</li>
-        <li>Tidak boleh diawali angka. (contoh: <code>1nama</code> salah).</li>
-        <li>Tidak boleh mengandung spasi atau simbol lain (@, #, $, dll).</li>
-        <li>Bersifat <strong>case-sensitive</strong> → <code>umur</code> berbeda dengan <code>Umur</code>.</li>
-        <li>Tidak boleh menggunakan kata kunci C++ (seperti <code>int</code>, <code>return</code>, <code>if</code>, <code>while</code>).</li>
-    </ul>
-    <div class="code">
-        // Benar
-        int umurSaya = 20;
-        int _nilai = 100;
-        int tinggi_badan = 170;
-        
-        // Salah
-        int 1umur = 20;    // diawali angka
-        int umur saya = 20; // ada spasi
-        int int = 10;       // int adalah kata kunci
-    </div>
-    <p>Tips: gunakan nama yang bermakna (jangan <code>a, b, c</code>), dan ikuti konvensi: <code>camelCase</code> untuk variabel (contoh: <code>hargaTotal</code>) atau <code>snake_case</code> (contoh: <code>harga_total</code>).</p>
-    
-    <h3>🧠 Bagaimana Variabel Disimpan di Memori?</h3>
-    <p>Ketika Anda mendeklarasikan variabel, komputer akan mencari ruang kosong di RAM (Random Access Memory) dan menyimpan nilainya di sana. Setiap variabel memiliki <strong>alamat memori</strong> yang unik (biasanya berupa bilangan heksadesimal). Anda bisa melihat alamat dengan operator <code>&</code> (ampersand), tapi untuk pemula tidak perlu terlalu dipikirkan.</p>
-    <div class="code">
-        int angka = 10;
-        cout << &angka;   // mencetak alamat memori, misal 0x7ffd8a9b
-    </div>
-    <p>Memahami bahwa variabel adalah lokasi memori akan membantu nanti saat belajar pointer dan reference.</p>
-    
-    <h3>🧪 Contoh Program Lengkap dengan Variabel</h3>
-    <div class="code">
-        #include &lt;iostream&gt;
-        #include &lt;string&gt;
-        using namespace std;
-        
-        int main() {
-            string nama;
-            int usia;
-            
-            cout << "Masukkan nama: ";
-            getline(cin, nama);
-            cout << "Masukkan usia: ";
-            cin >> usia;
-            
-            cout << "Halo " << nama << ", usia Anda " << usia << " tahun." << endl;
-            cout << "Tahun depan Anda akan berusia " << usia + 1 << " tahun." << endl;
-            
-            return 0;
-        }
-    </div>
-    <p>Program di atas menggunakan variabel <code>nama</code> (string) dan <code>usia</code> (int) untuk menyimpan input dari pengguna, kemudian menampilkannya kembali dengan perhitungan sederhana.</p>
-    
-    <h3>💡 Tips Penting untuk Pemula</h3>
-    <ul>
-        <li>Selalu <strong>inisialisasi</strong> variabel saat mendeklarasikannya (beri nilai awal). Variabel yang tidak diinisialisasi berisi nilai "sampah" (nilai acak dari sisa memori) dan dapat menyebabkan bug.</li>
-        <li>Pilih nama variabel yang deskriptif. <code>x</code> mungkin OK untuk perulangan, tapi untuk menyimpan gaji karyawan, gunakan <code>gajiKaryawan</code>.</li>
-        <li>Gunakan <code>const</code> untuk nilai yang tidak akan berubah. Ini juga membuat program lebih mudah dipahami.</li>
-        <li>Jangan takut untuk membuat banyak variabel. Lebih baik jelas daripada terlalu sedikit dan membingungkan.</li>
-    </ul>
-    
-    <h3>🎯 Kesimpulan Section 3</h3>
-    <p>Variabel adalah tempat menyimpan data di memori. Setiap variabel memiliki tipe, nama, dan nilai. Anda dapat mengubah nilai variabel, kecuali jika dideklarasikan sebagai <code>const</code>. Aturan penamaan variabel cukup sederhana: hanya huruf, angka, garis bawah; tidak diawali angka; case-sensitive. Dengan menguasai variabel, Anda sudah memiliki fondasi untuk mempelajari operasi matematika, input/output, dan percabangan. Di section berikutnya, kita akan membahas tipe data secara lebih mendalam.</p>
+    return 0;
+}</div>
 </section>
 
     <!-- DINDING LOGIN (hanya tampil jika belum login) -->
     <div id="loginWall" class="login-wall" style="display: none;">
-        <p>🔒 <strong>Materi selanjutnya (HTML Elements, Attributes, Styles, Tables, Forms, Semantic HTML, dan lainnya) hanya tersedia untuk pengguna yang login.</strong></p>
-        <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap.</p>
+        <p>🔒 <strong>Materi selanjutnya (Tipe Data, Input Pengguna, Operator, Percabangan if/else, Perulangan, Array, Pointer, Fungsi, OOP, dan lainnya) hanya tersedia untuk pengguna yang login.</strong></p>
+        <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap C++ ini.</p>
         <a href="login.html" class="btn-login">Login Sekarang</a>
     </div>
 
@@ -1812,6 +1632,10 @@
 <!-- LOGOUT TERMINAL -->
 <div id="loadingScreen" class="loading-screen">
     <div class="terminal">
+        <div class="terminal-bar">
+            <span>SYSTEM TERMINAL // LOGOUT_PROCESS_CPP</span>
+            <span>_</span>
+        </div>
         <pre id="terminalText"></pre>
     </div>
 </div>

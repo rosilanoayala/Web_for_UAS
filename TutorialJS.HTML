@@ -304,6 +304,53 @@
             font-weight: bold;
         }
 
+        /* ─── Terminal Logout (Hacker Style) ─────────────────────── */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .terminal {
+            background: #020202;
+            border: 2px solid #16a34a;
+            border-radius: 4px;
+            width: 90%;
+            max-width: 650px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(22,163,74,0.3), inset 0 0 20px rgba(22,163,74,0.1);
+            position: relative;
+        }
+
+        .terminal-bar {
+            padding: 8px 16px;
+            background: #16a34a;
+            color: #000;
+            font-family: var(--font-code, monospace);
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .terminal pre {
+            padding: 24px;
+            color: #22c55e;
+            font-family: var(--font-code, monospace);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(34, 197, 94, 0.4);
+        }
+
         /* ================= FOOTER ================= */
         footer {
             text-align: center;
@@ -393,31 +440,50 @@
 <main id="mainContent">
     <!-- SECTION 1 & 2 (GRATIS, TIDAK PERLU LOGIN) -->
     <section>
-        <h2>1. Apa itu JavaScript?</h2>
-        <p>JavaScript adalah bahasa pemrograman yang membuat halaman web menjadi <strong>hidup dan interaktif</strong>. Jika HTML adalah kerangka (struktur) dan CSS adalah kulit (tampilan), maka JavaScript adalah otak dan gerakan (logika & perilaku).</p>
-        <div class="demo-box">
-            <p><strong>Contoh:</strong> Klik tombol di bawah, teks akan berubah.</p>
-            <button onclick="document.getElementById('demo1').innerHTML = '✅ Halo! JavaScript bekerja!'">Klik Saya</button>
-            <p id="demo1" style="margin-top:10px;"></p>
+        <h2>1. Apa itu JavaScript? (Analogi Sederhana)</h2>
+        <p>Bayangkan Anda sedang merakit sebuah <strong>Robot Halaman Web</strong>:</p>
+        <ul>
+            <li><strong>HTML</strong> adalah batangnya (Besi, kerangka, tulang, dan posisi tubuh).</li>
+            <li><strong>CSS</strong> adalah cangkangnya (Cat warna, kosmetik, baju, dan penampilan luar).</li>
+            <li><strong>JavaScript (JS)</strong> adalah <strong>Otak dan Ototnya!</strong></li>
+        </ul>
+        <p>Tanpa JavaScript, robot web Anda hanya bisa diam mematung (halaman statis). Dengan JavaScript, robot tersebut bisa membalas sapaan Anda, bergerak, berhitung, mengingat nama Anda, hingga menangani transaksi transaksi kompleks.</p>
+        
+        <div class="info-box" style="background:#fdf6e3; padding:15px; border-left:5px solid #f5b041; border-radius:4px; margin-bottom:20px;">
+            <p>💡 <strong>Intinya:</strong> JavaScript bertugas membuat website Anda menjadi dinamis, interaktif, bisa diklik, memproses data, dan bisa mengambil keputusan secara logis.</p>
         </div>
-        <p>JavaScript bisa merespon klik, mengubah konten, mengirim data, dan bahkan membuat animasi.</p>
+
+        <div class="demo-box">
+            <p><strong>Buktikan Sendiri:</strong> Sentuh tombol di bawah ini. JavaScript akan langsung merespons sentuhan Anda!</p>
+            <button onclick="document.getElementById('demo1').innerHTML = '✅ Wah, robotnya hidup! JavaScript berhasil merespons dan mengubah teks ini secara instan.'">Sentuh Robot Ini!</button>
+            <p id="demo1" style="margin-top:10px; font-weight: bold; color: #16a34a;"></p>
+        </div>
     </section>
 
     <section>
-        <h2>2. Cara Menyematkan JavaScript</h2>
+        <h2>2. Bagaimana Cara Memasang Otak (JS) ke Badan (HTML)?</h2>
+        <p>Sama persis seperti cara HTML menghubungkan CSS menggunakan tag <code>&lt;style&gt;</code>, JavaScript menggunakan tag khusus yaitu <code>&lt;script&gt;</code>. Terdapat 3 cara untuk menyuntikkan JS ke HTML Anda:</p>
+        
         <ul>
-            <li><strong>Internal JS</strong> → ditulis dalam tag <code>&lt;script&gt;</code> di dalam HTML (biasanya di akhir body).</li>
-            <li><strong>External JS</strong> → file terpisah <code>.js</code> dihubungkan dengan <code>&lt;script src="file.js"&gt;</code>.</li>
-            <li><strong>Inline JS</strong> → ditulis langsung di atribut elemen (contoh: <code>onclick</code>).</li>
+            <li><strong>1. Internal JS (Tanam Dalam)</strong><br>Otak ditanam langsung di dalam badan HTML. Biasanya diletakkan di paling bawah baris HTML, tepat sebelum penutup tag <code>&lt;/body&gt;</code>.</li>
+            <li><strong>2. External JS (Terpisah di Folder)</strong><br>Otak disimpan rapi di file terpisah (contoh: <code>logika.js</code>) lalu dihubungkan menggunakan "kabel": <code>&lt;script src="logika.js"&gt;</code>. <em>(Ini cara paling disarankan agar kode HTML Anda tidak sesak dan berantakan!).</em></li>
+            <li><strong>3. Inline JS (Diselipkan Langsung pada Tombol)</strong><br>Memberi perintah singkat langsung di dalam atribut elemen tertentu. (Contoh: pada tombol di atas kita memanggil atribut <code>onclick="..."</code>).</li>
         </ul>
+
         <div class="code">
+            &lt;!-- Contoh 1: Internal JS (Menyatu dalam html) --&gt;
             &lt;script&gt;
-                console.log("Hello dari internal");
+                console.log("Halo, saya otak internal yang bekerja!");
             &lt;/script&gt;
-            &lt;script src="script.js"&gt;&lt;/script&gt;
-            &lt;button onclick="alert('Inline')"&gt;Klik&lt;/button&gt;
+
+            &lt;!-- Contoh 2: External JS (Panggil File Terpisah) --&gt;
+            &lt;script src="logika.js"&gt;&lt;/script&gt;
         </div>
-        <p>💡 <strong>Rekomendasi:</strong> Letakkan <code>&lt;script&gt;</code> sebelum <code>&lt;/body&gt;</code> agar HTML terlebih dahulu dimuat.</p>
+
+        <div class="info-box" style="background:#eef5fb; padding:15px; border-left:5px solid #00599c; border-radius:4px; margin-top:15px;">
+            <p><strong>🤔 Tanya:</strong> Kenapa tag <code>&lt;script&gt;</code> sebaiknya ditaruh di paling bawah HTML (sebelum tag <code>&lt;/body&gt;</code> tertutup)?</p>
+            <p><strong>Jawab:</strong> Karena kita harus membiarkan Browser membangun <strong>Badannya (kerangka HTML)</strong> terlebih dahulu 100%, baru setelah badannya siap, kita hidupkan <strong>Otaknya (JS)</strong>. Jika otak dihidupkan lebih dulu padahal tombolnya belum jadi, JavaScript akan kebingungan (error) karena target benda yang ingin ia rasuki dan ubah tidak 100% jadi!</p>
+        </div>
     </section>
 
     <!-- LOGIN WALL (HANYA TAMPIL JIKA BELUM LOGIN) -->
@@ -431,173 +497,221 @@
     <div id="extraContent" style="display: none;">
 
         <section>
-            <h2>3. Output JavaScript</h2>
+            <h2>3. Output (Bagaimana JavaScript Berbicara ke Dunia Luar)</h2>
+            <p>Sebuah otak/program harus bisa berkomunikasi untuk menginfokan hasil hitungannya kepada manusia. JavaScript memiliki 3 cara sakti untuk "berbicara":</p>
             <ul>
-                <li><code>innerHTML</code> → mengubah isi elemen HTML.</li>
-                <li><code>alert()</code> → popup peringatan.</li>
-                <li><code>console.log()</code> → untuk debugging (buka console browser F12).</li>
+                <li><strong><code>innerHTML</code></strong> → Cara halus. JS membisikkan kata-kata lalu mencetak/mengubah elemen langsung di dalam halaman HTML pengguna dan merubah halamannya.</li>
+                <li><strong><code>alert()</code></strong> → Cara teriak. Memunculkan kotak *popup* di tengah layar yang memaksa pengguna menekan tombol "OK" sebelum bisa lanjut mengontrol web.</li>
+                <li><strong><code>console.log()</code></strong> → Cara rahasia (Khusus Developer). Pengguna biasa tidak akan melihat tulisan ini. Teks ini digunakan oleh Web Developer untuk melacak kesalahan/error. Anda hanya bisa melihatnya bila menekan tombol <strong>F12</strong> pada keyboard lalu memilih menu <strong>Console</strong> pada pojok kanan bawah browser.</li>
             </ul>
             <div class="demo-box">
-                <button onclick="document.getElementById('outputDemo').innerHTML = 'Teks berubah via innerHTML'">innerHTML</button>
-                <button onclick="alert('Ini alert!')">Alert</button>
-                <button onclick="console.log('Pesan di console')">Console log</button>
-                <p id="outputDemo" style="margin-top:10px;"></p>
+                <button onclick="document.getElementById('outputDemo').innerHTML = 'Ini contoh hasil innerHTML. Halus bukan?'">Coba innerHTML</button>
+                <button onclick="alert('Ini adalah contoh Alert Tuan! Tekan OK untuk menutup peringatan ini.')">Coba Alert</button>
+                <button onclick="console.log('Psstt... pesan ini ditujukan untuk Developer. Hanya bisa dilihat di panel Console Inspect Element.')">Coba Console Log (F12)</button>
+                <p id="outputDemo" style="margin-top:10px; color: #16a34a; font-weight:bold;"></p>
             </div>
         </section>
 
         <section>
-            <h2>4. Variabel: let, const, var</h2>
-            <p>Variabel adalah tempat menyimpan data.</p>
+            <h2>4. Variabel: Kardus Penyimpanan Data</h2>
+            <p>Bayangkan Anda sedang pindah rumah. Anda butuh <strong>kardus penyimpanan</strong> untuk mengamankan barang-barang kecil (nama barang, nilai rapot, umur) sebelum diletakkan di tempatnya. Dalam JavaScript, "kardus virtual" untuk menyimpan nilai data tersebut dinamakan <strong>Variabel</strong>.</p>
+            
+            <p>Dalam bahasa modern, hanya ada 2 kardus yang diakui hukum dan 1 kardus usang:</p>
             <ul>
-                <li><code>let</code> → nilai bisa diubah (scope blok). <strong>Rekomendasi utama</strong>.</li>
-                <li><code>const</code> → nilai tetap (konstanta), tidak bisa diubah.</li>
-                <li><code>var</code> → cara lama (hindari).</li>
+                <li><strong><code>let</code></strong> → Kardus fleksibel! Isinya boleh dikeluarkan dan diganti secara bebas sesuai keinginan Anda selama program berjalan. <strong>(Gunakan ini paling sering)</strong>.</li>
+                <li><strong><code>const</code></strong> → Brankas baja permanen (Konstanta). Sekali Anda menaruh barang ke dalamnya, <strong>TIDAK BOLEH DIGANTI ULANG selamanya!</strong> (Gunakan ini untuk data absolut/tetap seperti nilai PI 3.14 atau NIK Paspor).</li>
+                <li><strong><code>var</code></strong> → Kardus lapuk keluaran tahun 90-an sebelum tahun 2015. <strong>(Jangan gunakan lagi)</strong>, karena ia mudah bocor yang menciptakan kerumitan *bug* pada pemrograman saat ini.</li>
             </ul>
+
             <div class="code">
+                // Membuat kardus bernama 'umur' menggunakan let
                 let umur = 16;
-                umur = 17;        // diperbolehkan
-                const nama = "Andi";
-                // nama = "Budi"; // ❌ Error
+                umur = 17;        // ✅ Diizinkan! Isinya diganti.
+
+                // Membuat brankas bernama 'nama' menggunakan const
+                const nama = "Agus Budiman";
+                // nama = "Budi"; // ❌ PERINGATAN ERROR: Web akan macet karena Anda melanggar kesucian kardus const!
             </div>
             <div class="demo-box">
-                <button onclick="demoVariabel()">Coba Variabel</button>
+                <button onclick="demoVariabel()">Masukkan Data ke Kardus & Cetak</button>
                 <p id="varResult"></p>
             </div>
         </section>
 
         <section>
-            <h2>5. Tipe Data</h2>
+            <h2>5. Tipe Data (Jenis-jenis Barang di dalam Kardus)</h2>
+            <p>Jika kardus (variabel) merangkap sebagai tempat simpan, lalu apa jenis barang yang di dalamnya? Berikut adalah 5 barang paling sakral dalam JS:</p>
             <ul>
-                <li><code>String</code> → teks, contoh: "Halo"</li>
-                <li><code>Number</code> → angka, contoh: 10, 3.14</li>
-                <li><code>Boolean</code> → true/false</li>
-                <li><code>Array</code> → kumpulan data, contoh: [1,2,3]</li>
-                <li><code>Object</code> → pasangan key-value, contoh: {nama:"Andi", umur:20}</li>
+                <li><strong><code>String</code> (Teks)</strong> → Dibungkus dengan tanda kutip ganda atau tunggal. Contoh: <code>"Halo Dunia"</code>, <code>'Budi'</code>.</li>
+                <li><strong><code>Number</code> (Angka)</strong> → Angka bebas matematika (tanpa tanda kutip!). Bisa bulat atau desimal. Contoh: <code>100</code>, <code>3.14</code>.</li>
+                <li><strong><code>Boolean</code> (Saklar Lampu)</strong> → Hanya punya dua tombol: Hidup atau Mati. Contoh: <code>true</code> (Benar), <code>false</code> (Salah).</li>
+                <li><strong><code>Array</code> (Rak Sepatu)</strong> → Kardus besar bersaf-saf yang bisa menyimpan banyak barang sekaligus yang berurutan. Contoh: <code>["Apel", "Mangga", "Jeruk"]</code>.</li>
+                <li><strong><code>Object</code> (Kamus/Buku Data)</strong> → Barang ajaib yang menyimpan kamus lengkap berisi nama label beserta valuenya. Contoh: <code>{nama: "Andi", umur: 20}</code>.</li>
             </ul>
             <div class="demo-box">
-                <button onclick="cekTipeData()">Cek Tipe Data</button>
+                <button onclick="cekTipeData()">Deteksi Jenis Barang!</button>
                 <p id="tipeResult"></p>
             </div>
         </section>
 
         <section>
-            <h2>6. Operator Dasar</h2>
+            <h2>6. Operator (Tanda Matematika Cerdas)</h2>
+            <p>JS tentu saja sangat pintar berhitung. Berikut adalah logo/simbol ajaibnya:</p>
             <ul>
-                <li>Aritmatika: <code>+ - * / %</code></li>
-                <li>Perbandingan: <code>==, ===, !=, >, <</code></li>
-                <li>Logika: <code>&& (AND), || (OR), ! (NOT)</code></li>
+                <li><strong>Aritmatika (Hitung):</strong> <code>+</code> (Tambah), <code>-</code> (Kurang), <code>*</code> (Kali), <code>/</code> (Bagi), <code>%</code> (Sisa Bagi/Modulus).</li>
+                <li><strong>Perbandingan (Bertanya):</strong> <code>==</code> (Apakah Sama?), <code>></code> (Lebih Besar?), <code><</code> (Lebih Kecil?), <code>!=</code> (Tidak Sama?). Membandingkan dua barang dan menjawab dengan <Strong>Boolean (True/False)</Strong>.</li>
+                <li><strong>Logika (Syarat):</strong> <code>&&</code> (DAN: Semua harus benar), <code>||</code> (ATAU: Minimal salah satu benar).</li>
             </ul>
             <div class="demo-box">
-                <button onclick="hitungOperator()">Hitung 10 + 5 * 2</button>
+                <button onclick="hitungOperator()">Hitung Cepat: 10 + 5 * 2</button>
                 <p id="operatorResult"></p>
             </div>
         </section>
 
         <section>
-            <h2>7. Percabangan (if else)</h2>
-            <p>Untuk mengambil keputusan berdasarkan kondisi.</p>
+            <h2>7. Percabangan (If - Else) / Mengambil Keputusan</h2>
+            <p><strong>If (Jika) / Else (Kalau Tidak)</strong> adalah cara JS "berpikir dan mengambil keputusan cerdas" murni seperti otak detektif. Ia mengecek kondisi, dan baru bertindak jika syarat terpenuhi.</p>
+            
+            <p><strong>Analogi:</strong> "JIKA (IF) hari ini hujan, maka JS akan membuka payung. KALAU TIDAK HUJAN (ELSE), maka JS memakai kacamata hitam."</p>
+            
             <div class="code">
                 let nilai = 80;
+                
+                // JIKA nilai lebih besar atau sama dengan 75
                 if (nilai >= 75) {
-                    console.log("Lulus");
-                } else {
-                    console.log("Tidak lulus");
+                    console.log("Selamat, Anda Lulus!");
+                } 
+                // KALAU TIDAK
+                else {
+                    console.log("Maaf, silakan coba lagi.");
                 }
             </div>
             <div class="demo-box">
-                <button onclick="demoIf()">Cek Kelulusan (nilai 80)</button>
-                <p id="ifResult"></p>
+                <button onclick="demoIf()">Cek Status Kelulusan (Nilai = 80)</button>
+                <p id="ifResult" style="font-weight:bold; color: #d35400; margin-top:10px;"></p>
             </div>
         </section>
 
         <section>
-            <h2>8. Perulangan (Loop)</h2>
-            <p><code>for</code> dan <code>while</code> digunakan untuk mengulang kode.</p>
+            <h2>8. Perulangan (Loop) / Mesin Fotokopi JS</h2>
+            <p>Pernahkah Anda dihukum menulis "Saya berjanji tidak akan nakal" sebanyak 100 kali? Manusia akan lelah, tapi komputer sangat suka pekerjaan berulang! Itulah fungsi <strong>Loop</strong>.</p>
+            <p>Gunakan <code>for</code> jika Anda tahu pasti jumlah ulangannya (Misal: Ulang 5 kali). Gunakan <code>while</code> jika Anda tidak tahu kapan harus berhenti sampai sebuah syarat terpenuhi (Misal: Ulang terus TAPI berhenti *while/saat* tombol ditekan).</p>
             <div class="code">
-                for (let i = 0; i < 5; i++) {
-                    console.log(i);
+                // Mulai dari 1; Selama kurang dari sama dengan 5; Tambah 1 terus
+                for (let i = 1; i <= 5; i++) {
+                    console.log("Cetak angka ke-" + i);
                 }
             </div>
             <div class="demo-box">
-                <button onclick="demoLoop()">Jalankan Loop (1-5)</button>
-                <p id="loopResult"></p>
+                <button onclick="demoLoop()">Nyalakan Mesin Cetak (1 sampai 5)</button>
+                <p id="loopResult" style="letter-spacing: 2px; font-weight: bold;"></p>
             </div>
         </section>
 
         <section>
-            <h2>9. Fungsi (Function)</h2>
-            <p>Blok kode yang bisa dipanggil berulang kali.</p>
+            <h2>9. Fungsi (Function) / Resep Masakan</h2>
+            <p><strong>Fungsi</strong> ibarat sebuah mesin pembuat Jus atau sebuah Resep Masakan. Anda merakit resepnya sekali saja, dan Anda bisa memanggilnya/mencetak jus tersebut berkali-kali kapanpun Anda mau hanya dengan menyebut namanya!</p>
+            
+            <p><strong>Analogi:</strong> Anda membuat fungsi <code>buatJus(buah)</code>. Jika Anda masukkan "Apel", keluar Jus Apel. Masukkan "Mangga", keluar Jus Mangga.</p>
+
             <div class="code">
-                function sapa(nama) {
-                    return "Halo " + nama;
+                // 1. Membuat Resep (Mendefinisikan Fungsi)
+                function sapaPengunjung(nama) {
+                    return "Halo selamat datang, Tuan " + nama + "!";
                 }
-                let pesan = sapa("Andi");
+                
+                // 2. Memanggil Resep
+                let pesan = sapaPengunjung("Andi"); 
+                // Hasilnya: Halo selamat datang, Tuan Andi!
             </div>
             <div class="demo-box">
-                <button onclick="panggilFungsi()">Panggil Fungsi</button>
-                <p id="fungsiResult"></p>
+                <button onclick="panggilFungsi()">Panggil Fungsi Sapa Tuan Andi</button>
+                <p id="fungsiResult" style="color: #2c3e50; font-size: 1.1rem;"></p>
             </div>
         </section>
 
         <section>
-            <h2>10. DOM Manipulation (Mengubah HTML)</h2>
-            <p>Dengan JavaScript, kita bisa mengubah konten, style, dan atribut elemen HTML.</p>
+            <h2>10. DOM (Document Object Model) / Kekuatan Telekinesis</h2>
+            <p>Ini adalah ilmu sihir sesungguhnya dari JS! <strong>DOM Manipulation</strong> adalah kemampuan JS untuk mengendalikan, merubah, menyembunyikan, atau mewarnai elemen HTML secara <strong>Real-Time (Langsung di layar)</strong> tanpa harus memuat ulang (refresh) halaman!</p>
             <ul>
-                <li><code>document.getElementById("id")</code> → mengambil elemen</li>
-                <li><code>element.innerHTML = "teks"</code> → mengubah isi</li>
-                <li><code>element.style.color = "red"</code> → mengubah style</li>
+                <li><strong>Membidik Sasaran:</strong> <code>document.getElementById("idSasarannya")</code> → Mengincar tag HTML dengan ID tersebut.</li>
+                <li><strong>Merubah Teksnya:</strong> <code>.innerHTML = "teks baru"</code></li>
+                <li><strong>Merubah Warnanya:</strong> <code>.style.color = "red"</code></li>
             </ul>
             <div class="demo-box">
-                <p id="domDemo">Teks ini akan berubah</p>
-                <button onclick="ubahDOM()">Ubah Teks & Warna</button>
-                <button onclick="resetDOM()">Reset</button>
+                <p id="domDemo" style="transition: 0.3s; padding: 10px; border: 1px dashed #ccc;">Saya adalah Teks HTML biasa yang tidak berdaya.</p>
+                <button onclick="ubahDOM()">Keluarkan Sihir DOM JS!</button>
+                <button onclick="resetDOM()">Kembalikan ke Normal</button>
             </div>
         </section>
 
         <section>
-            <h2>11. Event Handler (onclick, onmouseover)</h2>
-            <p>Event adalah aksi yang terjadi di halaman (klik, hover, input).</p>
+            <h2>11. Event Handler / Detektor Sensor</h2>
+            <p>Web yang diam saja akan membosankan. <strong>Event Handler</strong> adalah "Sensor" yang kita tempelkan ke elemen HTML. Jika sensor itu mendeteksi aktivitas pengguna (seperti di-klik, disentuh, atau digeser), maka JS akan bereaksi secara instan.</p>
+            <ul>
+                <li><strong><code>onclick</code></strong>: Sensor Ditekan (Diklik).</li>
+                <li><strong><code>onmouseover</code></strong> & <strong><code>onmouseout</code></strong>: Sensor saat kursor melayang di atas elemen dan saat kursor pergi.</li>
+                <li><strong><code>onkeyup</code></strong>: Sensor saat tombol keyboard diketik lepas (sangat berguna untuk fitur Search/Cari).</li>
+            </ul>
             <div class="demo-box">
-                <button id="hoverBtn" onmouseover="this.style.background='#f97316'" onmouseout="this.style.background='#f7b32b'">Hover ke sini</button>
-                <p id="eventDemo"></p>
-                <button onclick="tambahEvent()">Klik untuk menampilkan pesan</button>
+                <button id="hoverBtn" onmouseover="this.style.background='#f97316'; this.innerHTML='Awas Panas! 🔥'" onmouseout="this.style.background='#f7b32b'; this.innerHTML='Hover ke sini (Sentuh)'">Hover ke sini (Sentuh)</button>
+                <button onclick="tambahEvent()">Klik Saya dengan Keras!</button>
+                <p id="eventDemo" style="color: #c0392b; font-weight: bold; font-size: 1.1rem; margin-top: 10px;"></p>
             </div>
         </section>
 
         <section>
-            <h2>12. Array dan Object</h2>
+            <h2>12. Array dan Object (Rak Buku & Lemari Brankas)</h2>
+            <p>Jika <em>Variabel</em> biasa hanya bisa menampung 1 barang, lalu bagaimana jika kita punya ratusan data murid? Gunakan kardus raksasa!</p>
+            <ul>
+                <li><strong>Array <code>[ ]</code></strong> → Rak Buku bersaf. Menyimpan banyak barang secara berjejer. Posisi mengambilnya dimulai dari laci nomor 0. (Laci ke-0, Laci ke-1, dst).</li>
+                <li><strong>Object <code>{ }</code></strong> → Lemari Berlabel. Menyimpan barang dengan menempelkan nama/stiker (Key) ke barangnya (Value). (Contoh: Laci <em>nama</em>, Laci <em>umur</em>).</li>
+            </ul>
             <div class="code">
+                // ARRAY: Urutan Berjejer
                 let buah = ["Apel", "Mangga", "Jeruk"];
-                let siswa = { nama: "Budi", umur: 17 };
+                console.log(buah[0]); // Mengeluarkan mangkuk ke-0 ("Apel")
+
+                // OBJECT: Menggunakan Label/Nama Ciri
+                let siswa = { nama: "Budi", umur: 17, kelas: "XII" };
+                console.log(siswa.nama); // Mengeluarkan data berlabel 'nama' ("Budi")
             </div>
             <div class="demo-box">
-                <button onclick="demoArray()">Tampilkan Array</button>
-                <button onclick="demoObject()">Tampilkan Object</button>
-                <p id="arrayResult"></p>
+                <button onclick="demoArray()">Buka Rak Array (Buah)</button>
+                <button onclick="demoObject()">Buka Lemari Object (Profil Budi)</button>
+                <p id="arrayResult" style="padding: 10px; background: white; border: 1px solid #ccc;"></p>
             </div>
         </section>
 
         <section>
-            <h2>13. LocalStorage (Penyimpanan Browser)</h2>
-            <p>Data bisa disimpan di browser pengguna meskipun halaman di-refresh.</p>
+            <h2>13. LocalStorage / Memori Ingatan Browser</h2>
+            <p>Biasanya, jika Anda menekan F5/Refresh halaman web, semua data JS akan terlupa (Amnesia). <strong>LocalStorage</strong> adalah memori otak buatan di dalam Google Chrome atau aplikasi HP Anda yang menolak untuk lupa!</p>
+            <p>Dengan <em>LocalStorage</em>, web bisa mengingat nama Anda atau mode terang/gelap *(Dark Mode)* meskipun komputer sudah dimatikan berhari-hari.</p>
             <div class="demo-box">
-                <input type="text" id="storageInput" placeholder="Ketik sesuatu...">
-                <button onclick="simpanData()">Simpan</button>
-                <button onclick="tampilkanData()">Tampilkan</button>
-                <button onclick="hapusData()">Hapus</button>
-                <p id="storageResult"></p>
+                <input type="text" id="storageInput" placeholder="Ketik rahasia Anda & Simpan...">
+                <div style="margin-top: 10px;">
+                    <button onclick="simpanData()" style="background: #27ae60;">Simpan Permanen</button>
+                    <button onclick="tampilkanData()" style="background: #2980b9;">Cek Ingatan</button>
+                    <button onclick="hapusData()" style="background: #c0392b;">Hapus Memori (Amnesia)</button>
+                </div>
+                <p id="storageResult" style="margin-top: 15px; font-weight: bold;"></p>
             </div>
         </section>
 
         <section>
-            <h2>14. Kesalahan Umum & Tips</h2>
-            <ul>
-                <li>Lupa mendeklarasikan variabel dengan <code>let/const</code>.</li>
-                <li>Menggunakan <code>=</code> (assignment) bukan <code>==</code> atau <code>===</code>.</li>
-                <li>Memanggil fungsi sebelum didefinisikan (hoisting hanya berlaku untuk deklarasi fungsi).</li>
-                <li>Buka console browser (F12) untuk melihat error.</li>
-            </ul>
-            <p>💡 <strong>Tips:</strong> Gunakan <code>console.log()</code> untuk debug, dan biasakan memberi nama variabel yang jelas.</p>
+            <h2>14. Kesalahan Remeh & Tips Bertahan Hidup (Survival)</h2>
+            <p>JavaScript terkadang menyebalkan karena salah ketik koma <code>,</code> saja bisa membuat website mati total tanpa ampun. Berikut pantangan utamanya:</p>
+            
+            <div class="info-box" style="background:#fff3cd; padding:15px; border-left:5px solid #ffc107; border-radius:4px; margin-bottom:20px;">
+                <p>⚠️ <strong>Awas:</strong></p>
+                <ul>
+                    <li>Lupa mendeklarasikan kardus. Langsung menulis <code>umur = 20</code> tanpa tulisan <code>let</code> atau <code>const</code> di depannya.</li>
+                    <li>Sistem *Case-Sensitive* yang kejam. Penulisan <code>GetElement</code> akan dianggap error jika yang benar adalah <code>getElement</code> (huruf G harus kecil!).</li>
+                    <li>Menggunakan 1 sama dengan <code>=</code> (memasukkan barang) yang seharusnya <code>===</code> (membandingkan kesamaan).</li>
+                </ul>
+            </div>
+            
+            <p>💡 <strong>Tips Dewa JS:</strong> Pahlawan terkuat Anda adalah <code>console.log()</code>. Selalu cek pesan error berwarna merah di Menu Console (F12). Karena browser selalu memberitahu baris ke berapa yang salah ketik secara jujur!</p>
         </section>
 
     </div> <!-- tutup extraContent -->
@@ -609,8 +723,12 @@
 </footer>
 
 <!-- LOGOUT TERMINAL (simulasi) -->
-<div id="loadingScreen" class="loading-screen" style="display: none; position: fixed; inset: 0; background: #0f172a; justify-content: center; align-items: center; z-index: 9999;">
-    <div class="terminal" style="background: black; padding: 20px; border-radius: 12px; color: #00ff88; font-family: monospace; max-width: 700px;">
+<div id="loadingScreen" class="loading-screen">
+    <div class="terminal">
+        <div class="terminal-bar">
+            <span>SYSTEM TERMINAL // LOGOUT_PROCESS_CPP</span>
+            <span>_</span>
+        </div>
         <pre id="terminalText"></pre>
     </div>
 </div>

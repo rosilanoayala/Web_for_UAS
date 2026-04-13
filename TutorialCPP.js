@@ -138,11 +138,11 @@ function addTryCppButtons() {
       code = code.trim();
       const hasMain = /\bint\s+main\s*\(/.test(code);
       const needsIO = /\bcout\b|\bcin\b/.test(code);
-      const hasInclude = code.includes('#include <iostream>');
-      const hasUsing = code.includes('using namespace std;');
       
-      // Jika sudah punya main
+      // Jika sudah punya main, anggap sudah utuh, tapi periksa IO
       if (hasMain) {
+        let hasInclude = code.includes('#include <iostream>');
+        let hasUsing = code.includes('using namespace std;');
         if (needsIO && (!hasInclude || !hasUsing)) {
           let header = '';
           if (!hasInclude) header += '#include <iostream>\n';
@@ -152,20 +152,29 @@ function addTryCppButtons() {
         return code;
       }
       
-      // Belum punya main: bungkus dengan main()
-      let finalCode = code;
+      // Belum punya main: kita perlu bungkus, TAPI keluarkan header/include jika ada di dalam kode
+      let header = '';
+      
+      // Ekstrak preprocessor dan using menggunakan regex
+      let codeWithoutHeaders = code.replace(/^\s*#include\s*<[^>]+>\s*/gm, function(match) {
+          header += match.trim() + '\n';
+          return '';
+      });
+      codeWithoutHeaders = codeWithoutHeaders.replace(/^\s*using\s+namespace\s+[a-zA-Z_]+;\s*/gm, function(match) {
+          header += match.trim() + '\n';
+          return '';
+      });
+      
+      // Tambahkan iostream dan std jika tidak ada tapi dibutuhkan
       if (needsIO) {
-        if (!hasInclude) finalCode = '#include <iostream>\n' + finalCode;
-        if (!hasUsing) {
-          if (finalCode.includes('#include <iostream>')) {
-            finalCode = finalCode.replace('#include <iostream>', '#include <iostream>\nusing namespace std;');
-          } else {
-            finalCode = '#include <iostream>\nusing namespace std;\n' + finalCode;
-          }
-        }
+        if (!header.includes('<iostream>')) header += '#include <iostream>\n';
+        if (!header.includes('using namespace std;')) header += 'using namespace std;\n';
       }
-      let indented = finalCode.replace(/^/gm, '    ');
-      return 'int main() {\n' + indented + '\n    return 0;\n}';
+      
+      if (header !== "") header += '\n';
+      
+      let indented = codeWithoutHeaders.trim().replace(/^/gm, '    ');
+      return header + 'int main() {\n' + indented + '\n    return 0;\n}';
     }
     
     let fullCode = makeCompleteCode(rawCode);

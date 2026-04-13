@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tryCPP - Simple C++ Runner</title>
     <link rel="stylesheet" href="tryCPP.CSS">
+    <script>
+        // PROTEKSI LOGIN
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            alert("🔒 Anda harus Sign In terlebih dahulu untuk menggunakan fitur Code Editor (Try It)!");
+            window.location.href = "login.html";
+        }
+    </script>
 </head>
 <body>
     <div class="container">

@@ -1,5 +1,6 @@
 // ==========================================
-// tryCPP - Simple C++ Simulator (Stabil, Stop + Clear Output, Support Komentar, Konversi Int)
+// tryCPP - Simple C++ Simulator
+// Support: komentar //, /* */, string-aware, HTML entities, cin/cout, if/else, while, for
 // ==========================================
 
 class SimpleCpp {
@@ -25,9 +26,13 @@ class SimpleCpp {
 
     async execute(code) {
         this.reset();
+        // Decode HTML entities yang datang dari TutorialCPP (innerText)
+        code = this.decodeHtmlEntities(code);
+        // Hapus komentar blok /* ... */ sebelum parsing
+        code = this.stripBlockComments(code);
         const mainBody = this.extractMain(code);
         if (mainBody === null) {
-            this.print("Error: 'int main()' not found.\n");
+            this.print("Error: 'int main()' tidak ditemukan.\nPastikan kode memiliki fungsi int main() { ... }\n");
             return this.output;
         }
         const lines = mainBody.split('\n').map(l => l.trimRight());
@@ -35,13 +40,72 @@ class SimpleCpp {
         return this.output;
     }
 
+    // Decode HTML entities (dari innerText elemen di TutorialCPP)
+    decodeHtmlEntities(str) {
+        return str
+            .replace(/&lt;/g,  '<')
+            .replace(/&gt;/g,  '>')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g,'"')
+            .replace(/&#39;/g, "'")
+            .replace(/&nbsp;/g,' ');
+    }
+
+    // Hapus komentar blok /* ... */ (string-safe)
+    stripBlockComments(code) {
+        let result = '';
+        let i = 0;
+        while (i < code.length) {
+            // Lewati string literal agar /* di dalam string tidak terhapus
+            if (code[i] === '"') {
+                result += code[i++];
+                while (i < code.length) {
+                    if (code[i] === '\\') { result += code[i++]; if (i < code.length) result += code[i++]; }
+                    else if (code[i] === '"') { result += code[i++]; break; }
+                    else result += code[i++];
+                }
+            } else if (code[i] === '/' && code[i+1] === '*') {
+                let end = code.indexOf('*/', i + 2);
+                i = (end === -1) ? code.length : end + 2;
+            } else {
+                result += code[i++];
+            }
+        }
+        return result;
+    }
+
     extractMain(code) {
-        // Hapus #include dan using namespace agar tidak mengganggu regex
-        let clean = code.replace(/#include\s*<[^>]+>/g, '');
+        // Hapus preprocessor directives
+        let clean = code.replace(/^\s*#[^\n]*/gm, '');
         clean = clean.replace(/using\s+namespace\s+std\s*;/g, '');
-        const regex = /int\s+main\s*\(\s*\)\s*\{([\s\S]*?)\}\s*$/;
-        const match = clean.match(regex);
+
+        // Regex fleksibel: ambil isi int main() hingga penutup kurawal terakhir
+        const regex = /int\s+main\s*\([^)]*\)\s*\{([\s\S]*)\}/;
+        let match = clean.match(regex);
+
+
         return match ? match[1] : null;
+    }
+
+    // Hapus komentar // dari sebuah baris, tapi HANYA jika // bukan di dalam string literal
+    stripLineComment(line) {
+        let inString = false;
+        let i = 0;
+        while (i < line.length) {
+            const ch = line[i];
+            // Masuk/keluar string literal
+            if (ch === '"' && (i === 0 || line[i-1] !== '\\')) {
+                inString = !inString;
+                i++;
+                continue;
+            }
+            // Jika menemukan // di luar string → potong di sini
+            if (!inString && ch === '/' && line[i+1] === '/') {
+                return line.substring(0, i).trim();
+            }
+            i++;
+        }
+        return line.trim();
     }
 
     convertByType(value, type) {
@@ -62,11 +126,9 @@ class SimpleCpp {
             let line = lines[i].trim();
             if (line === "") { i++; continue; }
 
-            let commentIndex = line.indexOf("//");
-            if (commentIndex !== -1) {
-                line = line.substring(0, commentIndex).trim();
-                if (line === "") { i++; continue; }
-            }
+            // Hapus komentar // yang TIDAK ada di dalam string literal
+            line = this.stripLineComment(line);
+            if (line === "") { i++; continue; }
 
             let declMatch = line.match(/^(int|string)\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*(=\s*(.+))?;$/);
             if (declMatch) {
@@ -269,14 +331,25 @@ class SimpleCpp {
 
     parseCout(line) {
         let result = "";
-        let content = line.replace(/cout\s*<<\s*/, "").replace(/;$/, "");
-        let parts = content.split(/\s*<<\s*/);
+        // Hapus cout << di depan dan ; di belakang
+        let content = line.replace(/^cout\s*<<\s*/, "").replace(/\s*;$/, "");
+
+        // Split berdasarkan << tapi tidak di dalam string literal
+        let parts = this.splitByOperator(content, "<<");
+
         for (let part of parts) {
             part = part.trim();
-            if (part === "endl") {
+            if (part === "endl" || part === "\"\\n\"") {
                 result += "\n";
             } else if (part.startsWith('"') && part.endsWith('"')) {
-                result += part.slice(1, -1);
+                // Proses escape sequences di dalam string
+                let inner = part.slice(1, -1);
+                inner = inner
+                    .replace(/\\n/g, "\n")
+                    .replace(/\\t/g, "\t")
+                    .replace(/\\\\/g, "\\")
+                    .replace(/\\"/g, '"');
+                result += inner;
             } else if (this.vars[part] !== undefined) {
                 result += this.vars[part];
             } else if (this.arrays[part]) {
@@ -288,6 +361,29 @@ class SimpleCpp {
         }
         return result;
     }
+
+    // Split string berdasarkan operator (mis. <<) tapi tidak memotong di dalam string literal
+    splitByOperator(str, op) {
+        let parts = [];
+        let current = "";
+        let inString = false;
+        let i = 0;
+        while (i < str.length) {
+            if (str[i] === '"' && (i === 0 || str[i-1] !== '\\')) {
+                inString = !inString;
+                current += str[i++];
+            } else if (!inString && str.slice(i, i + op.length) === op) {
+                parts.push(current);
+                current = "";
+                i += op.length;
+            } else {
+                current += str[i++];
+            }
+        }
+        if (current.trim()) parts.push(current);
+        return parts;
+    }
+
 
     async parseCin(line) {
         let matches = line.match(/cin\s*>>\s*([a-zA-Z_][a-zA-Z0-9_]*)/g);

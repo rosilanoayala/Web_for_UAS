@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Akun — DevPortal</title>
+  <link rel="stylesheet" href="Profile.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="topnav">
+    <a href="HOME.html" class="nav-logo">
+      <div class="logo-icon">_</div>
+      <div class="logo-text">PORTAL</div>
+    </a>
+    <a href="HOME.html" class="nav-back">← Kembali ke Utama</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="page-body">
+    <div class="profile-card">
+      
+      <!-- HEADER PROFIL -->
+      <div class="profile-header">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="profile-titles">
+          <h1 class="card-title" id="displayNama">Pengguna</h1>
+          <p class="card-subtitle" id="displayEmail">email@contoh.com</p>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ALERT MESSAGE -->
+      <div id="statusNotice" style="display: none;"></div>
+
+      <!-- FORM PROFIL -->
+      <form id="profileForm" class="profile-form">
+        <div class="input-group">
+          <label for="inputNama">Nama Lengkap</label>
+          <input type="text" id="inputNama" required placeholder="Masukkan nama lengkap Anda">
+        </div>
+
+        <div class="input-group">
+          <label for="inputEmail">Alamat Email (Gmail)</label>
+          <input type="email" id="inputEmail" required placeholder="contoh@gmail.com">
+        </div>
+
+        <div class="input-group">
+          <label for="inputTelepon">Nomor Telepon</label>
+          <input type="tel" id="inputTelepon" placeholder="Contoh: 08123456789">
+        </div>
+
+        <div class="input-group">
+          <label for="inputAlamat">Alamat Tempat Tinggal</label>
+          <textarea id="inputAlamat" rows="3" placeholder="Masukkan alamat lengkap Anda"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save">💾 Simpan Perubahan</button>
+        </div>
+      </form>
+
+      <hr class="divider">
+
+      <!-- DANGER ZONE -->
+      <div class="danger-zone">
+        <h3>Zona Bahaya</h3>
+        <p>Anda yakin ingin keluar dari sesi ini? Anda harus login kembali untuk masuk.</p>
+        <button id="logoutBtn" class="btn-danger">🚪 Keluar Akun (Logout)</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOGOUT TERMINAL (HACKER STYLE) -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span>SYSTEM TERMINAL // LOGOUT_PROCESS_CPP</span>
+        <span>_</span>
+      </div>
+      <pre id="terminalText"></pre>
+    </div>
+  </div>
+
+  <script src="Profile.js"></script>
+</body>
+</html>

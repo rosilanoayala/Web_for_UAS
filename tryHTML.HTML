@@ -118,17 +118,17 @@ button:hover{
 </div>
 
 <script>
-  // Simpan halaman terakhir yang dikunjungi (tanpa syarat)
-const currentPage = window.location.href;
-const pageName = currentPage.split("/").pop();
-localStorage.setItem("lastPage", currentPage);
-localStorage.setItem("lastPageName", pageName);
+  // PROTEKSI LOGIN
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    alert("🔒 Anda harus Sign In terlebih dahulu untuk menggunakan fitur Code Editor (Try It)!");
+    window.location.href = "login.html";
+  }
 
-// Hapus redirectAfterLogin yang tidak valid (kecuali jika sedang dalam proses login? tidak perlu)
-// Tapi agar aman, hapus saja setiap kali halaman dimuat untuk guest
-if (localStorage.getItem("isLoggedIn") !== "true") {
-  localStorage.removeItem("redirectAfterLogin");
-}
+  // Simpan halaman terakhir yang dikunjungi (tanpa syarat)
+  const currentPage = window.location.href;
+  const pageName = currentPage.split("/").pop();
+  localStorage.setItem("lastPage", currentPage);
+  localStorage.setItem("lastPageName", pageName);
 
 function runCode(){
   const code = document.getElementById("code").value;

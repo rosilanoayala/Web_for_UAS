@@ -155,6 +155,12 @@
 </div>
 
 <script>
+    // PROTEKSI LOGIN
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("🔒 Anda harus Sign In terlebih dahulu untuk menggunakan fitur Code Editor (Try It)!");
+        window.location.href = "login.html";
+    }
+
     (function() {
         // Elemen DOM
         const editor = document.getElementById('jsCode');

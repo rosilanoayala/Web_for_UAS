@@ -1,378 +1,597 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login ke Portal Tutorial Coding">
+  <title>Login — DevPortal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens (sama persis dengan HOME.css) ─────────────── */
+    :root {
+      --bg:         #f5f7fa;
+      --surface:    #ffffff;
+      --border:     #e0e6ed;
+      --text:       #2d3748;
+      --text-sub:   #5a6a7e;
+      --text-muted: #94a3b8;
+      --nav-bg:     #282a35;
+      --accent:     #04aa6d;
+      --accent-dk:  #038c5a;
+      --danger:     #dc2626;
+      --font-ui:    'Source Sans 3', system-ui, sans-serif;
+      --font-code:  'Fira Code', monospace;
+      --radius:     14px;
+      --shadow:     0 4px 24px rgba(0,0,0,0.09);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,0.14);
+      --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#e6f4ea;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-.container{
-  background:#fff;
-  padding:40px;
-  border-radius:20px;
-  width:360px;
-  box-shadow:0 15px 30px rgba(0,0,0,.1);
-}
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
 
-h2{
-  text-align:center;
-  color:#166534;
-  margin-bottom:20px;
-}
+    /* ── Navbar (identik HOME) ────────────────────────────── */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 36px;
+      height: 58px;
+      background: var(--nav-bg);
+      flex-shrink: 0;
+    }
 
-input{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  border-radius:10px;
-  border:1px solid #cbd5e1;
-}
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
-button{
-  width:100%;
-  padding:10px;
-  background:#22c55e;
-  border:none;
-  border-radius:12px;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-}
+    .logo-icon {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-code);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
 
-button:hover{ background:#16a34a; }
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
 
-.google-btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  border:1px solid #ddd;
-  padding:10px;
-  border-radius:12px;
-  text-decoration:none;
-  color:#444;
-  font-weight:bold;
-  margin-top:15px;
-}
+    .nav-back {
+      text-decoration: none;
+      color: #cdd5e0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
 
-.extra-links{
-  margin-top:20px;
-  text-align:center;
-  font-size:14px;
-}
+    .nav-back:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
 
-.extra-links a{
-  text-decoration:none;
-  color:#166534;
-  font-weight:bold;
-}
+    /* ── Main area ────────────────────────────────────────── */
+    .page-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #f0faf5 0%, #e8f4fd 100%);
+    }
 
-#loginOverlay{
-  position:fixed;
-  inset:0;
-  background:#0f172a;
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
+    /* ── Login card ───────────────────────────────────────── */
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--shadow-lg);
+    }
 
-#loginTerminal{
-  width:80%;
-  max-width:600px;
-  background:black;
-  padding:25px;
-  border-radius:12px;
-  color:#00ff88;
-  font-family:monospace;
-  white-space:pre-wrap;
-}
+    /* Card header */
+    .card-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-.divider{
-  display:flex;
-  align-items:center;
-  text-align:center;
-  margin:20px 0;
-}
+    .card-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: rgba(4,170,109,0.1);
+      border: 2px solid rgba(4,170,109,0.25);
+      border-radius: 14px;
+      font-family: var(--font-code);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
 
-.divider::before,
-.divider::after{
-  content:"";
-  flex:1;
-  border-bottom:1px solid #ccc;
-}
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
 
-.divider span{
-  margin:0 10px;
-  font-size:12px;
-  color:#666;
-  font-weight:bold;
-}
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-top: 5px;
+    }
 
-.guest-btn{
-  display:block;
-  text-align:center;
-  padding:10px;
-  border-radius:12px;
-  background:#f1f5f9;
-  color:#111;
-  text-decoration:none;
-  font-weight:bold;
-  transition:.3s;
-}
+    /* Notice / alert */
+    #loginNotice {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--danger);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
 
-.guest-btn:hover{
-  background:#e2e8f0;
-}
+    #loginNotice.visible { display: block; }
 
-</style>
+    /* Form */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.925rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(4,170,109,0.15);
+      background: #fff;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 6px;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dk);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    /* Google button */
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+
+    .google-btn:hover {
+      background: var(--bg);
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Guest button */
+    .guest-btn {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: #f1f5f9;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      color: var(--text-sub);
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .guest-btn:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+
+    /* Extra links */
+    .extra-links {
+      margin-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--text-sub);
+    }
+
+    .extra-links a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .extra-links a:hover { color: var(--accent-dk); text-decoration: underline; }
+
+    /* ── Terminal overlay ─────────────────────────────────── */
+    #loginOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 17, 23, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(8px);
+    }
+
+    .terminal-box {
+      background: #1e2230;
+      border: 1px solid #3a3f55;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 560px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(4,170,109,0.15);
+      font-family: var(--font-code);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: #161929;
+      border-bottom: 1px solid #3a3f55;
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #febc2e; }
+    .dot.g { background: #28c840; }
+
+    .terminal-label {
+      margin-left: 6px;
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+
+    #loginTerminal {
+      padding: 20px 22px;
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--accent);
+      white-space: pre-wrap;
+      min-height: 80px;
+    }
+
+    /* ── Redirect overlay ─────────────────────────────────── */
+    #redirectLoading {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,17,23,0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(8px);
+    }
+
+    .redirect-box {
+      background: #1e2230;
+      padding: 28px 36px;
+      border-radius: 14px;
+      border: 1px solid #3a3f55;
+      box-shadow: 0 0 40px rgba(4,170,109,0.15);
+    }
+
+    #loadingText {
+      font-family: var(--font-code);
+      font-size: 0.875rem;
+      color: var(--accent);
+      white-space: pre;
+      line-height: 1.8;
+    }
+
+    /* ── Footer strip ─────────────────────────────────────── */
+    .page-footer {
+      background: var(--nav-bg);
+      padding: 14px 36px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #5a6370;
+      font-family: var(--font-code);
+      flex-shrink: 0;
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .login-card { padding: 32px 22px; }
+      .topnav     { padding: 0 18px; }
+      .extra-links{ flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
-  <h2>Login</h2>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="topnav">
+    <a href="HOME.html" class="nav-logo">
+      <span class="logo-icon">&lt;/&gt;</span>
+      <span class="logo-text">DevPortal</span>
+    </a>
+    <a href="HOME.html" class="nav-back">← Kembali ke Home</a>
+  </nav>
 
-  <p id="loginNotice" style="color:#dc2626; text-align:center; font-weight:bold;"></p>
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
+  <!-- ===== MAIN ===== -->
+  <div class="page-body">
+    <div class="login-card">
 
-  <a href="#" class="google-btn" id="googleBtn">
-    <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
-    Login dengan Google
-  </a>
+      <!-- Header -->
+      <div class="card-header">
+        <div class="card-logo">&lt;/&gt;</div>
+        <h1 class="card-title">Selamat Datang!</h1>
+        <p class="card-subtitle">Masuk ke akun DevPortal kamu</p>
+      </div>
 
-  <div class="extra-links">
-    <p>Belum punya akun?
-      <a href="SignupTutorial.html">Sign up</a>
-    </p>
-    <p>
-      <a href="LupaPassword.html">Lupa password?</a>
-    </p>
+      <!-- Notice block -->
+      <div id="loginNotice" role="alert"></div>
+
+      <!-- Login form -->
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="email" class="form-label">Alamat Email</label>
+          <input type="email" id="email" class="form-input" placeholder="contoh@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="Masukkan password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary" id="loginSubmit">Masuk</button>
+      </form>
+
+      <!-- Google login -->
+      <a href="#" class="google-btn" id="googleBtn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18" alt="Google">
+        Masuk dengan Google
+      </a>
+
+      <!-- Divider -->
+      <div class="divider"><span>atau</span></div>
+
+      <!-- Guest button -->
+      <a href="HOME.html" class="guest-btn" id="guestBtn" onclick="setGuest()">
+        👤 Lanjut sebagai Guest <span style="font-weight:400;color:#94a3b8;">(Akses Terbatas)</span>
+      </a>
+
+      <!-- Extra links -->
+      <div class="extra-links">
+        <span>Belum punya akun? <a href="SignupTutorial.html">Daftar</a></span>
+        <a href="LupaPassword.html">Lupa password?</a>
+      </div>
+
+    </div>
   </div>
-  <div class="divider">
-  <span>ATAU</span>
-</div>
 
-<a href="HOME.html" class="guest-btn" onclick="setGuest()">
-  Lanjut sebagai Guest (Limited Access)
-</a>
-</div>
+  <!-- ===== FOOTER ===== -->
+  <footer class="page-footer">
+    © 2025 DevPortal — Portal Tutorial Coding · Rosilano Ayala KA2A
+  </footer>
 
+  <!-- Terminal Login Overlay -->
+  <div id="loginOverlay">
+    <div class="terminal-box">
+      <div class="terminal-bar">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <span class="terminal-label">terminal — auth.sh</span>
+      </div>
+      <pre id="loginTerminal"></pre>
+    </div>
+  </div>
 
+  <!-- Redirect Overlay -->
+  <div id="redirectLoading">
+    <div class="redirect-box">
+      <pre id="loadingText"></pre>
+    </div>
+  </div>
 
-<div id="loginOverlay">
-  <pre id="loginTerminal"></pre>
-</div>
-
-<script>
-
-    function setGuest(){
-  localStorage.setItem("isGuest","true");
-}
-document.addEventListener("DOMContentLoaded", function(){
-
-    // ===== TAMPILKAN PESAN =====
-const notice = localStorage.getItem("loginMessage");
-
-if(notice){
-  document.getElementById("loginNotice").textContent = notice;
-  localStorage.removeItem("loginMessage");
-}
-
-  // ===== CEK LOGIN =====
-if(localStorage.getItem("isLoggedIn")==="true"){
-
-  const redirectPage = localStorage.getItem("redirectAfterLogin");
-  const lastPage = localStorage.getItem("lastPage");
-
-  if(redirectPage){
-    window.location.href = redirectPage;
-  }
-  else if(lastPage){
-    window.location.href = lastPage;
-  }
-  else{
-    window.location.href = "HOME.html";
-  }
-
-  return;
-}
-
-  const loginForm = document.getElementById("loginForm");
-  const googleBtn = document.getElementById("googleBtn");
-
-  loginForm.addEventListener("submit", function(e){
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    runLoginAnimation(email);
-  });
-
-  googleBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    runLoginAnimation("googleuser@gmail.com");
-  });
-
-});
-
-
-function runLoginAnimation(email){
-
-  const overlay = document.getElementById("loginOverlay");
-  const terminal = document.getElementById("loginTerminal");
-
-  overlay.style.display = "flex";
-  terminal.textContent = "";
-
-  const lastPage = localStorage.getItem("lastPage");
-  const pageName = localStorage.getItem("lastPageName");
-
-  const displayName = pageName
-    ? pageName.replace(".html","").replace("Tutorial","Tutorial ")
-    : "HOME";
-
-  const lines = [
-    "// Initializing Authentication Module",
-    "Connecting to secure server...",
-    "Encrypting credentials...",
-    "Validating session token...",
-    "Access Granted ✔",
-    `Redirecting to ${displayName}...`
-  ];
-
-  let i=0, j=0;
-
-  function type(){
-    if(i>=lines.length){
-
-      // 🔥 SET LOGIN STATE
-      localStorage.setItem("isLoggedIn","true");
-      localStorage.setItem("userEmail",email);
-
-      // 🔥 REDIRECT SYSTEM (FIXED)
-      const redirectPage = localStorage.getItem("redirectAfterLogin");
-      const lastPage = localStorage.getItem("lastPage");
-
-      let targetPage = "HOME.html";
-
-      if(redirectPage){
-        targetPage = redirectPage;
-        localStorage.removeItem("redirectAfterLogin");
-      }
-      else if(lastPage){
-        targetPage = lastPage;
-        localStorage.removeItem("lastPage");
-        localStorage.removeItem("lastPageName");
-      }
-
-      setTimeout(()=>{
-        window.location.href = targetPage;
-      },1200);
-
-      return;
+  <script>
+    function setGuest() {
+      localStorage.setItem("isGuest", "true");
     }
 
-    if(j < lines[i].length){
-      terminal.textContent += lines[i][j++];
-      setTimeout(type,20);
-    } else {
-      terminal.textContent += "\n";
-      i++; j=0;
-      setTimeout(type,300);
-    }
-  }
+    document.addEventListener("DOMContentLoaded", function () {
 
-  type();
-}
+      // ── Tampilkan pesan dari localStorage ──────────────
+      const notice = localStorage.getItem("loginMessage");
+      if (notice) {
+        const el = document.getElementById("loginNotice");
+        el.textContent = notice;
+        el.classList.add("visible");
+        localStorage.removeItem("loginMessage");
+      }
 
-// ===== SIGN IN LOADING REDIRECT =====
-const authButton = document.getElementById("authButton");
-
-if(authButton){
-  authButton.addEventListener("click", function(e){
-
-    // kalau sudah login → jangan ganggu
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if(isLoggedIn === "true") return;
-
-    e.preventDefault();
-
-    const overlay = document.getElementById("redirectLoading");
-    const text = document.getElementById("loadingText");
-
-    overlay.style.display = "flex";
-
-    const lines = [
-      "Initializing login module...",
-      "Connecting to authentication server...",
-      "Preparing secure session...",
-      "Redirecting to login..."
-    ];
-
-    let i=0, j=0;
-
-    function type(){
-      if(i >= lines.length){
-
-        // simpan tujuan (biar balik lagi setelah login)
-        localStorage.setItem("redirectAfterLogin", window.location.href);
-
-        setTimeout(()=>{
-          window.location.href = "login.html";
-        },500);
-
+      // ── Jika sudah login → redirect ────────────────────
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        const redirectPage = localStorage.getItem("redirectAfterLogin");
+        const lastPage     = localStorage.getItem("lastPage");
+        window.location.href = redirectPage || lastPage || "HOME.html";
         return;
       }
 
-      if(j < lines[i].length){
-        text.textContent += lines[i][j++];
-        setTimeout(type,20);
-      }else{
-        text.textContent += "\n";
-        i++; j=0;
-        setTimeout(type,300);
+      const loginForm = document.getElementById("loginForm");
+      const googleBtn = document.getElementById("googleBtn");
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        runLoginAnimation(email);
+      });
+
+      googleBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        runLoginAnimation("googleuser@gmail.com");
+      });
+    });
+
+    // ── Login terminal animation ────────────────────────
+    function runLoginAnimation(email) {
+      const overlay  = document.getElementById("loginOverlay");
+      const terminal = document.getElementById("loginTerminal");
+
+      overlay.style.display = "flex";
+      terminal.textContent  = "";
+
+      const pageName    = localStorage.getItem("lastPageName");
+      const displayName = pageName
+        ? pageName.replace(".html", "").replace("Tutorial", "Tutorial ")
+        : "HOME";
+
+      const lines = [
+        "// Initializing Authentication Module",
+        "Connecting to secure server...",
+        "Encrypting credentials...",
+        "Validating session token...",
+        "Access Granted ✔",
+        `Redirecting to ${displayName}...`
+      ];
+
+      let i = 0, j = 0;
+
+      function type() {
+        if (i >= lines.length) {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userEmail", email);
+
+          const redirectPage = localStorage.getItem("redirectAfterLogin");
+          const lastPage     = localStorage.getItem("lastPage");
+          let targetPage     = "HOME.html";
+
+          if (redirectPage) {
+            targetPage = redirectPage;
+            localStorage.removeItem("redirectAfterLogin");
+          } else if (lastPage) {
+            targetPage = lastPage;
+            localStorage.removeItem("lastPage");
+            localStorage.removeItem("lastPageName");
+          }
+
+          setTimeout(() => { window.location.href = targetPage; }, 1200);
+          return;
+        }
+
+        if (j < lines[i].length) {
+          terminal.textContent += lines[i][j++];
+          setTimeout(type, 20);
+        } else {
+          terminal.textContent += "\n";
+          i++; j = 0;
+          setTimeout(type, 300);
+        }
       }
+
+      type();
     }
-
-    type();
-
-  });
-}
-
-</script>
-
-<div id="redirectLoading" style="
-  position:fixed;
-  inset:0;
-  background:#0f172a;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-">
-  <div style="
-    background:black;
-    padding:20px 30px;
-    border-radius:10px;
-    color:#00ff88;
-    font-family:monospace;
-  ">
-    <span id="loadingText"></span>
-  </div>
-</div>
+  </script>
 
 </body>
 </html>

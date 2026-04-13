@@ -1,140 +1,322 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOME - Portal Tutorial</title>
-<link rel="stylesheet" href="home.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal Tutorial Coding – Belajar HTML, CSS, C++, dan JavaScript secara interaktif.">
+  <title>Portal Tutorial Coding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="HOME.css">
 </head>
 <body>
 
-<div class="watermark">Rosilano Ayala KA2A</div>
+  <!-- Watermark -->
+  <div class="watermark">Rosilano Ayala • KA2A</div>
 
-<div class="topnav">
-  <div class="logo">PORTAL</div>
-  <div class="nav-right">
-    <a href="#">HOME</a>
-    <a href="#service-contact">SERVICE CONTACT</a>
-    <a href="#">TEMPAT KURSUS</a>
-    <div class="account-wrapper" id="accountWrapper">
-      <a href="login.html" class="sign-btn" id="authButton">Sign In</a>
-      <div class="dropdown-menu" id="dropdownMenu">
-        <a href="#">👤 Profile</a>
-        <a href="#" id="logoutBtn">🚪 Logout</a>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="topnav" role="navigation" aria-label="Main Navigation">
+    <div class="nav-logo">
+      <span class="logo-icon">&lt;/&gt;</span>
+      <span class="logo-text">DevPortal</span>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-link active">Home</a>
+      <a href="#service-contact" class="nav-link">Service</a>
+      <a href="#" class="nav-link">Kursus</a>
+      <div class="account-wrapper" id="accountWrapper">
+        <a href="login.html" class="sign-btn" id="authButton">Sign In</a>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="Profile.html">👤 Profile</a>
+          <a href="#" id="logoutBtn">🚪 Logout</a>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- Service contact target -->
-<div id="service-contact" style="scroll-margin-top: 80px;"></div>
+  <!-- Scroll target -->
+  <div id="service-contact" style="scroll-margin-top: 70px;"></div>
 
-<section class="hero html-section">
-  <div class="hero-left">
-    <h1>HTML</h1>
-    <p>The language for building web pages</p>
-    <div class="button-group">
-      <a href="TutorialHTML.html" class="btn primary">Learn HTML</a>
-      <a href="https://youtu.be/fzWdtSGRVNo" target="_blank" class="btn secondary">Video Tutorial</a>
-      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+  <!-- ===== HERO BANNER ===== -->
+  <section class="site-hero">
+    <div class="site-hero-content">
+      <div class="badge">✦ Gratis &amp; Interaktif</div>
+      <h1 class="site-title">
+        Belajar <span class="highlight">Coding</span><br>
+        dari Nol hingga Pro
+      </h1>
+      <p class="site-subtitle">
+        Platform tutorial yang memudahkan kamu memahami HTML, CSS, C++, dan JavaScript
+        dengan contoh nyata dan editor langsung di browser.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Bahasa</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">100+</span>
+          <span class="stat-label">Materi</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">Free</span>
+          <span class="stat-label">Akses</span>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="hero-right">
-    <h2>HTML Example:</h2>
-    <textarea readonly>
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
-    </textarea>
-    <a href="try-html.html" class="try-btn protected-link">Try it by Yourself</a>
-  </div>
-</section>
 
-<section class="hero css-section">
-  <div class="hero-left">
-    <h1>CSS</h1>
-    <p>The language for styling web pages</p>
-    <div class="button-group">
-      <a href="TutorialCSS.html" class="btn primary">Learn CSS</a>
-      <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="btn secondary">Video Tutorial</a>
-      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+    <!-- Code demo window -->
+    <div class="site-hero-code">
+      <div class="code-window">
+        <div class="code-window-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="code-window-title">welcome.js</span>
+        </div>
+        <pre class="code-preview"><span class="c-keyword">const</span> <span class="c-var">portal</span> = {
+  languages: [<span class="c-green">"HTML"</span>, <span class="c-green">"CSS"</span>,
+              <span class="c-green">"C++"</span>, <span class="c-green">"JS"</span>],
+  gratis: <span class="c-orange">true</span>,
+  <span class="c-fn">mulai</span>: () =&gt; {
+    <span class="c-blue">console</span>.<span class="c-fn">log</span>(<span class="c-green">"Ayo belajar!"</span>);
+  }
+};
+
+portal.<span class="c-fn">mulai</span>(); <span class="c-comment">// Ayo belajar!</span></pre>
+      </div>
     </div>
-  </div>
-  <div class="hero-right">
-    <h2>CSS Example:</h2>
-    <textarea readonly>
-body {
+  </section>
+
+  <!-- ===== LANGUAGE SECTIONS ===== -->
+  <main class="languages-section" id="languages">
+    <div class="section-header">
+      <p class="section-label">// Pilih bahasa yang ingin kamu pelajari</p>
+      <h2 class="section-title">Mulai Belajar Sekarang</h2>
+    </div>
+
+    <!-- ── HTML ROW ── -->
+    <div class="lang-row html-row" id="card-html">
+      <div class="lang-stripe html-stripe"></div>
+
+      <div class="lang-info">
+        <div class="lang-header">
+          <div class="lang-icon html-icon"><span>HTML</span></div>
+          <div>
+            <h3 class="lang-name html-name">HTML</h3>
+            <span class="lang-tag html-tag">Markup</span>
+          </div>
+        </div>
+        <p class="lang-desc">
+          Pondasi dari setiap halaman web. Pelajari cara membangun struktur
+          konten yang semantik dan terorganisir.
+        </p>
+        <div class="lang-btns">
+          <a href="TutorialHTML.html" class="lbtn primary html-primary">📖 Learn HTML</a>
+          <a href="https://youtu.be/fzWdtSGRVNo" target="_blank" class="lbtn secondary">▶ Tonton Video Tutorial</a>
+          <a href="kontakAhli.html" class="lbtn ghost">💬 Kontak Ahli</a>
+        </div>
+      </div>
+
+      <div class="lang-code-panel">
+        <div class="code-panel-header">
+          <span class="code-panel-title">index.html — Example</span>
+          <div class="code-dots">
+            <span class="d1"></span><span class="d2"></span><span class="d3"></span>
+          </div>
+        </div>
+        <textarea class="lang-textarea" readonly spellcheck="false">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello HTML&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;This is a Heading&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</textarea>
+        <a href="tryHTML.html" class="try-editor-btn protected-link">
+          <span>✏️ Try it Yourself</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CSS ROW ── -->
+    <div class="lang-row css-row" id="card-css">
+      <div class="lang-stripe css-stripe"></div>
+
+      <div class="lang-info">
+        <div class="lang-header">
+          <div class="lang-icon css-icon"><span>{}</span></div>
+          <div>
+            <h3 class="lang-name css-name">CSS</h3>
+            <span class="lang-tag css-tag">Styling</span>
+          </div>
+        </div>
+        <p class="lang-desc">
+          Percantik tampilan website kamu. Kuasai layout, animasi, dan desain
+          responsif dengan CSS modern.
+        </p>
+        <div class="lang-btns">
+          <a href="TutorialCSS.html" class="lbtn primary css-primary">📖 Learn CSS</a>
+          <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="lbtn secondary">▶ Tonton Video Tutorial</a>
+          <a href="kontakAhli.html" class="lbtn ghost">💬 Kontak Ahli</a>
+        </div>
+      </div>
+
+      <div class="lang-code-panel">
+        <div class="code-panel-header">
+          <span class="code-panel-title">style.css — Example</span>
+          <div class="code-dots">
+            <span class="d1"></span><span class="d2"></span><span class="d3"></span>
+          </div>
+        </div>
+        <textarea class="lang-textarea" readonly spellcheck="false">body {
   background-color: lightblue;
+  font-family: Arial, sans-serif;
 }
+
 h1 {
   color: navy;
   text-align: center;
 }
-    </textarea>
-    <a href="try-css.html" class="try-btn protected-link">Try it by Yourself</a>
-  </div>
-</section>
 
-<section class="hero cpp-section">
-  <div class="hero-left">
-    <h1>C++</h1>
-    <p>The language for high performance programming</p>
-    <div class="button-group">
-      <a href="TutorialCPP.html" class="btn primary">Learn C++</a>
-      <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="btn secondary">Video Tutorial</a>
-      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+p {
+  font-size: 18px;
+}</textarea>
+        <a href="TryCSS.html" class="try-editor-btn protected-link">
+          <span>✏️ Try it Yourself</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
     </div>
-  </div>
-  <div class="hero-right">
-    <h2>C++ Example:</h2>
-    <textarea readonly>
-#include <iostream>
+
+    <!-- ── C++ ROW ── -->
+    <div class="lang-row cpp-row" id="card-cpp">
+      <div class="lang-stripe cpp-stripe"></div>
+
+      <div class="lang-info">
+        <div class="lang-header">
+          <div class="lang-icon cpp-icon"><span>C++</span></div>
+          <div>
+            <h3 class="lang-name cpp-name">C++</h3>
+            <span class="lang-tag cpp-tag">Systems</span>
+          </div>
+        </div>
+        <p class="lang-desc">
+          Bahasa berperforma tinggi untuk sistem, game, dan kompetisi programming.
+          Pelajari logika yang sesungguhnya.
+        </p>
+        <div class="lang-btns">
+          <a href="TutorialCPP.html" class="lbtn primary cpp-primary">📖 Learn C++</a>
+          <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="lbtn secondary">▶ Tonton Video Tutorial</a>
+          <a href="kontakAhli.html" class="lbtn ghost">💬 Kontak Ahli</a>
+        </div>
+      </div>
+
+      <div class="lang-code-panel">
+        <div class="code-panel-header">
+          <span class="code-panel-title">main.cpp — Example</span>
+          <div class="code-dots">
+            <span class="d1"></span><span class="d2"></span><span class="d3"></span>
+          </div>
+        </div>
+        <textarea class="lang-textarea" readonly spellcheck="false">#include &lt;iostream&gt;
 using namespace std;
-int main() {
-  cout << "Hello World!";
-  return 0;
-}
-    </textarea>
-    <a href="try-cpp.html" class="try-btn protected-link">Try it by Yourself</a>
-  </div>
-</section>
 
-<section class="hero js-section">
-  <div class="hero-left">
-    <h1>JavaScript</h1>
-    <p>The language for interactive web development</p>
-    <div class="button-group">
-      <a href="TutorialJS.html" class="btn primary">Learn JavaScript</a>
-      <a href="https://youtu.be/W6NZfCO5SIk" target="_blank" class="btn secondary">Video Tutorial</a>
-      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+int main() {
+  cout &lt;&lt; "Hello, World!" &lt;&lt; endl;
+  cout &lt;&lt; "Welcome to C++!" &lt;&lt; endl;
+  return 0;
+}</textarea>
+        <a href="tryCPP.html" class="try-editor-btn protected-link">
+          <span>✏️ Try it Yourself</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── JavaScript ROW ── -->
+    <div class="lang-row js-row" id="card-js">
+      <div class="lang-stripe js-stripe"></div>
+
+      <div class="lang-info">
+        <div class="lang-header">
+          <div class="lang-icon js-icon"><span>JS</span></div>
+          <div>
+            <h3 class="lang-name js-name">JavaScript</h3>
+            <span class="lang-tag js-tag">Scripting</span>
+          </div>
+        </div>
+        <p class="lang-desc">
+          Hidupkan website kamu dengan interaktivitas.
+          Bahasa wajib bagi setiap web developer modern.
+        </p>
+        <div class="lang-btns">
+          <a href="TutorialJS.html" class="lbtn primary js-primary">📖 Learn JavaScript</a>
+          <a href="https://youtu.be/W6NZfCO5SIk" target="_blank" class="lbtn secondary">▶ Tonton Video Tutorial</a>
+          <a href="kontakAhli.html" class="lbtn ghost">💬 Kontak Ahli</a>
+        </div>
+      </div>
+
+      <div class="lang-code-panel">
+        <div class="code-panel-header">
+          <span class="code-panel-title">script.js — Example</span>
+          <div class="code-dots">
+            <span class="d1"></span><span class="d2"></span><span class="d3"></span>
+          </div>
+        </div>
+        <textarea class="lang-textarea" readonly spellcheck="false">// Mengubah tampilan halaman web
+document.body.style.background = "lightyellow";
+
+// Menampilkan pesan
+alert("Hello, JavaScript!");
+
+// Variabel dan fungsi
+const greet = (name) => "Halo, " + name + "!";</textarea>
+        <a href="tryJS.html" class="try-editor-btn protected-link">
+          <span>✏️ Try it Yourself</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span class="logo-text">DevPortal</span>
+      </div>
+      <p class="footer-text">Dibuat untuk pembelajaran • Rosilano Ayala KA2A</p>
+      <p class="footer-sub">© 2025 Portal Tutorial Coding — All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Loading Screen (Terminal Logout) -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span>SYSTEM TERMINAL // LOGOUT_PROCESS_CPP</span>
+        <span>_</span>
+      </div>
+      <pre id="terminalText"></pre>
     </div>
   </div>
-  <div class="hero-right">
-    <h2>JavaScript Example:</h2>
-    <textarea readonly>
-document.body.style.background = "yellow";
-alert("Hello JavaScript!");
-    </textarea>
-    <a href="try-js.html" class="try-btn protected-link">Try it by Yourself</a>
+
+  <!-- Redirect Loading Overlay -->
+  <div id="redirectLoading" style="position:fixed; inset:0; background:rgba(13,17,23,0.95); display:none; justify-content:center; align-items:center; z-index:9999; backdrop-filter:blur(8px);">
+    <div style="background:#1e2230; padding:28px 36px; border-radius:14px; color:#04aa6d; font-family:'Fira Code',monospace; border:1px solid #3a3f55; box-shadow:0 0 40px rgba(4,170,109,0.15);">
+      <span id="loadingText"></span>
+    </div>
   </div>
-</section>
 
-<div class="footer">
-  Dibuat untuk pembelajaran • Clean Stable Version
-</div>
-
-<div id="loadingScreen" class="loading-screen">
-  <div class="terminal">
-    <pre id="terminalText"></pre>
-  </div>
-</div>
-
-<script src="home.js"></script>
-
-<div id="redirectLoading" style="position:fixed; inset:0; background:#0f172a; display:none; justify-content:center; align-items:center; z-index:9999;">
-  <div style="background:black; padding:20px 30px; border-radius:10px; color:#00ff88; font-family:monospace;">
-    <span id="loadingText"></span>
-  </div>
-</div>
-
+  <script src="HOME.js"></script>
 </body>
 </html>
