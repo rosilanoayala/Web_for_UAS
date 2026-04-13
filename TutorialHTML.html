@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul Lengkap HTML Interaktif</title>
+
+<link rel="stylesheet" href="TutorialHTML.css">
+
+</head>
+
+<body>
+
+<header>
+<h1>Modul Lengkap HTML Interaktif 🚀</h1>
+<p>Pembelajaran HTML dari Dasar hingga Menengah</p>
+<div class="header-bottom">
+   <input type="text" id="searchInput" placeholder="🔍 Cari materi..." onkeyup="cariMateri()">
+   <div id="accountPlaceholder"></div>
+</div>
+</header>
+
+<nav class="topnav">
+  <div class="logo">PORTAL</div>
+
+  <div class="nav-right">
+    <a href="HOME.HTML">HOME</a>
+    <a href="HOME.HTML#service-contact">SERVICE CONTACT</a>
+    <a href="TempatKursus.html">TEMPAT KURSUS</a>
+
+    <div class="account-wrapper" id="accountWrapper">
+      <a href="#" class="sign-btn" id="authButton">Sign In</a>
+      <div class="dropdown-menu">
+        <a href="#">👤 Profile</a>
+        <a href="#" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mini-header" id="miniHeader">
+  <input type="text" placeholder="🔍 Cari materi..." id="searchMini" onkeyup="cariMateri()">
+  <div class="mini-account" id="miniAccount"></div>
+</div>
+
+<main id="mainContent">
+  
+  <section>
+<h2>💡 Cara Belajar HTML yang Benar</h2>
+
+<p>
+Banyak pemula gagal bukan karena sulit,
+tetapi karena cara belajar yang salah.
+</p>
+
+<ul>
+<li>❌ Menghafal tag tanpa memahami fungsi</li>
+<li>❌ Tidak langsung praktik</li>
+<li>❌ Takut error</li>
+</ul>
+
+<p>
+Cara yang benar:
+</p>
+
+<ul>
+<li>✔ Ketik → lihat hasil → ulangi</li>
+<li>✔ Pahami struktur, bukan hafalan</li>
+<li>✔ Error = bagian dari belajar</li>
+</ul>
+
+<p>
+HTML itu seperti menyusun Lego.
+Semakin sering mencoba, semakin cepat paham.
+</p>
+
+</section>
+
+<section>
+<h2>1. HTML Introduction</h2>
+
+<p>
+Sebelum kita mulai membuat website, ada satu pertanyaan penting:
+<strong>“Apa itu HTML?”</strong>
+</p>
+
+<p>
+HTML (HyperText Markup Language) adalah bahasa dasar yang digunakan
+untuk menyusun struktur sebuah halaman web.
+</p>
+
+<p>
+Artinya, HTML menentukan:
+</p>
+
+<ul>
+<li>Apa yang menjadi judul</li>
+<li>Apa yang menjadi paragraf</li>
+<li>Apa yang menjadi gambar</li>
+</ul>
+
+<hr>
+
+<h3>💡 Analogi Sederhana</h3>
+
+<p>
+Agar lebih mudah dipahami, bayangkan sebuah website seperti tubuh manusia:
+</p>
+
+<ul>
+<li><strong>HTML</strong> → kerangka (tulang)</li>
+<li><strong>CSS</strong> → tampilan (kulit & warna)</li>
+<li><strong>JavaScript</strong> → perilaku (gerakan)</li>
+</ul>
+
+<p>
+Tanpa HTML, website tidak memiliki bentuk sama sekali.
+</p>
+
+<hr>
+
+<h3>📌 Cara Browser Membaca HTML</h3>
+
+<p>
+Browser membaca HTML dari atas ke bawah, baris demi baris.
+Kemudian browser menyusun struktur yang disebut:
+</p>
+
+<p>
+<strong>DOM (Document Object Model)</strong>
+</p>
+
+<p>
+DOM ini bisa dibayangkan seperti pohon:
+</p>
+
+<div class="code">
+&lt;body&gt;
+  &lt;h1&gt;Judul&lt;/h1&gt;
+  &lt;p&gt;Paragraf&lt;/p&gt;
+&lt;/body&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li><strong>body</strong> → elemen utama (parent)</li>
+<li><strong>h1</strong> → anak dari body (child)</li>
+<li><strong>p</strong> → anak dari body (child)</li>
+</ul>
+
+<p>
+Struktur seperti ini disebut <strong>hierarki</strong>.
+</p>
+
+<p>
+💡 Semakin kamu memahami struktur ini,
+semakin mudah kamu belajar HTML ke tahap berikutnya.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Sederhana</h3>
+
+<p>
+Mari kita lihat contoh HTML paling dasar:
+</p>
+
+<div class="code">
+&lt;h1&gt;Halo Dunia&lt;/h1&gt;
+&lt;p&gt;Ini website pertama saya&lt;/p&gt;
+</div>
+
+<p>
+Penjelasan per baris:
+</p>
+
+<ul>
+<li>&lt;h1&gt; → digunakan untuk judul besar</li>
+<li>&lt;p&gt; → digunakan untuk paragraf</li>
+</ul>
+
+<p>
+Hasil di browser:
+</p>
+
+<h1>Halo Dunia</h1>
+<p>Ini website pertama saya</p>
+
+<hr>
+
+<h3>🎯 Tujuan Materi Ini</h3>
+
+<p>
+Setelah memahami bagian ini, kamu seharusnya sudah bisa:
+</p>
+
+<ul>
+<li>Memahami apa itu HTML</li>
+<li>Mengetahui fungsi HTML dalam website</li>
+<li>Membuat struktur sederhana (judul & paragraf)</li>
+</ul>
+
+<hr>
+
+<h3>🧪 Latihan Kecil</h3>
+
+<p>
+Coba sendiri:
+</p>
+
+<ul>
+<li>Buat judul dengan tulisan <strong>"Belajar HTML"</strong></li>
+<li>Buat paragraf di bawahnya</li>
+</ul>
+
+<p>
+💡 Tips: jangan takut salah — error adalah bagian dari belajar.
+</p>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum Pemula</h3>
+
+<ul>
+<li>Mengira HTML adalah bahasa pemrograman ❌</li>
+<li>Mengira HTML bisa membuat logika seperti if/loop ❌</li>
+<li>Hanya membaca tanpa mencoba ❌</li>
+<li>Tidak memahami hubungan parent dan child ❌</li>
+</ul>
+
+<p>
+✔ HTML hanya mengatur struktur, bukan logika program.
+</p>
+
+<hr>
+
+<h3>🚀 Insight Penting</h3>
+
+<p>
+Banyak orang merasa HTML itu mudah,
+tetapi justru di sinilah fondasi paling penting.
+</p>
+
+<p>
+Jika kamu memahami HTML dengan baik:
+</p>
+
+<ul>
+<li>Belajar CSS akan lebih mudah</li>
+<li>Belajar JavaScript akan lebih cepat</li>
+<li>Membuat website akan lebih terstruktur</li>
+</ul>
+
+<p>
+👉 Jadi jangan terburu-buru, pahami dasar ini dengan benar.
+</p>
+
+</section>
+
+<section>
+<h2>2. Struktur Dasar HTML</h2>
+
+<p>
+Sekarang kita masuk ke bagian yang sangat penting:
+<strong>struktur dasar HTML</strong>.
+</p>
+
+<p>
+Jika HTML diibaratkan sebagai rumah,
+maka struktur ini adalah pondasi dan rangkanya.
+</p>
+
+<p>
+Tanpa struktur yang benar, browser bisa:
+</p>
+
+<ul>
+<li>Menampilkan halaman dengan error ❌</li>
+<li>Membaca kode secara tidak konsisten ❌</li>
+</ul>
+
+<hr>
+
+<h3>📌 Contoh Struktur Dasar</h3>
+
+<p>
+Berikut adalah bentuk dasar dari semua halaman HTML:
+</p>
+
+<div class="code">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Judul Halaman&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Konten halaman
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+
+<hr>
+
+<h3>🧠 Cara Memahami Struktur Ini</h3>
+
+<p>
+Jangan langsung menghafal. Pahami dulu urutannya:
+</p>
+
+<ul>
+<li>DOCTYPE → memberi tahu jenis dokumen</li>
+<li>html → pembungkus seluruh halaman</li>
+<li>head → informasi tambahan (tidak terlihat)</li>
+<li>body → isi yang tampil di layar</li>
+</ul>
+
+<p>
+💡 Urutan ini selalu sama di hampir semua website.
+</p>
+
+<hr>
+
+<h3>📌 A. DOCTYPE</h3>
+
+<p>
+&lt;!DOCTYPE html&gt; digunakan untuk memberi tahu browser bahwa
+dokumen ini menggunakan HTML5.
+</p>
+
+<p>
+Jika tidak ditulis:
+</p>
+
+<ul>
+<li>Browser bisa masuk ke mode lama (quirks mode)</li>
+<li>Tampilan bisa berbeda di setiap browser</li>
+</ul>
+
+<p>
+✔ Jadi DOCTYPE wajib ada di baris pertama.
+</p>
+
+<hr>
+
+<h3>📌 B. Tag &lt;html&gt;</h3>
+
+<p>
+Ini adalah elemen utama (root) dari seluruh dokumen HTML.
+Semua elemen lain berada di dalamnya.
+</p>
+
+<p>
+Atribut penting:
+</p>
+
+<div class="code">
+&lt;html lang="id"&gt;
+</div>
+
+<p>
+Fungsinya:
+</p>
+
+<ul>
+<li>Memberi tahu bahasa halaman</li>
+<li>Membantu SEO</li>
+<li>Membantu screen reader</li>
+</ul>
+
+<hr>
+
+<h3>📌 C. Tag &lt;head&gt;</h3>
+
+<p>
+Bagian ini berisi informasi tentang halaman,
+tetapi tidak terlihat langsung oleh pengguna.
+</p>
+
+<p>
+Contoh isi head:
+</p>
+
+<ul>
+<li><strong>meta charset</strong> → agar teks tidak rusak</li>
+<li><strong>viewport</strong> → agar responsive di HP</li>
+<li><strong>title</strong> → judul di tab browser</li>
+</ul>
+
+<p>
+💡 Anggap head sebagai “pengaturan halaman”.
+</p>
+
+<hr>
+
+<h3>📌 D. Tag &lt;body&gt;</h3>
+
+<p>
+Semua yang terlihat oleh pengguna berada di sini.
+</p>
+
+<p>
+Contoh:
+</p>
+
+<ul>
+<li>Teks</li>
+<li>Gambar</li>
+<li>Tabel</li>
+<li>Form</li>
+</ul>
+
+<p>
+✔ Jika tidak ada di body, tidak akan terlihat di browser.
+</p>
+
+<hr>
+
+<h3>🎯 Tujuan Materi Ini</h3>
+
+<p>
+Setelah memahami bagian ini, kamu seharusnya bisa:
+</p>
+
+<ul>
+<li>Mengenali struktur dasar HTML</li>
+<li>Mengetahui fungsi tiap bagian</li>
+<li>Membuat halaman HTML sederhana</li>
+</ul>
+
+<hr>
+
+<h3>🧪 Latihan Kecil</h3>
+
+<p>
+Coba buat file HTML sendiri:
+</p>
+
+<ul>
+<li>Tulis struktur dasar HTML</li>
+<li>Ganti title menjadi namamu</li>
+<li>Tulis "Halo Dunia" di body</li>
+</ul>
+
+<p>
+Lalu buka di browser dan lihat hasilnya.
+</p>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum Pemula</h3>
+
+<ul>
+<li>Menulis struktur tidak lengkap ❌</li>
+<li>Lupa menutup tag ❌</li>
+<li>Menaruh konten di dalam head ❌</li>
+</ul>
+
+<p>
+✔ Pastikan semua konten berada di dalam body.
+</p>
+
+<hr>
+
+<h3>🚀 Insight Penting</h3>
+
+<p>
+Struktur HTML adalah fondasi dari semua website.
+</p>
+
+<p>
+Jika bagian ini tidak dipahami dengan baik:
+</p>
+
+<ul>
+<li>CSS akan sulit dipelajari</li>
+<li>JavaScript akan membingungkan</li>
+</ul>
+
+<p>
+👉 Jadi kuasai bagian ini sebelum lanjut.
+</p>
+
+<p>
+❌ Jangan gunakan tabel untuk layout website  
+✔ Gunakan CSS untuk layout modern
+</p>
+
+</section>
+
+<section>
+<h2>3. HTML Elements</h2>
+
+<p>
+Setelah memahami struktur dasar HTML, sekarang kita masuk ke inti dari HTML:
+<strong>elemen</strong>.
+</p>
+
+<p>
+Elemen HTML adalah bagian-bagian yang menyusun isi halaman web.
+Semua yang kamu lihat di website berasal dari elemen HTML.
+</p>
+
+<hr>
+
+<h3>💡 Apa itu Elemen?</h3>
+
+<p>
+Elemen HTML biasanya terdiri dari 3 bagian:
+</p>
+
+<ul>
+<li><strong>Tag pembuka</strong></li>
+<li><strong>Isi (content)</strong></li>
+<li><strong>Tag penutup</strong></li>
+</ul>
+
+<div class="code">
+&lt;p&gt;Ini paragraf&lt;/p&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li>&lt;p&gt; → tag pembuka</li>
+<li>Ini paragraf → isi</li>
+<li>&lt;/p&gt; → tag penutup</li>
+</ul>
+
+<p>
+✔ Semua bagian ini disebut satu elemen.
+</p>
+
+<hr>
+
+<h3>📌 Cara Berpikir (Penting)</h3>
+
+<p>
+Jangan hanya menghafal tag.
+Pahami bahwa setiap elemen memiliki fungsi.
+</p>
+
+<p>
+Contoh:
+</p>
+
+<ul>
+<li>&lt;h1&gt; → untuk judul</li>
+<li>&lt;p&gt; → untuk paragraf</li>
+<li>&lt;img&gt; → untuk gambar</li>
+</ul>
+
+<p>
+👉 Jadi HTML itu bukan soal hafalan,
+tapi soal memahami fungsi.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Nyata</h3>
+
+<div class="code">
+&lt;h1&gt;Belajar HTML&lt;/h1&gt;
+&lt;p&gt;Saya sedang belajar elemen HTML&lt;/p&gt;
+</div>
+
+<p>
+Hasil di browser:
+</p>
+
+<h1>Belajar HTML</h1>
+<p>Saya sedang belajar elemen HTML</p>
+
+<hr>
+
+<h3>📌 Elemen Kosong (Void Elements)</h3>
+
+<p>
+Tidak semua elemen memiliki penutup.
+Beberapa elemen disebut <strong>void elements</strong>.
+</p>
+
+<div class="code">
+&lt;br&gt;
+&lt;img src="gambar.jpg"&gt;
+&lt;hr&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li>&lt;br&gt; → membuat baris baru</li>
+<li>&lt;img&gt; → menampilkan gambar</li>
+<li>&lt;hr&gt; → garis horizontal</li>
+</ul>
+
+<p>
+✔ Elemen ini tidak memiliki tag penutup.
+</p>
+
+<hr>
+
+<h3>📌 Elemen Bersarang (Nested Elements)</h3>
+
+<p>
+Elemen bisa berada di dalam elemen lain.
+Ini disebut <strong>nested (bersarang)</strong>.
+</p>
+
+<div class="code">
+&lt;p&gt;
+  Ini adalah &lt;b&gt;teks tebal&lt;/b&gt;
+&lt;/p&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li>&lt;b&gt; berada di dalam &lt;p&gt;</li>
+<li>&lt;p&gt; adalah parent</li>
+<li>&lt;b&gt; adalah child</li>
+</ul>
+
+<p>
+💡 Ini penting karena HTML bekerja seperti struktur pohon (DOM).
+</p>
+
+<hr>
+
+<h3>🎯 Tujuan Materi Ini</h3>
+
+<p>
+Setelah bagian ini, kamu seharusnya bisa:
+</p>
+
+<ul>
+<li>Memahami apa itu elemen HTML</li>
+<li>Membedakan tag pembuka dan penutup</li>
+<li>Mengenali elemen kosong</li>
+<li>Memahami konsep parent dan child</li>
+</ul>
+
+<hr>
+
+<h3>🧪 Latihan Kecil</h3>
+
+<p>
+Coba lakukan ini:
+</p>
+
+<ul>
+<li>Buat 1 judul menggunakan &lt;h1&gt;</li>
+<li>Buat 1 paragraf menggunakan &lt;p&gt;</li>
+<li>Tambahkan teks tebal di dalam paragraf</li>
+</ul>
+
+<p>
+Contoh target:
+</p>
+
+<div class="code">
+&lt;p&gt;Saya belajar &lt;b&gt;HTML&lt;/b&gt;&lt;/p&gt;
+</div>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum Pemula</h3>
+
+<ul>
+<li>Lupa menutup tag ❌</li>
+<li>Menulis tag tidak berurutan ❌</li>
+<li>Menganggap semua elemen punya penutup ❌</li>
+</ul>
+
+<p>
+✔ Pastikan struktur rapi dan berpasangan.
+</p>
+
+<hr>
+
+<h3>🚀 Insight Penting</h3>
+
+<p>
+Elemen adalah “batu bata” dari HTML.
+</p>
+
+<p>
+Semakin kamu paham elemen:
+</p>
+
+<ul>
+<li>Semakin mudah membaca kode orang lain</li>
+<li>Semakin cepat belajar CSS & JavaScript</li>
+</ul>
+
+<p>
+👉 Kuasai elemen = kuasai dasar web development.
+</p>
+
+</section>
+
+  <!-- DINDING LOGIN (hanya tampil jika belum login) -->
+  <div id="loginWall" class="login-wall" style="display: none;">
+    <p>🔒 <strong>Materi selanjutnya (HTML Elements, Attributes, Styles, Tables, Forms, Semantic HTML, dan lainnya) hanya tersedia untuk pengguna yang login.</strong></p>
+    <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap.</p>
+    <a href="login.html" class="btn-login">Login Sekarang</a>
+  </div>
+
+  <div id="extraContent" style="display: none;">
+
+<section>
+<h2>4. HTML Attributes</h2>
+
+<p>
+Setelah memahami elemen HTML, sekarang kita masuk ke:
+<strong>attribute</strong>.
+</p>
+
+<p>
+Jika elemen adalah “bentuk”, maka attribute adalah
+<strong>pengaturan tambahan</strong> pada elemen tersebut.
+</p>
+
+<hr>
+
+<h3>💡 Apa itu Attribute?</h3>
+
+<p>
+Attribute memberikan informasi tambahan pada elemen HTML.
+Attribute selalu ditulis di dalam <strong>tag pembuka</strong>.
+</p>
+
+<p>
+Struktur umum:
+</p>
+
+<div class="code">
+&lt;tag nama="nilai"&gt;
+</div>
+
+<p>
+Contoh:
+</p>
+
+<div class="code">
+&lt;a href="https://google.com"&gt;Google&lt;/a&gt;
+</div>
+
+<p>
+Di sini:
+</p>
+
+<ul>
+<li><strong>href</strong> = nama attribute</li>
+<li><strong>https://google.com</strong> = nilai</li>
+</ul>
+
+<hr>
+
+<h3>📌 Cara Berpikir (Penting)</h3>
+
+<p>
+Bayangkan seperti ini:
+</p>
+
+<ul>
+<li>Elemen = benda</li>
+<li>Attribute = pengaturan benda</li>
+</ul>
+
+<p>
+Contoh:
+</p>
+
+<ul>
+<li>&lt;img&gt; → gambar</li>
+<li><strong>src</strong> → gambar diambil dari mana</li>
+</ul>
+
+<p>
+👉 Jadi attribute itu menentukan “bagaimana elemen bekerja”.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Nyata</h3>
+
+<div class="code">
+&lt;a href="https://google.com" target="_blank"&gt;
+Google
+&lt;/a&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li><strong>href</strong> → tujuan link</li>
+<li><strong>target="_blank"</strong> → buka di tab baru</li>
+</ul>
+
+<p>
+Coba klik:
+</p>
+
+<a href="https://google.com" target="_blank">Google</a>
+
+<hr>
+
+<h3>📌 Attribute yang Sering Digunakan</h3>
+
+<ul>
+<li><strong>id</strong> → identitas unik (1 elemen saja)</li>
+<li><strong>class</strong> → kelompok elemen (bisa banyak)</li>
+<li><strong>src</strong> → sumber file</li>
+<li><strong>alt</strong> → teks alternatif gambar</li>
+<li><strong>href</strong> → link tujuan</li>
+</ul>
+
+<p>
+💡 Attribute ini akan sering kamu gunakan saat belajar CSS dan JavaScript.
+</p>
+
+<hr>
+
+<h3>📌 Contoh pada Gambar</h3>
+
+<div class="code">
+&lt;img src="komodo.jpg" alt="Komodo"&gt;
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li><strong>src</strong> → lokasi gambar</li>
+<li><strong>alt</strong> → deskripsi jika gambar gagal dimuat</li>
+</ul>
+
+<hr>
+
+<h3>🎯 Tujuan Materi Ini</h3>
+
+<p>
+Setelah bagian ini, kamu seharusnya bisa:
+</p>
+
+<ul>
+<li>Memahami fungsi attribute</li>
+<li>Menggunakan attribute dasar (href, src, alt)</li>
+<li>Membedakan id dan class</li>
+</ul>
+
+<hr>
+
+<h3>🧪 Latihan Kecil</h3>
+
+<p>
+Coba lakukan ini:
+</p>
+
+<ul>
+<li>Buat link ke YouTube</li>
+<li>Buat agar link terbuka di tab baru</li>
+</ul>
+
+<p>
+Target:
+</p>
+
+<div class="code">
+&lt;a href="https://youtube.com" target="_blank"&gt;
+YouTube
+&lt;/a&gt;
+</div>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum Pemula</h3>
+
+<ul>
+<li>Lupa tanda kutip pada nilai ❌</li>
+<li>Salah menulis nama attribute ❌</li>
+<li>Mengira semua attribute sama ❌</li>
+</ul>
+
+<p>
+✔ Attribute harus ditulis dengan format:
+<strong>nama="nilai"</strong>
+</p>
+
+<hr>
+
+<h3>🚀 Insight Penting</h3>
+
+<p>
+Attribute adalah jembatan antara HTML dengan:
+</p>
+
+<ul>
+<li>CSS (melalui class & id)</li>
+<li>JavaScript (melalui id & atribut lainnya)</li>
+</ul>
+
+<p>
+👉 Jika kamu paham attribute,
+belajar CSS dan JavaScript akan jauh lebih mudah.
+</p>
+
+</section>
+
+<section>
+<h2>5. HTML Styles (CSS Dasar)</h2>
+
+<p>
+Setelah memahami HTML, kita masuk ke bagian yang membuat tampilan menjadi menarik:
+<strong>CSS (Cascading Style Sheets)</strong>.
+</p>
+
+<p>
+CSS digunakan untuk mengatur tampilan seperti:
+</p>
+
+<ul>
+<li>Warna teks</li>
+<li>Ukuran</li>
+<li>Jarak</li>
+<li>Posisi</li>
+</ul>
+
+<p>
+👉 HTML mengatur struktur, CSS mengatur tampilan.
+</p>
+
+<hr>
+
+<h3>💡 Cara Kerja CSS</h3>
+
+<p>
+CSS bekerja dengan memilih elemen HTML, lalu memberikan gaya.
+</p>
+
+<div class="code">
+selector {
+  property: value;
+}
+</div>
+
+<p>
+Contoh:
+</p>
+
+<div class="code">
+p {
+  color: blue;
+  font-size: 20px;
+}
+</div>
+
+<p>
+Penjelasan:
+</p>
+
+<ul>
+<li><strong>p</strong> → selector (target elemen)</li>
+<li><strong>color</strong> → property</li>
+<li><strong>blue</strong> → value</li>
+</ul>
+
+<hr>
+
+<h3>📌 3 Cara Menggunakan CSS</h3>
+
+<h4>1. Inline CSS</h4>
+
+<div class="code">
+&lt;p style="color:blue;"&gt;Teks&lt;/p&gt;
+</div>
+
+<p>
+✔ Cepat dan langsung  
+❌ Tidak disarankan untuk proyek besar
+</p>
+
+<hr>
+
+<h4>2. Internal CSS</h4>
+
+<div class="code">
+&lt;style&gt;
+p {
+  color: blue;
+}
+&lt;/style&gt;
+</div>
+
+<p>
+✔ Cocok untuk satu halaman  
+</p>
+
+<hr>
+
+<h4>3. External CSS (RECOMMENDED)</h4>
+
+<div class="code">
+&lt;link rel="stylesheet" href="style.css"&gt;
+</div>
+
+<p>
+✔ Digunakan untuk banyak halaman  
+✔ Lebih rapi dan profesional  
+</p>
+
+<hr>
+
+<h3>📌 Contoh Nyata</h3>
+
+<div class="code">
+&lt;p style="color:blue; font-size:20px;"&gt;
+Teks Biru
+&lt;/p&gt;
+</div>
+
+<p style="color:blue; font-size:20px;">
+Contoh Teks Biru
+</p>
+
+<hr>
+
+<h3>🎯 Tujuan Materi Ini</h3>
+
+<ul>
+<li>Memahami fungsi CSS</li>
+<li>Mengetahui cara kerja selector</li>
+<li>Membedakan inline, internal, dan external</li>
+</ul>
+
+<hr>
+
+<h3>🧪 Latihan Kecil</h3>
+
+<p>
+Coba ubah:
+</p>
+
+<ul>
+<li>Warna teks</li>
+<li>Ukuran teks</li>
+</ul>
+
+<p>
+Gunakan inline style terlebih dahulu.
+</p>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum</h3>
+
+<ul>
+<li>Menulis semua style di inline ❌</li>
+<li>Tidak memahami selector ❌</li>
+<li>Mencampur HTML dan CSS berlebihan ❌</li>
+</ul>
+
+<p>
+✔ Gunakan external CSS untuk proyek nyata.
+</p>
+
+<hr>
+
+<h3>🚀 Insight Penting</h3>
+
+<p>
+CSS adalah langkah berikutnya setelah HTML.
+</p>
+
+<p>
+Jika kamu memahami:
+</p>
+
+<ul>
+<li>Selector</li>
+<li>Property</li>
+<li>Value</li>
+</ul>
+
+<p>
+👉 Maka kamu sudah siap masuk ke desain web modern.
+</p>
+
+</section>
+
+<section>
+<h2>6. Headings dan Paragraph</h2>
+
+<p>
+Ketika seseorang membuka sebuah halaman web, hal pertama yang ia cari bukanlah kode,
+melainkan <strong>arah</strong>.
+</p>
+
+<p>
+Di sinilah heading dan paragraph mulai bekerja—diam, tetapi menentukan bagaimana
+sebuah informasi dipahami.
+</p>
+
+<hr>
+
+<h3>📌 A. Heading (h1 – h6)</h3>
+
+<p>
+Heading adalah penanda arah.
+Ia tidak hanya memperbesar teks, tetapi memberi tahu:
+<strong>“di sinilah kamu berada”</strong>.
+</p>
+
+<p>
+HTML menyediakan enam tingkat heading.
+Dari yang paling penting hingga yang paling kecil.
+</p>
+
+<ul>
+<li>&lt;h1&gt; → pusat perhatian</li>
+<li>&lt;h2&gt; → pembuka bagian</li>
+<li>&lt;h3&gt; → penjelasan lebih dalam</li>
+<li>&lt;h4&gt; – &lt;h6&gt; → detail yang semakin spesifik</li>
+</ul>
+
+<p>
+Sebuah halaman yang baik tidak menggunakan heading secara acak.
+Ia disusun seperti cerita yang memiliki bab, sub-bab, dan isi.
+</p>
+
+<div class="code">
+&lt;h1&gt;Judul Artikel&lt;/h1&gt;
+&lt;h2&gt;Pendahuluan&lt;/h2&gt;
+&lt;h3&gt;Latar Belakang&lt;/h3&gt;
+</div>
+
+<p>
+Saat browser membaca ini, ia tidak melihat ukuran teks.
+Ia melihat <strong>struktur</strong>.
+</p>
+
+<p>
+Dan struktur itulah yang membuat halaman bisa dipahami,
+baik oleh manusia maupun mesin.
+</p>
+
+<p>
+❗ Heading bukan alat dekorasi.
+Ia adalah penunjuk makna.
+</p>
+
+<hr>
+
+<h3>📌 B. Paragraph (&lt;p&gt;)</h3>
+
+<p>
+Jika heading adalah arah,
+maka paragraph adalah perjalanan.
+</p>
+
+<p>
+Di dalam paragraph, informasi mulai dijelaskan,
+diperlambat, dan dipahami.
+</p>
+
+<div class="code">
+&lt;p&gt;Ini paragraf pertama.&lt;/p&gt;
+&lt;p&gt;Ini paragraf kedua.&lt;/p&gt;
+</div>
+
+<p>
+Setiap paragraph berdiri sendiri,
+membawa satu ide utama.
+</p>
+
+<p>
+Terlalu panjang, dan pembaca akan lelah.  
+Terlalu pendek, dan makna bisa hilang.
+</p>
+
+<p>
+Maka keseimbangan menjadi penting.
+</p>
+
+<ul>
+<li>Satu paragraf → satu ide</li>
+<li>Gunakan pemisah untuk memberi napas</li>
+<li>Biarkan mata bergerak dengan nyaman</li>
+</ul>
+
+<hr>
+
+<h3>📌 C. Hubungan Keduanya</h3>
+
+<p>
+Heading dan paragraph tidak bekerja sendiri.
+</p>
+
+<p>
+Mereka seperti peta dan jalan.
+</p>
+
+<ul>
+<li>Heading → menunjukkan ke mana harus pergi</li>
+<li>Paragraph → menjelaskan apa yang ada di sana</li>
+</ul>
+
+<p>
+Tanpa heading, halaman terasa datar.  
+Tanpa paragraph, halaman terasa kosong.
+</p>
+
+<p>
+Keduanya membentuk alur yang membuat pembaca tetap bertahan.
+</p>
+
+<hr>
+
+<h3>📌 D. Contoh Tampilan</h3>
+
+<div class="code">
+&lt;h1&gt;Judul Besar&lt;/h1&gt;
+&lt;h2&gt;Sub Judul&lt;/h2&gt;
+&lt;p&gt;Isi paragraf&lt;/p&gt;
+</div>
+
+<h1>Judul Besar</h1>
+<h2>Sub Judul</h2>
+<p>Ini contoh paragraf yang menjelaskan isi dari sub judul di atas.</p>
+
+<p>
+Jika diperhatikan, mata kita secara alami:
+</p>
+
+<ul>
+<li>Melihat judul terlebih dahulu</li>
+<li>Lalu turun ke penjelasan</li>
+</ul>
+
+<p>
+Ini bukan kebetulan.
+Ini adalah cara manusia membaca.
+</p>
+
+<hr>
+
+<h3>🚀 Catatan yang Sering Terlewat</h3>
+
+<p>
+Banyak pemula menggunakan heading hanya untuk memperbesar teks.
+</p>
+
+<p>
+Namun sebenarnya:
+</p>
+
+<ul>
+<li>Ukuran → diatur oleh CSS</li>
+<li>Heading → menentukan makna</li>
+</ul>
+
+<p>
+Dan ketika makna diabaikan,
+struktur pun ikut hilang.
+</p>
+
+<p>
+Pada akhirnya, HTML bukan hanya tentang menampilkan sesuatu,
+tetapi tentang membuat sesuatu <strong>dimengerti</strong>.
+</p>
+
+</section>
+
+<section>
+<h2>7. HTML Formatting</h2>
+
+<p>
+Teks bukan hanya untuk dibaca.
+Teks juga bisa <strong>dibentuk</strong>.
+</p>
+
+<p>
+Dalam HTML, proses ini disebut <em>formatting</em> —
+sebuah cara untuk memberi penekanan, arah, dan rasa pada tulisan.
+</p>
+
+<hr>
+
+<h3>📌 A. Visual vs Makna</h3>
+
+<p>
+Tidak semua formatting diciptakan sama.
+Beberapa hanya mengubah tampilan,
+sementara yang lain membawa arti.
+</p>
+
+<ul>
+<li>&lt;b&gt; → terlihat tebal</li>
+<li>&lt;strong&gt; → penting</li>
+<li>&lt;i&gt; → terlihat miring</li>
+<li>&lt;em&gt; → memberi penekanan</li>
+</ul>
+
+<p>
+Perbedaannya halus, tetapi penting.
+</p>
+
+<p>
+&lt;b&gt; dan &lt;i&gt; berbicara pada mata.  
+&lt;strong&gt; dan &lt;em&gt; berbicara pada makna.
+</p>
+
+<p>
+Dan dalam dunia web modern,
+makna selalu lebih berharga.
+</p>
+
+<hr>
+
+<h3>📌 B. Membentuk Teks</h3>
+
+<p>
+Berikut beberapa cara HTML “membentuk” tulisan:
+</p>
+
+<div class="code">
+&lt;b&gt;Bold&lt;/b&gt;
+&lt;i&gt;Italic&lt;/i&gt;
+&lt;mark&gt;Highlight&lt;/mark&gt;
+&lt;small&gt;Small&lt;/small&gt;
+&lt;del&gt;Deleted&lt;/del&gt;
+&lt;ins&gt;Inserted&lt;/ins&gt;
+</div>
+
+<p>
+Hasilnya:
+</p>
+
+<b>Bold</b><br>
+<i>Italic</i><br>
+<mark>Highlight</mark><br>
+<small>Small</small><br>
+<del>Deleted</del><br>
+<ins>Inserted</ins>
+
+<p>
+Setiap elemen membawa nuansa yang berbeda.
+</p>
+
+<hr>
+
+<h3>📌 C. Karakter dari Setiap Elemen</h3>
+
+<ul>
+<li><strong>&lt;mark&gt;</strong> → menarik perhatian, seperti stabilo</li>
+<li><strong>&lt;small&gt;</strong> → suara kecil, informasi tambahan</li>
+<li><strong>&lt;del&gt;</strong> → sesuatu yang ditinggalkan</li>
+<li><strong>&lt;ins&gt;</strong> → sesuatu yang baru ditambahkan</li>
+</ul>
+
+<p>
+HTML tidak hanya menampilkan teks,
+tetapi juga memberi konteks pada perubahan.
+</p>
+
+<hr>
+
+<h3>📌 D. Cara Berpikir Seorang "Formater"</h3>
+
+<p>
+Seorang penulis biasa menulis kalimat.  
+Seorang formater membentuk pengalaman membaca.
+</p>
+
+<p>
+Ia bertanya:
+</p>
+
+<ul>
+<li>Bagian mana yang penting?</li>
+<li>Bagian mana yang perlu disorot?</li>
+<li>Bagian mana yang hanya tambahan?</li>
+</ul>
+
+<p>
+Dari situlah formatting digunakan,
+bukan sekadar untuk memperindah,
+tetapi untuk membantu pembaca memahami.
+</p>
+
+<hr>
+
+<h3>⚠ Catatan Penting</h3>
+
+<p>
+Formatting bukan untuk layout.
+</p>
+
+<p>
+Jika ingin:
+</p>
+
+<ul>
+<li>Mengatur posisi → gunakan CSS</li>
+<li>Mengubah desain → gunakan CSS</li>
+</ul>
+
+<p>
+HTML tetap fokus pada struktur dan makna.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Ketika seseorang membaca halaman web,
+mereka tidak membaca semua kata.
+</p>
+
+<p>
+Mereka memindai.
+Mereka mencari bagian penting.
+</p>
+
+<p>
+Dan di situlah formatting bekerja —
+diam, tetapi menentukan apa yang terlihat terlebih dahulu.
+</p>
+
+<p>
+👉 Formatting yang baik tidak terasa,
+tetapi selalu membantu.
+</p>
+
+</section>
+
+<section>
+<h2>8. Comments</h2>
+
+<p>
+Ada bagian dalam HTML yang tidak pernah terlihat oleh pengguna,
+tetapi sering menjadi penyelamat bagi pembuatnya.
+</p>
+
+<p>
+Itulah <strong>komentar</strong>.
+</p>
+
+<hr>
+
+<h3>📌 Apa itu Komentar?</h3>
+
+<p>
+Komentar adalah catatan di dalam kode
+yang tidak akan ditampilkan oleh browser.
+</p>
+
+<div class="code">
+&lt;!-- Ini komentar --&gt;
+</div>
+
+<p>
+Ia tidak mengubah tampilan.  
+Ia tidak mempengaruhi fungsi.  
+Namun ia membantu <strong>memahami</strong>.
+</p>
+
+<hr>
+
+<h3>📌 Mengapa Komentar Dibutuhkan?</h3>
+
+<p>
+Ketika kode masih sedikit, semuanya terasa jelas.
+</p>
+
+<p>
+Namun seiring waktu:
+</p>
+
+<ul>
+<li>Struktur semakin panjang</li>
+<li>Elemen semakin banyak</li>
+<li>Logika semakin kompleks</li>
+</ul>
+
+<p>
+Dan di titik itu, ingatan mulai tidak cukup.
+</p>
+
+<p>
+Komentar hadir sebagai pengingat—
+bukan untuk komputer, tetapi untuk manusia.
+</p>
+
+<hr>
+
+<h3>📌 Fungsi Komentar</h3>
+
+<ul>
+<li>Menjelaskan bagian kode</li>
+<li>Memberi petunjuk untuk diri sendiri di masa depan</li>
+<li>Membantu orang lain memahami struktur</li>
+<li>Menonaktifkan sementara bagian tertentu</li>
+</ul>
+
+<hr>
+
+<h3>📌 Contoh Penggunaan</h3>
+
+<div class="code">
+&lt;!-- Header utama halaman --&gt;
+&lt;header&gt;
+  ...
+&lt;/header&gt;
+</div>
+
+<p>
+Komentar ini mungkin terlihat sederhana,
+tetapi ia memberi konteks.
+</p>
+
+<p>
+Tanpa komentar, kode hanya kumpulan tag.  
+Dengan komentar, kode menjadi <strong>cerita</strong>.
+</p>
+
+<hr>
+
+<h3>📌 Menonaktifkan Sementara Kode</h3>
+
+<p>
+Komentar juga bisa digunakan untuk “mematikan” kode tanpa menghapusnya.
+</p>
+
+<div class="code">
+&lt;!-- 
+&lt;p&gt;Ini tidak akan tampil&lt;/p&gt;
+--&gt;
+</div>
+
+<p>
+Ini berguna saat mencoba sesuatu tanpa merusak struktur utama.
+</p>
+
+<hr>
+
+<h3>⚠ Hal yang Sering Terlewat</h3>
+
+<p>
+Komentar memang tidak terlihat di halaman,
+tetapi tetap bisa dilihat melalui:
+</p>
+
+<ul>
+<li>View Page Source</li>
+<li>Inspect Element</li>
+</ul>
+
+<p>
+Jadi:
+</p>
+
+<ul>
+<li>Jangan simpan password ❌</li>
+<li>Jangan simpan data sensitif ❌</li>
+</ul>
+
+<hr>
+
+<h3>🧠 Sebuah Kebiasaan Kecil</h3>
+
+<p>
+Banyak pemula tidak menulis komentar
+karena merasa “masih ingat”.
+</p>
+
+<p>
+Namun beberapa hari kemudian,
+kode yang sama terasa asing.
+</p>
+
+<p>
+Di situlah komentar menjadi penting.
+</p>
+
+<p>
+Bukan untuk hari ini,
+tetapi untuk versi dirimu di masa depan.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Kode yang baik bisa dijalankan.  
+Kode yang diberi komentar bisa dipahami.
+</p>
+
+<p>
+Dan dalam dunia nyata,
+dipahami sering kali lebih berharga daripada sekadar berjalan.
+</p>
+
+</section>
+
+<section>
+<h2>9. HTML Colors</h2>
+
+<p>
+Warna dalam web bukan hanya tampilan,
+tetapi cara mengarahkan perhatian.
+</p>
+
+<p>
+Di bagian ini, kamu tidak hanya belajar,
+tetapi juga <strong>mencoba langsung</strong>.
+</p>
+
+<hr>
+
+<h3>📌 A. Format Warna</h3>
+
+<ul>
+<li>Nama → red, blue, green</li>
+<li>HEX → #ff0000</li>
+<li>RGB → rgb(255,0,0)</li>
+<li>HSL → hsl(0,100%,50%)</li>
+</ul>
+
+<p>
+✔ Semua format ini bisa kamu gunakan di bawah 👇
+</p>
+
+<hr>
+
+<h3>🎨 B. Palet Interaktif (Ubah Warna Teks)</h3>
+
+<p>Klik warna untuk mengubah teks:</p>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <div onclick="setTextColor('#ef4444')" style="width:40px;height:40px;background:#ef4444;border-radius:6px;cursor:pointer;"></div>
+  <div onclick="setTextColor('#22c55e')" style="width:40px;height:40px;background:#22c55e;border-radius:6px;cursor:pointer;"></div>
+  <div onclick="setTextColor('#3b82f6')" style="width:40px;height:40px;background:#3b82f6;border-radius:6px;cursor:pointer;"></div>
+  <div onclick="setTextColor('#facc15')" style="width:40px;height:40px;background:#facc15;border-radius:6px;cursor:pointer;"></div>
+  <div onclick="setTextColor('#a855f7')" style="width:40px;height:40px;background:#a855f7;border-radius:6px;cursor:pointer;"></div>
+</div>
+
+<hr>
+
+<h3>🎛 C. Ubah Warna Halaman & Section</h3>
+
+<label>Background Halaman:</label><br>
+<input id="bgInput" placeholder="contoh: #f8fafc / rgb(200,200,200)"><br><br>
+
+<label>Background Section:</label><br>
+<input id="sectionInput" placeholder="contoh: white / hsl(0,0%,95%)"><br><br>
+
+<label>Warna Teks:</label><br>
+<input id="textInput" placeholder="contoh: black / #333"><br><br>
+
+<button onclick="applyColor()">Terapkan</button>
+<button onclick="resetColors()" style="background:#ef4444; margin-left:10px;">Reset Semua Warna</button>
+
+<hr>
+
+<h3>📌 D. Contoh Cepat</h3>
+
+<div class="code">
+color: red;
+color: #00ff00;
+color: rgb(0,0,255);
+color: hsl(300,100%,50%);
+</div>
+
+<hr>
+
+<h3>⚠ Tips Penting</h3>
+
+<ul>
+<li>Gunakan kontras tinggi untuk teks</li>
+<li>Hindari warna terlalu terang</li>
+<li>Gunakan warna secukupnya</li>
+</ul>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Warna yang baik tidak selalu terlihat mencolok,
+tetapi selalu terasa nyaman.
+</p>
+
+</section>
+
+<section>
+<h2>10(1). HTML Image Map</h2>
+
+<p>
+Satu gambar, banyak fungsi.
+</p>
+
+<p>
+Dengan <strong>image map</strong>, satu gambar bisa memiliki beberapa area klik
+yang mengarah ke bagian berbeda.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Dasar</h3>
+
+<div class="code">
+&lt;img src="komodo.jpg" usemap="#map1"&gt;
+
+&lt;map name="map1"&gt;
+  &lt;area shape="rect" coords="0,0,100,100" href="https://google.com"&gt;
+&lt;/map&gt;
+</div>
+
+<p>
+💡 Area pada gambar dapat “dipotong” menjadi bagian interaktif.
+</p>
+
+<hr>
+
+<h3>🖼 Interaktif: Atur Gambar</h3>
+
+<img id="gambarInteraktif" src="komodo.jpg" style="display:block;margin:20px auto;max-width:300px;">
+
+<br>
+
+<label>Ukuran:</label><br>
+<input id="sizeInput" placeholder="200px / 50%"><br><br>
+
+<label>Posisi (left/center/right):</label><br>
+<input id="positionInput"><br><br>
+
+<label>Float (left/right/none):</label><br>
+<input id="floatInput"><br><br>
+
+<label>Bentuk (radius):</label><br>
+<input id="radiusInput" placeholder="0px / 50%"><br><br>
+
+<button onclick="applyImage()">Terapkan</button>
+
+<hr>
+
+<h3>📌 Cara Kerja</h3>
+
+<ul>
+<li><strong>usemap</strong> → menghubungkan gambar</li>
+<li><strong>area</strong> → menentukan area klik</li>
+<li><strong>coords</strong> → posisi pixel</li>
+</ul>
+
+<p>
+⚠ Koordinat dihitung dari ukuran asli gambar.
+</p>
+
+</section>
+
+<section>
+<h2>10(2). HTML Background Image</h2>
+
+<p>
+Tidak semua gambar harus terlihat sebagai elemen.
+Beberapa cukup menjadi latar.
+</p>
+
+<div class="code">
+body{
+  background-image: url('komodo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</div>
+
+<hr>
+
+<h3>📌 Penjelasan</h3>
+
+<ul>
+<li><strong>cover</strong> → memenuhi layar</li>
+<li><strong>contain</strong> → menyesuaikan tanpa terpotong</li>
+<li><strong>center</strong> → posisi tengah</li>
+</ul>
+
+<p>
+💡 Gunakan background untuk estetika,
+bukan informasi penting.
+</p>
+
+<hr>
+
+<h3>🎛 Mini Interaktif</h3>
+
+<label>URL Gambar:</label><br>
+<input id="bgImageInput" placeholder="komodo.jpg"><br><br>
+
+<button onclick="applyBgImage()">Terapkan Background</button>
+
+</section>
+
+<section>
+<h2>10(3). HTML Picture Element</h2>
+
+<p>
+Tidak semua layar memiliki ukuran yang sama.
+</p>
+
+<p>
+Tag &lt;picture&gt; memungkinkan gambar menyesuaikan perangkat.
+</p>
+
+<div class="code">
+&lt;picture&gt;
+  &lt;source media="(max-width:600px)" srcset="small.jpg"&gt;
+  &lt;img src="large.jpg"&gt;
+&lt;/picture&gt;
+</div>
+
+<hr>
+
+<h3>📌 Cara Kerja</h3>
+
+<ul>
+<li>Browser membaca dari atas</li>
+<li>Jika cocok → gunakan source</li>
+<li>Jika tidak → gunakan img</li>
+</ul>
+
+<p>
+👉 Ini disebut <strong>responsive image</strong>
+</p>
+
+<hr>
+
+<h3>📌 Kenapa Penting?</h3>
+
+<ul>
+<li>Loading lebih cepat</li>
+<li>Hemat data</li>
+<li>Tampilan optimal</li>
+</ul>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Website modern tidak menampilkan gambar yang sama untuk semua device.
+</p>
+
+<p>
+Ia menyesuaikan.
+</p>
+
+<p>
+Dan di situlah &lt;picture&gt; bekerja.
+</p>
+
+</section>
+
+<section>
+<h2>11. Tables</h2>
+
+<p>
+Tidak semua informasi bisa dijelaskan dengan paragraf.
+Beberapa hal perlu disusun agar dapat dibandingkan,
+dilihat pola-nya, dan dipahami dengan cepat.
+</p>
+
+<p>
+Di sinilah tabel digunakan.
+</p>
+
+<p>
+Tabel bukan sekadar garis dan kotak,
+tetapi cara untuk menata informasi agar menjadi jelas.
+</p>
+
+<hr>
+
+<h3>📌 Struktur Dasar</h3>
+
+<p>
+Sebuah tabel terdiri dari beberapa bagian utama.
+Masing-masing memiliki peran yang berbeda,
+namun saling melengkapi.
+</p>
+
+<ul>
+<li><strong>&lt;table&gt;</strong> → wadah utama</li>
+<li><strong>&lt;tr&gt;</strong> → baris</li>
+<li><strong>&lt;th&gt;</strong> → judul kolom</li>
+<li><strong>&lt;td&gt;</strong> → isi data</li>
+</ul>
+
+<p>
+Struktur ini terlihat sederhana,
+namun membentuk sistem yang teratur.
+</p>
+
+<div class="code">
+&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nama&lt;/th&gt;
+    &lt;th&gt;Umur&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Budi&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</div>
+
+<p>
+Hasilnya:
+</p>
+
+<table border="1">
+<tr><th>Nama</th><th>Umur</th></tr>
+<tr><td>Budi</td><td>20</td></tr>
+</table>
+
+<p>
+Mata kita secara alami membaca dari kiri ke kanan,
+dan dari atas ke bawah.
+Tabel memanfaatkan kebiasaan itu.
+</p>
+
+<hr>
+
+<h3>📌 Menggabungkan Sel</h3>
+
+<p>
+Tidak semua data harus berdiri sendiri.
+Terkadang, beberapa bagian perlu digabungkan.
+</p>
+
+<p>
+HTML menyediakan dua cara:
+</p>
+
+<ul>
+<li><strong>colspan</strong> → menggabungkan kolom</li>
+<li><strong>rowspan</strong> → menggabungkan baris</li>
+</ul>
+
+<div class="code">
+&lt;td colspan="2"&gt;Gabungan Kolom&lt;/td&gt;
+&lt;td rowspan="2"&gt;Gabungan Baris&lt;/td&gt;
+</div>
+
+<p>
+Dengan ini, tabel menjadi lebih fleksibel,
+tidak lagi kaku.
+</p>
+
+<hr>
+
+<h3>📌 Tampilan dengan CSS</h3>
+
+<p>
+Dulu, tabel sering menggunakan atribut langsung seperti <em>border</em>.
+Namun dalam praktik modern,
+tampilan diatur menggunakan CSS.
+</p>
+
+<div class="code">
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+}
+</div>
+
+<p>
+Dengan CSS, tampilan menjadi lebih rapi,
+lebih fleksibel, dan lebih mudah diatur.
+</p>
+
+<hr>
+
+<h3>📌 Cara Berpikir</h3>
+
+<p>
+Tabel bukan untuk semua hal.
+</p>
+
+<p>
+Gunakan tabel ketika:
+</p>
+
+<ul>
+<li>Data memiliki hubungan baris dan kolom</li>
+<li>Perbandingan diperlukan</li>
+<li>Informasi perlu disusun secara sistematis</li>
+</ul>
+
+<p>
+Jangan gunakan tabel untuk:
+</p>
+
+<ul>
+<li>Layout halaman</li>
+<li>Mengatur posisi elemen</li>
+</ul>
+
+<p>
+Karena itu bukan fungsi utamanya.
+</p>
+
+<hr>
+
+<h3>🧠 Sebuah Pola</h3>
+
+<p>
+Ketika data mulai terlihat berantakan,
+tabel menjadi cara untuk merapikannya.
+</p>
+
+<p>
+Ia tidak menambah informasi,
+tetapi membuat informasi lebih mudah dipahami.
+</p>
+
+<p>
+Dan terkadang,
+cara kita menyusun data
+lebih penting daripada jumlah data itu sendiri.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Tabel adalah bentuk paling sederhana dari struktur data.
+</p>
+
+<p>
+Dan dari struktur sederhana itu,
+lahir banyak hal yang lebih kompleks.
+</p>
+
+<p>
+Memahami tabel bukan hanya tentang HTML,
+tetapi tentang bagaimana manusia memahami informasi.
+</p>
+
+</section>
+
+<section>
+<h2>12. Forms</h2>
+
+<p>
+Jika HTML sebelumnya hanya menampilkan informasi,
+maka di sinilah sebuah halaman mulai “hidup”.
+</p>
+
+<p>
+Form adalah titik di mana pengguna tidak lagi hanya melihat,
+tetapi mulai <strong>berinteraksi</strong>.
+</p>
+
+<p>
+Ia menjadi jembatan antara manusia dan sistem.
+</p>
+
+<hr>
+
+<h3>📌 Struktur Dasar</h3>
+
+<div class="code">
+&lt;form&gt;
+  &lt;input type="text" placeholder="Nama"&gt;
+  &lt;button&gt;Kirim&lt;/button&gt;
+&lt;/form&gt;
+</div>
+
+<p>
+Di dalam form, data dikumpulkan,
+lalu dikirim ke suatu tujuan.
+</p>
+
+<hr>
+
+<h3>📌 Atribut Penting pada Form</h3>
+
+<p>
+Sebuah form biasanya memiliki dua atribut utama:
+</p>
+
+<ul>
+<li><strong>action</strong> → ke mana data dikirim</li>
+<li><strong>method</strong> → cara data dikirim (GET / POST)</li>
+</ul>
+
+<div class="code">
+&lt;form action="/proses" method="post"&gt;
+&lt;/form&gt;
+</div>
+
+<p>
+GET biasanya digunakan untuk pencarian,
+sedangkan POST digunakan untuk data yang lebih penting.
+</p>
+
+<hr>
+
+<h3>📌 Jenis Input</h3>
+
+<ul>
+<li>text → teks biasa</li>
+<li>email → validasi email</li>
+<li>password → teks tersembunyi</li>
+<li>number → angka</li>
+<li>date → tanggal</li>
+<li>checkbox → pilihan lebih dari satu</li>
+<li>radio → pilihan satu dari banyak</li>
+</ul>
+
+<p>
+Setiap input memiliki perilaku yang berbeda,
+dan dirancang untuk kebutuhan tertentu.
+</p>
+
+<hr>
+
+<h3>📌 Label (Yang Sering Dilupakan)</h3>
+
+<p>
+Label digunakan untuk memberi nama pada input.
+</p>
+
+<div class="code">
+&lt;label&gt;Nama&lt;/label&gt;
+&lt;input type="text"&gt;
+</div>
+
+<p>
+Dengan label:
+</p>
+
+<ul>
+<li>form lebih mudah dipahami</li>
+<li>aksesibilitas meningkat</li>
+</ul>
+
+<p>
+💡 Dalam praktik terbaik, label selalu digunakan.
+</p>
+
+<hr>
+
+<h3>📌 Atribut "name"</h3>
+
+<p>
+Setiap input sebaiknya memiliki atribut <strong>name</strong>.
+</p>
+
+<div class="code">
+&lt;input type="text" name="username"&gt;
+</div>
+
+<p>
+Atribut ini penting karena:
+</p>
+
+<ul>
+<li>digunakan saat data dikirim</li>
+<li>menjadi “identitas” dari input</li>
+</ul>
+
+<p>
+Tanpa name, data tidak akan terbaca oleh sistem.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Form Sederhana</h3>
+
+<div class="code">
+&lt;form&gt;
+  &lt;label&gt;Nama&lt;/label&gt;
+  &lt;input type="text" name="nama"&gt;
+
+  &lt;label&gt;Email&lt;/label&gt;
+  &lt;input type="email" name="email"&gt;
+
+  &lt;button&gt;Kirim&lt;/button&gt;
+&lt;/form&gt;
+</div>
+
+<hr>
+
+<h3>🧠 Cara Berpikir</h3>
+
+<p>
+Form bukan sekadar kumpulan input.
+</p>
+
+<p>
+Ia adalah sistem komunikasi:
+</p>
+
+<ul>
+<li>pengguna → mengisi data</li>
+<li>sistem → menerima dan memproses</li>
+</ul>
+
+<p>
+Semakin jelas form,
+semakin mudah pengguna berinteraksi.
+</p>
+
+<hr>
+
+<h3>⚠ Hal yang Sering Terjadi</h3>
+
+<ul>
+<li>Tidak menggunakan label ❌</li>
+<li>Tidak memberi atribut name ❌</li>
+<li>Menggunakan tipe input yang salah ❌</li>
+</ul>
+
+<p>
+Kesalahan kecil ini bisa membuat form sulit digunakan.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Sebagian besar fitur penting di internet
+dibangun dari form:
+</p>
+
+<ul>
+<li>Login</li>
+<li>Register</li>
+<li>Pencarian</li>
+<li>Upload data</li>
+</ul>
+
+<p>
+Form mungkin terlihat sederhana,
+tetapi di baliknya terdapat alur komunikasi
+antara pengguna dan sistem.
+</p>
+
+<p>
+Dan di situlah sebuah website mulai benar-benar bekerja.
+</p>
+
+</section>
+
+<section>
+<h2>12(2). Form Pendataan Siswa</h2>
+
+<p>
+Form tidak selalu tentang login.
+Dalam kehidupan nyata, form digunakan untuk mengumpulkan data.
+</p>
+
+<p>
+Contoh sederhana adalah pendataan siswa.
+</p>
+
+<hr>
+
+<form id="studentForm">
+
+<label>Nama Lengkap</label><br>
+<input type="text" id="nama"><br><br>
+
+<label>NIS</label><br>
+<input type="number" id="nis"><br><br>
+
+<label>Email</label><br>
+<input type="email" id="email"><br><br>
+
+<label>Kelas</label><br>
+<select id="kelas">
+  <option value="">Pilih Kelas</option>
+  <option>X</option>
+  <option>XI</option>
+  <option>XII</option>
+</select><br><br>
+
+<label>Jenis Kelamin</label><br>
+<input type="radio" name="jk" value="L"> Laki-laki
+<input type="radio" name="jk" value="P"> Perempuan
+<br><br>
+
+<label>Data Benar?</label><br>
+<input type="checkbox" id="validasi"> Saya menyatakan data ini benar
+<br><br>
+
+<button type="submit">Kirim Data</button>
+
+</form>
+
+<p id="formMessage"></p>
+
+<h3 id="tableTitle" style="display:none;">📊 Data Siswa</h3>
+
+<table id="resultTable" style="display:none; border-collapse:collapse; margin-top:20px;">
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>NIS</th>
+      <th>Email</th>
+      <th>Kelas</th>
+      <th>JK</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+</section>
+
+<section>
+<h2>13. Semantic HTML</h2>
+
+<p>
+Saat pertama belajar HTML, biasanya kita fokus pada:
+judul, paragraf, gambar, dan warna.
+</p>
+
+<p>
+Namun seiring waktu, muncul pertanyaan:
+<strong>“Bagaimana cara menyusun halaman dengan benar?”</strong>
+</p>
+
+<p>
+Di sinilah semantic HTML mulai berperan.
+</p>
+
+<hr>
+
+<h3>📌 Apa itu Semantic HTML?</h3>
+
+<p>
+Semantic HTML adalah penggunaan elemen HTML
+yang memiliki <strong>arti atau fungsi yang jelas</strong>.
+</p>
+
+<p>
+Artinya, kita tidak hanya membuat tampilan,
+tetapi juga menjelaskan bagian dari halaman tersebut.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Elemen</h3>
+
+<ul>
+<li>&lt;header&gt; → bagian atas (judul / logo)</li>
+<li>&lt;nav&gt; → menu navigasi</li>
+<li>&lt;main&gt; → isi utama halaman</li>
+<li>&lt;section&gt; → bagian konten</li>
+<li>&lt;article&gt; → konten mandiri (artikel, berita)</li>
+<li>&lt;footer&gt; → bagian bawah</li>
+</ul>
+
+<p>
+💡 Nama elemen biasanya sudah menggambarkan fungsinya.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Sederhana</h3>
+
+<div class="code">
+&lt;header&gt;Website Saya&lt;/header&gt;
+
+&lt;nav&gt;Home | About&lt;/nav&gt;
+
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Judul&lt;/h2&gt;
+    &lt;p&gt;Isi konten&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;Copyright&lt;/footer&gt;
+</div>
+
+<p>
+Walaupun belum diberi CSS,
+kita sudah bisa memahami strukturnya.
+</p>
+
+<hr>
+
+<h3>📌 Kenapa Tidak Pakai &lt;div&gt; Saja?</h3>
+
+<p>
+Sebenarnya, semua ini bisa dibuat dengan &lt;div&gt;.
+</p>
+
+<div class="code">
+&lt;div&gt;Header&lt;/div&gt;
+&lt;div&gt;Menu&lt;/div&gt;
+</div>
+
+<p>
+Namun:
+</p>
+
+<ul>
+<li>&lt;div&gt; tidak memiliki arti khusus</li>
+<li>semantic HTML memberi makna</li>
+</ul>
+
+<p>
+👉 Perbedaannya mungkin tidak terlihat,
+tetapi sangat penting bagi sistem yang membaca halaman.
+</p>
+
+<hr>
+
+<h3>📌 Mengapa Ini Penting?</h3>
+
+<ul>
+<li>Membantu mesin pencari (SEO)</li>
+<li>Membantu screen reader (aksesibilitas)</li>
+<li>Membuat kode lebih rapi</li>
+</ul>
+
+<p>
+Meskipun belum terasa di awal,
+ini akan sangat membantu saat proyek menjadi lebih besar.
+</p>
+
+<hr>
+
+<h3>🧠 Cara Berpikir Sederhana</h3>
+
+<p>
+Saat membuat halaman, coba tanyakan:
+</p>
+
+<ul>
+<li>“Bagian ini untuk apa?”</li>
+</ul>
+
+<p>
+Bukan:
+</p>
+
+<ul>
+<li>“Bagaimana tampilannya?”</li>
+</ul>
+
+<p>
+Dari situ, kamu bisa memilih elemen yang tepat.
+</p>
+
+<hr>
+
+<h3>⚠ Catatan untuk Pemula</h3>
+
+<p>
+Jika masih merasa bingung, itu wajar.
+</p>
+
+<p>
+Semantic HTML biasanya mulai terasa penting
+saat kamu membuat website yang lebih kompleks.
+</p>
+
+<p>
+Untuk sekarang, cukup:
+</p>
+
+<ul>
+<li>mengenali elemen</li>
+<li>mulai menggunakannya perlahan</li>
+</ul>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+HTML bukan hanya tentang membuat sesuatu terlihat,
+tetapi juga tentang membuat sesuatu <strong>dimengerti</strong>.
+</p>
+
+<p>
+Dan semantic HTML adalah langkah awal ke arah itu.
+</p>
+
+</section>
+
+<section>
+<h2>14. Div dan Span</h2>
+
+<p>
+Di antara semua elemen HTML,
+ada dua yang terlihat sangat sederhana,
+bahkan sering dianggap “tidak penting”.
+</p>
+
+<p>
+Namun justru keduanya digunakan hampir di setiap halaman web.
+</p>
+
+<p>
+Elemen tersebut adalah:
+<strong>&lt;div&gt;</strong> dan <strong>&lt;span&gt;</strong>.
+</p>
+
+<hr>
+
+<h3>📌 Apa Itu &lt;div&gt; dan &lt;span&gt;?</h3>
+
+<p>
+Keduanya adalah elemen “umum” yang tidak memiliki makna khusus,
+berbeda dengan semantic HTML seperti &lt;header&gt; atau &lt;nav&gt;.
+</p>
+
+<p>
+Namun justru karena tidak memiliki makna,
+mereka menjadi sangat fleksibel.
+</p>
+
+<hr>
+
+<h3>📌 Perbedaan Utama</h3>
+
+<ul>
+<li><strong>&lt;div&gt;</strong> → elemen <em>block</em> (selalu mulai baris baru)</li>
+<li><strong>&lt;span&gt;</strong> → elemen <em>inline</em> (tetap dalam baris)</li>
+</ul>
+
+<div class="code">
+&lt;div&gt;Ini div&lt;/div&gt;
+&lt;span&gt;Ini span&lt;/span&gt;
+</div>
+
+<p>
+Div akan “memisahkan” area,
+sementara span hanya membungkus bagian kecil dari teks.
+</p>
+
+<hr>
+
+<h3>📌 Fungsi dalam Praktik</h3>
+
+<p>
+&lt;div&gt; biasanya digunakan sebagai:
+</p>
+
+<ul>
+<li>container (pembungkus)</li>
+<li>pembagi layout</li>
+<li>struktur halaman</li>
+</ul>
+
+<p>
+&lt;span&gt; biasanya digunakan untuk:
+</p>
+
+<ul>
+<li>memberi style pada sebagian teks</li>
+<li>menandai bagian kecil dalam paragraf</li>
+</ul>
+
+<div class="code">
+&lt;p&gt;
+  Ini adalah &lt;span style="color:red"&gt;teks penting&lt;/span&gt;
+&lt;/p&gt;
+</div>
+
+<hr>
+
+<h3>📌 Contoh Nyata</h3>
+
+<p>
+Sebagian besar website sebenarnya dibangun seperti ini:
+</p>
+
+<div class="code">
+&lt;div class="container"&gt;
+  &lt;div class="header"&gt;Header&lt;/div&gt;
+  &lt;div class="content"&gt;Isi&lt;/div&gt;
+&lt;/div&gt;
+</div>
+
+<p>
+Kemudian CSS digunakan untuk mengatur tampilannya.
+</p>
+
+<p>
+Artinya:
+</p>
+
+<p>
+HTML → struktur  
+CSS → tampilan  
+</p>
+
+<hr>
+
+<h3>📌 Hubungan dengan CSS</h3>
+
+<p>
+Div dan span hampir selalu digunakan bersama CSS.
+</p>
+
+<p>
+Tanpa CSS, keduanya terlihat biasa saja.  
+Dengan CSS, keduanya bisa menjadi apa saja.
+</p>
+
+<p>
+Mulai dari:
+</p>
+
+<ul>
+<li>layout website</li>
+<li>card</li>
+<li>navbar</li>
+<li>grid</li>
+</ul>
+
+<hr>
+
+<h3>📌 Kapan Menggunakan?</h3>
+
+<p>
+Gunakan &lt;div&gt; ketika:
+</p>
+
+<ul>
+<li>membuat bagian besar</li>
+<li>mengatur layout</li>
+<li>membungkus beberapa elemen</li>
+</ul>
+
+<p>
+Gunakan &lt;span&gt; ketika:
+</p>
+
+<ul>
+<li>mengubah sebagian kecil teks</li>
+<li>tidak ingin membuat baris baru</li>
+</ul>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum</h3>
+
+<ul>
+<li>Menggunakan terlalu banyak div tanpa struktur ❌</li>
+<li>Tidak menggunakan semantic HTML ❌</li>
+</ul>
+
+<p>
+Div memang fleksibel,
+tetapi bukan berarti digunakan untuk semua hal.
+</p>
+
+<hr>
+
+<h3>🧠 Cara Berpikir</h3>
+
+<p>
+Bayangkan div sebagai “kotak besar”,
+dan span sebagai “pena penanda”.
+</p>
+
+<p>
+Div membentuk struktur,
+span memberi detail.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+Sebagian besar layout modern sebenarnya tidak rumit.
+</p>
+
+<p>
+Ia hanya kombinasi dari:
+</p>
+
+<ul>
+<li>div untuk struktur</li>
+<li>CSS untuk tampilan</li>
+</ul>
+
+<p>
+Kesederhanaan inilah yang membuat web menjadi fleksibel.
+</p>
+
+<p>
+Dan dari dua elemen sederhana ini,
+lahir hampir seluruh tampilan website modern.
+</p>
+
+</section>
+
+<section>
+<h2>15. Accessibility</h2>
+
+<p>
+Website tidak hanya dibuat untuk dilihat,
+tetapi juga untuk <strong>digunakan oleh semua orang</strong>.
+</p>
+
+<p>
+Termasuk mereka yang:
+</p>
+
+<ul>
+<li>tidak bisa melihat dengan jelas</li>
+<li>menggunakan screen reader</li>
+<li>memiliki keterbatasan fisik</li>
+</ul>
+
+<p>
+Inilah yang disebut <strong>accessibility</strong>.
+</p>
+
+<hr>
+
+<h3>📌 Apa Itu Accessibility?</h3>
+
+<p>
+Accessibility adalah cara membuat website
+agar dapat diakses oleh semua orang,
+tanpa terkecuali.
+</p>
+
+<p>
+HTML sebenarnya sudah menyediakan banyak fitur untuk ini,
+hanya saja sering diabaikan.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Penting</h3>
+
+<ul>
+<li><strong>alt pada gambar</strong></li>
+</ul>
+
+<div class="code">
+&lt;img src="foto.jpg" alt="Siswa sedang belajar"&gt;
+</div>
+
+<p>
+Alt membantu screen reader menjelaskan gambar.
+</p>
+
+<ul>
+<li><strong>label pada form</strong></li>
+</ul>
+
+<div class="code">
+&lt;label&gt;Nama&lt;/label&gt;
+&lt;input type="text"&gt;
+</div>
+
+<p>
+Label membantu pengguna memahami input.
+</p>
+
+<ul>
+<li><strong>struktur heading</strong></li>
+</ul>
+
+<p>
+Heading (&lt;h1&gt;–&lt;h6&gt;) membantu navigasi,
+terutama bagi pengguna screen reader.
+</p>
+
+<hr>
+
+<h3>📌 Contoh Kasus Nyata</h3>
+
+<p>
+Bayangkan seseorang tidak bisa melihat layar,
+dan hanya mendengar melalui screen reader.
+</p>
+
+<p>
+Tanpa alt:
+</p>
+
+<ul>
+<li>gambar hanya disebut “image”</li>
+</ul>
+
+<p>
+Dengan alt:
+</p>
+
+<ul>
+<li>gambar dijelaskan secara jelas</li>
+</ul>
+
+<p>
+Perbedaannya sangat besar.
+</p>
+
+<hr>
+
+<h3>📌 Hal Sederhana yang Bisa Dilakukan</h3>
+
+<ul>
+<li>Selalu gunakan alt pada gambar</li>
+<li>Gunakan label pada form</li>
+<li>Gunakan heading secara berurutan</li>
+<li>Gunakan semantic HTML</li>
+</ul>
+
+<p>
+Hal-hal ini terlihat kecil,
+tetapi berdampak besar.
+</p>
+
+<hr>
+
+<h3>⚠ Kesalahan Umum</h3>
+
+<ul>
+<li>Tidak memberi alt pada gambar ❌</li>
+<li>Menggunakan div tanpa struktur ❌</li>
+<li>Melewati urutan heading ❌</li>
+</ul>
+
+<p>
+Kesalahan ini sering terjadi,
+terutama pada pemula.
+</p>
+
+<hr>
+
+<h3>🧠 Cara Berpikir</h3>
+
+<p>
+Saat membuat website, coba tanyakan:
+</p>
+
+<ul>
+<li>“Apakah semua orang bisa menggunakan ini?”</li>
+</ul>
+
+<p>
+Bukan hanya:
+</p>
+
+<ul>
+<li>“Apakah ini terlihat bagus?”</li>
+</ul>
+
+<p>
+Dari situ, accessibility mulai terbentuk.
+</p>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+HTML yang baik bukan hanya untuk dilihat,
+tetapi juga untuk dipahami oleh semua orang,
+termasuk mesin dan alat bantu.
+</p>
+
+<p>
+Accessibility mungkin tidak terlihat,
+tetapi selalu terasa.
+</p>
+
+<p>
+Dan di situlah kualitas sebuah website benar-benar diuji.
+</p>
+
+</section>
+
+<section>
+<h2>16. Meta & SEO</h2>
+
+<p>
+Tidak semua yang penting terlihat di halaman.
+</p>
+
+<p>
+Beberapa bagian justru bekerja di belakang,
+mempengaruhi bagaimana sebuah halaman
+dipahami oleh mesin, bukan manusia.
+</p>
+
+<hr>
+
+<h3>📌 Meta: Informasi yang Tidak Ditampilkan</h3>
+
+<div class="code">
+&lt;meta name="description" content="Belajar HTML"&gt;
+</div>
+
+<p>
+Meta bukan untuk pengguna.
+Meta adalah untuk sistem yang membaca halaman.
+</p>
+
+<p>
+Ia tidak muncul di layar,
+tetapi menentukan bagaimana halaman dikenali.
+</p>
+
+<hr>
+
+<h3>📌 Cara Mesin “Membaca” Halaman</h3>
+
+<p>
+Browser menampilkan HTML.  
+Mesin pencari <em>menafsirkan</em> HTML.
+</p>
+
+<p>
+Perbedaannya halus,
+tetapi menentukan.
+</p>
+
+<p>
+Yang terlihat oleh pengguna:
+</p>
+
+<ul>
+<li>judul</li>
+<li>teks</li>
+<li>gambar</li>
+</ul>
+
+<p>
+Yang dilihat mesin:
+</p>
+
+<ul>
+<li>struktur</li>
+<li>relasi</li>
+<li>prioritas</li>
+</ul>
+
+<hr>
+
+<h3>📌 Meta sebagai “Sinyal”</h3>
+
+<p>
+Setiap meta tag adalah sinyal.
+</p>
+
+<p>
+Bukan instruksi mutlak,
+melainkan petunjuk.
+</p>
+
+<p>
+Dan seperti semua sistem yang kompleks,
+petunjuk tidak selalu diikuti—
+tetapi selalu dipertimbangkan.
+</p>
+
+<hr>
+
+<h3>📌 Contoh yang Sering Digunakan</h3>
+
+<div class="code">
+&lt;meta name="description" content="Website belajar HTML dasar hingga lanjut"&gt;
+
+&lt;meta name="keywords" content="HTML, CSS, belajar coding"&gt;
+
+&lt;meta name="author" content="Nama Anda"&gt;
+</div>
+
+<p>
+Beberapa meta bersifat informatif,
+beberapa lainnya historis,
+dan sebagian lagi… hanya relevan dalam konteks tertentu.
+</p>
+
+<hr>
+
+<h3>📌 SEO Bukan Sekadar Kata Kunci</h3>
+
+<p>
+Banyak yang mengira SEO adalah tentang kata.
+</p>
+
+<p>
+Padahal yang lebih penting adalah:
+</p>
+
+<ul>
+<li>struktur yang konsisten</li>
+<li>hierarki yang jelas</li>
+<li>makna yang tepat</li>
+</ul>
+
+<p>
+Di sinilah HTML berperan.
+</p>
+
+<hr>
+
+<h3>📌 Apa yang Sebenarnya Dinilai?</h3>
+
+<p>
+Bukan hanya isi,
+tetapi bagaimana isi tersebut disusun.
+</p>
+
+<p>
+Sebuah halaman dengan struktur yang baik
+lebih mudah dipahami,
+dibandingkan halaman yang hanya penuh konten.
+</p>
+
+<p>
+Dan pemahaman adalah dasar dari pencarian.
+</p>
+
+<hr>
+
+<h3>🧠 Cara Membaca Bagian Ini</h3>
+
+<p>
+Jika terasa membingungkan, itu wajar.
+</p>
+
+<p>
+Meta dan SEO jarang terasa di awal,
+karena hasilnya tidak langsung terlihat.
+</p>
+
+<p>
+Namun seiring waktu,
+pengaruhnya mulai terlihat dari:
+</p>
+
+<ul>
+<li>kemudahan ditemukan</li>
+<li>kejelasan struktur</li>
+<li>konsistensi halaman</li>
+</ul>
+
+<hr>
+
+<h3>🚀 Insight</h3>
+
+<p>
+HTML yang baik tidak hanya untuk pengguna,
+tetapi juga untuk sistem yang membaca di balik layar.
+</p>
+
+<p>
+Dan sering kali,
+yang tidak terlihat itulah yang paling menentukan.
+</p>
+
+</section>
+</div>
+
+</main>
+
+<script src="TutorialHTML.js"></script>
+
+
+
+<!-- LOGOUT TERMINAL -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="terminal">
+    <pre id="terminalText"></pre>
+  </div>
+</div>
+
+<div id="redirectLoading" style="
+  position:fixed;
+  inset:0;
+  background:#0f172a;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+">
+  <div style="
+    background:black;
+    padding:20px 30px;
+    border-radius:10px;
+    color:#00ff88;
+    font-family:monospace;
+  ">
+    <span id="loadingText"></span>
+  </div>
+</div>
+
+<footer>
+  Modul Pembelajaran HTML Lengkap | Disusun untuk Tujuan Akademik<br>
+  <a href="tryHTML.html" class="try-link">🚀 Coba Langsung di tryHTML →</a>
+</footer>
+
+</body>
+
+</html>

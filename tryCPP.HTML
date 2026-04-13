@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tryCPP - Simple C++ Runner</title>
+    <link rel="stylesheet" href="tryCPP.CSS">
+</head>
+<body>
+    <div class="container">
+        <div class="panel editor-panel">
+            <h3>📝 C++ Code</h3>
+            <textarea id="cppEditor" spellcheck="false"></textarea>
+        </div>
+        <div class="panel output-panel">
+            <div class="control-panel">
+                <button id="runCpp">▶ RUN</button>
+                <button id="stopCpp" class="stop-btn">⏹ STOP</button>
+                <div class="status" id="runStatus">● Ready</div>
+            </div>
+            <div>
+                <h3>📟 Output</h3>
+                <pre id="cppOutput"></pre>
+                <div class="info-note">ℹ️ Input menggunakan pop-up browser (prompt).</div>
+            </div>
+        </div>
+    </div>
+    <script src="tryCPP.js"></script>
+</body>
+</html>

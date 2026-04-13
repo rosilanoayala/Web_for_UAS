@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial C++ Interaktif</title>
+    <link rel="stylesheet" href="TutorialCPP.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <h1>Modul C++ Interaktif 💻</h1>
+    <p>Pembelajaran C++ dari Dasar hingga Lanjut</p>
+    <div class="header-bottom">
+        <input type="text" id="searchInput" placeholder="🔍 Cari materi..." onkeyup="cariMateri()">
+        <div id="accountPlaceholder"></div>
+    </div>
+</header>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="topnav">
+    <div class="logo">PORTAL</div>
+    <div class="nav-right">
+        <a href="HOME.html">HOME</a>
+        <a href="HOME.html#service-contact">SERVICE CONTACT</a>
+        <a href="TempatKursus.html">TEMPAT KURSUS</a>
+        <div class="account-wrapper" id="accountWrapper">
+            <a href="#" class="sign-btn" id="authButton">Sign In</a>
+            <div class="dropdown-menu">
+                <a href="#">👤 Profile</a>
+                <a href="#" id="logoutBtn">🚪 Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== MINI HEADER ===== -->
+<div class="mini-header" id="miniHeader">
+    <input type="text" placeholder="🔍 Cari materi..." id="searchMini" onkeyup="cariMateri()">
+    <div class="mini-account" id="miniAccount"></div>
+</div>
+
+<main id="mainContent">
+<!-- ================= SECTION 1: INTRODUCTION TO C++ (DIPERPANJANG) ================= -->
+<section>
+    <h2>1. Pengantar C++ (Introduction to C++)</h2>
+    <p>C++ adalah bahasa pemrograman yang sangat populer dan powerful. Diciptakan oleh <strong>Bjarne Stroustrup</strong> pada tahun 1985 sebagai pengembangan dari bahasa C. C++ sering disebut sebagai bahasa <strong>tingkat menengah</strong> karena memberikan keseimbangan antara kemudahan (seperti bahasa tingkat tinggi) dan kontrol langsung terhadap perangkat keras (seperti bahasa tingkat rendah).</p>
+    
+    <p>Bayangkan Anda ingin membangun sebuah rumah. Bahasa tingkat rendah (seperti bahasa mesin) adalah seperti Anda harus menyusun batu bata satu per satu, merekatkannya dengan semen, dan mengatur setiap detail teknis. Bahasa tingkat tinggi (seperti Python) adalah seperti Anda tinggal memberi perintah "bangun rumah" dan semuanya berjalan otomatis, tapi Anda tidak tahu persis bagaimana prosesnya. C++ berada di tengah: Anda bisa mengatur detail teknis jika perlu, tetapi juga bisa menggunakan komponen yang sudah jadi. Inilah mengapa C++ sangat fleksibel.</p>
+    
+    <h3>🔍 Bagaimana C++ Bekerja? (Kompilasi)</h3>
+    <p>Berbeda dengan bahasa seperti JavaScript atau Python yang langsung dijalankan (diinterpretasi), program C++ harus melalui proses <strong>kompilasi</strong>. Kompilasi adalah proses menerjemahkan kode C++ (yang bisa dibaca manusia) ke dalam bahasa mesin (kode biner yang dimengerti komputer). Hasil terjemahan ini disebut <strong>file executable</strong> (.exe di Windows). File inilah yang kemudian dijalankan oleh komputer.</p>
+    <div class="code">
+        // Kode sumber (source code) → ditulis programmer
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            cout &lt;&lt; "Hello, World!";
+            return 0;
+        }
+        
+        // Proses kompilasi: compiler (misal g++) mengubah ke bahasa mesin
+        // Hasil: file executable (a.out atau program.exe)
+        
+        // Saat dijalankan: komputer langsung mengeksekusi instruksi mesin
+    </div>
+    <p>Kelebihan kompilasi: program berjalan sangat cepat karena sudah dalam bentuk bahasa mesin. Kekurangan: setiap kali mengubah kode, harus dikompilasi ulang.</p>
+    
+    <h3>🧱 Struktur Dasar Program C++ (Kerangka Wajib)</h3>
+    <p>Setiap program C++ harus memiliki struktur berikut agar bisa dikompilasi dan dijalankan:</p>
+    <div class="code">
+        #include &lt;iostream&gt;    // 1. Menyertakan library
+        using namespace std;    // 2. Agar tidak perlu menulis std:: berulang
+        
+        int main() {            // 3. Fungsi utama (entry point)
+            // 4. Kode instruksi di sini
+            cout &lt;&lt; "Hello";
+            return 0;           // 5. Menandakan program sukses
+        }
+    </div>
+    <ul>
+        <li><strong>#include &lt;iostream&gt;</strong> → memanggil library Input-Output Stream, diperlukan untuk menggunakan <code>cout</code> (output) dan <code>cin</code> (input).</li>
+        <li><strong>using namespace std;</strong> → memberi tahu compiler bahwa kita menggunakan namespace standar C++, sehingga kita bisa menulis <code>cout</code> bukan <code>std::cout</code>.</li>
+        <li><strong>int main()</strong> → fungsi utama. Program selalu dimulai dari sini. Tanda kurung <code>()</code> bisa berisi parameter (kosong artinya tanpa parameter). Tanda kurung kurawal <code>{ }</code> membungkus badan program.</li>
+        <li><strong>return 0;</strong> → mengembalikan nilai 0 ke sistem operasi, menandakan program berakhir tanpa error. Nilai selain 0 biasanya menandakan error.</li>
+    </ul>
+    
+    <h3>🧩 Paradigma Pemrograman yang Didukung C++</h3>
+    <p>C++ adalah bahasa multi-paradigma, artinya Anda bisa memilih gaya pemrograman yang sesuai:</p>
+    <ul>
+        <li><strong>Prosedural</strong> → program ditulis sebagai urutan instruksi (seperti C). Cocok untuk program sederhana.</li>
+        <li><strong>Berorientasi Objek (OOP)</strong> → menggunakan <code>class</code> dan <code>object</code> untuk memodelkan dunia nyata. Ini memudahkan pengembangan program besar.</li>
+        <li><strong>Generik</strong> → menggunakan <code>template</code> sehingga fungsi/class bisa bekerja dengan berbagai tipe data tanpa menulis ulang kode.</li>
+    </ul>
+    <div class="code">
+        // Prosedural: fungsi biasa
+        int tambah(int a, int b) { return a + b; }
+        
+        // OOP: class
+        class Mobil { public: string merek; void klakson() { cout << "Beep!"; } };
+        
+        // Generik: template
+        template &lt;typename T&gt; T kali(T a, T b) { return a * b; }
+    </div>
+    
+    <h3>🚀 Kelebihan C++ (Kenapa Banyak Dipakai?)</h3>
+    <ul>
+        <li><strong>Performa sangat tinggi</strong> → karena dikompilasi ke bahasa mesin, C++ sangat cepat, cocok untuk game, sistem operasi, dan aplikasi real-time.</li>
+        <li><strong>Kontrol memori langsung</strong> → Anda bisa mengatur alokasi dan dealokasi memori menggunakan <code>new</code> dan <code>delete</code> (atau malloc/free). Ini penting untuk program yang hemat memori.</li>
+        <li><strong>Dukungan multi-paradigma</strong> → tidak memaksa satu gaya, Anda bisa memilih yang paling sesuai.</li>
+        <li><strong>Portabilitas</strong> → program C++ dapat dikompilasi di berbagai sistem operasi (Windows, Linux, macOS) dengan perubahan minimal.</li>
+    </ul>
+    
+    <h3>🌍 Contoh Nyata Penggunaan C++</h3>
+    <ul>
+        <li>Game engine seperti Unreal Engine, Unity (bagian core-nya).</li>
+        <li>Sistem operasi: Windows, macOS, Linux (bagian kernel dan driver).</li>
+        <li>Software Adobe (Photoshop, Illustrator) menggunakan C++.</li>
+        <li>Browser: Chrome, Firefox (engine rendering).</li>
+        <li>Sistem embedded (mikrokontroler, IoT).</li>
+        <li>Sistem finansial real-time (perdagangan saham).</li>
+    </ul>
+    
+    <h3>⚠️ Hal yang Perlu Diperhatikan (Jebakan Pemula)</h3>
+    <p>C++ memberikan kebebasan penuh, tapi tanggung jawab juga besar. Kesalahan kecil bisa menyebabkan bug misterius atau crash. Contoh:</p>
+    <div class="code">
+        int angka = 3.5;   // Tidak error, tapi angka akan menjadi 3 (nilai desimal terpotong)
+        cout << angka;     // Output: 3
+    </div>
+    <p>Kode di atas tidak error karena C++ secara otomatis mengkonversi double ke int dengan memotong bagian desimal. Ini bisa menyebabkan hasil perhitungan salah jika tidak disadari.</p>
+    <p>Tips: selalu perhatikan tipe data, inisialisasi variabel sebelum digunakan, dan jangan lupa <code>delete</code> memori yang dialokasikan dengan <code>new</code>.</p>
+    
+    <h3>🎯 Kesimpulan Section 1</h3>
+    <p>C++ adalah bahasa yang kuat, fleksibel, dan sangat cepat. Meskipun kurva belajarnya lebih curam daripada bahasa seperti Python, menguasai C++ akan memberi Anda pemahaman mendalam tentang bagaimana komputer bekerja. Di section berikutnya, kita akan mempelajari struktur dan syntax dasar C++ secara lebih detail.</p>
+</section>
+
+<!-- ================= SECTION 2: STRUKTUR DAN SYNTAX DASAR C++ (DIPERPANJANG) ================= -->
+<section>
+    <h2>2. Struktur dan Syntax Dasar C++</h2>
+    <p>Setiap program C++ memiliki <strong>struktur baku</strong> yang harus diikuti. Memahami struktur ini sama pentingnya dengan memahami fondasi rumah: jika fondasi salah, rumah bisa roboh. Begitu juga program, jika struktur dasar salah, compiler akan menolak program Anda.</p>
+    
+    <h3>🧱 Komponen Wajib dalam Program C++</h3>
+    <p>Program C++ minimal terdiri dari:</p>
+    <ul>
+        <li><strong>Library header</strong> (opsional tapi hampir selalu ada) – misal <code>#include &lt;iostream&gt;</code> untuk input/output.</li>
+        <li><strong>Fungsi main()</strong> – harus ada, karena compiler mencari fungsi ini sebagai titik awal.</li>
+        <li><strong>Pernyataan (statements)</strong> – instruksi yang diakhiri titik koma <code>;</code>.</li>
+        <li><strong>Return statement</strong> – mengembalikan nilai ke sistem operasi (biasanya <code>return 0;</code>).</li>
+    </ul>
+    <div class="code">
+        #include &lt;iostream&gt;   // header
+        int main() {          // fungsi utama
+            std::cout &lt;&lt; "Halo"; // statement
+            return 0;         // return
+        }
+    </div>
+    <p>Tanpa <code>main()</code>, compiler akan error: <em>"undefined reference to `main'"</em>.</p>
+    
+    <h3>🔍 Anatomi Kode: Penjelasan Per Baris</h3>
+    <p>Mari kita bedah program "Hello World" yang sudah dimodifikasi sedikit:</p>
+    <div class="code">
+        #include &lt;iostream&gt;   // baris 1: preprocessor directive, menyertakan library iostream
+        using namespace std;   // baris 2: menggunakan namespace std agar tidak perlu std:: di depan cout
+        
+        int main() {           // baris 3: deklarasi fungsi main, tipe data int (mengembalikan integer)
+            cout &lt;&lt; "Hello";  // baris 4: mencetak Hello ke layar, diikuti newline (endl)
+            return 0;          // baris 5: mengembalikan 0 (sukses) ke sistem operasi
+        }                      // baris 6: penutup kurung kurawal
+    </div>
+    <ul>
+        <li><strong>Preprocessor directive</strong> dimulai dengan <code>#</code>. Di sini <code>#include</code> menyisipkan isi file iostream ke dalam program sebelum kompilasi.</li>
+        <li><strong>using namespace std;</strong> memberi akses ke semua nama dalam namespace std (seperti cout, cin, endl). Tanpa ini, kita harus menulis <code>std::cout</code>.</li>
+        <li><strong>int main()</strong> → tipe <code>int</code> menunjukkan bahwa fungsi mengembalikan nilai integer. Tanda kurung <code>()</code> bisa berisi parameter (kosong artinya tidak ada).</li>
+        <li><strong>cout &lt;&lt; "Hello";</strong> → <code>cout</code> (character output) adalah objek untuk menampilkan teks. Operator <code>&lt;&lt;</code> mengarahkan teks ke layar.</li>
+        <li><strong>return 0;</strong> → mengirimkan nilai 0 ke pemanggil (sistem operasi). Nilai 0 berarti program sukses.</li>
+    </ul>
+    
+    <h3>⚠️ Kesalahan Sintaks yang Paling Sering Dilakukan Pemula</h3>
+    <p>Compiler C++ sangat teliti. Kesalahan sekecil apapun bisa membuat program gagal dikompilasi. Berikut adalah tiga kesalahan paling umum:</p>
+    <ul>
+        <li><strong>Lupa titik koma (;)</strong> di akhir statement. C++ membutuhkan titik koma sebagai pemisah.</li>
+        <li><strong>Salah kapitalisasi</strong> – C++ case-sensitive, jadi <code>Cout</code> berbeda dengan <code>cout</code>. Hanya <code>cout</code> yang benar.</li>
+        <li><strong>Kurung kurawal tidak seimbang</strong> – setiap <code>{</code> harus ditutup dengan <code>}</code>.</li>
+    </ul>
+    <div class="code">
+        // ❌ ERROR: lupa titik koma
+        int main() {
+            cout << "Hello"
+            return 0;
+        }
+        
+        // ✅ BENAR
+        int main() {
+            cout << "Hello";
+            return 0;
+        }
+    </div>
+    
+    <h3>🧠 Cara Kerja Kompilasi (Lebih Detil)</h3>
+    <p>Proses mengubah kode C++ menjadi program yang bisa dijalankan terdiri dari 4 tahap:</p>
+    <ol>
+        <li><strong>Preprocessing</strong> → menangani semua perintah <code>#include</code>, <code>#define</code>, dll. Hasilnya adalah kode C++ "murni".</li>
+        <li><strong>Kompilasi</strong> → mengubah kode C++ menjadi bahasa assembly (kode tingkat rendah yang masih bisa dibaca manusia).</li>
+        <li><strong>Assembly</strong> → mengubah bahasa assembly menjadi kode mesin (object file .o atau .obj).</li>
+        <li><strong>Linking</strong> → menggabungkan semua object file dan library menjadi satu file executable (.exe).</li>
+    </ol>
+    <p>Sebagai pemula, Anda tidak perlu mendalami setiap tahap, cukup tahu bahwa compiler (seperti g++, clang, MSVC) melakukan semuanya secara otomatis.</p>
+    
+    <h3>💡 Cara Berpikir Seperti Programmer</h3>
+    <p>Pemrograman bukan hanya menghafal syntax, tetapi tentang <strong>logika</strong>. Setiap program pada dasarnya mengikuti pola:</p>
+    <div class="code">
+        INPUT → PROSES → OUTPUT
+    </div>
+    <p>Contoh: program yang menambahkan dua angka. Input: angka pertama dan kedua. Proses: menjumlahkan. Output: hasil penjumlahan.</p>
+    <div class="code">
+        int a, b;
+        cin >> a >> b;        // INPUT
+        int hasil = a + b;    // PROSES
+        cout << hasil;        // OUTPUT
+    </div>
+    <p>Jika Anda memahami pola ini, mempelajari konsep seperti fungsi, array, dan objek akan terasa lebih alami.</p>
+    
+    <h3>🚀 Tips Efektif Belajar C++ untuk Pemula</h3>
+    <ul>
+        <li>Jangan hanya membaca teori. Ketik setiap contoh kode sendiri, lalu ubah-ubah dan lihat hasilnya.</li>
+        <li>Gunakan compiler online (seperti onlinegdb.com) jika belum menginstal compiler lokal.</li>
+        <li>Baca pesan error dengan teliti. Compiler memberi tahu baris dan jenis error. Jangan panik, error adalah teman belajar.</li>
+        <li>Mulailah dengan program sederhana, lalu secara bertahap tingkatkan kompleksitas.</li>
+    </ul>
+    
+    <h3>🎯 Kesimpulan Section 2</h3>
+    <p>Struktur dasar program C++ sangat sederhana: <code>#include</code>, <code>using namespace std;</code>, <code>int main() { ... }</code>. Setiap statement diakhiri titik koma. Setelah menguasai struktur ini, Anda siap mempelajari konsep inti berikutnya: variabel, tipe data, dan operator.</p>
+</section>
+
+<!-- ================= SECTION 3: VARIABEL DALAM C++ (DIPERPANJANG) ================= -->
+<section>
+    <h2>3. Variabel dalam C++</h2>
+    <p>Variabel adalah konsep paling fundamental dalam pemrograman. Tanpa variabel, program tidak bisa menyimpan data. Bayangkan Anda sedang menghitung uang di dompet. Anda perlu "tempat" untuk menyimpan jumlah uang, lalu bisa menambah, mengurangi, atau menampilkan. Variabel adalah tempat penyimpanan data di memori komputer.</p>
+    
+    <h3>📦 Analogi Sederhana: Kotak Penyimpanan</h3>
+    <p>Anggaplah variabel sebagai kotak dengan label. Setiap kotak memiliki:</p>
+    <ul>
+        <li><strong>Nama</strong> → label kotak (misal "umur", "nama", "tinggi").</li>
+        <li><strong>Tipe data</strong> → jenis barang yang boleh disimpan (misal kotak khusus untuk angka, atau kotak khusus untuk teks).</li>
+        <li><strong>Nilai</strong> → isi kotak (misal 20, "Andi", 170.5).</li>
+    </ul>
+    <div class="code">
+        [ umur ]   → 20
+        [ nama ]   → "Andi"
+    </div>
+    
+    <h3>🧱 Cara Mendeklarasikan Variabel</h3>
+    <p>Di C++, Anda harus <strong>mendeklarasikan</strong> variabel sebelum menggunakannya. Deklarasi memberi tahu compiler: "Saya akan menggunakan variabel dengan nama ini dan tipe ini". Bentuk umum:</p>
+    <div class="code">
+        tipe_data nama_variabel;
+        // atau langsung diisi
+        tipe_data nama_variabel = nilai;
+    </div>
+    <p>Contoh deklarasi dengan inisialisasi:</p>
+    <div class="code">
+        int umur = 20;               // variabel integer (bilangan bulat)
+        double tinggi = 170.5;       // variabel desimal (presisi ganda)
+        char grade = 'A';            // karakter tunggal (pakai kutip satu)
+        string nama = "Andi";        // teks (butuh #include &lt;string&gt;)
+        bool sudahMenikah = false;   // boolean (true/false)
+    </div>
+    
+    <h3>📊 Tipe Data Dasar yang Harus Diketahui</h3>
+    <ul>
+        <li><strong>int</strong> → bilangan bulat (…, -2, -1, 0, 1, 2, …). Ukuran biasanya 4 byte.</li>
+        <li><strong>double</strong> → bilangan desimal (1.5, 3.14, 0.0001). Presisi tinggi (15-16 digit desimal).</li>
+        <li><strong>float</strong> → bilangan desimal dengan presisi lebih rendah (6-7 digit). Lebih hemat memori tapi kurang akurat.</li>
+        <li><strong>char</strong> → satu karakter, ditulis dalam kutip tunggal ('A', '5', '&').</li>
+        <li><strong>string</strong> → kumpulan karakter (teks), butuh <code>#include &lt;string&gt;</code>.</li>
+        <li><strong>bool</strong> → hanya dua nilai: <code>true</code> (1) atau <code>false</code> (0).</li>
+    </ul>
+    <p>Memilih tipe data yang tepat penting untuk efisiensi memori dan akurasi. Misalnya, jika Anda menyimpan umur (bilangan bulat), gunakan <code>int</code>. Jika menyimpan suhu (bisa desimal), gunakan <code>double</code>.</p>
+    
+    <h3>🔄 Mengubah Nilai Variabel</h3>
+    <p>Variabel bersifat <strong>dinamis</strong>, artinya nilainya bisa berubah selama program berjalan.</p>
+    <div class="code">
+        int skor = 0;
+        skor = 10;          // sekarang skor berisi 10
+        skor = skor + 5;    // skor menjadi 15
+        cout << skor;       // output: 15
+    </div>
+    <p>Perhatikan bahwa Anda tidak perlu menulis ulang tipe data saat mengubah nilai. Cukup tulis nama variabel = nilai baru.</p>
+    
+    <h3>🔒 Konstanta: Variabel yang Tidak Bisa Diubah</h3>
+    <p>Kadang Anda ingin nilai tetap sepanjang program, misalnya nilai PI (3.14159) atau jumlah hari dalam seminggu (7). Gunakan kata kunci <code>const</code>.</p>
+    <div class="code">
+        const double PI = 3.14159;
+        const int HARI_DALAM_MINGGU = 7;
+        // PI = 3.14;   // ERROR! konstanta tidak bisa diubah
+    </div>
+    <p>Konstanta biasanya ditulis dengan huruf kapital untuk membedakan dari variabel biasa.</p>
+    
+    <h3>📛 Aturan Penamaan Variabel (Identifier)</h3>
+    <p>Nama variabel harus mengikuti aturan tertentu, jika tidak compiler akan error:</p>
+    <ul>
+        <li>Hanya boleh terdiri dari huruf (a-z, A-Z), angka (0-9), dan garis bawah (_).</li>
+        <li>Tidak boleh diawali angka. (contoh: <code>1nama</code> salah).</li>
+        <li>Tidak boleh mengandung spasi atau simbol lain (@, #, $, dll).</li>
+        <li>Bersifat <strong>case-sensitive</strong> → <code>umur</code> berbeda dengan <code>Umur</code>.</li>
+        <li>Tidak boleh menggunakan kata kunci C++ (seperti <code>int</code>, <code>return</code>, <code>if</code>, <code>while</code>).</li>
+    </ul>
+    <div class="code">
+        // Benar
+        int umurSaya = 20;
+        int _nilai = 100;
+        int tinggi_badan = 170;
+        
+        // Salah
+        int 1umur = 20;    // diawali angka
+        int umur saya = 20; // ada spasi
+        int int = 10;       // int adalah kata kunci
+    </div>
+    <p>Tips: gunakan nama yang bermakna (jangan <code>a, b, c</code>), dan ikuti konvensi: <code>camelCase</code> untuk variabel (contoh: <code>hargaTotal</code>) atau <code>snake_case</code> (contoh: <code>harga_total</code>).</p>
+    
+    <h3>🧠 Bagaimana Variabel Disimpan di Memori?</h3>
+    <p>Ketika Anda mendeklarasikan variabel, komputer akan mencari ruang kosong di RAM (Random Access Memory) dan menyimpan nilainya di sana. Setiap variabel memiliki <strong>alamat memori</strong> yang unik (biasanya berupa bilangan heksadesimal). Anda bisa melihat alamat dengan operator <code>&</code> (ampersand), tapi untuk pemula tidak perlu terlalu dipikirkan.</p>
+    <div class="code">
+        int angka = 10;
+        cout << &angka;   // mencetak alamat memori, misal 0x7ffd8a9b
+    </div>
+    <p>Memahami bahwa variabel adalah lokasi memori akan membantu nanti saat belajar pointer dan reference.</p>
+    
+    <h3>🧪 Contoh Program Lengkap dengan Variabel</h3>
+    <div class="code">
+        #include &lt;iostream&gt;
+        #include &lt;string&gt;
+        using namespace std;
+        
+        int main() {
+            string nama;
+            int usia;
+            
+            cout << "Masukkan nama: ";
+            getline(cin, nama);
+            cout << "Masukkan usia: ";
+            cin >> usia;
+            
+            cout << "Halo " << nama << ", usia Anda " << usia << " tahun." << endl;
+            cout << "Tahun depan Anda akan berusia " << usia + 1 << " tahun." << endl;
+            
+            return 0;
+        }
+    </div>
+    <p>Program di atas menggunakan variabel <code>nama</code> (string) dan <code>usia</code> (int) untuk menyimpan input dari pengguna, kemudian menampilkannya kembali dengan perhitungan sederhana.</p>
+    
+    <h3>💡 Tips Penting untuk Pemula</h3>
+    <ul>
+        <li>Selalu <strong>inisialisasi</strong> variabel saat mendeklarasikannya (beri nilai awal). Variabel yang tidak diinisialisasi berisi nilai "sampah" (nilai acak dari sisa memori) dan dapat menyebabkan bug.</li>
+        <li>Pilih nama variabel yang deskriptif. <code>x</code> mungkin OK untuk perulangan, tapi untuk menyimpan gaji karyawan, gunakan <code>gajiKaryawan</code>.</li>
+        <li>Gunakan <code>const</code> untuk nilai yang tidak akan berubah. Ini juga membuat program lebih mudah dipahami.</li>
+        <li>Jangan takut untuk membuat banyak variabel. Lebih baik jelas daripada terlalu sedikit dan membingungkan.</li>
+    </ul>
+    
+    <h3>🎯 Kesimpulan Section 3</h3>
+    <p>Variabel adalah tempat menyimpan data di memori. Setiap variabel memiliki tipe, nama, dan nilai. Anda dapat mengubah nilai variabel, kecuali jika dideklarasikan sebagai <code>const</code>. Aturan penamaan variabel cukup sederhana: hanya huruf, angka, garis bawah; tidak diawali angka; case-sensitive. Dengan menguasai variabel, Anda sudah memiliki fondasi untuk mempelajari operasi matematika, input/output, dan percabangan. Di section berikutnya, kita akan membahas tipe data secara lebih mendalam.</p>
+</section>
+
+    <!-- DINDING LOGIN (hanya tampil jika belum login) -->
+    <div id="loginWall" class="login-wall" style="display: none;">
+        <p>🔒 <strong>Materi selanjutnya (HTML Elements, Attributes, Styles, Tables, Forms, Semantic HTML, dan lainnya) hanya tersedia untuk pengguna yang login.</strong></p>
+        <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap.</p>
+        <a href="login.html" class="btn-login">Login Sekarang</a>
+    </div>
+
+    <div id="extraContent" style="display: none;">
+
+<!-- ================= SECTION 4: TIPE DATA (DIPERPANJANG) ================= -->
+<section>
+    <h2>4. Tipe Data (Data Types)</h2>
+    <p>Setelah kita belajar tentang variabel, sekarang saatnya memahami <strong>tipe data</strong>. Tipe data adalah jenis nilai yang dapat disimpan dalam sebuah variabel. Bayangkan Anda memiliki beberapa kotak penyimpanan: ada kotak khusus untuk menyimpan angka bulat, kotak untuk angka desimal, kotak untuk huruf, dan kotak untuk teks panjang. Setiap kotak memiliki fungsi dan kapasitas yang berbeda. Di C++, kita harus menentukan tipe data variabel saat mendeklarasikannya, agar compiler tahu berapa banyak memori yang perlu disediakan dan operasi apa yang diizinkan.</p>
+    
+    <p>Memilih tipe data yang tepat sangat penting karena:</p>
+    <ul>
+        <li>Menghemat penggunaan memori (misalnya, menyimpan nilai kecil di tipe yang lebih besar akan boros).</li>
+        <li>Menghindari kesalahan perhitungan (misalnya, menyimpan desimal di tipe integer akan membulatkan angka).</li>
+        <li>Membuat program lebih mudah dibaca dan dirawat.</li>
+    </ul>
+    
+    <h3>📊 Jenis-Jenis Tipe Data Dasar di C++</h3>
+    <p>Berikut adalah tipe data yang paling sering digunakan oleh pemula. Setelah Anda menguasai ini, nanti bisa mempelajari tipe data lain seperti <code>short</code>, <code>long</code>, <code>long long</code>, <code>unsigned</code>, dll.</p>
+    
+    <ul>
+        <li><strong>int</strong> → bilangan bulat (integer), contoh: 10, -5, 0, 1000. Ukuran biasanya 4 byte (bisa menampung nilai dari sekitar -2 miliar hingga 2 miliar).</li>
+        <li><strong>float</strong> → bilangan desimal (floating point) dengan presisi rendah (sekitar 6-7 digit desimal). Contoh: 3.14, -0.001, 2.5. Ukuran 4 byte.</li>
+        <li><strong>double</strong> → bilangan desimal dengan presisi tinggi (sekitar 15-16 digit desimal). Contoh: 3.14159265358979. Ukuran 8 byte. <strong>Rekomendasi:</strong> lebih sering gunakan double daripada float untuk akurasi.</li>
+        <li><strong>char</strong> → satu karakter, ditulis dalam kutip tunggal. Contoh: 'A', '5', '&amp;', ' '. Ukuran 1 byte.</li>
+        <li><strong>string</strong> → teks (kumpulan karakter), butuh <code>#include &lt;string&gt;</code>. Contoh: "Andi", "Halo dunia!". Ukuran bervariasi.</li>
+        <li><strong>bool</strong> → nilai logika, hanya dua kemungkinan: <code>true</code> (benar) atau <code>false</code> (salah). Biasanya digunakan untuk kondisi dalam percabangan atau perulangan.</li>
+    </ul>
+    
+    <h3>🧪 Contoh Deklarasi dan Inisialisasi</h3>
+    <div class="code">
+        int umur = 17;               // bilangan bulat
+        double tinggi = 170.5;       // desimal presisi tinggi
+        float berat = 55.75f;        // desimal presisi rendah (beri akhiran f)
+        char grade = 'A';            // satu karakter
+        string nama = "Budi";        // teks
+        bool aktif = true;           // true atau false
+    </div>
+    <p>Perhatikan bahwa untuk <code>float</code>, kita bisa menambahkan huruf <code>f</code> di akhir angka untuk memberi tahu compiler bahwa ini adalah float (bukan double).</p>
+    
+    <h3>⚠️ Kesalahan Umum yang Sering Terjadi</h3>
+    <div class="code">
+        // ❌ SALAH: int tidak bisa menyimpan desimal
+        int nilai = 3.5;   // nilai akan menjadi 3 (bagian desimal hilang)
+        
+        // ❌ SALAH: char hanya untuk satu karakter, bukan string
+        char huruf = "A";   // error! pakai kutip dua untuk string
+        
+        // ✅ BENAR:
+        int nilai = 3;          // integer
+        char huruf = 'A';       // char pakai kutip satu
+        string teks = "A";      // string pakai kutip dua
+    </div>
+    <p>Kesalahan lain: lupa menyertakan <code>#include &lt;string&gt;</code> saat menggunakan tipe <code>string</code>. Jika tidak, compiler akan error karena tidak mengenal <code>string</code>.</p>
+    
+    <h3>🔍 Memori dan Ukuran (Sedikit Lebih Dalam)</h3>
+    <p>Setiap tipe data memiliki ukuran memori yang tetap (kecuali string yang dinamis). Anda bisa mengecek ukuran dengan operator <code>sizeof()</code>:</p>
+    <div class="code">
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main() {
+            cout << "Ukuran int: " << sizeof(int) << " byte" << endl;
+            cout << "Ukuran double: " << sizeof(double) << " byte" << endl;
+            cout << "Ukuran char: " << sizeof(char) << " byte" << endl;
+            cout << "Ukuran bool: " << sizeof(bool) << " byte" << endl;
+            return 0;
+        }
+        // Output (bisa berbeda tergantung sistem):
+        // Ukuran int: 4 byte
+        // Ukuran double: 8 byte
+        // Ukuran char: 1 byte
+        // Ukuran bool: 1 byte
+    </div>
+    <p>Mengetahui ukuran ini berguna saat Anda bekerja dengan memori terbatas (misalnya pada mikrokontroler atau game dengan performa tinggi).</p>
+    
+    <h3>🎯 Kapan Menggunakan Tipe Data Tertentu?</h3>
+    <ul>
+        <li><strong>int</strong> → untuk hitungan, umur, indeks, jumlah barang (tidak butuh desimal).</li>
+        <li><strong>double</strong> → untuk pengukuran, perhitungan ilmiah, uang (butuh akurasi desimal).</li>
+        <li><strong>char</strong> → untuk memproses karakter satu per satu (misal dalam parsing teks).</li>
+        <li><strong>string</strong> → untuk menyimpan nama, alamat, kalimat.</li>
+        <li><strong>bool</strong> → untuk flag (penanda), status on/off, hasil perbandingan.</li>
+    </ul>
+    
+    <h3>💡 Tips Penting untuk Pemula</h3>
+    <ul>
+        <li>Jika ragu antara <code>float</code> dan <code>double</code>, pilih <code>double</code>. Lebih aman dan akurat, meskipun memakan memori dua kali lipat (tapi biasanya tidak masalah untuk program kecil).</li>
+        <li>Jangan gunakan <code>int</code> untuk menyimpan nilai desimal, karena akan terjadi <strong>truncation</strong> (pemotongan) yang tidak Anda sadari.</li>
+        <li>Selalu inisialisasi variabel saat mendeklarasikannya. Variabel yang tidak diinisialisasi berisi nilai "sampah" (nilai acak dari memori) dan bisa menyebabkan bug misterius.</li>
+        <li>Gunakan nama variabel yang mencerminkan tipe data (misal: <code>jumlahMahasiswa</code> untuk int, <code>rataRataNilai</code> untuk double).</li>
+    </ul>
+    
+    <h3>🧪 Contoh Program Lengkap dengan Berbagai Tipe Data</h3>
+    <div class="code">
+        #include &lt;iostream&gt;
+        #include &lt;string&gt;
+        using namespace std;
+        
+        int main() {
+            string nama;
+            int usia;
+            double ipk;
+            bool lulus;
+            
+            cout << "Masukkan nama: ";
+            getline(cin, nama);
+            cout << "Masukkan usia: ";
+            cin >> usia;
+            cout << "Masukkan IPK: ";
+            cin >> ipk;
+            
+            lulus = (ipk >= 2.75);
+            
+            cout << "\n--- Data Mahasiswa ---" << endl;
+            cout << "Nama : " << nama << endl;
+            cout << "Usia : " << usia << " tahun" << endl;
+            cout << "IPK  : " << ipk << endl;
+            cout << "Status lulus: " << (lulus ? "Ya" : "Tidak") << endl;
+            
+            return 0;
+        }
+    </div>
+    <p>Program di atas menggunakan <code>string</code>, <code>int</code>, <code>double</code>, dan <code>bool</code> untuk menyimpan data mahasiswa. Perhatikan bagaimana <code>bool</code> digunakan untuk menyimpan hasil perbandingan (<code>ipk >= 2.75</code>).</p>
+    
+    <h3>🚀 Kesimpulan</h3>
+    <p>Tipe data adalah fondasi dari setiap variabel. Memahami perbedaan antara <code>int</code>, <code>double</code>, <code>char</code>, <code>string</code>, dan <code>bool</code> akan membantu Anda menulis program yang lebih efisien dan bebas bug. Di section selanjutnya, kita akan belajar tentang <strong>input dari pengguna (cin)</strong> dan <strong>operator aritmatika</strong>. Pastikan Anda sudah paham tipe data sebelum melanjutkan.</p>
+</section>
+
+<!-- ================= SECTION 5: INPUT DARI PENGGUNA (DIPERPANJANG) ================= -->
+<section>
+    <h2>5. Input dari Pengguna (User Input)</h2>
+    <p>Selama ini kita hanya menampilkan teks ke layar menggunakan <code>cout</code>. Namun program yang baik biasanya <strong>berinteraksi</strong> dengan pengguna: menerima data, memprosesnya, lalu menampilkan hasil. Input dari pengguna membuat program menjadi <strong>dinamis</strong> dan <strong>personal</strong>. Di C++, kita menggunakan objek <code>cin</code> (character input) untuk membaca data dari keyboard.</p>
+    
+    <h3>🔍 Dasar-dasar cin</h3>
+    <p>Perhatikan contoh sederhana berikut:</p>
+    <div class="code">
+        int umur;
+        cin >> umur;
+    </div>
+    <p>Penjelasan:</p>
+    <ul>
+        <li><code>cin</code> adalah objek bawaan C++ untuk membaca input dari keyboard.</li>
+        <li>Operator <code>>></code> (ekstraksi) mengambil data dari <code>cin</code> dan menyimpannya ke variabel di sebelah kanan.</li>
+        <li>Program akan <strong>berhenti sejenak</strong> dan menunggu pengguna mengetik sesuatu lalu menekan <kbd>Enter</kbd>.</li>
+        <li>Input harus sesuai dengan tipe data variabel. Jika variabel <code>int</code> dan pengguna mengetik huruf, program bisa error atau berperilaku tidak terduga.</li>
+    </ul>
+    
+    <h3>🧪 Contoh Program Lengkap dengan Input</h3>
+    <div class="code">
+        #include &lt;iostream&gt;
+        using namespace std;
+        
+        int main() {
+            int umur;
+            cout << "Masukkan umur Anda: ";
+            cin >> umur;
+            cout << "Umur Anda adalah " << umur << " tahun." << endl;
+            return 0;
+        }
+    </div>
+    <p>Jika pengguna memasukkan angka <code>20</code>, outputnya: <code>Umur Anda adalah 20 tahun.</code></p>
+    
+    <h3>📝 Membaca String dengan cin (Hati-hati dengan Spasi)</h3>
+    <p><code>cin</code> menggunakan spasi, tab, atau newline sebagai pemisah. Artinya, jika pengguna mengetik <code>Andi Saputra</code>, hanya <code>"Andi"</code> yang akan terbaca, sisanya tertinggal di buffer. Perhatikan contoh:</p>
+    <div class="code">
+        string nama;
+        cout << "Masukkan nama lengkap: ";
+        cin >> nama;   // hanya membaca kata pertama
+        cout << "Halo " << nama << endl;
+        // Input: Andi Saputra
+        // Output: Halo Andi
+    </div>
+    <p>Untuk membaca kalimat lengkap yang mengandung spasi, kita perlu fungsi <code>getline()</code>.</p>
+    
+    <h3>📚 Membaca String dengan getline()</h3>
+    <p>Fungsi <code>getline(cin, variabel)</code> membaca seluruh baris hingga pengguna menekan <kbd>Enter</kbd>, termasuk spasi.</p>
+    <div class="code">
+        string namaLengkap;
+        cout << "Masukkan nama lengkap: ";
+        getline(cin, namaLengkap);
+        cout << "Halo " << namaLengkap << endl;
+        // Input: Andi Saputra
+        // Output: Halo Andi Saputra
+    </div>
+    
+    <h3>⚠️ Masalah Umum: cin dan getline Bersamaan</h3>
+    <p>Ini adalah jebakan klasik yang sering membuat pemula frustasi. Perhatikan kode berikut:</p>
+    <div class="code">
+        int umur;
+        string nama;
+        
+        cout << "Masukkan umur: ";
+        cin >> umur;
+        cout << "Masukkan nama: ";
+        getline(cin, nama);   // kenapa langsung terlewati?
+        
+        cout << "Umur: " << umur << ", Nama: " << nama << endl;
+    </div>
+    <p>Setelah <code>cin >> umur</code>, pengguna menekan <kbd>Enter</kbd>. Karakter newline (<code>'\n'</code>) yang dihasilkan tetap tertinggal di <strong>buffer input</strong>. Kemudian <code>getline(cin, nama)</code> membaca newline tersebut sebagai baris kosong, sehingga seolah-olah nama tidak sempat diisi.</p>
+    
+    <h3>🛠️ Solusi: Membersihkan Buffer dengan cin.ignore()</h3>
+    <p>Untuk mengatasi masalah di atas, kita perlu membersihkan buffer sebelum <code>getline</code>. Gunakan <code>cin.ignore()</code> yang akan membuang satu karakter (biasanya newline) dari buffer.</p>
+    <div class="code">
+        int umur;
+        string nama;
+        
+        cout << "Masukkan umur: ";
+        cin >> umur;
+        cin.ignore();   // membuang newline yang tertinggal
+        
+        cout << "Masukkan nama: ";
+        getline(cin, nama);
+        
+        cout << "Umur: " << umur << ", Nama: " << nama << endl;
+    </div>
+    <p>Jika Anda perlu membersihkan lebih banyak karakter (misal setelah membaca angka, ada banyak spasi), gunakan <code>cin.ignore(numeric_limits&lt;streamsize&gt;::max(), '\n')</code> untuk membersihkan seluruh baris hingga newline. Tapi untuk pemula, <code>cin.ignore()</code> satu kali sudah cukup.</p>
+    
+    <h3>🧠 Alur Kerja Input (Visualisasi)</h3>
+    <div class="code">
+        Program berjalan → menampilkan prompt → pengguna mengetik → tekan Enter
+        → data masuk ke buffer → cin atau getline mengambil data
+        → data disimpan ke variabel → program lanjut
+    </div>
+    
+    <h3>💡 Tips Penting untuk Pemula</h3>
+    <ul>
+        <li>Selalu beri <strong>pesan yang jelas</strong> sebelum meminta input, misal <code>cout << "Masukkan nilai: ";</code> agar pengguna tahu apa yang harus diketik.</li>
+        <li>Jika program Anda menggunakan <code>cin</code> dan <code>getline</code> secara berurutan, jangan lupa <code>cin.ignore()</code> di antara keduanya.</li>
+        <li>Hindari mencampur <code>cin</code> untuk angka dan <code>getline</code> untuk string tanpa membersihkan buffer.</li>
+        <li>Untuk membaca satu kata tanpa spasi, gunakan <code>cin</code>. Untuk membaca kalimat lengkap, gunakan <code>getline</code>.</li>
+        <li>Selalu validasi input jika memungkinkan (misal periksa apakah angka yang dimasukkan positif).</li>
+    </ul>
+    
+    <h3>🧪 Contoh Program Interaktif dengan Validasi Sederhana</h3>
+    <div class="code">
+        #include &lt;iostream&gt;
+        #include &lt;string&gt;
+        using namespace std;
+        
+        int main() {
+            string nama;
+            int nilai;
+            
+            cout << "=== Program Nilai Mahasiswa ===" << endl;
+            cout << "Masukkan nama: ";
+            getline(cin, nama);
+            
+            cout << "Masukkan nilai (0-100): ";
+            cin >> nilai;
+            
+            if (nilai >= 60) {
+                cout << "Selamat " << nama << ", Anda LULUS!" << endl;
+            } else {
+                cout << "Maaf " << nama << ", Anda TIDAK LULUS." << endl;
+            }
+            
+            return 0;
+        }
+    </div>
+    <p>Program di atas menggunakan <code>getline</code> untuk nama (bisa mengandung spasi) dan <code>cin</code> untuk angka. Karena tidak ada <code>cin</code> sebelum <code>getline</code>, tidak perlu <code>cin.ignore()</code>. Urutan input sangat penting.</p>
+    
+    <h3>🚀 Kesimpulan</h3>
+    <p>Input dari pengguna membuat program Anda hidup. Anda telah mempelajari cara menggunakan <code>cin</code> untuk angka dan satu kata, serta <code>getline</code> untuk kalimat lengkap. Jangan lupa atasi masalah buffer dengan <code>cin.ignore()</code> saat menggabungkan kedua metode. Di section selanjutnya, kita akan membahas <strong>operator aritmatika</strong> untuk melakukan perhitungan berdasarkan input pengguna.</p>
+</section>
+
+        <!-- ================= SECTION 6: OPERATOR DALAM C++ (DIPERPANJANG) ================= -->
+<section>
+    <h2>6. Operator dalam C++</h2>
+    <p>Operator adalah simbol khusus yang memberitahu compiler untuk melakukan operasi tertentu terhadap data. Tanpa operator, kita tidak bisa menghitung, membandingkan, atau menggabungkan nilai. Di C++, operator dikelompokkan menjadi beberapa jenis: aritmatika, perbandingan, logika, dan assignment.</p>
+    
+    <h3>➕ Operator Aritmatika (Matematika Dasar)</h3>
+    <p>Operator ini digunakan untuk perhitungan matematika seperti yang biasa kita lakukan di sekolah.</p>
+    <ul>
+        <li><code>+</code> (penjumlahan) → <code>5 + 3</code> menghasilkan 8</li>
+        <li><code>-</code> (pengurangan) → <code>5 - 3</code> menghasilkan 2</li>
+        <li><code>*</code> (perkalian) → <code>5 * 3</code> menghasilkan 15</li>
+        <li><code>/</code> (pembagian) → <code>5 / 2</code> menghasilkan 2 (karena integer division, pecahan dibuang)</li>
+        <li><code>%</code> (modulus / sisa bagi) → <code>5 % 2</code> menghasilkan 1 (sisa dari 5 dibagi 2)</li>
+    </ul>
+    <div class="code">
+        int a = 10, b = 3;
+        int tambah = a + b;      // 13
+        int kurang = a - b;      // 7
+        int kali = a * b;        // 30
+        int bagi = a / b;        // 3 (bukan 3.333)
+        int sisa = a % b;        // 1
+    </div>
+    <p><strong>Peringatan penting:</strong> Jika kedua operand adalah integer, maka <code>/</code> melakukan pembagian integer (hasil dibulatkan ke bawah). Jika ingin hasil desimal, pastikan salah satu operand bertipe <code>double</code> atau <code>float</code>.</p>
+    
+    <h3>⚖️ Operator Perbandingan (Membandingkan Nilai)</h3>
+    <p>Operator perbandingan digunakan untuk membandingkan dua nilai. Hasilnya selalu berupa <code>bool</code> (<code>true</code> atau <code>false</code>). Operator ini sangat penting dalam percabangan (<code>if</code>).</p>
+    <ul>
+        <li><code>==</code> (sama dengan) → <code>5 == 5</code> true, <code>5 == 3</code> false</li>
+        <li><code>!=</code> (tidak sama dengan) → <code>5 != 3</code> true</li>
+        <li><code>&gt;</code> (lebih besar) → <code>5 &gt; 3</code> true</li>
+        <li><code>&lt;</code> (lebih kecil) → <code>5 &lt; 3</code> false</li>
+        <li><code>&gt;=</code> (lebih besar atau sama) → <code>5 &gt;= 5</code> true</li>
+        <li><code>&lt;=</code> (lebih kecil atau sama) → <code>5 &lt;= 5</code> true</li>
+    </ul>
+    <div class="code">
+        int x = 10, y = 20;
+        bool hasil1 = (x == y);   // false
+        bool hasil2 = (x != y);   // true
+        bool hasil3 = (x > y);    // false
+        bool hasil4 = (x < y);    // true
+        cout << hasil1 << hasil2 << hasil3 << hasil4; // 0 1 0 1
+    </div>
+    <p><strong>Catatan:</strong> Di C++, <code>true</code> direpresentasikan sebagai 1, dan <code>false</code> sebagai 0 saat dicetak.</p>
+    
+    <h3>🔗 Operator Logika (Menggabungkan Kondisi)</h3>
+    <p>Operator logika digunakan untuk menggabungkan dua atau lebih kondisi. Hasilnya juga <code>bool</code>. Sering dipakai dalam <code>if</code> yang kompleks.</p>
+    <ul>
+        <li><code>&&</code> (logika AND) → benar jika <strong>kedua</strong> kondisi benar.</li>
+        <li><code>||</code> (logika OR) → benar jika <strong>salah satu</strong> kondisi benar.</li>
+        <li><code>!</code> (logika NOT) → membalik nilai kebenaran (true jadi false, false jadi true).</li>
+    </ul>
+    <div class="code">
+        int usia = 20;
+        bool punyaSIM = true;
+        
+        bool bisaMengemudi = (usia >= 17 && punyaSIM);   // true
+        bool bolehLiburan = (usia >= 17 || punyaSIM);    // true
+        bool tidakBisa = !bisaMengemudi;                 // false
+    </div>
+    
+    <h3>📝 Operator Assignment (Memberi Nilai)</h3>
+    <p>Operator assignment digunakan untuk mengisi nilai ke variabel. Yang paling dasar adalah <code>=</code>, tetapi ada juga operator gabungan yang mempersingkat penulisan.</p>
+    <ul>
+        <li><code>=</code> → <code>x = 5;</code> (x menjadi 5)</li>
+        <li><code>+=</code> → <code>x += 3;</code> sama dengan <code>x = x + 3;</code></li>
+        <li><code>-=</code> → <code>x -= 2;</code> sama dengan <code>x = x - 2;</code></li>
+        <li><code>*=</code> → <code>x *= 4;</code> sama dengan <code>x = x * 4;</code></li>
+        <li><code>/=</code> → <code>x /= 2;</code> sama dengan <code>x = x / 2;</code></li>
+        <li><code>%=</code> → <code>x %= 3;</code> sama dengan <code>x = x % 3;</code></li>
+    </ul>
+    <div class="code">
+        int x = 10;
+        x += 5;   // x sekarang 15
+        x -= 3;   // x sekarang 12
+        x *= 2;   // x sekarang 24
+        x /= 4;   // x sekarang 6
+        x %= 5;   // x sekarang 1
+    </div>
+    
+    <h3>⚠️ Kesalahan Klasik: Assignment (=) vs Perbandingan (==)</h3>
+    <p>Ini adalah kesalahan paling sering dilakukan pemula. Satu tanda sama dengan <code>=</code> adalah <strong>assignment</strong> (memberi nilai), sedangkan dua tanda sama dengan <code>==</code> adalah <strong>perbandingan</strong> (apakah sama?).</p>
+    <div class="code">
+        int x = 5;
+        if (x = 10) {   // ❌ SALAH: ini akan memberi nilai 10 ke x, kondisi selalu true
+            cout << "x adalah 10";
+        }
+        if (x == 10) {  // ✅ BENAR: membandingkan apakah x sama dengan 10
+            cout << "x adalah 10";
+        }
+    </div>
+    <p>Compiler modern biasanya memberi peringatan, tapi program tetap berjalan dengan logika yang salah.</p>
+    
+    <h3>🧮 Prioritas Operator (Urutan Eksekusi)</h3>
+    <p>Sama seperti matematika, operator dalam C++ memiliki urutan prioritas. Perkalian dan pembagian didahulukan daripada penjumlahan dan pengurangan. Jika ingin mengubah urutan, gunakan tanda kurung <code>( )</code>.</p>
+    <div class="code">
+        int hasil1 = 5 + 2 * 3;   // 5 + (2*3) = 11
+        int hasil2 = (5 + 2) * 3; // (7)*3 = 21
+    </div>
+    <p>Prioritas lengkap (dari tertinggi ke terendah): <code>()</code> → <code>* / %</code> → <code>+ -</code> → <code>&lt; &lt;= &gt; &gt;=</code> → <code>== !=</code> → <code>&&</code> → <code>||</code> → <code>=</code>.</p>
+    
+    <h3>💡 Tips Penting</h3>
+    <ul>
+        <li>Gunakan tanda kurung untuk memperjelas maksud Anda, meskipun tidak diperlukan. Contoh: <code>hasil = (a + b) * c;</code> lebih mudah dibaca.</li>
+        <li>Operator <code>%</code> hanya bisa digunakan untuk integer (tidak untuk double/float).</li>
+        <li>Hati-hati dengan pembagian integer: <code>5/2</code> menghasilkan 2, bukan 2.5. Jika ingin hasil desimal, gunakan <code>5.0/2</code> atau <code>5/2.0</code>.</li>
+        <li>Operator logika && dan || menggunakan short-circuit evaluation: jika kondisi pertama sudah menentukan hasil, kondisi kedua tidak dievaluasi. Contoh: <code>(false && apapun)</code> hasilnya false tanpa mengecek apapun.</li>
+    </ul>
+</section>
+
+<!-- ================= SECTION 7: PERCABANGAN (DIPERPANJANG) ================= -->
+<section>
+    <h2>7. Percabangan (Conditional Statements)</h2>
+    <p>Percabangan adalah kemampuan program untuk <strong>mengambil keputusan</strong> berdasarkan suatu kondisi. Dengan percabangan, program tidak berjalan lurus, tetapi bisa memilih tindakan yang berbeda sesuai situasi. Ini seperti "jika-maka" dalam kehidupan sehari-hari.</p>
+    <p><strong>Analogi sederhana:</strong> Jika hujan, maka bawa payung; jika tidak, tidak perlu payung. Program juga bisa seperti itu.</p>
+    
+    <h3>🔹 Struktur Dasar if-else</h3>
+    <p>Bentuk paling sederhana dari percabangan adalah <code>if</code> (jika) dan <code>else</code> (jika tidak).</p>
+    <div class="code">
+        if (kondisi) {
+            // kode ini dijalankan jika kondisi bernilai true
+        } else {
+            // kode ini dijalankan jika kondisi bernilai false
+        }
+    </div>
+    <p><strong>Contoh:</strong> Cek apakah seseorang sudah cukup umur untuk memilih.</p>
+    <div class="code">
+        int umur = 17;
+        if (umur >= 17) {
+            cout << "Anda sudah bisa memiliki KTP.";
+        } else {
+            cout << "Anda masih terlalu muda.";
+        }
+    </div>
+    
+    <h3>🔹 Percabangan dengan Banyak Pilihan (else if)</h3>
+    <p>Jika terdapat lebih dari dua kemungkinan, gunakan <code>else if</code>. Program akan mengecek kondisi dari atas ke bawah dan menjalankan blok pertama yang benar, lalu keluar dari struktur if.</p>
+    <div class="code">
+        int nilai = 85;
+        if (nilai >= 90) {
+            cout << "A";
+        } else if (nilai >= 75) {
+            cout << "B";
+        } else if (nilai >= 60) {
+            cout << "C";
+        } else {
+            cout << "D";
+        }
+    </div>
+    <p>Urutan kondisi sangat penting. Jika kita tulis <code>if (nilai >= 75)</code> sebelum <code>if (nilai >= 90)</code>, maka nilai 95 akan dianggap "B", bukan "A".</p>
+    
+    <h3>⚠️ Kesalahan Umum yang Sering Terjadi</h3>
+    <ul>
+        <li><strong>Lupa kurung kurawal { }</strong> → Tanpa kurung, hanya satu baris setelah if/else yang dianggap bagian dari blok. Selalu gunakan kurung meskipun hanya satu baris.</li>
+        <li><strong>Menggunakan = bukan ==</strong> → <code>if (x = 5)</code> akan memberi nilai 5 ke x dan kondisi selalu benar (kecuali nilai 0). Gunakan <code>if (x == 5)</code> untuk perbandingan.</li>
+        <li><strong>Urutan kondisi salah</strong> → Letakkan kondisi paling spesifik di atas (misal nilai >= 90) sebelum yang lebih umum (nilai >= 75).</li>
+        <li><strong>Lupa titik koma setelah kondisi? Jangan!</strong> → <code>if (x > 5);</code> (ada titik koma) akan mengakhiri if tanpa melakukan apapun.</li>
+    </ul>
+    
+    <h3>🔹 Percabangan Bersarang (Nested if)</h3>
+    <p>Kita bisa menempatkan if di dalam if. Ini berguna untuk kondisi yang lebih kompleks.</p>
+    <div class="code">
+        int usia = 20;
+        bool punyaSIM = true;
+        if (usia >= 17) {
+            if (punyaSIM) {
+                cout << "Anda boleh mengemudi.";
+            } else {
+                cout << "Anda cukup umur tapi belum punya SIM.";
+            }
+        } else {
+            cout << "Anda belum cukup umur.";
+        }
+    </div>
+    
+    <h3>💡 Tips Penting</h3>
+    <ul>
+        <li>Gunakan <code>else if</code> untuk rantai kondisi yang saling eksklusif.</li>
+        <li>Jika hanya ada satu kondisi, gunakan <code>if</code> saja tanpa <code>else</code>.</li>
+        <li>Untuk memeriksa apakah suatu nilai berada dalam rentang, gunakan <code>if (x >= 10 && x <= 20)</code>.</li>
+        <li>Kode akan lebih mudah dibaca jika setiap blok diindentasi dengan rapi.</li>
+    </ul>
+    <p>Dengan percabangan, program Anda menjadi "cerdas" karena bisa menyesuaikan perilaku berdasarkan data.</p>
+</section>
+
+<!-- ================= SECTION 8: PERULANGAN (DIPERPANJANG) ================= -->
+<section>
+    <h2>8. Perulangan (Loop)</h2>
+    <p>Perulangan digunakan untuk menjalankan kode yang sama <strong>berulang kali</strong> tanpa harus menulis ulang. Bayangkan Anda ingin mencetak "Halo" 100 kali. Tanpa perulangan, Anda harus menulis 100 baris <code>cout</code>. Dengan perulangan, cukup 3 baris. Ada dua jenis perulangan utama di C++: <code>while</code> dan <code>for</code>.</p>
+    
+    <h3>🔹 While Loop</h3>
+    <p><code>while</code> digunakan ketika jumlah perulangan tidak diketahui sebelumnya. Program akan terus mengulang selama kondisi bernilai <code>true</code>.</p>
+    <div class="code">
+        int i = 0;
+        while (i < 5) {
+            cout << i << " ";
+            i++;
+        }
+        // Output: 0 1 2 3 4
+    </div>
+    <p><strong>Penjelasan:</strong></p>
+    <ul>
+        <li>Variabel <code>i</code> diinisialisasi dengan 0.</li>
+        <li>Kondisi <code>i < 5</code> dicek. Jika true, masuk ke dalam loop.</li>
+        <li>Di dalam loop, nilai <code>i</code> dicetak, lalu <code>i++</code> (menambah 1).</li>
+        <li>Setelah mencapai <code>i = 5</code>, kondisi menjadi false, loop berhenti.</li>
+    </ul>
+    <p>⚠️ <strong>Peringatan Infinite Loop:</strong> Jika Anda lupa menambah nilai <code>i</code>, maka kondisi akan selalu true dan loop tidak pernah berhenti. Program akan hang atau crash. Selalu pastikan ada perubahan yang mengarah ke kondisi berhenti.</p>
+    <div class="code">
+        // INFINITE LOOP (JANGAN DIJALANKAN)
+        int i = 0;
+        while (i < 5) {
+            cout << i;   // lupa i++
+        }
+    </div>
+    
+    <h3>🔹 For Loop</h3>
+    <p><code>for</code> digunakan ketika jumlah perulangan sudah diketahui. Semua komponen loop (inisialisasi, kondisi, increment) ditulis dalam satu baris.</p>
+    <div class="code">
+        for (int i = 0; i < 5; i++) {
+            cout << i << " ";
+        }
+        // Output: 0 1 2 3 4
+    </div>
+    <p><strong>Struktur for:</strong></p>
+    <ul>
+        <li><code>int i = 0</code> → inisialisasi (dijalankan sekali di awal).</li>
+        <li><code>i < 5</code> → kondisi (diperiksa setiap sebelum iterasi).</li>
+        <li><code>i++</code> → increment (dijalankan setelah setiap iterasi).</li>
+    </ul>
+    <p>For loop sangat cocok untuk memproses array atau melakukan iterasi dengan indeks.</p>
+    
+    <h3>🔹 Kapan Menggunakan While vs For?</h3>
+    <ul>
+        <li><strong>while</strong> → cocok jika jumlah iterasi tidak pasti, misal: "ulangi sampai pengguna memasukkan angka positif".</li>
+        <li><strong>for</strong> → cocok jika jumlah iterasi sudah diketahui, misal: "cetak angka 0 sampai 99".</li>
+    </ul>
+    <div class="code">
+        // Contoh while untuk validasi input
+        int angka;
+        cout << "Masukkan angka positif: ";
+        cin >> angka;
+        while (angka <= 0) {
+            cout << "Input tidak valid. Masukkan angka positif: ";
+            cin >> angka;
+        }
+    </div>
+    
+    <h3>🔹 Perulangan Tak Terbatas (Infinite Loop) yang Disengaja</h3>
+    <p>Kadang kita sengaja membuat loop tak terbatas, misalnya pada program server atau game yang terus berjalan sampai ada perintah berhenti. Untuk menghentikannya, gunakan <code>break</code> di dalam loop.</p>
+    <div class="code">
+        while (true) {
+            cout << "Program berjalan... ";
+            // jika ada kondisi berhenti, gunakan break;
+        }
+    </div>
+    
+    <h3>💡 Tips dan Analogi</h3>
+    <ul>
+        <li>While seperti: "Selama masih ada beras, masak nasi".</li>
+        <li>For seperti: "Masak nasi sebanyak 10 kali".</li>
+        <li>Selalu pastikan loop memiliki kondisi berhenti (jika tidak, akan infinite).</li>
+        <li>Gunakan <code>break</code> untuk keluar paksa dari loop, dan <code>continue</code> untuk melompat ke iterasi berikutnya.</li>
+    </ul>
+</section>
+
+<!-- ================= SECTION 9: ARRAY (DIPERPANJANG) ================= -->
+<section>
+    <h2>9. Array (Larik)</h2>
+    <p>Bayangkan Anda ingin menyimpan nilai ujian 100 siswa. Apakah Anda akan membuat 100 variabel terpisah seperti <code>nilai1, nilai2, ..., nilai100</code>? Tentu tidak. Array adalah solusi: sebuah wadah yang dapat menyimpan <strong>banyak nilai</strong> dengan tipe data yang sama, dan diakses menggunakan indeks.</p>
+    
+    <h3>🔹 Mendeklarasikan dan Menginisialisasi Array</h3>
+    <div class="code">
+        int angka[5];              // array 5 elemen (belum diisi)
+        int nilai[3] = {10, 20, 30}; // langsung diisi
+    </div>
+    <p>Setelah deklarasi, setiap elemen array memiliki nomor indeks dimulai dari <strong>0</strong>. Jadi:</p>
+    <ul>
+        <li><code>nilai[0]</code> = 10</li>
+        <li><code>nilai[1]</code> = 20</li>
+        <li><code>nilai[2]</code> = 30</li>
+    </ul>
+    <p><strong>Penting:</strong> Indeks terakhir adalah ukuran-1. Jika array berukuran 5, indeks valid adalah 0,1,2,3,4.</p>
+    
+    <h3>🔹 Mengakses dan Mengubah Nilai Array</h3>
+    <div class="code">
+        int arr[3] = {5, 10, 15};
+        cout << arr[0];   // mencetak 5
+        arr[1] = 99;      // mengubah elemen indeks 1 menjadi 99
+        cout << arr[1];   // 99
+    </div>
+    
+    <h3>⚠️ Kesalahan Umum: Out of Bounds</h3>
+    <p>Jika Anda mengakses indeks di luar batas (misal <code>arr[5]</code> untuk array ukuran 5), program bisa crash atau menghasilkan nilai acak. Compiler C++ tidak memeriksa batas array secara otomatis, jadi tanggung jawab programmer untuk memastikan indeks valid.</p>
+    <div class="code">
+        int arr[3] = {1,2,3};
+        cout << arr[3];   // ERROR! indeks 3 tidak ada (maks 2)
+    </div>
+    
+    <h3>🔹 Menggunakan Loop untuk Memproses Array</h3>
+    <p>Loop (terutama for) sangat cocok untuk mengakses semua elemen array.</p>
+    <div class="code">
+        int nilai[5] = {80, 85, 90, 75, 88};
+        int total = 0;
+        for (int i = 0; i < 5; i++) {
+            total += nilai[i];
+        }
+        double rata = total / 5.0;
+        cout << "Rata-rata: " << rata << endl;
+    </div>
+    
+    <h3>🔹 Array dan Ukuran Konstan</h3>
+    <p>Ukuran array harus ditentukan saat kompilasi (konstanta). Namun kita bisa menggunakan <code>const int</code> agar mudah diubah di satu tempat.</p>
+    <div class="code">
+        const int JUMLAH_SISWA = 5;
+        int nilai[JUMLAH_SISWA];
+        for (int i = 0; i < JUMLAH_SISWA; i++) {
+            cout << "Masukkan nilai siswa ke-" << i+1 << ": ";
+            cin >> nilai[i];
+        }
+    </div>
+    
+    <h3>💡 Tips dan Trik</h3>
+    <ul>
+        <li>Selalu pastikan indeks array tidak melebihi <code>ukuran - 1</code>.</li>
+        <li>Jika array diinisialisasi dengan nilai, compiler bisa menentukan ukuran secara otomatis: <code>int arr[] = {1,2,3};</code> (ukuran 3).</li>
+        <li>Array tidak bisa di-assign atau dibandingkan secara langsung (gunakan loop).</li>
+        <li>Untuk array karakter (string gaya C), ada aturan khusus, tapi sebaiknya gunakan <code>string</code> untuk teks.</li>
+    </ul>
+    <p>Array adalah fondasi untuk struktur data yang lebih kompleks seperti matriks (array 2D), vector, dan seterusnya. Kuasai array dengan baik karena akan sering digunakan.</p>
+</section>
+
+<!-- ================= SECTION 10: FUNCTIONS (DIPERPANJANG) ================= -->
+<section>
+    <h2>10. Functions (Fungsi)</h2>
+    <p>Bayangkan Anda sering menulis kode yang sama berulang kali, misalnya untuk menghitung luas persegi panjang. Daripada menulis rumus yang sama di sepuluh tempat, Anda bisa membuat <strong>fungsi</strong>. Fungsi adalah blok kode yang diberi nama dan dapat dipanggil kapan saja. Ini membuat program lebih rapi, mudah dirawat, dan tidak boros baris kode.</p>
+    
+    <h3>🔹 Mengapa Fungsi Sangat Penting?</h3>
+    <ul>
+        <li><strong>Reusability (Dapat Digunakan Ulang)</strong> → Tulis sekali, panggil berkali-kali.</li>
+        <li><strong>Modularitas</strong> → Program dipecah menjadi bagian-bagian kecil yang independen.</li>
+        <li><strong>Mudah Debug</strong> → Cukup perbaiki satu fungsi, semua pemanggilan otomatis terperbaiki.</li>
+        <li><strong>Abstraksi</strong> → Kita tidak perlu tahu detail cara kerja fungsi, cukup tahu cara menggunakannya.</li>
+    </ul>
+    
+    <h3>🔹 Anatomi Fungsi</h3>
+    <div class="code">
+        tipeData namaFungsi(daftarParameter) {
+            // badan fungsi (body)
+            return nilai;   // jika tipeData bukan void
+        }
+    </div>
+    <ul>
+        <li><strong>tipeData</strong> → jenis nilai yang dikembalikan (int, double, string, void, dll). Jika tidak mengembalikan apa pun, gunakan <code>void</code>.</li>
+        <li><strong>namaFungsi</strong> → harus deskriptif (misal hitungLuas, cetakPesan).</li>
+        <li><strong>daftarParameter</strong> → variabel input yang diterima fungsi (bisa kosong).</li>
+        <li><strong>return</strong> → mengirimkan nilai kembali ke pemanggil. Fungsi void tidak perlu return (bisa pakai <code>return;</code> untuk keluar lebih awal).</li>
+    </ul>
+    
+    <h3>🔹 Contoh Fungsi Sederhana (Tanpa Parameter, Tanpa Return)</h3>
+    <div class="code">
+        void tampilkanMenu() {
+            cout << "=== MENU UTAMA ===" << endl;
+            cout << "1. Mulai Game" << endl;
+            cout << "2. Pengaturan" << endl;
+            cout << "3. Keluar" << endl;
+        }
+        
+        int main() {
+            tampilkanMenu();   // panggil fungsi
+            return 0;
+        }
+    </div>
+    <p>Fungsi <code>tampilkanMenu</code> hanya mencetak teks, tidak mengembalikan nilai, dan tidak butuh input. Setiap kali Anda butuh menu, cukup panggil fungsi ini.</p>
+    
+    <h3>🔹 Fungsi dengan Parameter (Input)</h3>
+    <p>Parameter memungkinkan fungsi bekerja dengan data yang berbeda setiap kali dipanggil.</p>
+    <div class="code">
+        void sapaUser(string nama) {
+            cout << "Halo, " << nama << "! Selamat belajar C++." << endl;
+        }
+        
+        int main() {
+            sapaUser("Andi");
+            sapaUser("Budi");
+            return 0;
+        }
+        // Output:
+        // Halo, Andi! Selamat belajar C++.
+        // Halo, Budi! Selamat belajar C++.
+    </div>
+    <p>Parameter <code>nama</code> akan diisi dengan nilai yang diberikan saat pemanggilan.</p>
+    
+    <h3>🔹 Fungsi yang Mengembalikan Nilai (Return)</h3>
+    <p>Fungsi bisa mengolah input dan menghasilkan output. Contoh: fungsi penjumlahan.</p>
+    <div class="code">
+        int tambah(int a, int b) {
+            return a + b;
+        }
+        
+        int main() {
+            int hasil = tambah(5, 3);
+            cout << "5 + 3 = " << hasil;   // 8
+            return 0;
+        }
+    </div>
+    <p>Setelah <code>return</code>, fungsi langsung berhenti. Kode setelah <code>return</code> tidak akan dijalankan.</p>
+    
+    <h3>🔹 Fungsi dengan Banyak Parameter</h3>
+    <div class="code">
+        double hitungLuasPersegiPanjang(double panjang, double lebar) {
+            return panjang * lebar;
+        }
+        
+        int main() {
+            double luas = hitungLuasPersegiPanjang(5.5, 3.2);
+            cout << "Luas: " << luas << endl;
+            return 0;
+        }
+    </div>
+    <p>Parameter dipisah dengan koma. Urutan parameter harus sesuai saat memanggil.</p>
+    
+    <h3>⚠️ Kesalahan Umum Pemula</h3>
+    <ul>
+        <li><strong>Lupa menulis tipe data return</strong> → Misal menulis <code>tambah(int a, int b) { return a+b; }</code> tanpa <code>int</code> di depan. Compiler akan error.</li>
+        <li><strong>Lupa menulis <code>return</code></strong> pada fungsi non-void → Nilai yang dikembalikan tidak terdefinisi (bisa nilai acak).</li>
+        <li><strong>Memanggil fungsi sebelum dideklarasikan</strong> → Solusi: deklarasikan fungsi di atas <code>main()</code>, atau gunakan <em>function prototype</em> di atas.</li>
+        <li><strong>Tipe data parameter tidak sesuai</strong> → Misal fungsi minta <code>int</code> tapi diberi <code>double</code> (bisa terjadi konversi implisit, tapi hati-hati).</li>
+    </ul>
+    <div class="code">
+        // Contoh function prototype
+        int tambah(int a, int b);   // deklarasi
+        
+        int main() {
+            cout << tambah(5,3);
+        }
+        
+        int tambah(int a, int b) {   // definisi
+            return a + b;
+        }
+    </div>
+    
+    <h3>💡 Tips Penting</h3>
+    <ul>
+        <li>Nama fungsi harus <strong>verb</strong> (kata kerja) atau menggambarkan aksi: <code>hitungRata()</code>, <code>cetakStruk()</code>, <code>ambilInput()</code>.</li>
+        <li>Fungsi yang terlalu panjang (lebih dari 30 baris) sebaiknya dipecah menjadi fungsi-fungsi kecil.</li>
+        <li>Gunakan <code>const</code> pada parameter jika fungsi tidak perlu mengubah nilai input.</li>
+        <li>Fungsi <code>void</code> bisa menggunakan <code>return;</code> untuk keluar lebih awal (misal jika kondisi error).</li>
+    </ul>
+    <p>Dengan fungsi, Anda bisa membangun program yang kompleks dari potongan-potongan kecil yang mudah dipahami.</p>
+</section>
+
+<!-- ================= SECTION 11: STRINGS (DIPERPANJANG) ================= -->
+<section>
+    <h2>11. Strings (Teks)</h2>
+    <p>Dalam pemrograman, kita sering perlu menyimpan dan memanipulasi teks, seperti nama, alamat, atau kalimat. Di C++, tipe data untuk teks adalah <code>string</code>. String adalah kumpulan karakter (huruf, angka, simbol) yang dirangkai menjadi satu kesatuan.</p>
+    
+    <h3>🔹 Menggunakan String di C++</h3>
+    <p>Untuk menggunakan <code>string</code>, Anda harus menyertakan library <code>&lt;string&gt;</code> dan menggunakan namespace <code>std</code>.</p>
+    <div class="code">
+        #include &lt;iostream&gt;
+        #include &lt;string&gt;
+        using namespace std;
+        
+        int main() {
+            string nama = "Andi";
+            cout << nama << endl;
+            return 0;
+        }
+    </div>
+    
+    <h3>🔹 Membaca Input String dengan Spasi (getline)</h3>
+    <p>Jika menggunakan <code>cin &gt;&gt; nama</code>, hanya kata pertama yang terbaca (berhenti di spasi). Untuk membaca seluruh baris (termasuk spasi), gunakan <code>getline(cin, variabel)</code>.</p>
+    <div class="code">
+        string alamat;
+        cout << "Masukkan alamat lengkap: ";
+        getline(cin, alamat);
+        cout << "Alamat: " << alamat << endl;
+    </div>
+    <p><strong>Catatan:</strong> Jika sebelumnya Anda menggunakan <code>cin</code> untuk angka, jangan lupa membersihkan buffer dengan <code>cin.ignore()</code> sebelum <code>getline</code>.</p>
+    
+    <h3>🔹 Operasi Dasar pada String</h3>
+    <ul>
+        <li><strong>Panjang string</strong> → <code>nama.length()</code> atau <code>nama.size()</code> (sama saja).</li>
+        <li><strong>Menggabungkan (concatenation)</strong> → menggunakan operator <code>+</code>.</li>
+        <li><strong>Akses karakter</strong> → seperti array: <code>nama[indeks]</code> (indeks mulai 0).</li>
+        <li><strong>Membandingkan</strong> → <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code> (berdasarkan urutan leksikografis).</li>
+    </ul>
+    <div class="code">
+        string depan = "Andi";
+        string belakang = " Saputra";
+        string lengkap = depan + belakang;   // "Andi Saputra"
+        cout << "Panjang: " << depan.length() << endl;   // 4
+        cout << "Huruf pertama: " << depan[0] << endl;    // A
+        depan[0] = 'B';
+        cout << depan;   // "Bndi"
+    </div>
+    
+    <h3>🔹 Perulangan pada String</h3>
+    <p>Kita bisa memproses setiap karakter dalam string menggunakan loop <code>for</code>.</p>
+    <div class="code">
+        string kata = "Belajar";
+        for (int i = 0; i < kata.length(); i++) {
+            cout << "Karakter ke-" << i << ": " << kata[i] << endl;
+        }
+    </div>
+    
+    <h3>🔹 Membandingkan Dua String</h3>
+    <div class="code">
+        string a = "Andi";
+        string b = "Andi";
+        if (a == b) {
+            cout << "Sama" << endl;
+        } else {
+            cout << "Berbeda" << endl;
+        }
+    </div>
+    <p>Perbandingan bersifat case-sensitive: <code>"Andi"</code> tidak sama dengan <code>"andi"</code>.</p>
+    
+    <h3>⚠️ Masalah Umum: <code>cin</code> dan <code>getline</code> Bersamaan</h3>
+    <p>Setelah <code>cin &gt;&gt; angka</code>, newline (<code>\n</code>) tertinggal di buffer. Kemudian <code>getline</code> membaca newline itu sebagai baris kosong. Solusi: panggil <code>cin.ignore()</code> untuk membuang newline.</p>
+    <div class="code">
+        int umur;
+        string nama;
+        cout << "Umur: ";
+        cin >> umur;
+        cin.ignore();   // bersihkan buffer
+        cout << "Nama: ";
+        getline(cin, nama);
+        cout << "Nama: " << nama << ", Umur: " << umur;
+    </div>
+    
+    <h3>🔹 Method String Lainnya yang Berguna</h3>
+    <ul>
+        <li><code>substr(pos, panjang)</code> → mengambil substring.</li>
+        <li><code>find("teks")</code> → mencari posisi teks dalam string.</li>
+        <li><code>empty()</code> → mengecek apakah string kosong.</li>
+        <li><code>append("teks")</code> → menambah teks di akhir (mirip <code>+</code>).</li>
+    </ul>
+    <div class="code">
+        string s = "Halo dunia";
+        cout << s.substr(0, 4);   // "Halo"
+        cout << s.find("dunia");   // 5 (posisi mulai)
+        if (s.empty()) cout << "kosong";
+    </div>
+    
+    <h3>💡 Tips</h3>
+    <ul>
+        <li>Gunakan <code>getline</code> untuk membaca input yang mungkin mengandung spasi.</li>
+        <li>Selalu <code>#include &lt;string&gt;</code> jika menggunakan tipe <code>string</code>.</li>
+        <li>Hindari <code>cin</code> dan <code>getline</code> bergantian tanpa <code>cin.ignore()</code>.</li>
+        <li>String di C++ bisa diubah-ubah (mutable), berbeda dengan string di beberapa bahasa lain yang immutable.</li>
+    </ul>
+</section>
+
+<!-- ================= SECTION 12: BOOLEAN (DIPERPANJANG) ================= -->
+<section>
+    <h2>12. Boolean (Nilai Logika)</h2>
+    <p>Dalam pemrograman, sering kita perlu menyimpan nilai yang hanya memiliki dua kemungkinan: <strong>benar</strong> atau <strong>salah</strong>. Misalnya: apakah lampu menyala? apakah pengguna sudah login? apakah nilai di atas batas? Di C++, tipe data untuk ini adalah <code>bool</code> (singkatan dari boolean).</p>
+    
+    <h3>🔹 Nilai Boolean</h3>
+    <p><code>bool</code> hanya bisa bernilai <code>true</code> (benar) atau <code>false</code> (salah). Dalam memori, <code>true</code> direpresentasikan sebagai 1, <code>false</code> sebagai 0.</p>
+    <div class="code">
+        bool isLogin = true;
+        bool isActive = false;
+        cout << isLogin;   // output: 1
+        cout << isActive;  // output: 0
+    </div>
+    
+    <h3>🔹 Mengapa Boolean Penting?</h3>
+    <ul>
+        <li>Dasar dari percabangan (<code>if</code>, <code>else</code>) dan perulangan (<code>while</code>, <code>for</code>).</li>
+        <li>Menyimpan status atau kondisi yang bersifat ya/tidak.</li>
+        <li>Membuat kode lebih mudah dibaca (misal <code>bool isRaining</code> lebih jelas daripada <code>int rainingFlag</code>).</li>
+    </ul>
+    
+    <h3>🔹 Ekspresi Perbandingan Menghasilkan Boolean</h3>
+    <p>Operator perbandingan seperti <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code> menghasilkan nilai boolean.</p>
+    <div class="code">
+        int nilai = 80;
+        bool lulus = (nilai >= 75);   // true
+        if (lulus) {
+            cout << "Selamat, Anda lulus!";
+        }
+    </div>
+    
+    <h3>🔹 Operator Logika pada Boolean</h3>
+    <p>Kita bisa menggabungkan beberapa kondisi menggunakan operator logika:</p>
+    <ul>
+        <li><code>&&</code> (AND) → benar jika kedua kondisi benar.</li>
+        <li><code>||</code> (OR) → benar jika salah satu kondisi benar.</li>
+        <li><code>!</code> (NOT) → membalik nilai (true jadi false, false jadi true).</li>
+    </ul>
+    <div class="code">
+        int usia = 20;
+        bool punyaSIM = true;
+        bool bisaMengemudi = (usia >= 17 && punyaSIM);   // true
+        bool bolehMasuk = (usia >= 18 || punyaSIM);      // true
+        bool tidakBisa = !bisaMengemudi;                 // false
+    </div>
+    
+    <h3>🔹 Penggunaan Boolean dalam Loop</h3>
+    <div class="code">
+        bool lanjut = true;
+        int angka;
+        while (lanjut) {
+            cout << "Masukkan angka (0 untuk berhenti): ";
+            cin >> angka;
+            if (angka == 0) {
+                lanjut = false;
+            } else {
+                cout << "Anda memasukkan " << angka << endl;
+            }
+        }
+    </div>
+    
+    <h3>🔹 Konversi ke Boolean</h3>
+    <p>Di C++, nilai non-nol dianggap <code>true</code>, nilai nol dianggap <code>false</code>. Ini bisa berguna tapi juga bisa menjebak.</p>
+    <div class="code">
+        int x = 10;
+        if (x) {   // sama dengan if (x != 0)
+            cout << "x bukan nol";
+        }
+    </div>
+    <p>Namun, untuk kejelasan, sebaiknya selalu tulis kondisi secara eksplisit: <code>if (x != 0)</code>.</p>
+    
+    <h3>⚠️ Kesalahan Umum</h3>
+    <ul>
+        <li>Menulis <code>if (isLogin = true)</code> (assignment) bukan <code>if (isLogin == true)</code> atau cukup <code>if (isLogin)</code>.</li>
+        <li>Lupa bahwa <code>&&</code> dan <code>||</code> memiliki short-circuit: jika kondisi pertama sudah menentukan hasil, kondisi kedua tidak dievaluasi.</li>
+    </ul>
+    <div class="code">
+        // Short-circuit: jika ptr == nullptr, maka ptr->value tidak akan dievaluasi
+        if (ptr != nullptr && ptr->value > 0) { ... }
+    </div>
+    
+    <h3>💡 Tips</h3>
+    <ul>
+        <li>Gunakan nama variabel boolean yang diawali kata kerja bantu: <code>isReady</code>, <code>hasFinished</code>, <code>canProceed</code>.</li>
+        <li>Jangan bandingkan boolean dengan <code>true</code>/<code>false</code> secara eksplisit: <code>if (isReady)</code> lebih baik daripada <code>if (isReady == true)</code>.</li>
+        <li>Boolean sangat berguna sebagai <em>flag</em> untuk mengontrol alur program.</li>
+    </ul>
+    <p>Dengan memahami boolean, Anda siap menggunakan logika kompleks dalam program.</p>
+</section>
+
+<!-- ================= SECTION 13: SWITCH (DIPERPANJANG) ================= -->
+<section>
+    <h2>13. Switch (Percabangan dengan Banyak Pilihan)</h2>
+    <p>Ketika Anda memiliki satu variabel yang perlu dibandingkan dengan banyak nilai tetap (misalnya kode menu 1,2,3 atau huruf A,B,C), menggunakan <code>if-else</code> akan menghasilkan banyak baris kode yang berulang. <strong>Switch</strong> adalah alternatif yang lebih rapi dan mudah dibaca untuk situasi seperti ini.</p>
+    
+    <h3>🔹 Struktur Dasar Switch</h3>
+    <div class="code">
+        switch (ekspresi) {
+            case nilai1:
+                // kode jika ekspresi == nilai1
+                break;
+            case nilai2:
+                // kode jika ekspresi == nilai2
+                break;
+            // ... bisa banyak case
+            default:
+                // kode jika tidak ada case yang cocok
+        }
+    </div>
+    <ul>
+        <li><strong>ekspresi</strong> → biasanya variabel (bertipe int, char, atau enum).</li>
+        <li><strong>case</strong> → nilai konstanta yang dibandingkan dengan ekspresi.</li>
+        <li><strong>break</strong> → menghentikan eksekusi switch, mencegah "jatuh" ke case berikutnya.</li>
+        <li><strong>default</strong> → opsional, dijalankan jika tidak ada case yang cocok.</li>
+    </ul>
+    
+    <h3>📘 Contoh Praktis: Menentukan Nama Hari</h3>
+    <div class="code">
+        int hari = 2;
+        switch (hari) {
+            case 1:
+                cout << "Senin";
+                break;
+            case 2:
+                cout << "Selasa";
+                break;
+            case 3:
+                cout << "Rabu";
+                break;
+            case 4:
+                cout << "Kamis";
+                break;
+            case 5:
+                cout << "Jumat";
+                break;
+            case 6:
+                cout << "Sabtu";
+                break;
+            case 7:
+                cout << "Minggu";
+                break;
+            default:
+                cout << "Hari tidak valid";
+        }
+        // Output: Selasa
+    </div>
+    
+    <h3>🔹 Mengapa Perlu <code>break</code>? (Fall-Through)</h3>
+    <p>Jika Anda tidak menulis <code>break</code>, program akan terus menjalankan kode pada case berikutnya, meskipun nilainya tidak cocok. Ini disebut <strong>fall-through</strong>. Kadang fall-through disengaja (misalnya untuk beberapa case yang ingin menjalankan kode yang sama), tetapi sering menyebabkan bug.</p>
+    <div class="code">
+        // Tanpa break (HATI-HATI)
+        int angka = 1;
+        switch (angka) {
+            case 1:
+                cout << "Satu ";
+            case 2:
+                cout << "Dua ";
+        }
+        // Output: Satu Dua  (karena tidak ada break)
+    </div>
+    <p>Contoh fall-through yang disengaja (berguna):</p>
+    <div class="code">
+        char grade = 'B';
+        switch (grade) {
+            case 'A':
+                cout << "Luar biasa! ";
+            case 'B':
+                cout << "Bagus! ";
+            case 'C':
+                cout << "Cukup. ";
+                break;
+            default:
+                cout << "Perlu belajar lagi.";
+        }
+        // Jika grade 'A', output: Luar biasa! Bagus! Cukup.
+        // Jika grade 'B', output: Bagus! Cukup.
+        // Jika grade 'C', output: Cukup.
+    </div>
+    
+    <h3>⚠️ Hal yang Perlu Diperhatikan</h3>
+    <ul>
+        <li>Nilai pada <code>case</code> harus berupa <strong>konstanta</strong> (angka, karakter, atau enum), tidak bisa variabel atau ekspresi.</li>
+        <li>Switch hanya bisa digunakan untuk tipe data integral: <code>int</code>, <code>char</code>, <code>enum</code>, dan <code>short</code>. <strong>Tidak bisa untuk string atau float/double.</strong></li>
+        <li>Jangan lupa menulis <code>break</code> pada setiap case, kecuali memang sengaja ingin fall-through.</li>
+        <li>Case tidak boleh duplikat.</li>
+        <li>Default boleh diletakkan di mana saja (biasanya di akhir), tetapi jika di tengah, tetap butuh break.</li>
+    </ul>
+    
+    <h3>💡 Kapan Menggunakan Switch vs if-else?</h3>
+    <ul>
+        <li><strong>Gunakan switch</strong> jika Anda membandingkan satu variabel dengan banyak nilai konstanta yang tetap (seperti menu, kode error, status).</li>
+        <li><strong>Gunakan if-else</strong> jika kondisi melibatkan rentang (misal <code>nilai >= 90</code>), operator logika (<code>&&</code>, <code>||</code>), atau tipe data non-integral (string, float).</li>
+    </ul>
+    <p>Switch membuat kode lebih bersih dan berpotensi lebih cepat (compiler dapat mengoptimalkan). Namun, jangan memaksakan jika kondisi kompleks.</p>
+</section>
+
+<!-- ================= SECTION 14: BREAK & CONTINUE (DIPERPANJANG) ================= -->
+<section>
+    <h2>14. Break dan Continue (Mengontrol Alur Perulangan)</h2>
+    <p>Dalam perulangan (<code>for</code>, <code>while</code>), kadang kita perlu <strong>keluar lebih awal</strong> atau <strong>melewati satu iterasi</strong>. Di sinilah <code>break</code> dan <code>continue</code> berguna.</p>
+    
+    <h3>🔹 Break: Menghentikan Paksa Loop</h3>
+    <p><code>break</code> akan menghentikan loop sepenuhnya, meskipun kondisi loop masih <code>true</code>. Program akan melanjutkan ke baris setelah loop.</p>
+    <div class="code">
+        for (int i = 0; i < 5; i++) {
+            if (i == 3) {
+                break;   // berhenti saat i = 3
+            }
+            cout << i << " ";
+        }
+        // Output: 0 1 2
+    </div>
+    <p><strong>Contoh nyata:</strong> Mencari sebuah angka dalam array. Begitu ketemu, tidak perlu melanjutkan pencarian.</p>
+    <div class="code">
+        int cari = 25;
+        int arr[] = {10, 20, 30, 25, 40};
+        int found = -1;
+        for (int i = 0; i < 5; i++) {
+            if (arr[i] == cari) {
+                found = i;
+                break;   // ketemu, keluar loop
+            }
+        }
+        if (found != -1) cout << "Ditemukan di indeks " << found;
+        else cout << "Tidak ditemukan";
+    </div>
+    
+    <h3>🔹 Continue: Lompati Satu Iterasi</h3>
+    <p><code>continue</code> akan melewati sisa kode dalam iterasi saat ini dan langsung melompat ke iterasi berikutnya (dengan mengevaluasi kondisi loop lagi).</p>
+    <div class="code">
+        for (int i = 0; i < 5; i++) {
+            if (i == 3) {
+                continue;   // lewati i = 3
+            }
+            cout << i << " ";
+        }
+        // Output: 0 1 2 4
+    </div>
+    <p><strong>Contoh nyata:</strong> Mencetak semua bilangan genap dari 1 sampai 10, melewati yang ganjil.</p>
+    <div class="code">
+        for (int i = 1; i <= 10; i++) {
+            if (i % 2 != 0) continue;  // jika ganjil, lewati
+            cout << i << " ";
+        }
+        // Output: 2 4 6 8 10
+    </div>
+    
+    <h3>⚠️ Peringatan Penting</h3>
+    <ul>
+        <li><code>break</code> dan <code>continue</code> hanya bekerja di dalam loop (<code>for</code>, <code>while</code>, <code>do-while</code>) atau <code>switch</code> (khusus break).</li>
+        <li>Jangan gunakan <code>break</code> di luar loop/switch – akan menyebabkan error kompilasi.</li>
+        <li>Dalam loop bersarang (loop di dalam loop), <code>break</code> hanya menghentikan loop terdalam tempat ia berada.</li>
+        <li>Gunakan <code>continue</code> dengan hati-hati: pastikan tidak menyebabkan infinite loop (misal lupa increment).</li>
+    </ul>
+    
+    <h3>💡 Analogi Kehidupan</h3>
+    <ul>
+        <li><strong>Break</strong> → Anda sedang mengantri, tiba-tiba Anda memutuskan keluar dari antrian (tidak kembali lagi).</li>
+        <li><strong>Continue</strong> → Dalam antrian, Anda membiarkan satu orang di depan Anda dilayani lebih dulu (Anda mundur satu langkah), lalu Anda tetap dalam antrian.</li>
+    </ul>
+    <p>Dengan <code>break</code> dan <code>continue</code>, Anda bisa mengontrol loop dengan lebih presisi, membuat program lebih efisien dan ekspresif.</p>
+</section>
+
+<!-- ================= SECTION 15: STRUCT (DIPERPANJANG) ================= -->
+<section>
+    <h2>15. Struct (Mengelompokkan Data)</h2>
+    <p>Dalam pemrograman, sering kita berhadapan dengan data yang saling terkait, misalnya data mahasiswa: nama, NIM, umur, IPK. Daripada membuat empat variabel terpisah, kita bisa menggabungkannya menjadi satu kesatuan menggunakan <strong>struct</strong>. Struct adalah tipe data bentukan yang dapat berisi beberapa anggota (member) dengan tipe data berbeda.</p>
+    
+    <h3>🔹 Mendefinisikan Struct</h3>
+    <div class="code">
+        struct Mahasiswa {
+            string nama;
+            int nim;
+            double ipk;
+        };
+    </div>
+    <p>Kode di atas mendefinisikan tipe data baru bernama <code>Mahasiswa</code> yang memiliki tiga anggota: <code>nama</code> (string), <code>nim</code> (int), <code>ipk</code> (double).</p>
+    
+    <h3>🔹 Membuat Variabel Struct</h3>
+    <div class="code">
+        Mahasiswa mhs1;               // deklarasi variabel
+        mhs1.nama = "Andi";
+        mhs1.nim = 12345;
+        mhs1.ipk = 3.75;
+        
+        cout << mhs1.nama << " (NIM: " << mhs1.nim << ") memiliki IPK " << mhs1.ipk;
+    </div>
+    <p>Anggota struct diakses menggunakan operator titik <code>.</code>.</p>
+    
+    <h3>🔹 Inisialisasi Struct (C++11 ke atas)</h3>
+    <div class="code">
+        Mahasiswa mhs2 = {"Budi", 67890, 3.90};   // urutan sesuai deklarasi
+        // atau
+        Mahasiswa mhs3{"Citra", 11223, 3.85};
+    </div>
+    
+    <h3>🔹 Struct dengan Array di Dalamnya</h3>
+    <div class="code">
+        struct MataKuliah {
+            string nama;
+            int sks;
+            int nilai[3];   // array nilai tugas, UTS, UAS
+        };
+    </div>
+    
+    <h3>🔹 Struct Bersarang (Nested Struct)</h3>
+    <p>Struct dapat berisi struct lain.</p>
+    <div class="code">
+        struct Alamat {
+            string jalan;
+            string kota;
+            string provinsi;
+        };
+        
+        struct Mahasiswa {
+            string nama;
+            int nim;
+            Alamat alamat;   // struct di dalam struct
+        };
+        
+        Mahasiswa mhs;
+        mhs.alamat.kota = "Jakarta";
+    </div>
+    
+    <h3>🔹 Array of Struct</h3>
+    <p>Kita bisa membuat array yang setiap elemennya adalah struct.</p>
+    <div class="code">
+        Mahasiswa daftar[3] = {
+            {"Andi", 101, 3.5},
+            {"Budi", 102, 3.7},
+            {"Citra", 103, 3.9}
+        };
+        for (int i = 0; i < 3; i++) {
+            cout << daftar[i].nama << " IPK: " << daftar[i].ipk << endl;
+        }
+    </div>
+    
+    <h3>🔹 Struct sebagai Parameter Fungsi</h3>
+    <p>Anda bisa mengirim struct ke fungsi (bisa dengan pass-by-value atau pass-by-reference).</p>
+    <div class="code">
+        void cetakMahasiswa(Mahasiswa m) {
+            cout << m.nama << " - " << m.nim << endl;
+        }
+        // panggil: cetakMahasiswa(mhs1);
+    </div>
+    
+    <h3>🔹 Mengapa Struct Penting?</h3>
+    <ul>
+        <li><strong>Mengorganisasi data</strong> → data yang berkaitan dikelompokkan.</li>
+        <li><strong>Memudahkan pengelolaan</strong> → cukup satu variabel untuk mewakili sekumpulan data.</li>
+        <li><strong>Dasar OOP</strong> → class di C++ pada dasarnya adalah struct dengan tambahan fungsi dan kontrol akses.</li>
+    </ul>
+    
+    <h3>💡 Tips dan Perbedaan dengan Class</h3>
+    <ul>
+        <li>Secara teknis, di C++, <code>struct</code> dan <code>class</code> hampir sama, kecuali: anggota struct bersifat <code>public</code> secara default, sedangkan class <code>private</code>.</li>
+        <li>Untuk kumpulan data sederhana (hanya data, tidak ada method), gunakan <code>struct</code>. Untuk objek yang memiliki perilaku (method), gunakan <code>class</code>.</li>
+        <li>Biasakan memberi nama struct dengan huruf kapital di awal.</li>
+        <li>Struct sangat berguna saat Anda perlu mengembalikan beberapa nilai dari fungsi (return sebuah struct).</li>
+    </ul>
+    <p>Dengan struct, Anda bisa merepresentasikan data dunia nyata dengan lebih alami dan kode menjadi lebih terstruktur.</p>
+</section>
+
+<!-- ================= SECTION 16: REFERENCES (DIPERPANJANG) ================= -->
+<section>
+    <h2>16. References (Alias Variabel)</h2>
+    <p><strong>Reference</strong> adalah nama lain (alias) untuk variabel yang sudah ada. Bayangkan Anda memiliki seorang teman yang memiliki nama panggilan. Nama panggilan itu merujuk ke orang yang sama. Begitu pula reference: ia memberikan nama alternatif ke suatu variabel, tanpa menyalin datanya.</p>
+    
+    <h3>🔹 Membuat Reference</h3>
+    <div class="code">
+        string nama = "Andi";
+        string &ref = nama;   // ref adalah reference ke nama
+        cout << ref;          // Output: Andi
+        ref = "Budi";         // mengubah nilai melalui reference
+        cout << nama;         // Output: Budi (nilai asli berubah)
+    </div>
+    <p>Perhatikan simbol <code>&amp;</code> di tipe data. Ini menandakan bahwa <code>ref</code> bukan variabel biasa, melainkan reference.</p>
+    
+    <h3>🔹 Mengapa Reference Berguna?</h3>
+    <ul>
+        <li><strong>Menghindari penyalinan data besar</strong> → Saat Anda mengirim variabel ke fungsi, secara default nilai disalin (pass-by-value). Jika variabel berukuran besar (misal array atau struct besar), penyalinan memakan waktu dan memori. Dengan reference, tidak ada penyalinan, fungsi langsung mengakses data asli.</li>
+        <li><strong>Memungkinkan fungsi mengubah variabel asli</strong> → Dengan pass-by-reference, fungsi bisa memodifikasi argumen asli, mirip seperti pointer tetapi dengan sintaks yang lebih sederhana.</li>
+        <li><strong>Lebih aman daripada pointer</strong> → Reference tidak bisa NULL dan tidak bisa diubah ke variabel lain setelah diinisialisasi.</li>
+    </ul>
+    
+    <h3>🔹 Reference sebagai Parameter Fungsi</h3>
+    <div class="code">
+        void tambahSatu(int &x) {
+            x++;   // langsung mengubah variabel asli
+        }
+        int main() {
+            int a = 5;
+            tambahSatu(a);
+            cout << a;   // Output: 6
+            return 0;
+        }
+    </div>
+    <p>Tanpa reference, <code>tambahSatu(a)</code> hanya akan mengubah salinan lokal, dan <code>a</code> tetap 5.</p>
+    
+    <h3>🔹 Reference dengan <code>const</code> (Keamanan Ekstra)</h3>
+    <p>Jika Anda ingin mengirim data besar tanpa menyalin, tetapi tidak ingin fungsi mengubah data asli, gunakan <code>const reference</code>.</p>
+    <div class="code">
+        void cetakData(const string &data) {
+            cout << data;   // hanya baca, tidak bisa mengubah
+            // data = "baru";  // ERROR! karena const
+        }
+    </div>
+    <p>Ini sangat umum digunakan untuk efisiensi.</p>
+    
+    <h3>⚠️ Perbedaan Reference dan Pointer</h3>
+    <ul>
+        <li>Reference <strong>harus diinisialisasi</strong> saat deklarasi; pointer boleh tidak diinisialisasi (tapi berbahaya).</li>
+        <li>Reference <strong>tidak bisa diubah</strong> untuk menunjuk ke variabel lain setelah dibuat; pointer bisa diubah kapan saja.</li>
+        <li>Reference <strong>tidak bisa NULL</strong>; pointer bisa NULL (dan harus diperiksa sebelum digunakan).</li>
+        <li>Mengakses nilai reference seperti variabel biasa; pointer perlu dereference (<code>*ptr</code>).</li>
+    </ul>
+    
+    <h3>💡 Tips Penggunaan Reference</h3>
+    <ul>
+        <li>Gunakan reference untuk parameter fungsi yang perlu mengubah argumen asli (output parameter).</li>
+        <li>Gunakan <code>const reference</code> untuk parameter yang hanya perlu dibaca tetapi berukuran besar (string, struct, array).</li>
+        <li>Jangan mengembalikan reference ke variabel lokal fungsi (akan menjadi dangling reference).</li>
+        <li>Reference lebih disarankan daripada pointer jika memungkinkan, karena lebih aman dan mudah digunakan.</li>
+    </ul>
+    <p>Reference adalah fitur C++ yang membuat kode lebih efisien dan bersih. Pahami perbedaannya dengan pointer, dan Anda akan menggunakannya setiap hari.</p>
+</section>
+
+<!-- ================= SECTION 17: POINTERS (DIPERPANJANG) ================= -->
+<section>
+    <h2>17. Pointers (Penunjuk Alamat Memori)</h2>
+    <p>Jika reference adalah "nama lain", maka <strong>pointer</strong> adalah "alamat rumah". Pointer menyimpan alamat memori dari suatu variabel. Dengan pointer, Anda bisa mengakses dan memanipulasi data di alamat tersebut. Ini memberikan kontrol tingkat rendah yang sangat powerful, tetapi juga rawan kesalahan.</p>
+    
+    <h3>🔹 Memori dan Alamat (Konsep Dasar)</h3>
+    <p>Setiap variabel disimpan di memori RAM pada alamat tertentu (bilangan heksadesimal). Anda bisa melihat alamat tersebut menggunakan operator <code>&amp;</code>.</p>
+    <div class="code">
+        int angka = 10;
+        cout << &angka;   // misal output: 0x7ffd8a9b (alamat heksa)
+    </div>
+    
+    <h3>🔹 Mendeklarasikan Pointer</h3>
+    <p>Pointer dideklarasikan dengan menambahkan tanda bintang <code>*</code> setelah tipe data.</p>
+    <div class="code">
+        int *ptr;         // pointer ke integer
+        double *dPtr;     // pointer ke double
+        string *sPtr;     // pointer ke string
+    </div>
+    
+    <h3>🔹 Menyimpan Alamat ke Pointer</h3>
+    <div class="code">
+        int angka = 10;
+        int *ptr = &angka;   // ptr menyimpan alamat angka
+    </div>
+    
+    <h3>🔹 Mengakses Nilai melalui Pointer (Dereference)</h3>
+    <p>Gunakan operator <code>*</code> (bintang) lagi untuk mendapatkan nilai yang disimpan di alamat yang ditunjuk.</p>
+    <div class="code">
+        cout << *ptr;   // mencetak 10
+        *ptr = 20;      // mengubah nilai asli melalui pointer
+        cout << angka;  // 20
+    </div>
+    
+    <h3>🔹 Pointer dan Array</h3>
+    <p>Nama array sebenarnya adalah pointer ke elemen pertama. Ini hubungan yang sangat erat.</p>
+    <div class="code">
+        int arr[3] = {10, 20, 30};
+        int *ptr = arr;        // sama dengan &arr[0]
+        cout << *ptr;          // 10
+        cout << *(ptr+1);      // 20 (ptr+1 melompat ke elemen berikutnya)
+        // Perhatikan: pointer arithmetic menambah sesuai ukuran tipe data (int = 4 byte)
+    </div>
+    
+    <h3>🔹 Pointer NULL (Pointer Kosong)</h3>
+    <p>Pointer bisa diinisialisasi dengan <code>nullptr</code> (C++11) atau <code>NULL</code> (C++98) untuk menandakan bahwa ia tidak menunjuk ke mana pun. Jangan pernah dereference pointer NULL (akan crash).</p>
+    <div class="code">
+        int *ptr = nullptr;
+        if (ptr != nullptr) {
+            cout << *ptr;   // aman
+        }
+    </div>
+    
+    <h3>🔹 Alokasi Memori Dinamis (new dan delete)</h3>
+    <p>Salah satu kegunaan utama pointer adalah membuat objek di heap (memori dinamis) yang hidupnya diatur oleh programmer.</p>
+    <div class="code">
+        int *ptr = new int(5);   // alokasi integer di heap, nilai awal 5
+        cout << *ptr;            // 5
+        *ptr = 10;
+        delete ptr;              // dealokasi, hindari memory leak
+        ptr = nullptr;           // kebiasaan baik
+    </div>
+    <p>Setiap <code>new</code> harus dipasangkan dengan <code>delete</code>. Jika lupa, program akan bocor memori.</p>
+    
+    <h3>⚠️ Kesalahan Umum dan Bahaya Pointer</h3>
+    <ul>
+        <li><strong>Dereference pointer NULL</strong> → program crash.</li>
+        <li><strong>Memory leak</strong> → lupa <code>delete</code> setelah <code>new</code>.</li>
+        <li><strong>Dangling pointer</strong> → pointer menunjuk ke memori yang sudah didealokasi.</li>
+        <li><strong>Wild pointer</strong> → pointer belum diinisialisasi, menunjuk ke alamat acak.</li>
+    </ul>
+    
+    <h3>💡 Kapan Menggunakan Pointer?</h3>
+    <ul>
+        <li>Membuat struktur data dinamis (linked list, tree, graph).</li>
+        <li>Alokasi memori dengan ukuran yang tidak diketahui saat kompilasi (misal array dinamis).</li>
+        <li>Untuk efisiensi saat mengirim data besar (tapi lebih disarankan reference jika memungkinkan).</li>
+        <li>Berinteraksi dengan fungsi C atau hardware.</li>
+    </ul>
+    <p>Pointer adalah topik yang sulit bagi pemula, tetapi sangat penting untuk menjadi programmer C++ yang handal. Latih dengan banyak contoh, dan selalu periksa pointer sebelum digunakan.</p>
+</section>
+
+<!-- ================= SECTION 18: OOP (DIPERPANJANG) ================= -->
+<section>
+    <h2>18. Object Oriented Programming (OOP)</h2>
+    <p><strong>OOP (Object Oriented Programming)</strong> adalah paradigma pemrograman yang memandang program sebagai kumpulan <strong>objek</strong> yang saling berinteraksi. Setiap objek memiliki data (atribut) dan perilaku (method). C++ adalah salah satu bahasa yang mendukung OOP penuh, bersama dengan Java, C#, dan Python.</p>
+    
+    <h3>🔹 Class dan Object (Cetakan dan Hasil Cetakan)</h3>
+    <ul>
+        <li><strong>Class</strong> adalah cetakan (blueprint) yang mendefinisikan properti dan perilaku. Contoh: class <code>Mobil</code> memiliki atribut <code>merk</code>, <code>warna</code>, dan method <code>klakson()</code>.</li>
+        <li><strong>Object</strong> adalah instance nyata dari class. Contoh: Mobil Toyota berwarna merah adalah objek dari class <code>Mobil</code>.</li>
+    </ul>
+    <div class="code">
+        class Mobil {
+        public:
+            string merk;
+            string warna;
+            void klakson() {
+                cout << "Beep! Beep!" << endl;
+            }
+        };
+        
+        int main() {
+            Mobil mobilSaya;
+            mobilSaya.merk = "Toyota";
+            mobilSaya.warna = "Merah";
+            mobilSaya.klakson();   // Output: Beep! Beep!
+            return 0;
+        }
+    </div>
+    
+    <h3>🔹 Perbedaan Class dan Struct</h3>
+    <p>Secara teknis, di C++ <code>struct</code> sama seperti <code>class</code>, tetapi secara default anggota struct bersifat <code>public</code>, sedangkan class <code>private</code>. Dalam OOP, kita biasanya menggunakan <code>class</code> karena mendukung enkapsulasi dengan baik.</p>
+    
+    <h3>🔹 Pilar Utama OOP (4 Prinsip Fundamental)</h3>
+    <ul>
+        <li><strong>Enkapsulasi (Encapsulation)</strong> → Menyembunyikan data internal dari luar, hanya diekspos melalui method (getter/setter). Ini melindungi integritas data.</li>
+        <li><strong>Inheritance (Pewarisan)</strong> → Class dapat mewarisi atribut dan method dari class lain. Contoh: <code>Kucing</code> mewarisi dari <code>Hewan</code>.</li>
+        <li><strong>Polymorphism (Banyak Bentuk)</strong> → Method yang sama dapat memiliki perilaku berbeda di class yang berbeda. Contoh: method <code>suara()</code> pada <code>Kucing</code> mengeluarkan "Meong", pada <code>Anjing</code> "Guk".</li>
+        <li><strong>Abstraksi (Abstraction)</strong> → Menyembunyikan detail implementasi dan hanya menampilkan fitur yang penting. Contoh: Anda tahu cara menggunakan <code>cout</code> tanpa tahu detail internalnya.</li>
+    </ul>
+    
+    <h3>📘 Contoh Inheritance (Pewarisan)</h3>
+    <div class="code">
+        class Hewan {
+        public:
+            string nama;
+            void makan() {
+                cout << nama << " sedang makan." << endl;
+            }
+        };
+        
+        class Kucing : public Hewan {   // Kucing mewarisi Hewan
+        public:
+            void suara() {
+                cout << "Meong!" << endl;
+            }
+        };
+        
+        int main() {
+            Kucing k;
+            k.nama = "Kitty";
+            k.makan();   // dari class Hewan
+            k.suara();   // dari class Kucing sendiri
+            return 0;
+        }
+    </div>
+    
+    <h3>📘 Contoh Polymorphism (Menggunakan Virtual Function)</h3>
+    <div class="code">
+        class Hewan {
+        public:
+            virtual void suara() {   // virtual memungkinkan override
+                cout << "Hewan bersuara" << endl;
+            }
+        };
+        
+        class Kucing : public Hewan {
+        public:
+            void suara() override {   // override method dari parent
+                cout << "Meong" << endl;
+            }
+        };
+        
+        int main() {
+            Hewan *h = new Kucing();
+            h->suara();   // Output: Meong (bukan "Hewan bersuara")
+            delete h;
+            return 0;
+        }
+    </div>
+    
+    <h3>✅ Keuntungan OOP</h3>
+    <ul>
+        <li><strong>Modular</strong> → Program dipecah menjadi kelas-kelas kecil yang independen.</li>
+        <li><strong>Reusable</strong> → Class dapat digunakan ulang di proyek lain.</li>
+        <li><strong>Mudah dipelihara</strong> → Perubahan pada satu kelas tidak merusak kelas lain jika antarmuka tetap.</li>
+        <li><strong>Mendekati dunia nyata</strong> → Objek lebih alami untuk dimodelkan (mobil, mahasiswa, rekening bank).</li>
+    </ul>
+    
+    <h3>💡 Tips Belajar OOP untuk Pemula</h3>
+    <ul>
+        <li>Mulai dengan class sederhana: buat class <code>Mobil</code> dengan atribut <code>merk</code> dan <code>warna</code>, serta method <code>start()</code>.</li>
+        <li>Pahami perbedaan <code>public</code>, <code>private</code>, <code>protected</code> (akses kontrol).</li>
+        <li>Pelajari konstruktor dan destruktor (cara class diinisialisasi dan dibersihkan).</li>
+        <li>Jangan langsung terjun ke polymorphism; kuasai inheritance dulu.</li>
+        <li>OOP adalah topik besar; luangkan waktu dan buat proyek kecil (misal sistem manajemen toko sederhana).</li>
+    </ul>
+    <p>OOP adalah fondasi pengembangan perangkat lunak modern. Setelah Anda menguasai C++ prosedural, OOP akan membuka pintu ke desain sistem yang besar dan kompleks. Selamat belajar!</p>
+</section>
+
+</main>
+
+<footer>
+    Modul Pembelajaran C++ Lengkap | Disusun untuk Tujuan Akademik<br>
+    <a href="tryCPP.html" class="try-link">🚀 Coba Langsung di tryCPP →</a>
+</footer>
+
+<!-- LOGOUT TERMINAL -->
+<div id="loadingScreen" class="loading-screen">
+    <div class="terminal">
+        <pre id="terminalText"></pre>
+    </div>
+</div>
+
+<script src="TutorialCPP.js"></script>
+</body>
+</html>

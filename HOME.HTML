@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME - Portal Tutorial</title>
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<div class="watermark">Rosilano Ayala KA2A</div>
+
+<div class="topnav">
+  <div class="logo">PORTAL</div>
+  <div class="nav-right">
+    <a href="#">HOME</a>
+    <a href="#service-contact">SERVICE CONTACT</a>
+    <a href="#">TEMPAT KURSUS</a>
+    <div class="account-wrapper" id="accountWrapper">
+      <a href="login.html" class="sign-btn" id="authButton">Sign In</a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">👤 Profile</a>
+        <a href="#" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Service contact target -->
+<div id="service-contact" style="scroll-margin-top: 80px;"></div>
+
+<section class="hero html-section">
+  <div class="hero-left">
+    <h1>HTML</h1>
+    <p>The language for building web pages</p>
+    <div class="button-group">
+      <a href="TutorialHTML.html" class="btn primary">Learn HTML</a>
+      <a href="https://youtu.be/fzWdtSGRVNo" target="_blank" class="btn secondary">Video Tutorial</a>
+      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h2>HTML Example:</h2>
+    <textarea readonly>
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+    </textarea>
+    <a href="try-html.html" class="try-btn protected-link">Try it by Yourself</a>
+  </div>
+</section>
+
+<section class="hero css-section">
+  <div class="hero-left">
+    <h1>CSS</h1>
+    <p>The language for styling web pages</p>
+    <div class="button-group">
+      <a href="TutorialCSS.html" class="btn primary">Learn CSS</a>
+      <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="btn secondary">Video Tutorial</a>
+      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h2>CSS Example:</h2>
+    <textarea readonly>
+body {
+  background-color: lightblue;
+}
+h1 {
+  color: navy;
+  text-align: center;
+}
+    </textarea>
+    <a href="try-css.html" class="try-btn protected-link">Try it by Yourself</a>
+  </div>
+</section>
+
+<section class="hero cpp-section">
+  <div class="hero-left">
+    <h1>C++</h1>
+    <p>The language for high performance programming</p>
+    <div class="button-group">
+      <a href="TutorialCPP.html" class="btn primary">Learn C++</a>
+      <a href="https://youtu.be/ZzaPdXTrSb8" target="_blank" class="btn secondary">Video Tutorial</a>
+      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h2>C++ Example:</h2>
+    <textarea readonly>
+#include <iostream>
+using namespace std;
+int main() {
+  cout << "Hello World!";
+  return 0;
+}
+    </textarea>
+    <a href="try-cpp.html" class="try-btn protected-link">Try it by Yourself</a>
+  </div>
+</section>
+
+<section class="hero js-section">
+  <div class="hero-left">
+    <h1>JavaScript</h1>
+    <p>The language for interactive web development</p>
+    <div class="button-group">
+      <a href="TutorialJS.html" class="btn primary">Learn JavaScript</a>
+      <a href="https://youtu.be/W6NZfCO5SIk" target="_blank" class="btn secondary">Video Tutorial</a>
+      <a href="kontakAhli.html" class="btn ghost">Kontak Ahli</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h2>JavaScript Example:</h2>
+    <textarea readonly>
+document.body.style.background = "yellow";
+alert("Hello JavaScript!");
+    </textarea>
+    <a href="try-js.html" class="try-btn protected-link">Try it by Yourself</a>
+  </div>
+</section>
+
+<div class="footer">
+  Dibuat untuk pembelajaran • Clean Stable Version
+</div>
+
+<div id="loadingScreen" class="loading-screen">
+  <div class="terminal">
+    <pre id="terminalText"></pre>
+  </div>
+</div>
+
+<script src="home.js"></script>
+
+<div id="redirectLoading" style="position:fixed; inset:0; background:#0f172a; display:none; justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:black; padding:20px 30px; border-radius:10px; color:#00ff88; font-family:monospace;">
+    <span id="loadingText"></span>
+  </div>
+</div>
+
+</body>
+</html>

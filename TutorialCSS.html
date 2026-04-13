@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial CSS Interaktif - Belajar CSS Lengkap</title>
+<link rel="stylesheet" href="TutorialCSS.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>Modul CSS Interaktif 🎨</h1>
+  <p>Pembelajaran CSS dari Dasar hingga Lanjut</p>
+  <div class="header-bottom">
+    <input id="searchInput" oninput="cariMateri()" placeholder="🔍 Cari materi...">
+  </div>
+</header>
+
+<!-- NAVBAR -->
+<nav class="topnav">
+  <div class="logo">PORTAL</div>
+  <div class="nav-right">
+    <a href="HOME.html">HOME</a>
+    <a href="TempatKursus.html">TEMPAT KURSUS</a>
+    <div class="account-wrapper" id="accountWrapper">
+      <a href="#" id="authButton" class="sign-btn">Sign In</a>
+      <div class="dropdown-menu">
+        <a href="#">👤 Profile</a>
+        <a href="#" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MINI HEADER (SCROLL) -->
+<div class="mini-header" id="miniHeader">
+  <input type="text" id="searchMini" placeholder="🔍 Cari materi...">
+  <div class="mini-account" id="miniAccount"></div>
+</div>
+
+<main id="mainContent" class="container">
+
+<!-- ================= SECTION 1: CSS INTRODUCTION (DIPERPANJANG) ================= -->
+<section>
+  <h2>1. Pengantar CSS (CSS Introduction)</h2>
+  
+  <p>CSS adalah singkatan dari <strong>Cascading Style Sheets</strong>. Dalam bahasa Indonesia, kurang lebih berarti "Lembar Gaya Berjenjang". CSS adalah bahasa yang digunakan untuk mengatur <strong>tampilan</strong> dan <strong>tata letak</strong> halaman web. Tanpa CSS, halaman web hanya akan menampilkan teks polos dan gambar tanpa warna, tanpa pengaturan posisi, dan terlihat sangat membosankan.</p>
+  
+  <p>Bayangkan Anda membangun sebuah rumah. <strong>HTML</strong> adalah struktur rumahnya: dinding, atap, pintu, jendela. <strong>CSS</strong> adalah cat dinding, warna pintu, jenis lantai, dan tata letak furnitur. <strong>JavaScript</strong> adalah interaksinya: lampu yang bisa dinyalakan, pintu yang terbuka, dan tombol bel yang berbunyi. Ketiganya bekerja sama untuk menciptakan pengalaman yang utuh.</p>
+  
+  <h3>🔍 Mengapa CSS Sangat Penting?</h3>
+  <ul>
+    <li><strong>Pemisahan struktur dan tampilan</strong> → HTML hanya fokus pada konten dan makna (ini heading, ini paragraf, ini gambar), sedangkan CSS fokus pada bagaimana semua itu terlihat. Ini membuat kode lebih rapi dan mudah dipelihara.</li>
+    <li><strong>Konsistensi</strong> → Dengan CSS, Anda bisa mendefinisikan satu gaya untuk semua judul di seluruh halaman. Jika ingin mengubah warna semua judul, cukup ubah satu baris CSS, bukan ratusan baris HTML.</li>
+    <li><strong>Fleksibilitas dan responsivitas</strong> → CSS memungkinkan halaman web menyesuaikan diri dengan ukuran layar yang berbeda (ponsel, tablet, komputer). Ini disebut desain responsif.</li>
+    <li><strong>Kecepatan loading</strong> → File CSS bisa di-cache oleh browser. Setelah diunduh sekali, halaman lain dalam situs yang sama akan menggunakan file yang sama, sehingga lebih cepat.</li>
+  </ul>
+  
+  <h3>🧠 Cara Kerja CSS (Analogi Sederhana)</h3>
+  <p>Bayangkan Anda memiliki sekumpulan elemen HTML seperti <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>. CSS adalah seperangkat aturan yang mengatakan: "Setiap <code>&lt;h1&gt;</code> harus berwarna biru, setiap <code>&lt;p&gt;</code> harus berukuran 16px, dan setiap tombol harus memiliki latar belakang hijau." Browser kemudian membaca aturan-aturan ini dan menampilkan elemen sesuai dengan instruksi tersebut.</p>
+  
+  <p>Prosesnya kurang lebih seperti ini:</p>
+  <div class="code">
+    Browser membaca file HTML → menemukan elemen &lt;h1&gt;  
+    Browser membaca file CSS → menemukan aturan untuk h1  
+    Browser menggabungkan (cascade) semua aturan  
+    Browser menampilkan h1 dengan gaya yang sudah ditentukan
+  </div>
+  
+  <h3>🎨 Apa Saja yang Bisa Dilakukan dengan CSS?</h3>
+  <p>CSS dapat mengatur hampir semua aspek visual dari sebuah halaman web. Berikut adalah beberapa kemampuan utamanya:</p>
+  <ul>
+    <li><strong>Warna</strong> → teks, latar belakang, border, bayangan.</li>
+    <li><strong>Ukuran dan jarak</strong> → lebar, tinggi, margin (jarak luar), padding (jarak dalam).</li>
+    <li><strong>Tipografi</strong> → jenis font, ukuran, ketebalan, gaya (miring), spasi antar huruf, spasi antar baris.</li>
+    <li><strong>Layout</strong> → posisi elemen (kiri, kanan, atas, bawah), tampilan blok atau inline, fleksibel (flexbox), grid.</li>
+    <li><strong>Efek visual</strong> → bayangan (box-shadow), sudut melengkung (border-radius), transisi (transition), animasi (animation).</li>
+    <li><strong>Responsivitas</strong> → mengubah tampilan berdasarkan ukuran layar menggunakan media query.</li>
+  </ul>
+  
+  <h3>📝 Contoh CSS Pertama Anda</h3>
+  <p>Mari kita lihat contoh CSS paling sederhana. Anggap Anda memiliki file HTML dengan sebuah paragraf. Anda ingin paragraf tersebut berwarna biru dan memiliki ukuran font 20px. Berikut adalah kode CSS yang akan melakukannya:</p>
+  <div class="code">
+    p {
+      color: blue;
+      font-size: 20px;
+    }
+  </div>
+  <p>Penjelasan:</p>
+  <ul>
+    <li><code>p</code> adalah <strong>selector</strong> (menunjuk ke elemen <code>&lt;p&gt;</code>).</li>
+    <li><code>color</code> adalah <strong>properti</strong> (apa yang ingin diubah).</li>
+    <li><code>blue</code> adalah <strong>nilai</strong> (bagaimana tampilannya).</li>
+    <li>Tanda kurung kurawal <code>{ }</code> mengelompokkan deklarasi.</li>
+  </ul>
+  
+  <h3>🧩 Tiga Cara Menempatkan CSS</h3>
+  <p>Ada tiga cara untuk menerapkan CSS ke halaman HTML. Sebagai pemula, Anda akan sering menggunakan cara pertama dan kedua.</p>
+  <ul>
+    <li><strong>External CSS</strong> (direkomendasikan) → Tulis CSS di file terpisah (misal <code>style.css</code>) lalu hubungkan dengan <code>&lt;link&gt;</code>. Cara ini paling rapi dan mudah dipelihara.</li>
+    <li><strong>Internal CSS</strong> → Tulis CSS di dalam tag <code>&lt;style&gt;</code> di dalam <code>&lt;head&gt;</code>. Cocok untuk halaman yang unik.</li>
+    <li><strong>Inline CSS</strong> → Tulis CSS langsung di atribut <code>style</code> elemen HTML. Tidak disarankan untuk proyek besar karena sulit diatur.</li>
+  </ul>
+  <div class="code">
+    /* External CSS (file style.css) */
+    body { background: #f0f0f0; }
+    
+    /* Internal CSS (di dalam tag style) */
+    &lt;style&gt;
+      h1 { color: navy; }
+    &lt;/style&gt;
+    
+    /* Inline CSS (langsung di elemen) */
+    &lt;p style="color: red;"&gt;Teks merah&lt;/p&gt;
+  </div>
+  
+  <h3>🌊 Apa Arti "Cascading" (Berjenjang)?</h3>
+  <p>Kata "Cascading" sangat penting. Ini mengacu pada cara browser menentukan gaya mana yang akan diterapkan ketika ada beberapa aturan yang bersaing. Browser akan mengikuti urutan prioritas:</p>
+  <ol>
+    <li>Gaya dari pengguna (user style) bisa override default browser.</li>
+    <li>Gaya dari pembuat halaman (author style) lebih kuat dari gaya user.</li>
+    <li>Inline style memiliki prioritas tertinggi.</li>
+    <li>Jika spesifisitas sama, aturan yang ditulis terakhir akan menang.</li>
+  </ol>
+  <p>Contoh: Jika Anda menulis dua aturan untuk <code>p</code>, aturan kedua akan menggantikan yang pertama.</p>
+  <div class="code">
+    p { color: red; }
+    p { color: blue; } /* yang ini yang dipakai */
+  </div>
+  
+  <h3>💡 Tips untuk Pemula</h3>
+  <ul>
+    <li><strong>Mulai dari yang kecil</strong> → Coba ubah warna teks, lalu ukuran font, lalu margin. Jangan langsung belajar semua properti sekaligus.</li>
+    <li><strong>Gunakan alat developer browser</strong> → Tekan F12 di Chrome/Firefox, Anda bisa melihat dan mengedit CSS secara langsung, serta melihat kotak model (box model) elemen.</li>
+    <li><strong>Jangan takut bereksperimen</strong> → CSS tidak akan merusak komputer. Salah satu keindahan CSS adalah bahwa properti yang salah hanya diabaikan, tidak menyebabkan error fatal.</li>
+    <li><strong>Pelajari konsep "box model" sejak awal</strong> → Ini adalah kunci untuk memahami layout.</li>
+  </ul>
+  
+  <h3>🚀 Kesimpulan</h3>
+  <p>CSS adalah bahasa yang sangat kuat namun tetap bersahabat untuk dipelajari. Setelah Anda menguasai dasar-dasar seperti selector, properti warna, font, margin, dan padding, Anda sudah bisa membuat halaman web yang menarik. Selanjutnya, Anda akan belajar tentang selector yang lebih spesifik, cara mengatur tata letak, dan efek-efek keren. Ingatlah bahwa semua desainer web profesional pun mulai dari langkah pertama yang sama seperti Anda sekarang.</p>
+  <p>Di bagian selanjutnya, kita akan membahas <strong>syntax dasar CSS</strong> secara lebih detail. Pastikan Anda sudah paham konsep di atas sebelum melanjutkan.</p>
+</section>
+
+<!-- ================= SECTION 2: CSS SYNTAX (DIPERPANJANG) ================= -->
+<section>
+  <h2>2. CSS Syntax (Aturan Penulisan CSS)</h2>
+  
+  <p><strong>Syntax</strong> adalah aturan penulisan kode. Dalam CSS, setiap aturan terdiri dari dua bagian utama: <strong>selector</strong> (pemilih) dan <strong>declaration block</strong> (blok deklarasi). Memahami syntax adalah langkah pertama yang sangat penting karena jika syntax salah, CSS tidak akan bekerja.</p>
+  
+  <h3>🔍 Struktur Dasar CSS</h3>
+  <p>Mari kita lihat contoh paling sederhana:</p>
+  <div class="code">
+    h1 {
+      color: blue;
+      font-size: 20px;
+    }
+  </div>
+  <p>Mari kita bedah baris per baris:</p>
+  <ul>
+    <li><strong><code>h1</code></strong> → <strong>Selector</strong>. Bagian ini memilih elemen HTML mana yang akan diubah. Di sini, semua elemen <code>&lt;h1&gt;</code> di halaman akan terkena aturan ini.</li>
+    <li><strong><code>{ }</code></strong> → Kurung kurawal membuka dan menutup <strong>declaration block</strong>. Semua deklarasi (aturan) ditulis di antara kurung ini.</li>
+    <li><strong><code>color: blue;</code></strong> → Sebuah <strong>deklarasi</strong>. Terdiri dari <strong>property</strong> (color) dan <strong>value</strong> (blue), dipisah oleh titik dua <code>:</code>. Setiap deklarasi diakhiri dengan titik koma <code>;</code>.</li>
+    <li><strong><code>font-size: 20px;</code></strong> → Deklarasi kedua. Bisa ada banyak deklarasi dalam satu blok.</li>
+  </ul>
+  
+  <h3>📝 Analogi Sederhana</h3>
+  <p>Bayangkan selector adalah "orang yang menerima perintah", dan deklarasi adalah "perintah itu sendiri". Contoh: Jika Anda seorang manajer, Anda memberi instruksi: "Semua karyawan (selector) harus memakai seragam biru (deklarasi)." Dalam CSS, kita bilang: "Semua <code>h1</code> harus berwarna biru."</p>
+  
+  <h3>🧩 Komponen dalam Satu Deklarasi</h3>
+  <ul>
+    <li><strong>Property</strong> → Nama fitur yang ingin diubah. Contoh: <code>color</code> (warna teks), <code>background-color</code> (warna latar), <code>margin</code> (jarak luar), <code>font-family</code> (jenis huruf). Ada puluhan properti CSS.</li>
+    <li><strong>Value</strong> → Nilai yang diberikan untuk properti tersebut. Contoh: <code>blue</code>, <code>#ff0000</code>, <code>20px</code>, <code>solid</code>. Setiap properti memiliki nilai yang diperbolehkan.</li>
+    <li><strong>Titik koma (<code>;</code>)</strong> → Pemisah antar deklarasi. Sangat penting! Jika lupa, dua deklarasi akan dianggap satu dan menyebabkan error.</li>
+  </ul>
+  <div class="code">
+    /* Benar */
+    p {
+      color: red;
+      font-size: 16px;
+    }
+    
+    /* Salah (lupa titik koma) */
+    p {
+      color: red
+      font-size: 16px;
+    }
+  </div>
+  
+  <h3>🎯 Aturan Penting dalam CSS Syntax</h3>
+  <ul>
+    <li><strong>CSS tidak error keras</strong> → Jika browser menemukan deklarasi yang salah (misal property tidak dikenal), browser akan <strong>mengabaikannya</strong> dan melanjutkan ke deklarasi berikutnya. Ini berbeda dengan bahasa pemrograman lain yang langsung berhenti. Karena itu, kadang CSS tidak bekerja seperti yang diharapkan tanpa pesan error jelas.</li>
+    <li><strong>Spasi dan baris baru tidak penting</strong> → CSS mengabaikan spasi berlebih dan baris baru. Anda bisa menulis semua dalam satu baris atau banyak baris, asalkan syntax-nya benar. Namun menulis dengan rapi membantu manusia membacanya.</li>
+    <li><strong>Case-sensitive</strong> → CSS peka terhadap huruf besar/kecil pada selector dan property? Sebagian besar tidak, tetapi nilai tertentu (seperti URL) peka. Sebagai praktik baik, selalu gunakan huruf kecil.</li>
+    <li><strong>Komentar</strong> → Gunakan <code>/* ... */</code> untuk menulis catatan yang tidak dieksekusi. Komentar sangat membantu saat bekerja dalam tim atau mengingat kode lama.</li>
+  </ul>
+  <div class="code">
+    /* Ini adalah komentar, tidak mempengaruhi tampilan */
+    body {
+      background: white; /* komentar di samping deklarasi */
+    }
+  </div>
+  
+  <h3>⚡ Urutan Deklarasi: "Last Rule Wins"</h3>
+  <p>Jika Anda menulis dua deklarasi dengan properti yang sama untuk selector yang sama, maka deklarasi yang <strong>terakhir</strong> akan digunakan. Ini disebut "last rule wins". Contoh:</p>
+  <div class="code">
+    h1 {
+      color: red;
+      color: blue; /* yang ini yang dipakai */
+    }
+  </div>
+  <p>Hasilnya: semua <code>h1</code> berwarna biru. Ini penting karena Anda bisa menimpa aturan sebelumnya tanpa menghapusnya.</p>
+  
+  <h3>🧪 Contoh Kesalahan Syntax yang Sering Terjadi pada Pemula</h3>
+  <ul>
+    <li><strong>Lupa titik koma</strong> → Dua deklarasi akan menyatu, browser bingung.</li>
+    <li><strong>Lupa kurung kurawal penutup <code>}</code></strong> → Semua CSS setelahnya akan error.</li>
+    <li><strong>Salah menulis property</strong> → Misal <code>colour: blue;</code> (bahasa Inggris Inggris) tidak akan dikenali, diabaikan.</li>
+    <li><strong>Lupa titik dua <code>:</code> antara property dan value</strong> → Tidak valid.</li>
+  </ul>
+  <div class="code">
+    /* Kode dengan beberapa kesalahan */
+    h1 {
+      color: red   /* lupa titik koma dan titik dua? Tidak, di sini lupa titik koma */
+      font-size: 20px; /* akan dianggap bagian dari deklarasi sebelumnya */
+    }
+    /* Browser akan mengabaikan aturan ini atau salah interpretasi */
+  </div>
+  
+  <h3>💡 Tips Praktis untuk Pemula</h3>
+  <ul>
+    <li><strong>Gunakan editor kode yang baik</strong> → Editor seperti VS Code akan memberi warna berbeda pada selector, property, dan value, serta menandai syntax error.</li>
+    <li><strong>Selalu akhiri deklarasi dengan titik koma</strong> → Meskipun deklarasi terakhir dalam blok bisa tanpa titik koma, biasakan selalu pakai untuk menghindari error saat menambah deklarasi baru.</li>
+    <li><strong>Gunakan indentasi</strong> → Menulis property dalam baris baru dengan indentasi (spasi atau tab) membuat kode mudah dibaca.</li>
+    <li><strong>Jangan takut bereksperimen</strong> → Buka alat developer browser (F12), pilih tab "Elements", dan coba ubah CSS secara langsung. Anda akan melihat efeknya real-time tanpa perlu menyimpan file.</li>
+  </ul>
+  
+  <h3>🔗 Contoh CSS dengan Banyak Deklarasi</h3>
+  <p>Berikut adalah contoh CSS yang lebih lengkap untuk memformat sebuah kartu (card):</p>
+  <div class="code">
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-family: 'Arial', sans-serif;
+    }
+  </div>
+  <p>Setiap baris adalah deklarasi yang mengubah satu aspek tampilan. Perhatikan setiap baris diakhiri titik koma.</p>
+  
+  <h3>📖 Kesimpulan</h3>
+  <p>Syntax CSS sebenarnya sangat sederhana: <strong>selector { property: value; }</strong>. Setelah Anda memahami pola ini, Anda sudah bisa membaca dan menulis CSS dasar. Tantangan sebenarnya adalah menghafal properti dan nilai yang tersedia, serta memahami bagaimana selector bekerja. Di bagian selanjutnya, kita akan mempelajari berbagai macam selector agar Anda bisa menargetkan elemen mana pun di halaman dengan presisi.</p>
+  <p>Sebelum lanjut, pastikan Anda sudah mencoba menulis sendiri beberapa aturan CSS sederhana di editor atau alat developer browser. Praktek langsung adalah cara terbaik untuk memahami syntax.</p>
+</section>
+
+<!-- ================= SECTION 3: CSS SELECTORS (DIPERPANJANG) ================= -->
+<section>
+  <h2>3. CSS Selectors (Pemilih Elemen)</h2>
+  
+  <p><strong>Selector</strong> adalah jantung dari CSS. Selector menentukan <strong>elemen HTML mana</strong> yang akan dikenai gaya. Tanpa selector yang tepat, CSS tidak akan tahu harus mengubah apa. Bayangkan selector seperti <strong>alamat rumah</strong> – Anda harus memberi tahu kurir ke mana paket harus diantar.</p>
+  
+  <p>CSS menyediakan banyak jenis selector, mulai dari yang paling sederhana hingga yang sangat kompleks. Sebagai pemula, Anda cukup menguasai 4 jenis selector dasar terlebih dahulu: universal, element, class, dan ID. Setelah itu, Anda bisa belajar selector lanjutan seperti atribut, pseudo-class, dan kombinasi.</p>
+  
+  <h3>🎯 1. Universal Selector (*)</h3>
+  <p>Universal selector ditulis dengan tanda bintang <code>*</code>. Selector ini memilih <strong>semua elemen</strong> di halaman. Sangat berguna untuk menerapkan gaya global, seperti mengatur ulang margin dan padding bawaan browser.</p>
+  <div class="code">
+    /* Mengatur semua elemen agar tidak memiliki margin dan padding bawaan */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </div>
+  <p><strong>Kapan menggunakannya?</strong> Biasanya digunakan di awal file CSS untuk "reset" gaya default browser. Namun hati-hati, karena selector ini memiliki prioritas terendah (bisa ditimpa oleh selector lain).</p>
+  
+  <h3>🏷️ 2. Element Selector (Tag Selector)</h3>
+  <p>Element selector memilih semua elemen berdasarkan <strong>nama tag HTML</strong> (seperti <code>p</code>, <code>h1</code>, <code>div</code>, <code>a</code>). Ini adalah selector yang paling mudah dipahami.</p>
+  <div class="code">
+    /* Semua paragraf akan berwarna abu-abu */
+    p {
+      color: gray;
+    }
+    /* Semua heading level 1 akan berukuran 28px */
+    h1 {
+      font-size: 28px;
+    }
+  </div>
+  <p><strong>Kelemahan:</strong> Selector ini akan memengaruhi <strong>semua</strong> elemen dengan tag tersebut. Jika Anda ingin hanya sebagian paragraf yang berbeda, Anda perlu selector yang lebih spesifik (class).</p>
+  
+  <h3>📦 3. Class Selector (.nama-class)</h3>
+  <p>Class selector adalah selector yang paling sering digunakan dalam pengembangan web modern. Class selector ditulis dengan titik <code>.</code> diikuti nama class. Di HTML, Anda memberikan atribut <code>class="..."</code> pada elemen.</p>
+  <div class="code">
+    /* CSS */
+    .highlight {
+      background-color: yellow;
+      font-weight: bold;
+    }
+    
+    /* HTML */
+    &lt;p class="highlight"&gt;Teks ini berlatar kuning dan tebal.&lt;/p&gt;
+    &lt;p&gt;Teks ini normal.&lt;/p&gt;
+  </div>
+  <p><strong>Keunggulan:</strong> Satu class bisa digunakan berkali-kali di berbagai elemen. Anda juga bisa memberikan beberapa class sekaligus, dipisah spasi: <code>class="highlight large"</code>.</p>
+  
+  <h3>🆔 4. ID Selector (#nama-id)</h3>
+  <p>ID selector ditulis dengan tanda pagar <code>#</code> diikuti nama ID. Setiap ID harus <strong>unik</strong> dalam satu halaman (tidak boleh ada dua elemen dengan ID yang sama). ID biasanya digunakan untuk elemen yang benar-benar spesial, seperti header utama, footer, atau bagian yang hanya muncul sekali.</p>
+  <div class="code">
+    /* CSS */
+    #main-header {
+      background: navy;
+      color: white;
+      padding: 20px;
+    }
+    
+    /* HTML */
+    &lt;div id="main-header"&gt;Ini adalah header utama&lt;/div&gt;
+  </div>
+  <p><strong>Perbedaan ID dan Class:</strong> ID lebih spesifik daripada Class (prioritas lebih tinggi), tetapi karena keunikannya, ID kurang fleksibel. Sebaiknya gunakan class kecuali Anda yakin elemen tersebut hanya ada satu.</p>
+  
+  <h3>⚖️ Prioritas Selector (Specificity)</h3>
+  <p>Pernahkah Anda mengalami kebingungan ketika CSS Anda tidak berfungsi meskipun sudah menulis aturan? Kemungkinan besar itu masalah <strong>spesifisitas</strong>. Browser memberikan bobot (weight) pada setiap selector. Semakin spesifik selector, semakin tinggi prioritasnya. Urutan prioritas dari yang tertinggi ke terendah:</p>
+  <ol>
+    <li><strong>Inline style</strong> (ditulis langsung di elemen) – bobot tertinggi.</li>
+    <li><strong>ID selector</strong> (<code>#id</code>) – sangat spesifik.</li>
+    <li><strong>Class, attribute, pseudo-class</strong> (<code>.class</code>, <code>[type="text"]</code>, <code>:hover</code>) – cukup spesifik.</li>
+    <li><strong>Element selector</strong> (<code>div</code>, <code>p</code>) – rendah.</li>
+    <li><strong>Universal selector</strong> (<code>*</code>) – paling rendah.</li>
+  </ol>
+  <div class="code">
+    /* Contoh konflik */
+    p { color: black; }           /* element selector */
+    .teks { color: blue; }        /* class selector (menang atas element) */
+    #judul { color: red; }        /* ID selector (menang atas class) */
+  </div>
+  <p>Jika dua selector memiliki tingkat spesifisitas yang sama, maka aturan yang ditulis <strong>terakhir</strong> akan menang (last rule wins).</p>
+  
+  <h3>🔗 Selector Lanjutan (Combinators & Pseudo-class)</h3>
+  <p>Setelah Anda menguasai selector dasar, Anda bisa belajar selector yang lebih powerful untuk menargetkan elemen secara presisi:</p>
+  <ul>
+    <li><strong>Descendant combinator (spasi)</strong> → <code>div p</code> memilih semua <code>p</code> yang berada di dalam <code>div</code>, di level mana pun.</li>
+    <li><strong>Child combinator (>)</strong> → <code>div > p</code> hanya memilih <code>p</code> yang merupakan anak langsung dari <code>div</code>.</li>
+    <li><strong>Adjacent sibling (+)</strong> → <code>h1 + p</code> memilih <code>p</code> yang langsung mengikuti <code>h1</code>.</li>
+    <li><strong>General sibling (~)</strong> → <code>h1 ~ p</code> memilih semua <code>p</code> yang berada setelah <code>h1</code> dan memiliki parent yang sama.</li>
+    <li><strong>Pseudo-class (:hover, :focus, :first-child)</strong> → menargetkan elemen dalam keadaan khusus.</li>
+    <li><strong>Attribute selector</strong> → <code>[type="text"]</code> memilih input dengan tipe text.</li>
+  </ul>
+  <div class="code">
+    /* Contoh selector lanjutan */
+    div p { color: green; }           /* semua paragraf dalam div */
+    div > p { font-weight: bold; }    /* paragraf anak langsung */
+    a:hover { text-decoration: none; } /* link saat di-hover */
+    input:focus { border: 2px solid blue; } /* input saat aktif */
+  </div>
+  
+  <h3>💡 Tips Memilih Selector yang Tepat</h3>
+  <ul>
+    <li><strong>Gunakan class sebanyak mungkin</strong> – class fleksibel dan mudah di-maintain.</li>
+    <li><strong>Hindari selector yang terlalu spesifik</strong> seperti <code>div#container .box .title</code>. Semakin panjang, semakin sulit di-override.</li>
+    <li><strong>Jangan gunakan ID untuk styling</strong> jika memungkinkan, karena ID memiliki prioritas tinggi dan susah diubah nanti. ID lebih cocok untuk JavaScript.</li>
+    <li><strong>Gunakan selector universal (*) hanya untuk reset global</strong>, jangan untuk styling elemen spesifik.</li>
+    <li><strong>Pelajari pseudo-class</strong> seperti <code>:hover</code> dan <code>:nth-child()</code> untuk membuat interaksi keren.</li>
+  </ul>
+  
+  <h3>🧪 Latihan Sederhana</h3>
+  <p>Coba buat file HTML sederhana dengan beberapa paragraf, beberapa div, dan beberapa elemen dengan class. Kemudian buat CSS yang menggunakan berbagai selector di atas. Amati perubahannya. Gunakan alat developer browser (F12) untuk melihat selector mana yang diterapkan.</p>
+  
+  <h3>🚀 Kesimpulan</h3>
+  <p>Selector adalah alat untuk "menunjuk" elemen HTML. Anda telah mempelajari selector universal, element, class, ID, serta sedikit tentang prioritas dan selector lanjutan. Dengan menguasai selector, Anda bisa mengendalikan tampilan halaman web dengan presisi. Di bagian selanjutnya, kita akan menerapkan pengetahuan ini ke properti-properti CSS seperti warna, border, margin, padding, dan box model.</p>
+</section>
+
+<!-- ================= LOGIN WALL ================= -->
+<div id="loginWall" class="login-wall" style="display: none;">
+  <p>🔒 <strong>Materi selanjutnya (Colors, Box Model, Text, Font, Display, Position, dll) hanya tersedia untuk pengguna yang login.</strong></p>
+  <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap.</p>
+  <a href="login.html" class="btn-login">Login Sekarang</a>
+</div>
+
+<div id="extraContent" style="display: none;">
+
+<!-- ================= SECTION 4: CSS COLORS (LENGKAP DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>4. CSS Colors (Warna)</h2>
+  <p>Warna adalah elemen desain yang paling mendasar. Dengan CSS, Anda bisa mewarnai teks, latar belakang, border, dan banyak lagi. CSS menyediakan beberapa cara untuk mendefinisikan warna, masing-masing dengan kelebihan tersendiri.</p>
+  
+  <h3>🎨 Metode Warna dalam CSS</h3>
+  <ul>
+    <li><strong>Named Colors</strong> — Ada 140 warna standar seperti <code>red</code>, <code>blue</code>, <code>tomato</code>, <code>darkcyan</code>. Ini sangat mudah diingat dan cocok untuk prototyping. Namun pilihannya terbatas.</li>
+    <li><strong>HEX (Hexadecimal)</strong> — Format <code>#RRGGBB</code>, di mana RR=merah, GG=hijau, BB=biru, masing-masing dari 00 sampai FF. Contoh: <code>#ff0000</code> = merah, <code>#00ff00</code> = hijau. Ini yang paling populer di kalangan desainer web.</li>
+    <li><strong>RGB / RGBA</strong> — <code>rgb(255,0,0)</code> merah, nilai 0-255. <code>rgba(255,0,0,0.5)</code> menambahkan opacity (alpha) antara 0 (transparan) dan 1 (solid). Berguna untuk efek transparan.</li>
+    <li><strong>HSL / HSLA</strong> — <code>hsl(0, 100%, 50%)</code> juga merah. HSL lebih intuitif karena Anda memutar roda warna (hue 0-360), lalu mengatur saturasi (0-100%) dan kecerahan (0-100%). Sangat baik untuk membuat palet warna yang harmonis.</li>
+  </ul>
+  
+  <div class="code">
+    /* Contoh semua format */
+    color: red;                 /* named */
+    color: #ff0000;             /* hex */
+    color: rgb(255, 0, 0);      /* rgb */
+    color: rgba(255, 0, 0, 0.5);/* rgba dengan transparansi */
+    color: hsl(0, 100%, 50%);   /* hsl */
+  </div>
+  <p><strong>🔍 Penjelasan contoh di atas:</strong> Setiap baris menunjukkan cara berbeda untuk menghasilkan warna merah. Browser akan membaca format yang Anda tulis dan menampilkannya sama. Perbedaan utama terletak pada fleksibilitas: <code>rgba()</code> memungkinkan transparansi, <code>hsl()</code> memudahkan variasi warna dengan mengubah nilai Hue. Cobalah mengganti angka pada <code>rgb()</code> atau <code>hsl()</code> untuk melihat perubahan warna secara langsung di demo interaktif.</p>
+
+  <h3>🖌️ Demo Interaktif: Ubah Warna Latar</h3>
+  <div style="background: #f0f0f0; padding: 15px; border-radius: 12px;">
+    <div id="demoColorBox" style="width: 100%; height: 120px; background: #3498db; border-radius: 12px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Kotak Warna</div>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+      <label>Pilih Warna: <input type="color" id="colorPicker" value="#3498db"></label>
+      <label>Opacity: <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="1"></label>
+      <button id="resetColorBtn" style="background: #2c5f8a; color: white; border: none; padding: 5px 12px; border-radius: 20px;">Reset</button>
+    </div>
+    <p style="margin-top: 10px; font-size: 0.85rem;">Kode warna saat ini: <code id="colorCode">#3498db</code></p>
+  </div>
+  <p><strong>🧪 Cara kerja demo:</strong> Color picker menghasilkan nilai HEX, slider opacity mengatur tingkat transparansi. JavaScript di balik layar menggabungkan nilai tersebut menjadi format <code>rgba()</code> lalu menerapkannya ke kotak. Ini menunjukkan bagaimana warna dapat diubah secara dinamis. Coba pilih warna merah, lalu geser opacity ke 0.5 – Anda akan melihat latar kotak menjadi setengah transparan (efek tembus pandang).</p>
+  <p>🔍 <strong>Tips:</strong> Gunakan HSL jika ingin membuat palet warna dengan konsistensi hue. Misalnya, untuk tema biru, gunakan <code>hsl(200, 80%, 60%)</code> lalu variasikan saturasi dan kecerahan. Untuk aksesibilitas, pastikan kontras antara teks dan latar belakang cukup tinggi (gunakan alat online seperti WebAIM Contrast Checker).</p>
+</section>
+
+<!-- ================= SECTION 5: CASCADING & PRIORITY (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>5. CSS Cascading & Prioritas</h2>
+  <p>CSS singkatan dari <strong>Cascading Style Sheets</strong>. Kata "cascading" mengacu pada mekanisme bagaimana browser menentukan style mana yang diterapkan ketika ada beberapa aturan yang menargetkan elemen yang sama. Prioritas dihitung berdasarkan:</p>
+  <ol>
+    <li><strong>Inline style</strong> (dalam atribut <code>style</code>) → prioritas tertinggi.</li>
+    <li><strong>ID selector</strong> → <code>#header</code> (sangat spesifik).</li>
+    <li><strong>Class, attribute, pseudo-class</strong> → <code>.box</code>, <code>[type="text"]</code>, <code>:hover</code>.</li>
+    <li><strong>Element selector</strong> → <code>div</code>, <code>p</code>, <code>h1</code>.</li>
+    <li><strong>Universal selector</strong> → <code>*</code> (prioritas terendah).</li>
+  </ol>
+  <p>Selain spesifisitas, urutan penulisan juga penting: jika dua selector memiliki spesifisitas yang sama, maka yang ditulis <strong>terakhir</strong> akan menang (last rule wins).</p>
+  
+  <div class="code">
+    /* Contoh konflik */
+    p { color: red; }      /* element selector, spesifisitas rendah */
+    .teks { color: blue; } /* class selector → menang karena lebih spesifik */
+    #paragraf { color: green; } /* ID selector → menang lebih tinggi */
+  </div>
+  <p><strong>🔍 Penjelasan contoh konflik:</strong> Misalkan ada elemen <code>&lt;p class="teks" id="paragraf"&gt;Halo&lt;/p&gt;</code>. Ketiga aturan di atas bersaing. Browser menghitung spesifisitas: ID selector (nilai 100) > class selector (nilai 10) > element selector (nilai 1). Maka warna teks akan <strong>hijau</strong> karena ID menang. Jika ID tidak ada, maka class yang menang (biru). Jika tidak ada class juga, barulah element selector (merah) yang berlaku. Ini adalah fondasi penting untuk memahami mengapa kadang CSS Anda tidak berfungsi seperti yang diharapkan.</p>
+  
+  <p>💡 <strong>Best Practice:</strong> Hindari inline style karena sulit di-override. Gunakan class sebanyak mungkin. Jangan terlalu spesifik (misal <code>div#container .box</code>) agar mudah diubah nanti. Gunakan <code>!important</code> hanya sebagai jalan terakhir, karena bisa membuat debugging sangat sulit.</p>
+  <p>Contoh nyata: Saat Anda ingin mengubah warna semua teks dalam suatu bagian, cukup buat class baru dan letakkan di akhir file CSS, maka akan menimpa aturan sebelumnya.</p>
+</section>
+
+<!-- ================= SECTION 6: BORDER (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>6. Border (Garis Tepi)</h2>
+  <p>Border adalah garis yang membungkus elemen. Setiap border memiliki tiga properti: <strong>ketebalan (width)</strong>, <strong>gaya (style)</strong>, dan <strong>warna (color)</strong>. Border dapat diterapkan ke semua sisi atau masing-masing sisi (top, right, bottom, left).</p>
+  
+  <div class="code">
+    /* Shorthand (satu baris) */
+    border: 2px solid black;
+    /* Terpisah */
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    /* Per sisi */
+    border-top: 1px dashed red;
+  </div>
+  <p><strong>🔍 Penjelasan:</strong> Baris pertama (<code>border: 2px solid black;</code>) adalah cara ringkas menggabungkan ketiga properti sekaligus. Urutan bebas, tetapi biasanya: ketebalan, gaya, warna. Baris kedua sampai keempat menunjukkan cara terpisah jika ingin mengubah hanya satu aspek. Baris kelima menunjukkan border hanya di sisi atas dengan gaya putus-putus (dashed) berwarna merah. Anda bisa mencampur gaya yang berbeda untuk setiap sisi.</p>
+  
+  <h3>Jenis-jenis border-style:</h3>
+  <ul>
+    <li><code>solid</code> → garis padat.</li>
+    <li><code>dashed</code> → garis putus-putus (seperti strip).</li>
+    <li><code>dotted</code> → titik-titik.</li>
+    <li><code>double</code> → garis ganda.</li>
+    <li><code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code> → efek 3D (tergantung browser).</li>
+  </ul>
+  
+  <h3>Border Radius (sudut melengkung)</h3>
+  <p>Properti <code>border-radius</code> membuat sudut elemen menjadi tumpul atau lingkaran. Nilai 50% menghasilkan lingkaran sempurna (jika lebar = tinggi). Ini sangat populer untuk membuat tombol bulat, kartu, avatar profil, dan elemen UI modern.</p>
+  <p>Contoh: <code>border-radius: 10px;</code> akan membuat sudut melengkung 10 piksel. <code>border-radius: 50%;</code> pada elemen persegi akan menjadi lingkaran.</p>
+  
+  <h3>🖌️ Demo Interaktif: Ubah Border</h3>
+  <div style="background: #f0f0f0; padding: 15px; border-radius: 12px;">
+    <div id="demoBorderBox" style="width: 200px; height: 150px; background: #facc15; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; text-align: center; transition: all 0.2s;">Kotak Demo</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+      <label>Ketebalan: <input type="range" id="borderWidth" min="0" max="20" value="2"></label>
+      <label>Radius: <input type="range" id="borderRadius" min="0" max="50" value="0"></label>
+      <label>Style: 
+        <select id="borderStyle">
+          <option value="solid">solid</option>
+          <option value="dashed">dashed</option>
+          <option value="dotted">dotted</option>
+          <option value="double">double</option>
+          <option value="groove">groove</option>
+        </select>
+      </label>
+      <label>Warna: <input type="color" id="borderColor" value="#000000"></label>
+    </div>
+    <p style="margin-top: 10px;">Border saat ini: <code id="borderCode">2px solid black</code></p>
+  </div>
+  <p><strong>🧪 Cara kerja demo:</strong> Setiap kali Anda menggeser slider atau mengganti pilihan, JavaScript akan membaca nilai-nilai tersebut dan menggabungkannya menjadi properti <code>border</code> dan <code>border-radius</code> lalu menerapkannya ke kotak kuning. Ini menunjukkan bagaimana ketiga properti (lebar, gaya, warna) dan radius bekerja bersama. Coba atur ketebalan menjadi 10px, pilih style <code>dotted</code>, dan warna merah – kotak akan memiliki bintik-bintik merah tebal. Kemudian atur radius menjadi 30px – sudutnya akan melengkung. Jika radius diatur ke 50% dan lebar & tinggi kotak sama (misal diubah di CSS), kotak akan menjadi lingkaran.</p>
+  <p>💡 <strong>Tips:</strong> Gunakan border-radius bersama dengan box-shadow untuk efek kartu modern. Border sering juga dipakai untuk debugging layout (beri border merah sementara pada elemen untuk melihat batasnya).</p>
+</section>
+
+<!-- ================= SECTION 7: MARGIN (JARAK LUAR) ================= -->
+<section>
+  <h2>7. Margin (Jarak Luar)</h2>
+  <p>Margin adalah ruang di <strong>luar border</strong> yang memisahkan elemen dengan elemen lain. Margin tidak memiliki warna dan bersifat transparan. Anda bisa membayangkan margin sebagai "bantalan" yang mendorong elemen lain menjauh.</p>
+  
+  <div class="code">
+    margin: 20px;                /* semua sisi */
+    margin: 10px 20px;           /* atas-bawah 10px, kiri-kanan 20px */
+    margin: 10px 20px 10px 20px; /* atas, kanan, bawah, kiri */
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+  </div>
+  <p><strong>🔍 Penjelasan contoh kode:</strong> Baris pertama memberikan jarak 20px di keempat sisi. Baris kedua memberikan jarak vertikal (atas-bawah) 10px dan horizontal (kiri-kanan) 20px. Baris ketiga adalah cara eksplisit untuk setiap sisi (urutan: atas, kanan, bawah, kiri – searah jarum jam). Baris keempat hingga ketujuh menunjukkan cara mengatur margin hanya untuk sisi tertentu. Margin sering digunakan untuk memberi jarak antar paragraf, antara gambar dengan teks, antar kartu dalam grid, atau untuk memusatkan elemen (<code>margin: auto</code>).</p>
+  
+  <h3>🖌️ Demo Interaktif: Atur Margin</h3>
+  <div style="background: #cbd5e1; padding: 20px; border-radius: 12px;">
+    <div style="background: #3b82f6; color: white; padding: 15px; text-align: center;" id="demoMarginBox">Elemen dengan margin</div>
+    <div style="background: #10b981; color: white; padding: 15px; text-align: center; margin-top: 10px;">Elemen di bawah</div>
+    <div style="margin-top: 15px;">
+      <label>Margin bawah kotak biru: <input type="range" id="marginSlider" min="0" max="50" value="20"> px</label>
+      <span id="marginValueDisplay">20px</span>
+    </div>
+    <p><strong>🧪 Cara kerja demo:</strong> Geser slider – JavaScript akan mengubah nilai <code>margin-bottom</code> kotak biru. Jarak antara kotak biru dan hijau akan membesar atau mengecil. Ini menunjukkan bahwa margin mempengaruhi posisi elemen di sekitarnya. Coba setel ke 0 – kedua kotak akan saling menempel. Setel ke 50 – jaraknya menjadi sangat jauh.</p>
+  </div>
+  <p>⚠️ <strong>Peringatan penting:</strong> Margin vertikal (atas/bawah) dapat <em>collapse</em> (bergabung) menjadi satu margin terbesar. Misalnya jika elemen A memiliki margin-bottom 20px dan elemen B di bawahnya memiliki margin-top 30px, maka jarak antara mereka adalah 30px, bukan 50px. Ini sering membingungkan pemula, tetapi penting dipahami saat membuat layout. Margin horizontal (kiri/kanan) tidak pernah collapse.</p>
+  <p>🔍 <strong>Tips:</strong> Gunakan <code>margin: 0 auto;</code> untuk memusatkan elemen block secara horizontal (jika lebar ditentukan). Hindari margin negatif kecuali Anda paham konsekuensinya (misalnya untuk menjorokkan elemen ke luar container).</p>
+</section>
+
+<!-- ================= SECTION 8: PADDING (JARAK DALAM) ================= -->
+<section>
+  <h2>8. Padding (Jarak Dalam)</h2>
+  <p>Padding adalah ruang di <strong>dalam border</strong>, antara konten dan border. Padding membuat konten tidak menempel pada tepi, meningkatkan kenyamanan baca dan estetika. Berbeda dengan margin, padding mempengaruhi ukuran total elemen (karena menambah lebar/tinggi).</p>
+  
+  <div class="code">
+    padding: 20px;               /* semua sisi */
+    padding: 10px 20px;          /* atas-bawah 10px, kiri-kanan 20px */
+    padding: 10px 20px 10px 20px;/* atas, kanan, bawah, kiri */
+    padding-top: 10px;
+  </div>
+  <p><strong>🔍 Penjelasan contoh kode:</strong> Sama seperti margin, padding juga bisa ditulis dalam bentuk shorthand. Perbedaan utama: padding mempengaruhi ukuran total elemen. Contoh: tombol dengan <code>padding: 10px 20px</code> akan terlihat lebih besar dan nyaman diklik. Kartu dengan padding membuat teks tidak menempel ke tepi, sehingga lebih rapi.</p>
+  
+  <h3>🖌️ Demo Interaktif: Atur Padding</h3>
+  <div style="background: #e2e8f0; padding: 20px; border-radius: 12px;">
+    <div id="demoPaddingBox" style="background: #f97316; color: white; text-align: center; border: 2px solid #c2410c;">Konten di dalam</div>
+    <div style="margin-top: 15px;">
+      <label>Padding kotak: <input type="range" id="paddingSlider" min="0" max="50" value="15"> px</label>
+      <span id="paddingValueDisplay">15px</span>
+    </div>
+    <p><strong>🧪 Cara kerja demo:</strong> Geser slider – JavaScript mengubah <code>padding</code> kotak oranye. Semakin besar padding, kotak akan semakin besar (karena ruang di dalam bertambah), tetapi teks tetap berada di tengah (karena <code>text-align: center</code>). Coba setel ke 0 – teks akan menempel ke tepi border. Setel ke 30 – kotak mengembang dan teks lebih lega.</p>
+  </div>
+  <p>💡 <strong>Tips:</strong> Jika Anda ingin lebar total tetap, gunakan <code>box-sizing: border-box</code> (dijelaskan di section berikutnya). Ini membuat padding dan border dihitung ke dalam lebar, sehingga lebih mudah dalam layout responsif. Contoh: <code>width: 200px; padding: 20px;</code> dengan <code>border-box</code> akan tetap 200px, tanpa <code>border-box</code> menjadi 240px.</p>
+</section>
+
+<!-- ================= SECTION 9: BOX MODEL (VISUALISASI) ================= -->
+<section>
+  <h2>9. CSS Box Model (Model Kotak)</h2>
+  <p>Konsep paling fundamental dalam CSS layout adalah <strong>Box Model</strong>. Setiap elemen HTML sebenarnya adalah sebuah kotak yang terdiri dari 4 lapisan (dari dalam ke luar):</p>
+  <ul>
+    <li><strong>Content</strong> → isi utama (teks, gambar, dll).</li>
+    <li><strong>Padding</strong> → ruang transparan di sekitar konten.</li>
+    <li><strong>Border</strong> → garis yang mengelilingi padding.</li>
+    <li><strong>Margin</strong> → ruang transparan di luar border.</li>
+  </ul>
+  <div class="code">
+    /* Urutan dari dalam ke luar */
+    Content → Padding → Border → Margin
+  </div>
+  <p><strong>🔍 Mengapa box model penting?</strong> Karena lebar total elemen = <code>width + padding kiri/kanan + border kiri/kanan + margin kiri/kanan</code>. Banyak pemula mengira <code>width: 200px</code> berarti kotak selebar 200px, tetapi jika diberi padding 20px dan border 5px, lebar sebenarnya menjadi 200 + 40 + 10 = 250px. Ini sering menyebabkan layout rusak.</p>
+  
+  <h3>Visualisasi Box Model</h3>
+  <div style="background: #cbd5e1; padding: 25px; border-radius: 12px; text-align: center;">
+    <div style="background: #facc15; padding: 20px; border: 5px solid #eab308; margin: 20px; display: inline-block;">
+      <div style="background: white; padding: 15px;">Content</div>
+    </div>
+  </div>
+  <p>Pada gambar di atas, bagian kuning adalah padding, garis oranye adalah border, dan area abu-abu di luar adalah margin. Content (putih) adalah isi sebenarnya.</p>
+  
+  <p>🔍 <strong>Solusi: box-sizing: border-box</strong></p>
+  <div class="code">
+    /* Mengaktifkan border-box untuk semua elemen (sangat direkomendasikan) */
+    * {
+      box-sizing: border-box;
+    }
+  </div>
+  <p>Dengan <code>border-box</code>, lebar yang Anda tentukan sudah termasuk padding dan border. Jadi <code>width: 200px; padding: 20px; border: 5px;</code> akan tetap 200px (padding dan border diambil dari dalam). Ini adalah praktik standar dalam pengembangan web modern karena sangat memudahkan perhitungan layout. Coba aktifkan di demo berikut:</p>
+  <div style="background: #e2e8f0; padding: 10px; border-radius: 8px; margin-top: 10px;">
+    <div style="width: 200px; background: #3b82f6; color: white; padding: 20px; border: 5px solid #1e3a8a; box-sizing: border-box; text-align: center;">border-box aktif</div>
+    <div style="width: 200px; background: #ef4444; color: white; padding: 20px; border: 5px solid #991b1b; box-sizing: content-box; margin-top: 10px; text-align: center;">content-box (default)</div>
+    <p class="info">Dua kotak di atas memiliki lebar CSS yang sama (200px), tetapi yang bawah lebih lebar karena padding dan border ditambahkan ke luar (total 250px).</p>
+  </div>
+  <p>💡 <strong>Tips debugging:</strong> Gunakan alat developer browser (F12) → tab "Computed" untuk melihat box model setiap elemen secara visual. Anda bisa melihat ukuran content, padding, border, dan margin dengan mudah.</p>
+</section>
+
+<!-- ================= SECTION 10: TEXT STYLING (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>10. Text Styling (Gaya Teks)</h2>
+  <p>CSS menyediakan banyak properti untuk mengatur tampilan teks, seperti perataan, dekorasi, spasi, dan transformasi huruf. Teks yang baik sangat penting untuk keterbacaan dan pengalaman pengguna.</p>
+  
+  <div class="code">
+    text-align: left | center | right | justify;   /* perataan horizontal */
+    text-decoration: underline | overline | line-through | none;
+    text-transform: uppercase | lowercase | capitalize;
+    letter-spacing: 2px;   /* jarak antar huruf (kerning) */
+    word-spacing: 4px;     /* jarak antar kata */
+    line-height: 1.5;      /* jarak antar baris (leading) */
+    text-indent: 20px;     /* indentasi baris pertama */
+  </div>
+  <p><strong>🔍 Penjelasan properti:</strong></p>
+  <ul>
+    <li><code>text-align</code> mengatur perataan horizontal teks. <code>justify</code> membuat teks rata kiri-kanan (seperti koran).</li>
+    <li><code>text-decoration</code> menambahkan garis bawah, garis atas, atau coretan. Biasanya <code>underline</code> untuk link.</li>
+    <li><code>text-transform</code> mengubah huruf menjadi kapital semua, kecil semua, atau huruf pertama kapital.</li>
+    <li><code>letter-spacing</code> menambah jarak antar huruf (kerning). Berguna untuk efek judul.</li>
+    <li><code>word-spacing</code> menambah jarak antar kata.</li>
+    <li><code>line-height</code> mengatur jarak antar baris. Nilai tanpa satuan (misal 1.5) relatif terhadap ukuran font.</li>
+    <li><code>text-indent</code> memberikan indentasi pada baris pertama paragraf.</li>
+  </ul>
+  
+  <h3>🖌️ Demo Interaktif: Ubah Gaya Teks</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <p id="demoText">Ini adalah contoh teks yang bisa diubah-ubah gayanya. Coba klik tombol di bawah!</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+      <button class="text-btn" data-prop="textAlign" data-value="left">Kiri</button>
+      <button class="text-btn" data-prop="textAlign" data-value="center">Tengah</button>
+      <button class="text-btn" data-prop="textAlign" data-value="right">Kanan</button>
+      <button class="text-btn" data-prop="textDecoration" data-value="underline">Garis Bawah</button>
+      <button class="text-btn" data-prop="textDecoration" data-value="line-through">Coret</button>
+      <button class="text-btn" data-prop="textTransform" data-value="uppercase">KAPITAL</button>
+      <button class="text-btn" data-prop="textTransform" data-value="lowercase">kecil</button>
+      <button id="resetTextBtn" style="background: #2c5f8a; color: white;">Reset</button>
+    </div>
+    <div>
+      <label>Letter spacing: <input type="range" id="letterSpacing" min="0" max="10" step="0.5" value="0"> px</label>
+      <label>Line height: <input type="range" id="lineHeight" min="1" max="2.5" step="0.1" value="1.5"></label>
+    </div>
+  </div>
+  <p><strong>🧪 Cara kerja demo:</strong> Setiap tombol akan menambahkan properti CSS ke teks contoh. Slider letter spacing akan menambah jarak antar huruf, slider line height akan mengatur jarak antar baris. Coba atur letter spacing ke 5px – huruf-huruf akan terpisah. Atur line height ke 2 – teks menjadi lebih renggang. Tombol reset mengembalikan semua ke nilai awal.</p>
+  <p>💡 <strong>Tips:</strong> Gunakan <code>text-align: justify</code> untuk teks paragraf panjang agar rapi kiri-kanan seperti koran. <code>line-height</code> yang ideal antara 1.4–1.6 meningkatkan keterbacaan. Hindari garis bawah pada teks yang bukan link (kecuali untuk penekanan). Gunakan <code>text-transform: uppercase</code> untuk heading atau tombol, tetapi jangan berlebihan karena sulit dibaca. Untuk desain modern, kombinasikan letter-spacing pada heading untuk memberikan kesan mewah.</p>
+</section>
+
+<!-- ================= SECTION 11: FONT (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>11. Font (Tipografi)</h2>
+  <p>Font menentukan tampilan huruf. CSS memungkinkan kita mengatur jenis font, ukuran, ketebalan, dan gaya. Tipografi yang baik membuat konten lebih mudah dibaca dan menarik.</p>
+  
+  <div class="code">
+    font-family: 'Arial', sans-serif;   /* nama font, fallback */
+    font-size: 16px;                    /* ukuran (px, em, rem, %) */
+    font-weight: normal | bold | 100-900;
+    font-style: normal | italic;
+    font-variant: small-caps;           /* huruf kapital kecil */
+  </div>
+  <p><strong>🔍 Penjelasan properti font:</strong></p>
+  <ul>
+    <li><code>font-family</code> menentukan jenis huruf. Browser akan mencoba font pertama, jika tidak tersedia maka menggunakan font cadangan (<code>sans-serif</code>, <code>serif</code>, <code>monospace</code>). Contoh: <code>'Arial', sans-serif</code> berarti "pakai Arial, kalau tidak ada pakai sans-serif default".</li>
+    <li><code>font-size</code> mengatur ukuran huruf. Satuan <code>px</code> (piksel) adalah ukuran tetap. <code>em</code> relatif terhadap ukuran font parent. <code>rem</code> relatif terhadap ukuran font root (html). <strong>Rekomendasi:</strong> gunakan <code>rem</code> untuk aksesibilitas, karena user bisa mengubah ukuran font default browser.</li>
+    <li><code>font-weight</code> mengatur ketebalan. Nilai <code>bold</code> atau angka <code>700</code> sama. <code>normal</code> atau <code>400</code>. Angka 100–900 (kelipatan 100).</li>
+    <li><code>font-style</code> untuk teks miring (<code>italic</code>) atau normal.</li>
+    <li><code>font-variant: small-caps</code> mengubah huruf kecil menjadi kapital kecil (ukuran lebih kecil dari kapital biasa).</li>
+  </ul>
+  
+  <h3>🖌️ Demo Interaktif: Ubah Font</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <p id="demoFontText">Belajar CSS itu menyenangkan!</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+      <select id="fontSelect">
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="'Courier New', monospace">Courier New</option>
+        <option value="'Georgia', serif">Georgia</option>
+        <option value="'Times New Roman', serif">Times New Roman</option>
+        <option value="'Verdana', sans-serif">Verdana</option>
+      </select>
+      <input type="range" id="fontSizeSlider" min="10" max="32" value="18"> <span id="fontSizeValue">18px</span>
+      <button id="boldBtn">Bold</button>
+      <button id="italicBtn">Italic</button>
+      <button id="resetFontBtn">Reset Font</button>
+    </div>
+  </div>
+  <p><strong>🧪 Cara kerja demo:</strong> Pilih font dari dropdown – teks akan berubah sesuai font yang dipilih. Geser slider ukuran – teks membesar/mengecil. Klik Bold – teks menjadi tebal. Klik Italic – teks menjadi miring. Tombol Reset mengembalikan ke pengaturan awal (Arial, 18px, normal, tidak miring).</p>
+  <p>🔍 <strong>Catatan penting:</strong> Selalu sediakan font cadangan (fallback) seperti <code>sans-serif</code> atau <code>monospace</code> jika font utama tidak tersedia di komputer pengguna. Gunakan <code>@font-face</code> atau Google Fonts untuk menggunakan font kustom. Hindari terlalu banyak jenis font dalam satu halaman (maksimal 2-3) agar desain tidak kacau.</p>
+</section>
+
+<!-- ================= SECTION 12: DISPLAY (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>12. Display (Tata Letak Dasar)</h2>
+  <p>Properti <code>display</code> menentukan bagaimana elemen ditampilkan dalam alur dokumen. Nilai yang paling umum:</p>
+  <ul>
+    <li><code>block</code> → elemen mengambil lebar penuh, dimulai dari baris baru. Contoh: <code>div</code>, <code>p</code>, <code>h1</code>. Anda bisa mengatur lebar, tinggi, margin, padding.</li>
+    <li><code>inline</code> → elemen hanya selebar konten, berada dalam baris yang sama. Contoh: <code>span</code>, <code>a</code>, <code>strong</code>. <strong>Tidak bisa diatur lebar/tinggi</strong> (diabaikan).</li>
+    <li><code>inline-block</code> → seperti inline tetapi bisa diatur lebar/tinggi. Sangat berguna untuk membuat menu navigasi horizontal atau grid sederhana.</li>
+    <li><code>none</code> → elemen tidak ditampilkan (seperti dihapus dari halaman). Ruang yang ditempati juga hilang.</li>
+    <li><code>flex</code> dan <code>grid</code> → model layout modern yang sangat powerful (dibahas lebih lanjut di tingkat lanjut).</li>
+  </ul>
+  <div class="code">
+    display: block;
+    display: inline;
+    display: inline-block;
+    display: none;
+  </div>
+  <p><strong>🔍 Penjelasan perbedaan:</strong> Elemen <code>block</code> selalu memulai baris baru dan memenuhi lebar container. Elemen <code>inline</code> berada dalam baris yang sama dengan teks di sekitarnya, dan ukuran lebar/tingginya tidak bisa diubah (hanya dipengaruhi oleh konten). <code>inline-block</code> menggabungkan keduanya: ia berada dalam baris (seperti inline) tetapi bisa diatur lebar/tinggi (seperti block).</p>
+  
+  <h3>🖌️ Demo Interaktif: Ubah Display</h3>
+  <div style="background: #e2e8f0; padding: 15px; border-radius: 12px;">
+    <div id="demoDisplayBox" style="background: #8b5cf6; color: white; padding: 15px; width: 200px; text-align: center;">Kotak Demo</div>
+    <div style="margin-top: 10px;">
+      <button id="displayBlockBtn">display: block</button>
+      <button id="displayInlineBtn">display: inline</button>
+      <button id="displayInlineBlockBtn">display: inline-block</button>
+      <button id="displayNoneBtn">display: none</button>
+      <button id="resetDisplayBtn">Reset (block)</button>
+    </div>
+    <p><strong>🧪 Cara kerja demo:</strong> Klik <code>display: inline</code> – kotak akan menyusut selebar konten (lebar 200px diabaikan) dan bisa berada di samping teks lain (meski tidak ada teks di sekitarnya). Klik <code>display: inline-block</code> – kotak tetap memiliki lebar 200px tetapi masih bisa berada dalam baris yang sama dengan elemen lain. Klik <code>display: none</code> – kotak menghilang dan teks di bawahnya naik. Reset mengembalikan ke <code>block</code>.</p>
+  </div>
+  <p>💡 <strong>Tips:</strong> Gunakan <code>display: inline-block</code> untuk membuat tombol atau kartu yang berjejer horizontal. Jangan gunakan <code>display: none</code> jika Anda hanya ingin menyembunyikan elemen secara visual tetapi tetap ingin diakses oleh screen reader; gunakan <code>visibility: hidden</code> atau <code>opacity: 0</code> sebagai alternatif.</p>
+</section>
+
+<!-- ================= SECTION 13: POSITION (DIPERBAIKI - UKURAN NORMAL) ================= -->
+<section>
+  <h2>13. Position (Posisi Elemen)</h2>
+  <p>Properti <code>position</code> mengatur metode penempatan elemen, memungkinkan Anda mengubah posisi elemen dari alur normal. Nilai-nilainya:</p>
+  <ul>
+    <li><code>static</code> (default) → mengikuti alur normal dokumen. Properti top/left/right/bottom tidak berpengaruh.</li>
+    <li><code>relative</code> → elemen bergeser dari posisi normalnya (menggunakan top, left, dll), tetapi ruang aslinya tetap dipertahankan. Berguna untuk menggeser sedikit atau sebagai anchor untuk absolute.</li>
+    <li><code>absolute</code> → elemen diposisikan relatif terhadap ancestor terdekat yang memiliki position selain static (biasanya relative). Elemen dihapus dari alur normal, sehingga elemen lain mengisi tempatnya. Sering untuk tooltip, modal, dropdown.</li>
+    <li><code>fixed</code> → elemen tetap pada posisi relatif terhadap viewport (layar), tidak ikut scroll. Cocok untuk header sticky, tombol back-to-top, atau iklan mengambang.</li>
+    <li><code>sticky</code> → hybrid antara relative dan fixed. Elemen berperilaku seperti relative hingga mencapai batas scroll tertentu, lalu menjadi fixed. Sangat baik untuk header tabel atau sidebar yang tetap terlihat saat scroll.</li>
+  </ul>
+  
+  <h3>🖌️ Demo Interaktif: Position</h3>
+  <div style="background: #cbd5e1; padding: 25px; border-radius: 12px; position: relative; min-height: 320px;">
+    <!-- Kotak demo yang akan berubah posisi -->
+    <div id="demoPositionBox" style="background: #ef4444; color: white; padding: 12px 24px; width: 170px; text-align: center; border-radius: 8px; transition: all 0.2s; font-weight: bold; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      Kotak Demo
+    </div>
+    <!-- Tombol kontrol di bawah -->
+    <div style="margin-top: 220px; display: flex; flex-wrap: wrap; gap: 12px;">
+      <button id="posStatic" style="background: #334155; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">static</button>
+      <button id="posRelative" style="background: #334155; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">relative (top:20px; left:20px)</button>
+      <button id="posAbsolute" style="background: #334155; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">absolute (bottom:10px; right:10px)</button>
+      <button id="posFixed" style="background: #334155; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">fixed (melekat di viewport)</button>
+      <button id="resetPosBtn" style="background: #2c5f8a; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">Reset</button>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.9rem; line-height: 1.5;"><strong>🧪 Cara kerja demo:</strong> Klik <code>relative</code> – kotak akan bergeser 20px ke bawah dan 20px ke kanan dari posisi aslinya, namun ruang asli tetap kosong (perhatikan area di sekitarnya tidak berubah). Klik <code>absolute</code> – kotak akan diposisikan di pojok kanan bawah container abu-abu (karena container ini memiliki <code>position: relative</code>). Klik <code>fixed</code> – kotak akan melekat di viewport, coba scroll halaman – kotak akan tetap di tempat. Tombol Reset mengembalikan ke static.</p>
+    <p style="font-size: 0.85rem;"><small>Catatan: untuk melihat efek <code>fixed</code>, scroll halaman – kotak akan tetap di tempat meskipun Anda scroll. Karena demo terbatas, Anda bisa mengamati perubahan posisi relatif terhadap viewport.</small></p>
+  </div>
+  
+  <p>💡 <strong>Tips:</strong> Position absolute sering digunakan bersama dengan relative pada parent untuk membuat elemen melayang di dalam container. Pastikan parent memiliki <code>position: relative</code> agar absolute terikat di dalamnya. Position fixed hati-hati karena bisa menutupi konten jika tidak diberi margin/padding pada body. Gunakan <code>position: sticky</code> untuk membuat navbar atau sidebar yang tetap terlihat saat scroll.</p>
+</section>
+
+<!-- ================= SECTION 14: Z-INDEX (DENGAN PENJELASAN) ================= -->
+<section>
+  <h2>14. Z-Index (Tumpukan Elemen)</h2>
+  <p>Ketika elemen menggunakan position selain static, mereka dapat saling tumpang tindih. Properti <code>z-index</code> menentukan urutan tumpukan (stacking order). Semakin besar nilai, semakin di atas. Nilai default adalah auto (0). Z-index hanya berlaku untuk elemen yang memiliki <code>position: relative/absolute/fixed/sticky</code>.</p>
+  <div class="code">
+    .atas {
+      position: absolute;
+      z-index: 10;
+    }
+    .bawah {
+      position: absolute;
+      z-index: 5;
+    }
+  </div>
+  <p><strong>🔍 Penjelasan:</strong> Jika dua elemen overlapping, browser akan menampilkan elemen dengan <code>z-index</code> lebih besar di atas. Jika nilai sama, maka elemen yang muncul belakangan di HTML akan berada di atas.</p>
+  
+  <h3>🖌️ Demo Interaktif: Z-Index</h3>
+  <div style="position: relative; height: 200px; background: #e2e8f0; border-radius: 12px; padding: 10px;">
+    <div id="box1" style="position: absolute; width: 120px; height: 120px; background: #f97316; top: 30px; left: 30px; display: flex; align-items: center; justify-content: center; color: white;">Kotak 1<br>z-index: <span id="z1val">1</span></div>
+    <div id="box2" style="position: absolute; width: 120px; height: 120px; background: #3b82f6; top: 70px; left: 70px; display: flex; align-items: center; justify-content: center; color: white;">Kotak 2<br>z-index: <span id="z2val">2</span></div>
+    <div style="position: absolute; bottom: 10px; right: 10px; background: white; padding: 5px; border-radius: 8px;">
+      <label>Z-index Kotak 1: <input type="range" id="z1Slider" min="0" max="10" value="1"></label><br>
+      <label>Z-index Kotak 2: <input type="range" id="z2Slider" min="0" max="10" value="2"></label>
+    </div>
+  </div>
+  <p><strong>🧪 Cara kerja demo:</strong> Kotak 1 (oranye) dan Kotak 2 (biru) saling tumpang tindih. Awalnya kotak 2 (z-index 2) berada di atas kotak 1 (z-index 1). Geser slider kotak 1 ke nilai 3 – kotak 1 akan naik ke atas kotak 2. Geser kotak 2 ke 5 – kotak 2 kembali ke atas. Ini menunjukkan bahwa z-index yang lebih besar selalu di atas.</p>
+  <p>⚠️ <strong>Peringatan:</strong> Z-index tidak bekerja pada elemen static. Jika Anda mencoba menerapkan z-index tanpa position, tidak akan berpengaruh. Juga, z-index relatif terhadap stacking context; jika elemen berada di dalam parent yang memiliki z-index sendiri, maka konteksnya terbatas (misal parent dengan z-index 1, maka semua anaknya tidak bisa keluar dari tumpukan parent tersebut).</p>
+  <p>💡 <strong>Tips debugging:</strong> Jika z-index tidak berfungsi, pastikan elemen memiliki position (bukan static) dan tidak ada parent dengan z-index yang lebih rendah yang membatasi. Gunakan nilai yang besar (misal 9999) untuk elemen yang harus selalu di atas, seperti modal atau tooltip.</p>
+</section>
+
+<!-- ================= SECTION 15: OVERFLOW ================= -->
+<section>
+  <h2>15. Overflow (Mengatasi Konten Berlebih)</h2>
+  <p>Ketika konten di dalam suatu elemen terlalu besar dan melebihi ukuran elemen tersebut, properti <code>overflow</code> menentukan apa yang harus dilakukan. Bayangkan Anda memiliki kotak dengan ukuran tetap, tetapi teks di dalamnya lebih panjang – apakah teks dipotong, muncul scrollbar, atau keluar dari kotak?</p>
+  
+  <div class="code">
+    overflow: visible;  /* default: konten keluar dari kotak */
+    overflow: hidden;   /* konten terpotong, tidak ada scroll */
+    overflow: scroll;   /* selalu tampilkan scrollbar */
+    overflow: auto;     /* scrollbar muncul jika diperlukan */
+  </div>
+  
+  <p><strong>🔍 Penjelasan:</strong> Gunakan <code>overflow: auto</code> untuk membuat scrollbar hanya saat dibutuhkan. <code>overflow: hidden</code> berguna untuk memotong gambar yang terlalu besar. <code>overflow-x</code> dan <code>overflow-y</code> mengatur sumbu horizontal dan vertikal secara terpisah.</p>
+  
+  <h3>🖌️ Demo Interaktif: Overflow</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div id="overflowBox" style="width: 250px; height: 100px; background: #cbd5e1; padding: 10px; margin-bottom: 10px; overflow: auto;">
+      Ini adalah teks yang sengaja dibuat panjang untuk menunjukkan efek overflow. Teks ini akan terus berlanjut hingga melebihi ukuran kotak. Coba pilih opsi di bawah untuk melihat perubahannya.
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button onclick="document.getElementById('overflowBox').style.overflow='visible'" style="background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 20px;">visible</button>
+      <button onclick="document.getElementById('overflowBox').style.overflow='hidden'" style="background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 20px;">hidden</button>
+      <button onclick="document.getElementById('overflowBox').style.overflow='scroll'" style="background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 20px;">scroll</button>
+      <button onclick="document.getElementById('overflowBox').style.overflow='auto'" style="background: #2c5f8a; color: white; border: none; padding: 6px 12px; border-radius: 20px;">auto (reset)</button>
+    </div>
+    <p><strong>🧪 Coba klik:</strong> <code>visible</code> – teks akan keluar dari kotak. <code>hidden</code> – teks terpotong. <code>scroll</code> – muncul scrollbar (vertikal & horizontal). <code>auto</code> – scroll hanya jika diperlukan.</p>
+    <p>💡 <strong>Tips:</strong> Gunakan <code>overflow: auto</code> untuk area teks panjang atau galeri gambar agar layout tetap rapi.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 16: FLOAT & CLEAR ================= -->
+<section>
+  <h2>16. Float & Clear (Mengatur Elemen Mengambang)</h2>
+  <p>Properti <code>float</code> membuat elemen "mengambang" ke kiri atau kanan, sehingga teks atau elemen lain bisa mengelilinginya. Ini dulu sering digunakan untuk layout kolom, tetapi sekarang lebih disarankan menggunakan Flexbox atau Grid. Namun <code>float</code> masih berguna untuk efek teks membungkus gambar.</p>
+  
+  <div class="code">
+    float: left;   /* mengambang ke kiri */
+    float: right;  /* mengambang ke kanan */
+    float: none;   /* default */
+    clear: both;   /* menghentikan efek float di sekitarnya */
+  </div>
+  
+  <p><strong>🔍 Penjelasan:</strong> Jika Anda memiliki gambar dan ingin teks mengelilinginya, gunakan <code>float: left</code> pada gambar. Masalah umum: elemen parent tidak membungkus anak yang float (collapse). Solusinya gunakan <code>clearfix</code> atau <code>overflow: auto</code> pada parent.</p>
+  
+  <h3>🖌️ Demo Interaktif: Float</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div id="floatContainer" style="border: 1px solid #cbd5e1; padding: 10px; overflow: auto;">
+      <img id="floatImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%233b82f6'/%3E%3Ctext x='10' y='55' fill='white' font-size='14'%3EGambar%3C/text%3E%3C/svg%3E" style="margin-right: 15px; margin-bottom: 10px;">
+      Ini adalah teks yang akan mengelilingi gambar jika gambar diberi float. Coba pilih opsi di bawah untuk melihat perubahannya. Teks ini cukup panjang agar efek float terlihat jelas. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <button onclick="document.getElementById('floatImg').style.float='left'" style="background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 20px;">float: left</button>
+      <button onclick="document.getElementById('floatImg').style.float='right'" style="background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 20px;">float: right</button>
+      <button onclick="document.getElementById('floatImg').style.float='none'" style="background: #2c5f8a; color: white; border: none; padding: 6px 12px; border-radius: 20px;">none (reset)</button>
+    </div>
+    <p><strong>🧪 Coba klik:</strong> <code>left</code> – gambar di kiri, teks mengelilingi kanan. <code>right</code> – gambar di kanan, teks di kiri. <code>none</code> – gambar seperti biasa (teks di bawah).</p>
+    <p>⚠️ <strong>Clearfix:</strong> Jika parent tidak membungkus float, tambahkan <code>overflow: auto</code> atau pseudo-element <code>.clearfix::after { content: ''; clear: both; display: table; }</code>.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 17: INLINE-BLOCK ================= -->
+<section>
+  <h2>17. Inline-Block (Elemen Sejajar dengan Lebar Teratur)</h2>
+  <p><code>display: inline-block</code> menggabungkan kelebihan <code>inline</code> (bisa sejajar horizontal) dan <code>block</code> (bisa diatur lebar/tinggi). Sangat berguna untuk membuat menu navigasi horizontal, tombol sejajar, atau kartu dalam baris.</p>
+  
+  <div class="code">
+    display: inline-block;
+    width: 150px;
+    height: 100px;
+  </div>
+  
+  <p><strong>🔍 Penjelasan:</strong> Elemen <code>inline-block</code> tidak memulai baris baru (seperti inline), tetapi Anda bisa mengatur lebar, tinggi, margin, dan padding (seperti block).</p>
+  
+  <h3>🖌️ Demo Interaktif: Inline-Block</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div style="text-align: center;">
+      <div class="ib-demo" style="display: inline-block; width: 120px; background: #3b82f6; color: white; padding: 15px; margin: 5px; border-radius: 8px;">Kotak 1</div>
+      <div class="ib-demo" style="display: inline-block; width: 120px; background: #10b981; color: white; padding: 15px; margin: 5px; border-radius: 8px;">Kotak 2</div>
+      <div class="ib-demo" style="display: inline-block; width: 120px; background: #f97316; color: white; padding: 15px; margin: 5px; border-radius: 8px;">Kotak 3</div>
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+      <button onclick="document.querySelectorAll('.ib-demo').forEach(el => el.style.display='inline-block')" style="background: #2c5f8a;">inline-block (default)</button>
+      <button onclick="document.querySelectorAll('.ib-demo').forEach(el => el.style.display='block')" style="background: #334155;">block (vertikal)</button>
+      <button onclick="document.querySelectorAll('.ib-demo').forEach(el => el.style.display='inline')" style="background: #334155;">inline (lebar diabaikan)</button>
+    </div>
+    <p><strong>🧪 Coba klik:</strong> <code>block</code> – kotak menjadi vertikal. <code>inline</code> – kotak menyusut selebar konten (padding tetap, tapi lebar 120px diabaikan). <code>inline-block</code> – kembali sejajar horizontal dengan ukuran tetap.</p>
+    <p>💡 <strong>Tips:</strong> Gunakan <code>inline-block</code> untuk membuat tombol atau kartu yang responsif dalam satu baris. Perhatikan spasi putih antar elemen inline-block (disebabkan oleh newline di HTML) – solusi: set <code>font-size: 0</code> pada parent lalu atur ulang font-size anak.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 18: ALIGN (HORIZONTAL & VERTICAL) ================= -->
+<section>
+  <h2>18. Align (Mengatur Posisi Elemen)</h2>
+  <p>Mengatur elemen agar berada di tengah (kiri-kanan atau atas-bawah) adalah kebutuhan umum. CSS menyediakan berbagai cara, tergantung jenis elemen (block, inline, atau flex).</p>
+  
+  <h3>🔹 Horizontal Align (Rata Tengah Horizontal)</h3>
+  <ul>
+    <li><strong>Elemen block dengan lebar tetap:</strong> <code>margin: 0 auto;</code></li>
+    <li><strong>Teks/inline:</strong> <code>text-align: center;</code> pada parent</li>
+    <li><strong>Flexbox:</strong> <code>display: flex; justify-content: center;</code></li>
+  </ul>
+  
+  <h3>🔹 Vertical Align (Rata Tengah Vertikal)</h3>
+  <ul>
+    <li><strong>Menggunakan line-height:</strong> untuk teks satu baris, set <code>line-height</code> sama dengan tinggi elemen.</li>
+    <li><strong>Flexbox:</strong> <code>display: flex; align-items: center;</code> (metode paling mudah)</li>
+    <li><strong>Position + transform:</strong> untuk kasus khusus.</li>
+  </ul>
+  
+  <div class="code">
+    /* Horizontal center untuk block */
+    .block { width: 200px; margin: 0 auto; }
+    
+    /* Flexbox center (horizontal & vertikal) */
+    .container { display: flex; justify-content: center; align-items: center; height: 200px; }
+  </div>
+  
+  <h3>🖌️ Demo Interaktif: Align</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div style="border: 1px solid #cbd5e1; padding: 10px; margin-bottom: 10px; text-align: center;">
+      <div id="alignBox" style="width: 150px; background: #3b82f6; color: white; padding: 10px; border-radius: 8px; display: inline-block;">Kotak Saya</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+      <button onclick="document.getElementById('alignBox').style.margin='0 auto'; document.getElementById('alignBox').style.display='block'; document.getElementById('alignBox').parentElement.style.textAlign='left'" style="background: #334155;">margin: 0 auto (block)</button>
+      <button onclick="document.getElementById('alignBox').style.display='inline-block'; document.getElementById('alignBox').style.margin='0'; document.getElementById('alignBox').parentElement.style.textAlign='center'" style="background: #334155;">text-align: center</button>
+      <button onclick="document.getElementById('alignBox').style.display='block'; document.getElementById('alignBox').parentElement.style.display='flex'; document.getElementById('alignBox').parentElement.style.justifyContent='center'; document.getElementById('alignBox').parentElement.style.alignItems='center'; document.getElementById('alignBox').parentElement.style.height='150px'" style="background: #2c5f8a;">Flexbox (pusat sempurna)</button>
+      <button onclick="location.reload()" style="background: #ef4444;">Reset</button>
+    </div>
+    <p><strong>🧪 Coba klik:</strong> <code>margin: auto</code> – kotak menjadi block dan berada di tengah horizontal. <code>text-align: center</code> – kotak inline-block di tengah. <code>Flexbox</code> – kotak berada tepat di tengah (horizontal & vertikal) dalam container yang memiliki tinggi 150px.</p>
+    <p>💡 <strong>Tips:</strong> Flexbox adalah cara paling modern dan mudah untuk memusatkan elemen baik horizontal maupun vertikal. Gunakan <code>display: flex; justify-content: center; align-items: center;</code> pada parent.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 19: COMBINATORS ================= -->
+<section>
+  <h2>19. Combinators (Hubungan Antar Selector)</h2>
+  <p>Combinator digunakan untuk menargetkan elemen berdasarkan hubungannya dengan elemen lain. Ada empat jenis:</p>
+  <ul>
+    <li><code>div p</code> → descendant selector (semua p di dalam div)</li>
+    <li><code>div > p</code> → child selector (p yang langsung anak div)</li>
+    <li><code>h1 + p</code> → adjacent sibling (p yang langsung setelah h1)</li>
+    <li><code>h1 ~ p</code> → general sibling (semua p setelah h1 dengan parent sama)</li>
+  </ul>
+  <div class="code">
+    /* Contoh */
+    article p { color: blue; }        /* semua paragraf dalam article */
+    article > p { font-weight: bold; } /* paragraf anak langsung */
+    h2 + p { margin-top: 0; }         /* paragraf setelah h2 */
+  </div>
+  
+  <h3>🖌️ Demo Interaktif: Combinators</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div id="combinatorDemo">
+      <div class="parent" style="border: 2px solid #3b82f6; padding: 10px;">
+        <p>Paragraf anak langsung (child)</p>
+        <div><p>Paragraf di dalam div (descendant)</p></div>
+      </div>
+      <p>Paragraf setelah parent (sibling)</p>
+      <p>Paragraf lain (sibling)</p>
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <button onclick="demoCombinator('child')" style="background: #334155;">Child selector (>)</button>
+      <button onclick="demoCombinator('descendant')" style="background: #334155;">Descendant selector ( )</button>
+      <button onclick="demoCombinator('adjacent')" style="background: #334155;">Adjacent sibling (+)</button>
+      <button onclick="demoCombinator('reset')" style="background: #2c5f8a;">Reset</button>
+    </div>
+    <p><strong>🧪 Coba klik:</strong> <code>Child</code> – hanya paragraf anak langsung yang berubah warna (biru). <code>Descendant</code> – semua paragraf di dalam parent berubah (termasuk yang di dalam div). <code>Adjacent sibling</code> – paragraf tepat setelah parent berubah.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 20: PSEUDO-CLASSES ================= -->
+<section>
+  <h2>20. Pseudo-classes (Kondisi Khusus Elemen)</h2>
+  <p>Pseudo-class adalah kata kunci yang ditambahkan ke selector untuk menargetkan elemen dalam keadaan tertentu, misalnya saat di-hover, fokus, atau sebagai anak pertama/terakhir.</p>
+  <div class="code">
+    a:hover { color: red; }          /* saat mouse di atas link */
+    input:focus { border: 2px solid blue; } /* saat input aktif */
+    li:first-child { font-weight: bold; }   /* item pertama dalam list */
+    li:nth-child(odd) { background: #f0f0f0; } /* item ganjil */
+  </div>
+  
+  <h3>🖌️ Demo Interaktif: Pseudo-classes</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <style>
+      .demo-hover { background: #3b82f6; color: white; padding: 10px; text-align: center; border-radius: 8px; transition: 0.2s; }
+      .demo-hover:hover { background: #1e40af; transform: scale(1.02); cursor: pointer; }
+      .demo-focus input:focus { outline: none; border: 2px solid #f97316; box-shadow: 0 0 5px orange; }
+      .demo-child li:first-child { color: #10b981; font-weight: bold; }
+      .demo-child li:last-child { color: #ef4444; }
+    </style>
+    <div style="margin-bottom: 15px;">
+      <div class="demo-hover">Hover ke saya!</div>
+      <p><small>↑ Hover untuk melihat efek (warna berubah, membesar sedikit).</small></p>
+    </div>
+    <div class="demo-focus" style="margin-bottom: 15px;">
+      <input type="text" placeholder="Klik di sini untuk fokus" style="padding: 8px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+      <p><small>↑ Saat diklik (focus), border berubah warna oranye.</small></p>
+    </div>
+    <div class="demo-child">
+      <ul>
+        <li>Item pertama (first-child) – hijau tebal</li>
+        <li>Item kedua – biasa</li>
+        <li>Item ketiga – biasa</li>
+        <li>Item terakhir (last-child) – merah</li>
+      </ul>
+    </div>
+    <p>💡 <strong>Tips:</strong> Pseudo-class sangat berguna untuk interaksi dan styling dinamis tanpa JavaScript. Contoh populer: <code>:hover</code> untuk tombol, <code>:nth-child(even)</code> untuk zebra stripe pada tabel.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 21: PSEUDO-ELEMENTS ================= -->
+<section>
+  <h2>21. Pseudo-elements (Gaya pada Bagian Tertentu)</h2>
+  <p>Pseudo-element digunakan untuk menata bagian spesifik dari suatu elemen, seperti baris pertama, huruf pertama, atau menambahkan konten sebelum/sesudah elemen.</p>
+  <div class="code">
+    p::first-line { font-weight: bold; }   /* baris pertama paragraf */
+    p::first-letter { font-size: 2em; }    /* huruf pertama */
+    .box::before { content: "👉 "; }       /* tambah konten sebelum */
+    .box::after { content: " 👈"; }        /* tambah konten sesudah */
+  </div>
+  
+  <h3>🖌️ Demo Interaktif: Pseudo-elements</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <style>
+      .demo-first-line::first-line { color: #3b82f6; font-weight: bold; }
+      .demo-first-letter::first-letter { font-size: 2.5rem; color: #f97316; font-weight: bold; }
+      .demo-before::before { content: "⭐ "; }
+      .demo-after::after { content: " ⭐"; }
+    </style>
+    <div style="margin-bottom: 15px;">
+      <p class="demo-first-line">Ini adalah contoh paragraf. Baris pertama akan berwarna biru dan tebal karena pseudo-element ::first-line. Resize jendela browser untuk melihat perubahan.</p>
+      <p class="demo-first-letter">Huruf pertama paragraf ini akan membesar dan berwarna oranye.</p>
+      <div class="demo-before demo-after" style="background: #e2e8f0; padding: 10px; border-radius: 8px;">Elemen dengan before & after</div>
+    </div>
+    <p>💡 <strong>Tips:</strong> Pseudo-element <code>::before</code> dan <code>::after</code> sangat berguna untuk menambahkan ikon, dekorasi, atau teks tanpa mengubah HTML. Gunakan <code>content</code> properti (wajib).</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 22: OPACITY (TRANSPARANSI) dengan HOVER ================= -->
+<section>
+  <h2>22. Opacity (Transparansi Gambar & Elemen)</h2>
+  <p>Properti <code>opacity</code> mengatur tingkat transparansi suatu elemen, dari 0 (sepenuhnya transparan) hingga 1 (sepenuhnya terlihat). Sangat berguna untuk efek hover pada gambar, latar belakang, atau membuat elemen "samar".</p>
+  <div class="code">
+    img { opacity: 0.5; }          /* setengah transparan */
+    img:hover { opacity: 1; }      /* menjadi jelas saat hover */
+    .box { opacity: 0.3; }
+  </div>
+  
+  <h3>🖌️ Demo Interaktif: Opacity</h3>
+  <div style="background: #f1f5f9; padding: 15px; border-radius: 12px;">
+    <div style="text-align: center;">
+      <img id="opacityImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b82f6'/%3E%3Ctext x='25' y='60' fill='white' font-size='20'%3ECSS%3C/text%3E%3C/svg%3E" style="border-radius: 12px; transition: 0.3s;">
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <label>Opacity manual: <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="1" style="width: 200px;"></label>
+      <button id="resetOpacityBtn" style="background: #2c5f8a;">Reset (1)</button>
+    </div>
+    <p><strong>🧪 Geser slider</strong> untuk mengatur transparansi gambar secara manual. Nilai 0 = tidak terlihat, 1 = sepenuhnya terlihat.</p>
+    <p><strong>🐭 Coba hover ke gambar di atas!</strong> Gambar akan menjadi lebih <strong>transparan</strong> saat kursor di atasnya (efek <code>hover</code>).</p>
+    <p>💡 <strong>Tips:</strong> Gunakan efek opacity pada gambar saat hover untuk interaksi yang halus. Perhatikan bahwa opacity mempengaruhi seluruh elemen (termasuk teks di dalamnya). Jika hanya ingin latar transparan, gunakan <code>rgba()</code> atau <code>hsla()</code>.</p>
+  </div>
+  <style>
+    #opacityImg {
+      transition: opacity 0.3s ease;
+    }
+    #opacityImg:hover {
+      opacity: 0.5 !important;   /* menjadi setengah transparan saat hover */
+    }
+  </style>
+  <script>
+    (function() {
+      var slider = document.getElementById('opacitySlider');
+      var img = document.getElementById('opacityImg');
+      var resetBtn = document.getElementById('resetOpacityBtn');
+      if (slider && img) {
+        function updateOpacity() {
+          img.style.opacity = slider.value;
+        }
+        slider.addEventListener('input', updateOpacity);
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function() {
+            slider.value = '1';
+            updateOpacity();
+          });
+        }
+        updateOpacity();
+      }
+    })();
+  </script>
+</section>
+
+</div> <!-- tutup extraContent -->
+
+</main>
+
+<footer>
+  <p>Modul Pembelajaran CSS Lengkap | Disusun untuk Tujuan Akademik</p>
+  <a href="tryCSS.html" class="try-link">🎨 Coba Langsung di tryCSS →</a>
+</footer>
+
+<!-- LOGOUT TERMINAL -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="terminal">
+    <pre id="terminalText"></pre>
+  </div>
+</div>
+
+<!-- REDIRECT OVERLAY -->
+<div id="redirectLoading" style="display: none;">
+  <div><span id="loadingText"></span></div>
+</div>
+
+<script src="TutorialCSS.js"></script>
+
+</body>
+</html>

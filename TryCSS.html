@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Try CSS - Live CSS Playground</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Fira Code', monospace;
+            background: #0a0c15;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .app-header {
+            background: #0f172a;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .app-header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        button, .theme-select, .font-slider {
+            background: #1e293b;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        button:hover {
+            background: #2d3a4e;
+            transform: scale(1.02);
+        }
+        .theme-select {
+            background: #0f172a;
+            border: 1px solid #334155;
+        }
+        .font-slider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0f172a;
+        }
+        input[type="range"] {
+            width: 120px;
+        }
+
+        /* Main area with resizable panels */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Editor panel */
+        .editor-panel {
+            width: 50%;
+            background: #111827;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #1e293b;
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 10px 15px;
+            background: #0f172a;
+            font-weight: bold;
+            border-bottom: 1px solid #1e293b;
+        }
+        textarea {
+            flex: 1;
+            background: #0a0c15;
+            color: #a5f3c3;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 13px;
+            padding: 16px;
+            border: none;
+            resize: none;
+            outline: none;
+            tab-size: 4;
+            line-height: 1.5;
+        }
+
+        /* Preview panel */
+        .preview-panel {
+            width: 50%;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .preview-header {
+            padding: 10px 15px;
+            background: #e2e8f0;
+            color: #0f172a;
+            font-weight: bold;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .preview-area {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            transition: background 0.2s, color 0.2s;
+        }
+        /* contoh styling untuk preview */
+        .preview-area * {
+            max-width: 100%;
+        }
+        .card-demo {
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            background: #f1f5f9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .resize-handle {
+            width: 6px;
+            background: #334155;
+            cursor: col-resize;
+            transition: 0.1s;
+        }
+        .resize-handle:hover {
+            background: #60a5fa;
+        }
+
+        /* status kecil */
+        .status-msg {
+            font-size: 12px;
+            background: #1e293b;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        @media (max-width: 700px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .editor-panel, .preview-panel {
+                width: 100%;
+                height: 50%;
+            }
+            .resize-handle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-header">
+    <h1>🎨 Try CSS · Live Playground</h1>
+    <div class="toolbar">
+        <button id="resetCssBtn" title="Reset ke CSS default">⟳ Reset</button>
+        <button id="copyCssBtn" title="Salin CSS ke clipboard">📋 Copy CSS</button>
+        <select id="themeSelect" class="theme-select">
+            <option value="light">☀️ Light Preview</option>
+            <option value="dark">🌙 Dark Preview</option>
+            <option value="sepia">📜 Sepia Preview</option>
+        </select>
+        <div class="font-slider">
+            <span>🔤</span>
+            <input type="range" id="fontSlider" min="12" max="28" value="16" step="1">
+            <span id="fontValue">16px</span>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" id="mainContainer">
+    <div class="editor-panel" id="editorPanel">
+        <div class="panel-header">✏️ CSS Editor (realtime)</div>
+        <textarea id="cssEditor" placeholder="Tulis CSS di sini..."></textarea>
+    </div>
+    <div class="resize-handle" id="resizeHandle"></div>
+    <div class="preview-panel" id="previewPanel">
+        <div class="preview-header">
+            <span>📱 Live Preview</span>
+            <span class="status-msg" id="liveStatus">● mengetik otomatis</span>
+        </div>
+        <div id="previewArea" class="preview-area">
+            <!-- Contoh elemen HTML untuk testing CSS -->
+            <h1>Hello, CSS World!</h1>
+            <p>Ini adalah paragraf biasa. Coba ubah warna, ukuran font, atau background melalui CSS di editor.</p>
+            
+            <div class="card-demo">
+                <h3>✨ Kartu Demo</h3>
+                <p>Kamu bisa menata kartu ini dengan <strong>border, bayangan, atau warna</strong>.</p>
+                <button class="demo-btn">Klik Saya</button>
+            </div>
+            
+            <ul>
+                <li>Item daftar pertama</li>
+                <li>Item daftar kedua — coba styling <code>list-style</code></li>
+                <li>Item ketiga dengan efek hover</li>
+            </ul>
+            
+            <div style="margin-top: 16px;">
+                <input type="text" placeholder="Contoh input teks" style="padding: 6px; border-radius: 8px; border:1px solid #ccc;">
+                <button style="margin-left: 8px;">Submit</button>
+            </div>
+            <p><small>💡 Tip: semua CSS yang kamu tulis akan langsung diterapkan ke dalam area ini.</small></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // --- DOM elements ---
+        const editor = document.getElementById('cssEditor');
+        const previewDiv = document.getElementById('previewArea');
+        const resetBtn = document.getElementById('resetCssBtn');
+        const copyBtn = document.getElementById('copyCssBtn');
+        const themeSelect = document.getElementById('themeSelect');
+        const fontSlider = document.getElementById('fontSlider');
+        const fontValue = document.getElementById('fontValue');
+        const liveStatus = document.getElementById('liveStatus');
+        
+        // --- DEFAULT CSS (menarik & bersih) ---
+        const DEFAULT_CSS = `/* Tulis CSS kamu di sini */
+body {
+  background: #f9fafb;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+  padding: 8px;
+}
+
+h1 {
+  color: #1e3a8a;
+  border-left: 5px solid #3b82f6;
+  padding-left: 15px;
+}
+
+p {
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.card-demo {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.card-demo:hover {
+  transform: translateY(-4px);
+}
+
+button, .demo-btn {
+  background: #3b82f6;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover {
+  background: #2563eb;
+}
+
+ul {
+  background: #f1f5f9;
+  padding: 12px 20px;
+  border-radius: 16px;
+}
+li {
+  margin: 8px 0;
+}
+input {
+  border: 1px solid #cbd5e1;
+  border-radius: 30px;
+  padding: 8px 15px;
+}
+`;
+
+        // --- State untuk menyimpan CSS terakhir ---
+        let currentCSS = DEFAULT_CSS;
+        
+        // --- Fungsi apply CSS ke preview (scoped hanya di dalam #previewArea) ---
+        function applyCSS(cssText) {
+            // Hapus style lama jika ada
+            let oldStyle = document.getElementById('livePreviewStyle');
+            if (oldStyle) oldStyle.remove();
+            
+            // Buat style baru
+            const styleTag = document.createElement('style');
+            styleTag.id = 'livePreviewStyle';
+            
+            // Kita perlu mem-scope selector agar tidak mengganggu halaman utama
+            // Caranya: tambahkan "#previewArea " di depan setiap selector (kecuali yang sudah mengandung)
+            // Tapi hati-hati dengan @media, @keyframes, dll. Sederhana: 
+            let scopedCSS = cssText.replace(/(^|\})\s*([^{}]+)(?=\{)/g, (match, prefix, selectorGroup) => {
+                // Jangan ubah jika sudah mengandung #previewArea atau @
+                if (selectorGroup.includes('#previewArea') || selectorGroup.trim().startsWith('@')) {
+                    return match;
+                }
+                // Pisahkan selector (bisa lebih dari satu, dipisah koma)
+                let newSelectors = selectorGroup.split(',').map(sel => {
+                    sel = sel.trim();
+                    if (sel === 'body' || sel === 'html') return '#previewArea';
+                    return '#previewArea ' + sel;
+                }).join(', ');
+                return prefix + ' ' + newSelectors;
+            });
+            
+            styleTag.textContent = scopedCSS;
+            document.head.appendChild(styleTag);
+            
+            // Simpan ke localStorage agar tidak hilang saat refresh
+            localStorage.setItem('trycss_last_css', cssText);
+            liveStatus.textContent = '✓ CSS diterapkan';
+            setTimeout(() => {
+                if (liveStatus.textContent === '✓ CSS diterapkan') liveStatus.textContent = '● mengetik otomatis';
+            }, 1200);
+        }
+        
+        // --- Load dari localStorage jika ada ---
+        function loadSavedCSS() {
+            const saved = localStorage.getItem('trycss_last_css');
+            if (saved && saved.trim() !== '') {
+                currentCSS = saved;
+                editor.value = currentCSS;
+                applyCSS(currentCSS);
+            } else {
+                editor.value = DEFAULT_CSS;
+                applyCSS(DEFAULT_CSS);
+            }
+        }
+        
+        // --- Simpan ke localStorage saat berubah ---
+        function saveCSS(css) {
+            localStorage.setItem('trycss_last_css', css);
+            currentCSS = css;
+        }
+        
+        // --- Event: editor berubah (realtime) ---
+        function onEditorChange() {
+            const newCSS = editor.value;
+            saveCSS(newCSS);
+            applyCSS(newCSS);
+        }
+        
+        // --- Reset ke default ---
+        function resetToDefault() {
+            editor.value = DEFAULT_CSS;
+            saveCSS(DEFAULT_CSS);
+            applyCSS(DEFAULT_CSS);
+            liveStatus.textContent = '⟳ Reset ke default';
+            setTimeout(() => {
+                if (liveStatus.textContent === '⟳ Reset ke default') liveStatus.textContent = '● mengetik otomatis';
+            }, 1500);
+        }
+        
+        // --- Copy CSS ke clipboard ---
+        async function copyCSS() {
+            const cssText = editor.value;
+            try {
+                await navigator.clipboard.writeText(cssText);
+                liveStatus.textContent = '📋 CSS tersalin!';
+                setTimeout(() => {
+                    if (liveStatus.textContent === '📋 CSS tersalin!') liveStatus.textContent = '● mengetik otomatis';
+                }, 1500);
+            } catch (err) {
+                alert('Gagal menyalin: ' + err);
+            }
+        }
+        
+        // --- Ubah tema preview (background dan warna teks dasar) ---
+        function applyTheme(theme) {
+            const preview = document.getElementById('previewArea');
+            if (theme === 'light') {
+                preview.style.backgroundColor = '#ffffff';
+                preview.style.color = '#0f172a';
+                preview.style.transition = '0.2s';
+            } else if (theme === 'dark') {
+                preview.style.backgroundColor = '#1e293b';
+                preview.style.color = '#e2e8f0';
+                // perbaiki tampilan elemen dalam dark mode secara default
+                const cards = preview.querySelectorAll('.card-demo');
+                cards.forEach(card => card.style.backgroundColor = '#334155');
+            } else if (theme === 'sepia') {
+                preview.style.backgroundColor = '#fef3c7';
+                preview.style.color = '#5b3a1a';
+                const cards = preview.querySelectorAll('.card-demo');
+                cards.forEach(card => card.style.backgroundColor = '#fde68a');
+            }
+            // reset ulang warna card-demo agar tidak konflik dengan CSS user
+            // biarkan CSS user yang menentukan, tapi kita set default agar nyaman
+            if (theme !== 'sepia') {
+                const cards = preview.querySelectorAll('.card-demo');
+                cards.forEach(card => card.style.backgroundColor = '');
+            }
+        }
+        
+        // --- Ubah ukuran font dasar di preview ---
+        function setBaseFontSize(px) {
+            const preview = document.getElementById('previewArea');
+            preview.style.fontSize = px + 'px';
+            fontValue.innerText = px + 'px';
+            localStorage.setItem('trycss_fontsize', px);
+        }
+        
+        // --- Load ukuran font dari localStorage ---
+        function loadFontSize() {
+            const saved = localStorage.getItem('trycss_fontsize');
+            if (saved) {
+                const val = parseInt(saved);
+                fontSlider.value = val;
+                setBaseFontSize(val);
+            } else {
+                setBaseFontSize(16);
+            }
+        }
+        
+        // --- Resize panel (drag) ---
+        function initResize() {
+            const container = document.getElementById('mainContainer');
+            const editorPanel = document.getElementById('editorPanel');
+            const previewPanel = document.getElementById('previewPanel');
+            const handle = document.getElementById('resizeHandle');
+            if (!handle) return;
+            let startX, startEditorWidth;
+            handle.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startX = e.clientX;
+                startEditorWidth = editorPanel.offsetWidth;
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+            function onMouseMove(e) {
+                const dx = e.clientX - startX;
+                const newEditorWidth = startEditorWidth + dx;
+                const containerWidth = container.offsetWidth;
+                if (newEditorWidth > 150 && newEditorWidth < containerWidth - 150) {
+                    editorPanel.style.width = newEditorWidth + 'px';
+                    previewPanel.style.width = (containerWidth - newEditorWidth - 6) + 'px';
+                }
+            }
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+        }
+        
+        // --- Inisialisasi semua event ---
+        function init() {
+            loadSavedCSS();
+            loadFontSize();
+            
+            // tema awal: light
+            applyTheme('light');
+            themeSelect.value = 'light';
+            
+            editor.addEventListener('input', onEditorChange);
+            resetBtn.addEventListener('click', resetToDefault);
+            copyBtn.addEventListener('click', copyCSS);
+            themeSelect.addEventListener('change', (e) => applyTheme(e.target.value));
+            fontSlider.addEventListener('input', (e) => setBaseFontSize(parseInt(e.target.value)));
+            
+            initResize();
+            
+            // Resize awal jika layar desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 700) {
+                    const container = document.getElementById('mainContainer');
+                    const editorPanel = document.getElementById('editorPanel');
+                    const previewPanel = document.getElementById('previewPanel');
+                    if (editorPanel.style.width && !editorPanel.style.width.includes('%')) {
+                        // jangan ganggu drag manual
+                    } else {
+                        editorPanel.style.width = '50%';
+                        previewPanel.style.width = '50%';
+                    }
+                }
+            });
+        }
+        
+        init();
+    })();
+</script>
+</body>
+</html>

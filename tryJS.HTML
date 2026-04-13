@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryJS · Belajar JavaScript Sederhana</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Fira Code', monospace;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .toolbar {
+            background: #1e293b;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+        .toolbar h1 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 1px;
+            background: #1e293b;
+        }
+        .editor-panel, .output-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0f172a;
+        }
+        .panel-header {
+            padding: 8px 12px;
+            background: #111827;
+            font-weight: bold;
+            border-bottom: 1px solid #1e293b;
+        }
+        textarea {
+            flex: 1;
+            background: #0a0c15;
+            color: #86efac;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            padding: 12px;
+            border: none;
+            resize: none;
+            outline: none;
+        }
+        .output-area {
+            flex: 1;
+            background: #0a0c15;
+            padding: 12px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+        .demo-area {
+            background: #f8fafc;
+            border-top: 1px solid #cbd5e1;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .box-demo {
+            width: 150px;
+            height: 150px;
+            background: #3b82f6;
+            border-radius: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .canvas-demo {
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+        }
+        .info {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 8px;
+        }
+        @media (max-width: 800px) {
+            .main { flex-direction: column; }
+            .demo-area { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="toolbar">
+    <h1>🧪 TryJS · JavaScript Sederhana</h1>
+    <div class="buttons">
+        <button id="runBtn">▶ Jalankan</button>
+        <button id="resetBtn">⟳ Reset Kode</button>
+        <button id="clearOutputBtn">🗑 Bersihkan Output</button>
+    </div>
+</div>
+<div class="main">
+    <div class="editor-panel">
+        <div class="panel-header">✏️ Kode JavaScript</div>
+        <textarea id="jsCode" spellcheck="false"></textarea>
+    </div>
+    <div class="output-panel">
+        <div class="panel-header">📟 Output Console</div>
+        <div id="consoleOutput" class="output-area">// Hasil eksekusi akan muncul di sini</div>
+        <div class="panel-header">🎮 Area Demo (bisa dimanipulasi)</div>
+        <div class="demo-area">
+            <div>
+                <div id="kotakWarna" class="box-demo">Klik aku</div>
+                <div class="info">↑ Kotak: klik atau ubah dengan JS<br>contoh: <code>kotak.style.background='red'</code></div>
+            </div>
+            <div>
+                <canvas id="canvasDemo" width="200" height="200" class="canvas-demo"></canvas>
+                <div class="info">↑ Canvas 200x200<br>contoh: <code>drawRect(10,10,50,50,'blue')</code></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Elemen DOM
+        const editor = document.getElementById('jsCode');
+        const consoleDiv = document.getElementById('consoleOutput');
+        const runBtn = document.getElementById('runBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const clearOutputBtn = document.getElementById('clearOutputBtn');
+        
+        // Elemen demo
+        const kotak = document.getElementById('kotakWarna');
+        const canvas = document.getElementById('canvasDemo');
+        const ctx = canvas.getContext('2d');
+        
+        // Default kode contoh (sederhana)
+        const DEFAULT_CODE = `// Selamat datang di TryJS!
+// Kamu bisa menulis kode JavaScript apa saja di sini.
+// Tersedia beberapa variabel siap pakai:
+// - print(tulisan)   → mencetak ke console
+// - kotak            → elemen kotak warna (bisa diubah style-nya)
+// - ctx, canvas      → untuk menggambar di canvas
+// - drawRect, drawCircle, clearCanvas → fungsi bantuan
+
+// Contoh 1: Cetak pesan
+print("Halo dari TryJS!");
+
+// Contoh 2: Ubah warna kotak jadi hijau saat dijalankan
+kotak.style.backgroundColor = "#10b981";
+kotak.innerText = "Berubah!";
+
+// Contoh 3: Gambar lingkaran di canvas
+function gambarLingkaran() {
+    clearCanvas();
+    drawCircle(100, 100, 40, "#f97316");
+    drawCircle(70, 80, 8, "#1e293b");
+    drawCircle(130, 80, 8, "#1e293b");
+    drawRect(80, 130, 40, 20, "#ef4444");
+}
+gambarLingkaran();
+
+// Contoh 4: Event klik kotak (opsional)
+kotak.onclick = () => {
+    print("Kotak diklik!");
+    kotak.style.backgroundColor = "#8b5cf6";
+    kotak.innerText = "Terklik!";
+};
+print("Coba klik kotak biru di atas!");
+`;
+        
+        // Simpan ke localStorage
+        function saveCode(code) {
+            localStorage.setItem('tryjs_code', code);
+        }
+        
+        function loadCode() {
+            const saved = localStorage.getItem('tryjs_code');
+            if (saved && saved.trim() !== '') {
+                editor.value = saved;
+                return saved;
+            } else {
+                editor.value = DEFAULT_CODE;
+                return DEFAULT_CODE;
+            }
+        }
+        
+        // Fungsi untuk menampilkan output ke console (meniru console.log)
+        function printToConsole(...args) {
+            let text = args.map(arg => {
+                if (typeof arg === 'object') {
+                    try {
+                        return JSON.stringify(arg);
+                    } catch(e) {
+                        return String(arg);
+                    }
+                }
+                return String(arg);
+            }).join(' ');
+            // Tambahkan ke div output
+            const line = document.createElement('div');
+            line.textContent = text;
+            consoleDiv.appendChild(line);
+            // scroll ke bawah
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+        
+        // Membersihkan console
+        function clearConsole() {
+            consoleDiv.innerHTML = '';
+        }
+        
+        // Fungsi bantuan untuk menggambar di canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        function drawRect(x, y, w, h, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, w, h);
+        }
+        
+        function drawCircle(x, y, r, color) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+        
+        function drawLine(x1, y1, x2, y2, color, width = 2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+            ctx.stroke();
+        }
+        
+        // Fungsi untuk menjalankan kode user dengan aman
+        function runUserCode() {
+            // Simpan kode dulu
+            const code = editor.value;
+            saveCode(code);
+            
+            // Reset output console (opsional: bisa dihapus atau ditambahkan)
+            // Biarkan user mengosongkan sendiri, tapi kita beri pemisah
+            const separator = document.createElement('div');
+            separator.textContent = '--- Eksekusi baru ---';
+            separator.style.color = '#facc15';
+            separator.style.margin = '8px 0';
+            consoleDiv.appendChild(separator);
+            
+            // Reset warna kotak ke default? Jangan, biarkan user mengubah.
+            // Tapi kita hapus event onclick lama? Kita biarkan saja karena akan ditimpa jika user mendefinisikan ulang.
+            // Sebelum menjalankan, kita simpan referensi fungsi onclick? Tidak perlu.
+            
+            // Kita akan menjalankan kode dengan Function constructor.
+            // Berikan akses ke variabel-variabel yang dibutuhkan.
+            try {
+                const execute = new Function(
+                    'print', 
+                    'kotak', 
+                    'ctx', 
+                    'canvas', 
+                    'drawRect', 
+                    'drawCircle', 
+                    'drawLine', 
+                    'clearCanvas',
+                    code
+                );
+                execute(
+                    printToConsole,
+                    kotak,
+                    ctx,
+                    canvas,
+                    drawRect,
+                    drawCircle,
+                    drawLine,
+                    clearCanvas
+                );
+            } catch (err) {
+                printToConsole('[ERROR]', err.message);
+                consoleDiv.style.color = '#f87171';
+            }
+        }
+        
+        // Reset kode ke default
+        function resetCode() {
+            editor.value = DEFAULT_CODE;
+            saveCode(DEFAULT_CODE);
+            clearConsole();
+            printToConsole('// Kode direset ke contoh default');
+            // Reset tampilan kotak dan canvas ke keadaan awal
+            kotak.style.backgroundColor = '#3b82f6';
+            kotak.innerText = 'Klik aku';
+            kotak.onclick = null; // hapus event lama
+            clearCanvas();
+            // Gambar ulang contoh sederhana
+            drawCircle(100, 100, 30, '#94a3b8');
+            printToConsole('Demo direset. Jalankan kode lagi untuk melihat efek.');
+        }
+        
+        // Inisialisasi tampilan awal
+        function initDemo() {
+            clearCanvas();
+            drawCircle(100, 100, 30, '#94a3b8');
+            kotak.style.backgroundColor = '#3b82f6';
+            kotak.innerText = 'Klik aku';
+        }
+        
+        // Event listener
+        runBtn.addEventListener('click', () => {
+            clearConsole();  // bersihkan console setiap run (opsional)
+            runUserCode();
+        });
+        resetBtn.addEventListener('click', resetCode);
+        clearOutputBtn.addEventListener('click', () => {
+            clearConsole();
+            printToConsole('Console dibersihkan.');
+        });
+        
+        // Muat kode terakhir atau default
+        const initialCode = loadCode();
+        editor.value = initialCode;
+        initDemo();
+        
+        // Jalankan kode otomatis pertama kali agar contoh berfungsi
+        setTimeout(() => {
+            clearConsole();
+            runUserCode();
+        }, 100);
+    })();
+</script>
+</body>
+</html>

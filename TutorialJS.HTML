@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial JavaScript Interaktif</title>
+    <style>
+        /* ================= ROOT & VARIABEL ================= */
+        :root {
+            --main-color: #f7b32b;
+            --accent-color: #f7b32b;
+            --bg-color: #fefaf0;
+            --text-color: #2c3e2f;
+            --section-bg: #ffffff;
+            --border-color: #f0e0c0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        /* ================= RESET & GLOBAL ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            color: #1e2f3e;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid #cbd5e1;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            color: var(--main-color);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 24px 0 12px 0;
+            color: #2c4b66;
+        }
+
+        p, li {
+            margin-bottom: 1rem;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            background: var(--main-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        header.hide-nav {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .header-bottom {
+            margin-top: 15px;
+            position: relative;
+            height: 50px;
+        }
+
+        #searchInput {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: none;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        /* ================= NAVBAR ================= */
+        .topnav {
+            background: #0f172a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .topnav.hide-nav {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: #16a34a;
+        }
+
+        /* ================= ACCOUNT & DROPDOWN ================= */
+        .account-wrapper {
+            position: relative;
+        }
+
+        .sign-btn {
+            background: #16a34a;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 110%;
+            background: white;
+            display: none;
+            flex-direction: column;
+            min-width: 160px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+
+        .account-wrapper.active .dropdown-menu {
+            display: flex;
+        }
+
+        .dropdown-menu a {
+            padding: 10px 15px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f1f5f9;
+        }
+
+        /* ================= MINI HEADER (SCROLL) ================= */
+        .mini-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 12px;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mini-header.active {
+            transform: translateY(0);
+        }
+
+        .mini-header input {
+            width: 300px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: none;
+        }
+
+        .mini-account {
+            position: absolute;
+            right: 20px;
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        #mainContent {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ================= SECTION ================= */
+        section {
+            background: var(--section-bg);
+            margin: 30px auto;
+            padding: 28px 36px;
+            border-radius: 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: 0.2s;
+        }
+
+        section:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ================= KOTAK CONTOH KODE ================= */
+        .code {
+            background: #1e2a2e;
+            color: #e2e8e4;
+            padding: 18px;
+            border-radius: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 5px solid var(--accent-color);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* ================= DEMO BOX ================= */
+        .demo-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        button {
+            background: var(--main-color);
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            margin: 5px 5px 0 0;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        /* ================= LOGIN WALL ================= */
+        .login-wall {
+            background: #f0f4fa;
+            border-left: 6px solid var(--main-color);
+            padding: 32px;
+            text-align: center;
+            border-radius: 28px;
+            margin: 32px auto;
+            max-width: 800px;
+        }
+
+        .btn-login {
+            background: var(--main-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #0f172a;
+            color: #cbd5e1;
+            margin-top: 40px;
+        }
+
+        .try-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: #3b82f6;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .try-link:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            .topnav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-right {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            section {
+                padding: 20px;
+                margin: 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            #searchInput {
+                width: 220px;
+            }
+            #mainContent {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📘 Tutorial JavaScript Interaktif</h1>
+    <p>Pembelajaran JavaScript dari Dasar hingga DOM Manipulation</p>
+    <div class="header-bottom">
+        <input type="text" id="searchInput" placeholder="🔍 Cari materi..." onkeyup="cariMateri()">
+        <div id="accountPlaceholder"></div>
+    </div>
+</header>
+
+<nav class="topnav">
+    <div class="logo">PORTAL</div>
+    <div class="nav-right">
+        <a href="HOME.html">HOME</a>
+        <a href="TempatKursus.html">TEMPAT KURSUS</a>
+        <div class="account-wrapper" id="accountWrapper">
+            <a href="#" class="sign-btn" id="authButton">Sign In</a>
+            <div class="dropdown-menu">
+                <a href="#">👤 Profile</a>
+                <a href="#" id="logoutBtn">🚪 Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mini-header" id="miniHeader">
+    <input type="text" id="searchMini" placeholder="🔍 Cari materi...">
+    <div class="mini-account" id="miniAccount"></div>
+</div>
+
+<main id="mainContent">
+    <!-- SECTION 1 & 2 (GRATIS, TIDAK PERLU LOGIN) -->
+    <section>
+        <h2>1. Apa itu JavaScript?</h2>
+        <p>JavaScript adalah bahasa pemrograman yang membuat halaman web menjadi <strong>hidup dan interaktif</strong>. Jika HTML adalah kerangka (struktur) dan CSS adalah kulit (tampilan), maka JavaScript adalah otak dan gerakan (logika & perilaku).</p>
+        <div class="demo-box">
+            <p><strong>Contoh:</strong> Klik tombol di bawah, teks akan berubah.</p>
+            <button onclick="document.getElementById('demo1').innerHTML = '✅ Halo! JavaScript bekerja!'">Klik Saya</button>
+            <p id="demo1" style="margin-top:10px;"></p>
+        </div>
+        <p>JavaScript bisa merespon klik, mengubah konten, mengirim data, dan bahkan membuat animasi.</p>
+    </section>
+
+    <section>
+        <h2>2. Cara Menyematkan JavaScript</h2>
+        <ul>
+            <li><strong>Internal JS</strong> → ditulis dalam tag <code>&lt;script&gt;</code> di dalam HTML (biasanya di akhir body).</li>
+            <li><strong>External JS</strong> → file terpisah <code>.js</code> dihubungkan dengan <code>&lt;script src="file.js"&gt;</code>.</li>
+            <li><strong>Inline JS</strong> → ditulis langsung di atribut elemen (contoh: <code>onclick</code>).</li>
+        </ul>
+        <div class="code">
+            &lt;script&gt;
+                console.log("Hello dari internal");
+            &lt;/script&gt;
+            &lt;script src="script.js"&gt;&lt;/script&gt;
+            &lt;button onclick="alert('Inline')"&gt;Klik&lt;/button&gt;
+        </div>
+        <p>💡 <strong>Rekomendasi:</strong> Letakkan <code>&lt;script&gt;</code> sebelum <code>&lt;/body&gt;</code> agar HTML terlebih dahulu dimuat.</p>
+    </section>
+
+    <!-- LOGIN WALL (HANYA TAMPIL JIKA BELUM LOGIN) -->
+    <div id="loginWall" class="login-wall" style="display: none;">
+        <p>🔒 <strong>Materi selanjutnya (Output, Variabel, Tipe Data, dll) hanya tersedia untuk pengguna yang login.</strong></p>
+        <p>Silakan login untuk mengakses lebih dari 80% konten tutorial lengkap.</p>
+        <a href="login.html" class="btn-login">Login Sekarang</a>
+    </div>
+
+    <!-- EXTRA CONTENT (HANYA TAMPIL SETELAH LOGIN) -->
+    <div id="extraContent" style="display: none;">
+
+        <section>
+            <h2>3. Output JavaScript</h2>
+            <ul>
+                <li><code>innerHTML</code> → mengubah isi elemen HTML.</li>
+                <li><code>alert()</code> → popup peringatan.</li>
+                <li><code>console.log()</code> → untuk debugging (buka console browser F12).</li>
+            </ul>
+            <div class="demo-box">
+                <button onclick="document.getElementById('outputDemo').innerHTML = 'Teks berubah via innerHTML'">innerHTML</button>
+                <button onclick="alert('Ini alert!')">Alert</button>
+                <button onclick="console.log('Pesan di console')">Console log</button>
+                <p id="outputDemo" style="margin-top:10px;"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Variabel: let, const, var</h2>
+            <p>Variabel adalah tempat menyimpan data.</p>
+            <ul>
+                <li><code>let</code> → nilai bisa diubah (scope blok). <strong>Rekomendasi utama</strong>.</li>
+                <li><code>const</code> → nilai tetap (konstanta), tidak bisa diubah.</li>
+                <li><code>var</code> → cara lama (hindari).</li>
+            </ul>
+            <div class="code">
+                let umur = 16;
+                umur = 17;        // diperbolehkan
+                const nama = "Andi";
+                // nama = "Budi"; // ❌ Error
+            </div>
+            <div class="demo-box">
+                <button onclick="demoVariabel()">Coba Variabel</button>
+                <p id="varResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Tipe Data</h2>
+            <ul>
+                <li><code>String</code> → teks, contoh: "Halo"</li>
+                <li><code>Number</code> → angka, contoh: 10, 3.14</li>
+                <li><code>Boolean</code> → true/false</li>
+                <li><code>Array</code> → kumpulan data, contoh: [1,2,3]</li>
+                <li><code>Object</code> → pasangan key-value, contoh: {nama:"Andi", umur:20}</li>
+            </ul>
+            <div class="demo-box">
+                <button onclick="cekTipeData()">Cek Tipe Data</button>
+                <p id="tipeResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>6. Operator Dasar</h2>
+            <ul>
+                <li>Aritmatika: <code>+ - * / %</code></li>
+                <li>Perbandingan: <code>==, ===, !=, >, <</code></li>
+                <li>Logika: <code>&& (AND), || (OR), ! (NOT)</code></li>
+            </ul>
+            <div class="demo-box">
+                <button onclick="hitungOperator()">Hitung 10 + 5 * 2</button>
+                <p id="operatorResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>7. Percabangan (if else)</h2>
+            <p>Untuk mengambil keputusan berdasarkan kondisi.</p>
+            <div class="code">
+                let nilai = 80;
+                if (nilai >= 75) {
+                    console.log("Lulus");
+                } else {
+                    console.log("Tidak lulus");
+                }
+            </div>
+            <div class="demo-box">
+                <button onclick="demoIf()">Cek Kelulusan (nilai 80)</button>
+                <p id="ifResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>8. Perulangan (Loop)</h2>
+            <p><code>for</code> dan <code>while</code> digunakan untuk mengulang kode.</p>
+            <div class="code">
+                for (let i = 0; i < 5; i++) {
+                    console.log(i);
+                }
+            </div>
+            <div class="demo-box">
+                <button onclick="demoLoop()">Jalankan Loop (1-5)</button>
+                <p id="loopResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>9. Fungsi (Function)</h2>
+            <p>Blok kode yang bisa dipanggil berulang kali.</p>
+            <div class="code">
+                function sapa(nama) {
+                    return "Halo " + nama;
+                }
+                let pesan = sapa("Andi");
+            </div>
+            <div class="demo-box">
+                <button onclick="panggilFungsi()">Panggil Fungsi</button>
+                <p id="fungsiResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>10. DOM Manipulation (Mengubah HTML)</h2>
+            <p>Dengan JavaScript, kita bisa mengubah konten, style, dan atribut elemen HTML.</p>
+            <ul>
+                <li><code>document.getElementById("id")</code> → mengambil elemen</li>
+                <li><code>element.innerHTML = "teks"</code> → mengubah isi</li>
+                <li><code>element.style.color = "red"</code> → mengubah style</li>
+            </ul>
+            <div class="demo-box">
+                <p id="domDemo">Teks ini akan berubah</p>
+                <button onclick="ubahDOM()">Ubah Teks & Warna</button>
+                <button onclick="resetDOM()">Reset</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>11. Event Handler (onclick, onmouseover)</h2>
+            <p>Event adalah aksi yang terjadi di halaman (klik, hover, input).</p>
+            <div class="demo-box">
+                <button id="hoverBtn" onmouseover="this.style.background='#f97316'" onmouseout="this.style.background='#f7b32b'">Hover ke sini</button>
+                <p id="eventDemo"></p>
+                <button onclick="tambahEvent()">Klik untuk menampilkan pesan</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>12. Array dan Object</h2>
+            <div class="code">
+                let buah = ["Apel", "Mangga", "Jeruk"];
+                let siswa = { nama: "Budi", umur: 17 };
+            </div>
+            <div class="demo-box">
+                <button onclick="demoArray()">Tampilkan Array</button>
+                <button onclick="demoObject()">Tampilkan Object</button>
+                <p id="arrayResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>13. LocalStorage (Penyimpanan Browser)</h2>
+            <p>Data bisa disimpan di browser pengguna meskipun halaman di-refresh.</p>
+            <div class="demo-box">
+                <input type="text" id="storageInput" placeholder="Ketik sesuatu...">
+                <button onclick="simpanData()">Simpan</button>
+                <button onclick="tampilkanData()">Tampilkan</button>
+                <button onclick="hapusData()">Hapus</button>
+                <p id="storageResult"></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>14. Kesalahan Umum & Tips</h2>
+            <ul>
+                <li>Lupa mendeklarasikan variabel dengan <code>let/const</code>.</li>
+                <li>Menggunakan <code>=</code> (assignment) bukan <code>==</code> atau <code>===</code>.</li>
+                <li>Memanggil fungsi sebelum didefinisikan (hoisting hanya berlaku untuk deklarasi fungsi).</li>
+                <li>Buka console browser (F12) untuk melihat error.</li>
+            </ul>
+            <p>💡 <strong>Tips:</strong> Gunakan <code>console.log()</code> untuk debug, dan biasakan memberi nama variabel yang jelas.</p>
+        </section>
+
+    </div> <!-- tutup extraContent -->
+</main>
+
+<footer>
+    Modul Pembelajaran JavaScript Lengkap | Disusun untuk Tujuan Akademik<br>
+    <a href="tryJS.html" class="try-link">🚀 Coba Langsung di tryJS →</a>
+</footer>
+
+<!-- LOGOUT TERMINAL (simulasi) -->
+<div id="loadingScreen" class="loading-screen" style="display: none; position: fixed; inset: 0; background: #0f172a; justify-content: center; align-items: center; z-index: 9999;">
+    <div class="terminal" style="background: black; padding: 20px; border-radius: 12px; color: #00ff88; font-family: monospace; max-width: 700px;">
+        <pre id="terminalText"></pre>
+    </div>
+</div>
+
+<script>
+    // ================= DEMO FUNCTIONS =================
+    function demoVariabel() {
+        let umur = 16;
+        umur = 17;
+        const nama = "Andi";
+        document.getElementById("varResult").innerHTML = `Nama: ${nama}, Umur: ${umur}`;
+    }
+
+    function cekTipeData() {
+        let str = "Halo";
+        let num = 100;
+        let bool = true;
+        let arr = [1,2,3];
+        let obj = {nama:"Budi"};
+        document.getElementById("tipeResult").innerHTML = `
+            string: ${typeof str}<br>
+            number: ${typeof num}<br>
+            boolean: ${typeof bool}<br>
+            array: ${Array.isArray(arr)}<br>
+            object: ${typeof obj}
+        `;
+    }
+
+    function hitungOperator() {
+        let hasil = 10 + 5 * 2;
+        document.getElementById("operatorResult").innerHTML = `10 + 5 * 2 = ${hasil}`;
+    }
+
+    function demoIf() {
+        let nilai = 80;
+        let status = (nilai >= 75) ? "Lulus" : "Tidak lulus";
+        document.getElementById("ifResult").innerHTML = `Nilai ${nilai} → ${status}`;
+    }
+
+    function demoLoop() {
+        let output = "";
+        for (let i = 1; i <= 5; i++) {
+            output += i + " ";
+        }
+        document.getElementById("loopResult").innerHTML = output;
+    }
+
+    function panggilFungsi() {
+        function sapa(nama) {
+            return "Halo " + nama;
+        }
+        let pesan = sapa("Andi");
+        document.getElementById("fungsiResult").innerHTML = pesan;
+    }
+
+    function ubahDOM() {
+        let el = document.getElementById("domDemo");
+        el.innerHTML = "Teks sudah diubah oleh JavaScript!";
+        el.style.color = "#e67e22";
+        el.style.fontWeight = "bold";
+    }
+
+    function resetDOM() {
+        let el = document.getElementById("domDemo");
+        el.innerHTML = "Teks ini akan berubah";
+        el.style.color = "";
+        el.style.fontWeight = "";
+    }
+
+    function tambahEvent() {
+        document.getElementById("eventDemo").innerHTML = "Tombol telah diklik! 🎉";
+    }
+
+    function demoArray() {
+        let buah = ["Apel", "Mangga", "Jeruk"];
+        document.getElementById("arrayResult").innerHTML = buah.join(", ");
+    }
+
+    function demoObject() {
+        let siswa = { nama: "Budi", umur: 17, kelas: "XII" };
+        document.getElementById("arrayResult").innerHTML = `Nama: ${siswa.nama}, Umur: ${siswa.umur}, Kelas: ${siswa.kelas}`;
+    }
+
+    function simpanData() {
+        let data = document.getElementById("storageInput").value;
+        if (data) {
+            localStorage.setItem("myData", data);
+            document.getElementById("storageResult").innerHTML = "Data tersimpan!";
+        } else {
+            document.getElementById("storageResult").innerHTML = "Isi dulu!";
+        }
+    }
+
+    function tampilkanData() {
+        let data = localStorage.getItem("myData");
+        document.getElementById("storageResult").innerHTML = data ? `Data: ${data}` : "Belum ada data";
+    }
+
+    function hapusData() {
+        localStorage.removeItem("myData");
+        document.getElementById("storageResult").innerHTML = "Data dihapus";
+    }
+
+    // ================= PENCARIAN =================
+    function cariMateri() {
+        let keyword = document.getElementById("searchInput").value.toLowerCase();
+        let sections = document.querySelectorAll("section");
+        sections.forEach(section => {
+            let text = section.innerText.toLowerCase();
+            if (keyword && text.includes(keyword)) {
+                section.style.backgroundColor = "#fff3cd";
+                section.scrollIntoView({ behavior: "smooth", block: "center" });
+                setTimeout(() => section.style.backgroundColor = "", 2000);
+            } else {
+                section.style.backgroundColor = "";
+            }
+        });
+    }
+
+    // ================= LOGIN WALL & EXTRA CONTENT =================
+    function checkLoginAndDisplay() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const wall = document.getElementById("loginWall");
+        const extra = document.getElementById("extraContent");
+        if (isLoggedIn) {
+            if (wall) wall.style.display = "none";
+            if (extra) extra.style.display = "block";
+        } else {
+            if (wall) wall.style.display = "block";
+            if (extra) extra.style.display = "none";
+        }
+    }
+
+    // ================= SCROLL HANDLER =================
+    let lastScrollY = window.scrollY;
+    let isHidden = false;
+    const SCROLL_TRIGGER = 100;
+    let isMoved = false;
+
+    function handleScroll() {
+        const currentScroll = window.scrollY;
+        const header = document.querySelector("header");
+        const topnav = document.querySelector(".topnav");
+        const miniHeader = document.getElementById("miniHeader");
+        const wrapper = document.getElementById("accountWrapper");
+        const miniAccount = document.getElementById("miniAccount");
+        const navRight = document.querySelector(".nav-right");
+
+        if (currentScroll > SCROLL_TRIGGER && currentScroll > lastScrollY && !isHidden) {
+            if (header) header.classList.add("hide-nav");
+            if (topnav) topnav.classList.add("hide-nav");
+            if (miniHeader) miniHeader.classList.add("active");
+            isHidden = true;
+            if (!isMoved && wrapper && miniAccount) {
+                miniAccount.appendChild(wrapper);
+                isMoved = true;
+            }
+        } else if (currentScroll <= 0 && isHidden) {
+            if (header) header.classList.remove("hide-nav");
+            if (topnav) topnav.classList.remove("hide-nav");
+            if (miniHeader) miniHeader.classList.remove("active");
+            isHidden = false;
+            if (isMoved && wrapper && navRight) {
+                navRight.appendChild(wrapper);
+                isMoved = false;
+            }
+        }
+        lastScrollY = currentScroll;
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // ================= INIT =================
+    document.addEventListener("DOMContentLoaded", function() {
+        checkLoginAndDisplay();
+        window.addEventListener("storage", checkLoginAndDisplay);
+
+        // Avatar & dropdown
+        const authBtn = document.getElementById("authButton");
+        const wrapper = document.getElementById("accountWrapper");
+        const displayName = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "";
+        if (displayName && authBtn) {
+            const initial = displayName.charAt(0).toUpperCase();
+            authBtn.innerHTML = `
+                <span style="background:#16a34a;color:white;padding:6px 10px;border-radius:50%;
+                  margin-right:6px;display:inline-flex;align-items:center;justify-content:center;
+                  width:24px;height:24px;font-weight:bold;">${initial}</span>
+                <span>${displayName}</span> ▼`;
+            authBtn.href = "#";
+            authBtn.addEventListener("click", e => {
+                e.preventDefault();
+                if (wrapper) wrapper.classList.toggle("active");
+            });
+        } else if (authBtn) {
+            authBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.location.href = "login.html";
+            });
+        }
+
+        document.addEventListener("click", e => {
+            if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove("active");
+        });
+
+        // Logout
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("userEmail");
+                localStorage.removeItem("userName");
+                window.location.href = "login.html";
+            });
+        }
+
+        // Sync search mini
+        const searchMain = document.getElementById("searchInput");
+        const searchMini = document.getElementById("searchMini");
+        if (searchMain && searchMini) {
+            searchMain.addEventListener("input", () => searchMini.value = searchMain.value);
+            searchMini.addEventListener("input", () => searchMain.value = searchMini.value);
+        }
+    });
+</script>
+</body>
+</html>

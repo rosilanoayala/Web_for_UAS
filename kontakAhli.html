@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontak Ahli HTML</title>
+
+<style>
+:root{ --main:#22c55e; --bg:#f4f6f8; }
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container{
+  background:#fff;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  text-align:center;
+  width:90%;
+  max-width:500px;
+}
+
+h1{
+  color:var(--main);
+  margin-top:0;
+}
+
+.card{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.card a{
+  text-decoration:none;
+  background:#fff;
+  padding:14px;
+  border-radius:14px;
+  border:2px solid var(--main);
+  font-weight:bold;
+  color:#333;
+  transition:.3s;
+}
+
+.card a:hover{
+  background:var(--main);
+  color:#fff;
+  transform:scale(1.05);
+}
+
+.back{
+  margin-top:25px;
+  display:inline-block;
+  font-size:14px;
+  text-decoration:none;
+  color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>🧑‍🏫 Kontak Ahli</h1>
+  <p>Silakan hubungi melalui Instagram berikut:</p>
+
+  <div class="card">
+    <a href="https://www.instagram.com/shllia.__.arct?igsh=a2R4YjQ1Z3dkbWJm" 
+       target="_blank" 
+       rel="noopener noreferrer">
+       📸 @shllia.__.arct
+    </a>
+
+    <a href="https://www.instagram.com/ferdiansya.rama?igsh=ZXVzZmUza2s4ZHl6" 
+       target="_blank" 
+       rel="noopener noreferrer">
+       📸 @ferdiansya.rama
+    </a>
+  </div>
+
+  <a class="back" href="HOME.html">⬅ Kembali ke Home</a>
+</div>
+
+</body>
+</html>
