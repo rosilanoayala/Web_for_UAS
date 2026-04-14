@@ -1,12 +1,21 @@
+/* ============================================================
+   TUTORIAL CSS – FINAL THEME (BIRU KHAS CSS)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 /* ================= ROOT & VARIABEL ================= */
 :root {
-  --main-color: #207873;       /* teal / hijau tosca */
-  --accent-color: #f39c12;     /* oranye untuk border kode */
+  --main-color: #2965f1;       /* Biru CSS */
+  --main-light: #eef3ff;
+  --main-dark: #1e4bd2;
+  --accent-color: #f39c12;     
   --bg-color: #f4f7f9;
   --text-color: #2d3e3a;
   --section-bg: #ffffff;
   --border-color: #dce5e8;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 12px rgba(41, 101, 241, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 12px 24px rgba(41, 101, 241, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
@@ -38,10 +47,15 @@ h1, h2, h3, h4 {
 
 h2 {
   font-size: 1.8rem;
-  border-bottom: 3px solid #cbd5e1;
+  border-bottom: 3px solid rgba(41, 101, 241, 0.2);
   padding-bottom: 8px;
   margin-bottom: 20px;
   color: var(--main-color);
+  transition: border-color 0.2s;
+}
+
+section:hover h2 {
+  border-bottom-color: var(--main-color);
 }
 
 h3 {
@@ -89,6 +103,7 @@ header.hide-nav {
   border: none;
   background: white;
   font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* ================= NAVBAR ================= */
@@ -153,6 +168,11 @@ header.hide-nav {
   align-items: center;
   gap: 6px;
   text-decoration: none;
+  transition: background 0.2s;
+}
+
+.sign-btn:hover {
+  background: #15803d;
 }
 
 .dropdown-menu {
@@ -166,6 +186,7 @@ header.hide-nav {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   z-index: 1001;
+  overflow: hidden;
 }
 
 .account-wrapper.active .dropdown-menu {
@@ -223,17 +244,21 @@ header.hide-nav {
 }
 
 section {
-  background: var(--section-bg);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
   margin: 30px auto;
   padding: 28px 36px;
   border-radius: 28px;
   border: 1px solid var(--border-color);
+  border-left: 6px solid var(--main-color);
   box-shadow: var(--shadow);
-  transition: 0.2s;
+  transition: all 0.25s ease;
+  position: relative;
 }
 
 section:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+  border-left-width: 8px;
 }
 
 /* ================= KOTAK CONTOH KODE ================= */
@@ -271,9 +296,15 @@ section:hover {
   text-decoration: none;
   display: inline-block;
   font-weight: bold;
+  transition: 0.2s;
 }
 
-/* ================= TERMINAL LOGOUT (HACKER STYLE) ================= */
+.btn-login:hover {
+  background: var(--main-dark);
+  transform: translateY(-2px);
+}
+
+/* ================= TERMINAL LOGOUT ================= */
 .loading-screen {
   position: fixed;
   inset: 0;
@@ -300,7 +331,7 @@ section:hover {
   padding: 8px 16px;
   background: #16a34a;
   color: #000;
-  font-family: var(--font-code, monospace);
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -312,7 +343,7 @@ section:hover {
 .terminal pre {
   padding: 24px;
   color: #22c55e;
-  font-family: var(--font-code, monospace);
+  font-family: var(--font-mono);
   font-size: 1.05rem;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -360,7 +391,170 @@ footer {
   transform: scale(1.02);
 }
 
+/* ===== LAYOUT DUA KOLOM ===== */
+.main-wrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--main-color);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(41, 101, 241, 0.2);
+    background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--main-color);
+}
+
+.sidebar-nav {
+    padding: 10px 0;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 8px 20px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(41, 101, 241, 0.05);
+    color: var(--main-color);
+    border-left-color: var(--main-color);
+}
+
+.sidebar-nav a.active {
+    background: rgba(41, 101, 241, 0.1);
+    color: var(--main-color);
+    border-left-color: var(--main-color);
+    font-weight: 600;
+}
+
+/* KONTEN AREA */
+.content-area {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ===== COLLAPSIBLE SECTION ===== */
+section {
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.section-header h2 {
+    flex: 1;
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.section-header .toggle-icon {
+    font-size: 1.4rem;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--main-light);
+    border-radius: 50%;
+    margin-left: 15px;
+    transition: transform 0.2s;
+    color: var(--main-color);
+}
+
+section.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.section-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+section.collapsed .section-content {
+    display: none;
+}
+
+/* ===== TOMBOL LANJUT (WIZARD) ===== */
+.section-next-container {
+    margin-top: 32px;
+    text-align: right;
+    border-top: 1px dashed rgba(41, 101, 241, 0.3);
+    padding-top: 24px;
+}
+
+.section-next-btn {
+    background: var(--main-color);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 8px rgba(41, 101, 241, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-next-btn:hover {
+    background: var(--main-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(41, 101, 241, 0.3);
+}
+
+.section-next-btn:active {
+    transform: translateY(0);
+}
+
 /* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .main-wrapper {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+        margin-bottom: 20px;
+    }
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 16px;

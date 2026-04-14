@@ -12,15 +12,14 @@
   --text:        #2d3748;
   --text-sub:    #5a6a7e;
 
-  /* W3Schools-like navbar green */
   --nav-bg:      #282a35;
   --nav-accent:  #04aa6d;
   
-  /* C++ Official Blue Theme */
-  --cpp:         #00599C;
-  --cpp-light:   #eef5fb;
-  --cpp-mid:     #baddf9;
-  --cpp-dark:    #004481;
+  /* C++ ungu (konsisten dengan HOME) */
+  --cpp:         #9b59b6;
+  --cpp-light:   #f5eeff;
+  --cpp-mid:     #e2d0f8;
+  --cpp-dark:    #7d3f9f;
 
   --font-ui:   'Source Sans 3', system-ui, sans-serif;
   --font-code: 'Fira Code', 'Consolas', monospace;
@@ -28,6 +27,8 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --shadow:    0 2px 16px rgba(0,0,0,0.06);
+  --border-color: #e0e6ed;   /* Tambahkan ini */
+  --main-color: #9b59b6;     /* Tambahkan ini, sesuaikan dengan --cpp */
 }
 
 /* ─── Global ─────────────────────────────────────────────── */
@@ -261,6 +262,124 @@ mark.highlight.active { background: #f97316; color: white; box-shadow: 0 0 8px r
 /* ─── Footer ─────────────────────────────────────────────── */
 footer { background: var(--nav-bg); color: #cbd5e1; text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 0.95rem; }
 
+/* ===== LAYOUT DUA KOLOM ===== */
+.main-wrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 80px;            /* Sesuaikan dengan tinggi navbar */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: #f8fafc;
+    border-radius: 20px 20px 0 0;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--cpp);        /* Warna ungu C++ */
+}
+
+.sidebar-nav {
+    padding: 10px 0;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 8px 20px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+}
+
+.sidebar-nav a:hover {
+    background: #f1f5f9;
+    color: var(--main-color);
+    border-left-color: var(--main-color);
+}
+
+.sidebar-nav a.active {
+    background: #eef2ff;
+    color: var(--main-color);
+    border-left-color: var(--main-color);
+    font-weight: 600;
+}
+
+/* KONTEN AREA */
+.content-area {
+    flex: 1;
+    min-width: 0; /* Mencegah overflow */
+}
+
+/* ===== COLLAPSIBLE SECTION ===== */
+section {
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.section-header h2 {
+    flex: 1;
+    margin-bottom: 0;        /* override margin default */
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+section.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.section-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+section.collapsed .section-content {
+    display: none;
+}
+
+.section-header .toggle-icon {
+    font-size: 1.4rem;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cpp-light);
+    border-radius: 50%;
+    margin-left: 15px;
+    transition: transform 0.2s;
+    color: var(--cpp-dark);
+}
+
+
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .topnav { flex-direction: column; gap: 15px; padding: 15px; }
@@ -269,4 +388,47 @@ footer { background: var(--nav-bg); color: #cbd5e1; text-align: center; padding:
   h1 { font-size: 1.8rem; }
   h2 { font-size: 1.5rem; }
   .header-bottom input { width: 90%; }
+    .main-wrapper {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== TOMBOL LANJUT (WIZARD) ===== */
+.section-next-container {
+    margin-top: 32px;
+    text-align: right;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 24px;
+}
+
+.section-next-btn {
+    background: var(--cpp);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 8px rgba(155, 89, 182, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-next-btn:hover {
+    background: var(--cpp-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(155, 89, 182, 0.3);
+}
+
+.section-next-btn:active {
+    transform: translateY(0);
 }

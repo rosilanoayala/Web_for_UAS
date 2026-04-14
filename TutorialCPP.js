@@ -1,6 +1,6 @@
 "use strict";
 
-// ================= TYPE EFFECT =================
+// ================= TYPE EFFECT (LOGOUT) =================
 function typeEffect(lines, target, callback, charSpeed = 18, lineSpeed = 250) {
   let i = 0, j = 0;
   function type() {
@@ -20,7 +20,7 @@ function typeEffect(lines, target, callback, charSpeed = 18, lineSpeed = 250) {
   type();
 }
 
-// ================= SEARCH =================
+// ================= PENCARIAN =================
 let searchTimeout = null;
 let currentResults = [];
 let currentIndex = 0;
@@ -133,13 +133,11 @@ function addTryCppButtons() {
     let rawCode = codeBlock.innerText.trim();
     if (rawCode === "") return;
     
-    // Fungsi cerdas untuk melengkapi kode
     function makeCompleteCode(code) {
       code = code.trim();
       const hasMain = /\bint\s+main\s*\(/.test(code);
       const needsIO = /\bcout\b|\bcin\b/.test(code);
       
-      // Jika sudah punya main, anggap sudah utuh, tapi periksa IO
       if (hasMain) {
         let hasInclude = code.includes('#include <iostream>');
         let hasUsing = code.includes('using namespace std;');
@@ -152,10 +150,7 @@ function addTryCppButtons() {
         return code;
       }
       
-      // Belum punya main: kita perlu bungkus, TAPI keluarkan header/include jika ada di dalam kode
       let header = '';
-      
-      // Ekstrak preprocessor dan using menggunakan regex
       let codeWithoutHeaders = code.replace(/^\s*#include\s*<[^>]+>\s*/gm, function(match) {
           header += match.trim() + '\n';
           return '';
@@ -165,14 +160,12 @@ function addTryCppButtons() {
           return '';
       });
       
-      // Tambahkan iostream dan std jika tidak ada tapi dibutuhkan
       if (needsIO) {
         if (!header.includes('<iostream>')) header += '#include <iostream>\n';
         if (!header.includes('using namespace std;')) header += 'using namespace std;\n';
       }
       
       if (header !== "") header += '\n';
-      
       let indented = codeWithoutHeaders.trim().replace(/^/gm, '    ');
       return header + 'int main() {\n' + indented + '\n    return 0;\n}';
     }
@@ -200,8 +193,144 @@ function addTryCppButtons() {
   });
 }
 
+// ================= SIDEBAR & COLLAPSIBLE SECTIONS (WIZARD MODE) =================
+function initSidebarAndCollapse() {
+    const mainContent = document.getElementById('mainContent');
+    if (!mainContent) return;
+
+    const sections = mainContent.querySelectorAll('section');
+    const sidebarNav = document.getElementById('sidebarNav');
+    if (!sidebarNav || sections.length === 0) return;
+
+    sidebarNav.innerHTML = '';
+
+    // Fungsi untuk toggle section
+    function toggleSection(section, forceExpand) {
+        const willCollapse = (forceExpand !== undefined) ? !forceExpand : !section.classList.contains('collapsed');
+        if (willCollapse) {
+            section.classList.add('collapsed');
+        } else {
+            section.classList.remove('collapsed');
+        }
+    }
+
+    // Proses setiap section
+    sections.forEach((section, index) => {
+        const h2 = section.querySelector('h2');
+        if (!h2) return;
+
+        const title = h2.textContent.trim();
+        const sectionId = section.id || `section-${index}`;
+        section.id = sectionId;
+
+        // 1. Buat link di sidebar
+        const link = document.createElement('a');
+        link.href = `#${sectionId}`;
+        link.textContent = title;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+            // Jika section collapsed, expand
+            if (section.classList.contains('collapsed')) {
+                toggleSection(section, true);
+            }
+        });
+        sidebarNav.appendChild(link);
+
+        // 2. Bungkus konten setelah h2 ke dalam div.section-content
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'section-content';
+        
+        const childrenAfterH2 = [];
+        let next = h2.nextSibling;
+        while (next) {
+            childrenAfterH2.push(next);
+            next = next.nextSibling;
+        }
+        childrenAfterH2.forEach(child => contentWrapper.appendChild(child));
+        section.appendChild(contentWrapper);
+
+        // 3. Header dengan toggle icon
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'section-header';
+        h2.parentNode.insertBefore(headerDiv, h2);
+        headerDiv.appendChild(h2);
+        
+        const toggleIcon = document.createElement('span');
+        toggleIcon.className = 'toggle-icon';
+        toggleIcon.textContent = '▼';
+        toggleIcon.setAttribute('aria-hidden', 'true');
+        headerDiv.appendChild(toggleIcon);
+
+        headerDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(section);
+        });
+
+        // 4. Semua section default COLLAPSED
+        section.classList.add('collapsed');
+    });
+
+    // --- Buka section pertama secara otomatis ---
+    if (sections.length > 0) {
+        toggleSection(sections[0], true); // expand section pertama
+    }
+
+    // --- Tambahkan tombol "Lanjut" di setiap section (kecuali terakhir) ---
+    sections.forEach((section, index) => {
+        if (index === sections.length - 1) return; // section terakhir tidak perlu tombol lanjut
+
+        const nextSection = sections[index + 1];
+        const nextH2 = nextSection.querySelector('h2');
+        const nextTitle = nextH2 ? nextH2.textContent.trim() : 'Berikutnya';
+
+        // Buat container tombol
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'section-next-container';
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'section-next-btn';
+        nextBtn.innerHTML = `▶ Lanjut ke: ${nextTitle}`;
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Buka section berikutnya
+            toggleSection(nextSection, true);
+            // Scroll ke section berikutnya
+            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        btnContainer.appendChild(nextBtn);
+        
+        // Tambahkan ke dalam section-content (di akhir)
+        const contentWrapper = section.querySelector('.section-content');
+        if (contentWrapper) {
+            contentWrapper.appendChild(btnContainer);
+        }
+    });
+
+    // Intersection Observer untuk highlight sidebar
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+            if (link) {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    
+    sections.forEach(s => observer.observe(s));
+}
+
 // ================= MAIN INIT =================
 document.addEventListener("DOMContentLoaded", function () {
+  // Simpan halaman terakhir
   const currentPage = window.location.href;
   const pageName = currentPage.split("/").pop();
   localStorage.setItem("lastPage", currentPage);
@@ -229,6 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const displayName = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "";
 
+  // Avatar & dropdown
   if (displayName && authBtn) {
     const initial = displayName.charAt(0).toUpperCase();
     authBtn.innerHTML = `
@@ -242,7 +372,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (wrapper) wrapper.classList.toggle("active");
     });
   } else if (authBtn) {
-    // ✅ Perbaikan: langsung redirect ke login tanpa gimmick
     authBtn.addEventListener("click", function (e) {
       e.preventDefault();
       localStorage.setItem("redirectAfterLogin", window.location.href);
@@ -254,6 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove("active");
   });
 
+  // Sinkronisasi search input
   if (searchMain) {
     searchMain.addEventListener("input", () => {
       if (searchMini) searchMini.value = searchMain.value;
@@ -274,6 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Scroll handler untuk mini header
   let ticking = false;
   const SCROLL_TRIGGER = 100;
   window.addEventListener("scroll", function () {
@@ -281,18 +412,18 @@ document.addEventListener("DOMContentLoaded", function () {
       requestAnimationFrame(function () {
         const currentScroll = window.scrollY;
         if (currentScroll > SCROLL_TRIGGER && currentScroll > lastScrollY && !isHidden) {
-          header.classList.add("hide-nav");
-          topnav.classList.add("hide-nav");
-          miniHeader.classList.add("active");
+          if (header) header.classList.add("hide-nav");
+          if (topnav) topnav.classList.add("hide-nav");
+          if (miniHeader) miniHeader.classList.add("active");
           isHidden = true;
           if (!isMoved && wrapper && miniAccount) {
             miniAccount.appendChild(wrapper);
             isMoved = true;
           }
         } else if (currentScroll <= 0 && isHidden) {
-          header.classList.remove("hide-nav");
-          topnav.classList.remove("hide-nav");
-          miniHeader.classList.remove("active");
+          if (header) header.classList.remove("hide-nav");
+          if (topnav) topnav.classList.remove("hide-nav");
+          if (miniHeader) miniHeader.classList.remove("active");
           isHidden = false;
           if (isMoved && wrapper && navRight) {
             navRight.appendChild(wrapper);
@@ -306,6 +437,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, { passive: true });
 
+  // Logout
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -354,4 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLoginAndDisplay();
   window.addEventListener("storage", checkLoginAndDisplay);
   addTryCppButtons();
+
+  // 🔥 Inisialisasi sidebar & collapsible sections
+  initSidebarAndCollapse();
 });

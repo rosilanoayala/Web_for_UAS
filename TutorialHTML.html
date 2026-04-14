@@ -43,6 +43,14 @@
   <div class="mini-account" id="miniAccount"></div>
 </div>
 
+<div class="main-wrapper">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>📄 HTML Tutorial</h3>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </aside>
+
 <main id="mainContent">
   
   <section>
@@ -1710,172 +1718,127 @@ tetapi selalu terasa nyaman.
 </section>
 
 <section>
-<h2>10(1). HTML Image Map</h2>
+  <h2>10. Bekerja dengan Gambar di HTML</h2>
+  <p>
+    Gambar adalah salah satu elemen paling penting dalam sebuah halaman web. HTML menyediakan beberapa cara canggih untuk mengelola gambar, mulai dari membuat area interaktif pada gambar, menjadikan gambar sebagai latar belakang, hingga menampilkan gambar yang responsif sesuai ukuran layar.
+  </p>
 
-<p>
-Satu gambar, banyak fungsi.
-</p>
+  <!-- ===== BAGIAN 1: IMAGE MAP ===== -->
+  <h3>🖼️ 1. Image Map (Peta Gambar Interaktif)</h3>
+  <p>
+    Dengan <strong>image map</strong>, satu gambar dapat memiliki beberapa area yang dapat diklik, masing-masing mengarah ke tautan yang berbeda. Ini sangat berguna untuk membuat diagram interaktif, peta, atau menu berbasis gambar.
+  </p>
 
-<p>
-Dengan <strong>image map</strong>, satu gambar bisa memiliki beberapa area klik
-yang mengarah ke bagian berbeda.
-</p>
-
-<hr>
-
-<h3>📌 Contoh Dasar</h3>
-
-<div class="code">
+  <div class="code">
 &lt;img src="komodo.jpg" usemap="#map1"&gt;
 
 &lt;map name="map1"&gt;
   &lt;area shape="rect" coords="0,0,100,100" href="https://google.com"&gt;
 &lt;/map&gt;
-</div>
+  </div>
 
-<p>
-💡 Area pada gambar dapat “dipotong” menjadi bagian interaktif.
-</p>
+  <p><strong>🔍 Cara Kerja:</strong></p>
+  <ul>
+    <li><code>usemap</code> → menghubungkan gambar dengan peta (map).</li>
+    <li><code>area</code> → menentukan area yang dapat diklik.</li>
+    <li><code>shape</code> dan <code>coords</code> → menentukan bentuk dan koordinat area (rect, circle, poly).</li>
+  </ul>
+  <p>⚠️ Koordinat dihitung berdasarkan ukuran asli gambar dalam piksel.</p>
 
-<hr>
+  <h4>🎮 Demo Interaktif: Atur Tampilan Gambar</h4>
+  <p>Gunakan kontrol di bawah untuk mengubah ukuran, posisi, float, dan sudut gambar. Ini akan membantu Anda memahami bagaimana CSS dapat memengaruhi gambar sebelum membuat image map.</p>
 
-<h3>🖼 Interaktif: Atur Gambar</h3>
+  <img id="gambarInteraktif" src="komodo.jpg" style="display:block; margin:20px auto; max-width:300px;" alt="Gambar Komodo">
 
-<img id="gambarInteraktif" src="komodo.jpg" style="display:block;margin:20px auto;max-width:300px;">
+  <div style="background: #f8fafc; padding: 20px; border-radius: 16px; margin: 20px 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div>
+        <label><strong>Ukuran:</strong></label><br>
+        <input id="sizeInput" placeholder="contoh: 200px / 50%" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>Posisi (left/center/right):</strong></label><br>
+        <input id="positionInput" placeholder="center" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>Float (left/right/none):</strong></label><br>
+        <input id="floatInput" placeholder="none" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>Border Radius:</strong></label><br>
+        <input id="radiusInput" placeholder="contoh: 10px / 50%" style="width: 100%;">
+      </div>
+    </div>
+    <button onclick="applyImage()" style="margin-top: 15px; width: 100%;">✨ Terapkan Perubahan</button>
+  </div>
 
-<br>
+  <!-- ===== BAGIAN 2: BACKGROUND IMAGE ===== -->
+  <h3>🎨 2. Background Image (Gambar Latar Belakang)</h3>
+  <p>
+    Tidak semua gambar harus menjadi elemen <code>&lt;img&gt;</code>. Terkadang gambar lebih cocok digunakan sebagai latar belakang suatu elemen atau seluruh halaman. CSS menyediakan properti <code>background-image</code> untuk keperluan ini.
+  </p>
 
-<label>Ukuran:</label><br>
-<input id="sizeInput" placeholder="200px / 50%"><br><br>
-
-<label>Posisi (left/center/right):</label><br>
-<input id="positionInput"><br><br>
-
-<label>Float (left/right/none):</label><br>
-<input id="floatInput"><br><br>
-
-<label>Bentuk (radius):</label><br>
-<input id="radiusInput" placeholder="0px / 50%"><br><br>
-
-<button onclick="applyImage()">Terapkan</button>
-
-<hr>
-
-<h3>📌 Cara Kerja</h3>
-
-<ul>
-<li><strong>usemap</strong> → menghubungkan gambar</li>
-<li><strong>area</strong> → menentukan area klik</li>
-<li><strong>coords</strong> → posisi pixel</li>
-</ul>
-
-<p>
-⚠ Koordinat dihitung dari ukuran asli gambar.
-</p>
-
-</section>
-
-<section>
-<h2>10(2). HTML Background Image</h2>
-
-<p>
-Tidak semua gambar harus terlihat sebagai elemen.
-Beberapa cukup menjadi latar.
-</p>
-
-<div class="code">
-body{
+  <div class="code">
+body {
   background-image: url('komodo.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-</div>
+  </div>
 
-<hr>
+  <p><strong>🔍 Penjelasan Properti:</strong></p>
+  <ul>
+    <li><code>cover</code> → gambar akan memenuhi seluruh area, mungkin terpotong sedikit.</li>
+    <li><code>contain</code> → gambar akan ditampilkan sepenuhnya tanpa terpotong.</li>
+    <li><code>center</code> → gambar diposisikan di tengah.</li>
+    <li><code>no-repeat</code> → gambar tidak diulang-ulang.</li>
+  </ul>
 
-<h3>📌 Penjelasan</h3>
+  <h4>🎮 Demo Interaktif: Ubah Latar Halaman</h4>
+  <p>Masukkan URL gambar (lokal atau online) dan klik tombol untuk mengubah latar belakang halaman ini.</p>
 
-<ul>
-<li><strong>cover</strong> → memenuhi layar</li>
-<li><strong>contain</strong> → menyesuaikan tanpa terpotong</li>
-<li><strong>center</strong> → posisi tengah</li>
-</ul>
+  <div style="background: #f8fafc; padding: 20px; border-radius: 16px; margin: 20px 0;">
+    <label><strong>URL Gambar:</strong></label><br>
+    <input id="bgImageInput" placeholder="https://example.com/gambar.jpg" style="width: 100%; margin-bottom: 15px;">
+    <div style="display: flex; gap: 10px;">
+      <button onclick="applyBgImage()" style="flex: 1;">🖼️ Terapkan Background</button>
+      <button onclick="document.body.style.backgroundImage=''; document.body.style.backgroundSize=''; document.body.style.backgroundPosition='';" style="flex: 1; background: #64748b;">🗑️ Hapus Background</button>
+    </div>
+    <p style="margin-top: 10px; font-size: 0.9rem;">💡 Gunakan gambar dari internet atau lokal seperti "komodo.jpg".</p>
+  </div>
 
-<p>
-💡 Gunakan background untuk estetika,
-bukan informasi penting.
-</p>
+  <!-- ===== BAGIAN 3: PICTURE ELEMENT ===== -->
+  <h3>📱 3. Picture Element (Gambar Responsif)</h3>
+  <p>
+    Tidak semua layar memiliki ukuran yang sama. Tag <code>&lt;picture&gt;</code> memungkinkan browser memilih gambar yang paling sesuai berdasarkan kondisi tertentu (misalnya lebar layar), sehingga menghemat bandwidth dan mempercepat loading.
+  </p>
 
-<hr>
-
-<h3>🎛 Mini Interaktif</h3>
-
-<label>URL Gambar:</label><br>
-<input id="bgImageInput" placeholder="komodo.jpg"><br><br>
-
-<button onclick="applyBgImage()">Terapkan Background</button>
-
-</section>
-
-<section>
-<h2>10(3). HTML Picture Element</h2>
-
-<p>
-Tidak semua layar memiliki ukuran yang sama.
-</p>
-
-<p>
-Tag &lt;picture&gt; memungkinkan gambar menyesuaikan perangkat.
-</p>
-
-<div class="code">
+  <div class="code">
 &lt;picture&gt;
-  &lt;source media="(max-width:600px)" srcset="small.jpg"&gt;
-  &lt;img src="large.jpg"&gt;
+  &lt;source media="(max-width: 600px)" srcset="small.jpg"&gt;
+  &lt;source media="(max-width: 1200px)" srcset="medium.jpg"&gt;
+  &lt;img src="large.jpg" alt="Deskripsi Gambar"&gt;
 &lt;/picture&gt;
-</div>
+  </div>
 
-<hr>
+  <p><strong>🔍 Cara Kerja:</strong></p>
+  <ul>
+    <li>Browser membaca tag <code>&lt;source&gt;</code> dari atas ke bawah.</li>
+    <li>Jika kondisi <code>media</code> cocok, gambar di <code>srcset</code> akan digunakan.</li>
+    <li>Jika tidak ada yang cocok, browser akan menggunakan tag <code>&lt;img&gt;</code> sebagai fallback.</li>
+  </ul>
 
-<h3>📌 Cara Kerja</h3>
+  <p><strong>🚀 Keuntungan:</strong></p>
+  <ul>
+    <li>Loading lebih cepat di perangkat mobile.</li>
+    <li>Hemat data pengguna.</li>
+    <li>Tampilan optimal di semua ukuran layar.</li>
+  </ul>
 
-<ul>
-<li>Browser membaca dari atas</li>
-<li>Jika cocok → gunakan source</li>
-<li>Jika tidak → gunakan img</li>
-</ul>
-
-<p>
-👉 Ini disebut <strong>responsive image</strong>
-</p>
-
-<hr>
-
-<h3>📌 Kenapa Penting?</h3>
-
-<ul>
-<li>Loading lebih cepat</li>
-<li>Hemat data</li>
-<li>Tampilan optimal</li>
-</ul>
-
-<hr>
-
-<h3>🚀 Insight</h3>
-
-<p>
-Website modern tidak menampilkan gambar yang sama untuk semua device.
-</p>
-
-<p>
-Ia menyesuaikan.
-</p>
-
-<p>
-Dan di situlah &lt;picture&gt; bekerja.
-</p>
-
+  <div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50; padding: 15px; border-radius: 8px; margin: 20px 0;">
+    <p>💡 <strong>Insight:</strong> Website modern tidak menampilkan gambar yang sama untuk semua device. Dengan <code>&lt;picture&gt;</code>, Anda dapat menyajikan gambar resolusi rendah untuk layar kecil dan gambar resolusi tinggi untuk layar besar, memberikan pengalaman terbaik bagi semua pengguna.</p>
+  </div>
 </section>
 
 <section>
@@ -3093,6 +3056,7 @@ yang tidak terlihat itulah yang paling menentukan.
 </div>
 
 </main>
+</div>
 
 <script src="TutorialHTML.js"></script>
 

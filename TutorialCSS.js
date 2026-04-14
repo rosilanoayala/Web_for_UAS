@@ -1,5 +1,5 @@
 /* ==========================================================
-   TutorialCSS.js  —  Versi Final dengan Semua Demo Interaktif (termasuk section 15-22)
+   TutorialCSS.js — Versi Final dengan Sidebar & Wizard Mode
    ========================================================== */
 
 "use strict";
@@ -127,7 +127,7 @@ function checkLoginAndDisplay() {
   }
 }
 
-// ================= SEMUA DEMO INTERAKTIF (termasuk tambahan) =================
+// ================= SEMUA DEMO INTERAKTIF =================
 function initDemos() {
   // 1. Demo Colors
   const colorPicker = document.getElementById('colorPicker');
@@ -344,105 +344,10 @@ function initDemos() {
     });
   }
 
-  // ========== DEMO TAMBAHAN SECTION 15-22 ==========
-  // 10. Overflow Demo
-  const overflowBox = document.getElementById('overflowBox');
-  if (overflowBox) {
-    const overflowBtns = document.querySelectorAll('#overflowDemo .overflow-btn');
-    overflowBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const val = btn.getAttribute('data-val');
-        if (val) overflowBox.style.overflow = val;
-      });
-    });
-  }
-
-  // 11. Float Demo
-  const floatImg = document.getElementById('floatImg');
-  if (floatImg) {
-    const floatLeft = document.getElementById('floatLeft');
-    const floatRight = document.getElementById('floatRight');
-    const floatNone = document.getElementById('floatNone');
-    if (floatLeft) floatLeft.addEventListener('click', () => floatImg.style.float = 'left');
-    if (floatRight) floatRight.addEventListener('click', () => floatImg.style.float = 'right');
-    if (floatNone) floatNone.addEventListener('click', () => floatImg.style.float = 'none');
-  }
-
-  // 12. Inline-block Demo
-  const ibDemos = document.querySelectorAll('.ib-demo');
-  const ibBlock = document.getElementById('ibBlock');
-  const ibInline = document.getElementById('ibInline');
-  const ibInlineBlock = document.getElementById('ibInlineBlock');
-  if (ibDemos.length) {
-    if (ibBlock) ibBlock.addEventListener('click', () => ibDemos.forEach(el => el.style.display = 'block'));
-    if (ibInline) ibInline.addEventListener('click', () => ibDemos.forEach(el => el.style.display = 'inline'));
-    if (ibInlineBlock) ibInlineBlock.addEventListener('click', () => ibDemos.forEach(el => el.style.display = 'inline-block'));
-  }
-
-  // 13. Align Demo
-  const alignBox = document.getElementById('alignBox');
-  const alignMargin = document.getElementById('alignMargin');
-  const alignText = document.getElementById('alignText');
-  const alignFlex = document.getElementById('alignFlex');
-  const alignReset = document.getElementById('alignReset');
-  if (alignBox) {
-    const parent = alignBox.parentElement;
-    if (alignMargin) alignMargin.addEventListener('click', () => {
-      alignBox.style.cssText = '';
-      parent.style.cssText = '';
-      alignBox.style.width = '150px';
-      alignBox.style.backgroundColor = '#3b82f6';
-      alignBox.style.color = 'white';
-      alignBox.style.padding = '10px';
-      alignBox.style.borderRadius = '8px';
-      alignBox.style.display = 'block';
-      alignBox.style.margin = '0 auto';
-      parent.style.textAlign = 'left';
-    });
-    if (alignText) alignText.addEventListener('click', () => {
-      alignBox.style.cssText = '';
-      parent.style.cssText = '';
-      alignBox.style.width = '150px';
-      alignBox.style.backgroundColor = '#3b82f6';
-      alignBox.style.color = 'white';
-      alignBox.style.padding = '10px';
-      alignBox.style.borderRadius = '8px';
-      alignBox.style.display = 'inline-block';
-      alignBox.style.margin = '0';
-      parent.style.textAlign = 'center';
-    });
-    if (alignFlex) alignFlex.addEventListener('click', () => {
-      alignBox.style.cssText = '';
-      parent.style.cssText = '';
-      alignBox.style.width = '150px';
-      alignBox.style.backgroundColor = '#3b82f6';
-      alignBox.style.color = 'white';
-      alignBox.style.padding = '10px';
-      alignBox.style.borderRadius = '8px';
-      alignBox.style.display = 'block';
-      parent.style.display = 'flex';
-      parent.style.justifyContent = 'center';
-      parent.style.alignItems = 'center';
-      parent.style.height = '150px';
-    });
-    if (alignReset) alignReset.addEventListener('click', () => {
-      alignBox.style.cssText = '';
-      parent.style.cssText = '';
-      alignBox.style.width = '150px';
-      alignBox.style.backgroundColor = '#3b82f6';
-      alignBox.style.color = 'white';
-      alignBox.style.padding = '10px';
-      alignBox.style.borderRadius = '8px';
-      alignBox.style.display = 'inline-block';
-      parent.style.textAlign = 'center';
-    });
-  }
-
-  // 14. Combinators Demo (global function)
+  // 10. Combinators Demo (global function)
   window.demoCombinator = function(type) {
     const combinatorParent = document.querySelector('#combinatorDemo .parent');
     if (!combinatorParent) return;
-    const allP = combinatorParent.querySelectorAll('p');
     const nextP = combinatorParent.nextElementSibling;
     if (type === 'child') {
       combinatorParent.querySelectorAll(':scope > p').forEach(p => p.style.color = 'blue');
@@ -456,7 +361,7 @@ function initDemos() {
     }
   };
 
-  // 15. Opacity Demo (diperbaiki)
+  // 11. Opacity Demo
   const opacitySliderImg = document.getElementById('opacitySlider');
   const opacityImg = document.getElementById('opacityImg');
   const resetOpacityBtn = document.getElementById('resetOpacityBtn');
@@ -471,6 +376,136 @@ function initDemos() {
     });
     updateOpacity();
   }
+}
+
+// ================= SIDEBAR & COLLAPSIBLE SECTIONS (WIZARD MODE) =================
+function initSidebarAndCollapse() {
+    const mainContent = document.getElementById('mainContent');
+    if (!mainContent) return;
+
+    const sections = mainContent.querySelectorAll('section');
+    const sidebarNav = document.getElementById('sidebarNav');
+    if (!sidebarNav || sections.length === 0) return;
+
+    sidebarNav.innerHTML = '';
+
+    // Fungsi untuk toggle section
+    function toggleSection(section, forceExpand) {
+        const willCollapse = (forceExpand !== undefined) ? !forceExpand : !section.classList.contains('collapsed');
+        if (willCollapse) {
+            section.classList.add('collapsed');
+        } else {
+            section.classList.remove('collapsed');
+        }
+    }
+
+    // Proses setiap section
+    sections.forEach((section, index) => {
+        const h2 = section.querySelector('h2');
+        if (!h2) return;
+
+        const title = h2.textContent.trim();
+        const sectionId = section.id || `section-${index}`;
+        section.id = sectionId;
+
+        // 1. Buat link di sidebar
+        const link = document.createElement('a');
+        link.href = `#${sectionId}`;
+        link.textContent = title;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+            if (section.classList.contains('collapsed')) {
+                toggleSection(section, true);
+            }
+        });
+        sidebarNav.appendChild(link);
+
+        // 2. Bungkus konten setelah h2 ke dalam div.section-content
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'section-content';
+        
+        const childrenAfterH2 = [];
+        let next = h2.nextSibling;
+        while (next) {
+            childrenAfterH2.push(next);
+            next = next.nextSibling;
+        }
+        childrenAfterH2.forEach(child => contentWrapper.appendChild(child));
+        section.appendChild(contentWrapper);
+
+        // 3. Header dengan toggle icon
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'section-header';
+        h2.parentNode.insertBefore(headerDiv, h2);
+        headerDiv.appendChild(h2);
+        
+        const toggleIcon = document.createElement('span');
+        toggleIcon.className = 'toggle-icon';
+        toggleIcon.textContent = '▼';
+        toggleIcon.setAttribute('aria-hidden', 'true');
+        headerDiv.appendChild(toggleIcon);
+
+        headerDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(section);
+        });
+
+        // 4. Semua section default COLLAPSED
+        section.classList.add('collapsed');
+    });
+
+    // --- Buka section pertama secara otomatis ---
+    if (sections.length > 0) {
+        toggleSection(sections[0], true);
+    }
+
+    // --- Tambahkan tombol "Lanjut" di setiap section (kecuali terakhir) ---
+    sections.forEach((section, index) => {
+        if (index === sections.length - 1) return;
+
+        const nextSection = sections[index + 1];
+        const nextH2 = nextSection.querySelector('h2');
+        const nextTitle = nextH2 ? nextH2.textContent.trim() : 'Berikutnya';
+
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'section-next-container';
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'section-next-btn';
+        nextBtn.innerHTML = `▶ Lanjut ke: ${nextTitle}`;
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(nextSection, true);
+            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        btnContainer.appendChild(nextBtn);
+        
+        const contentWrapper = section.querySelector('.section-content');
+        if (contentWrapper) {
+            contentWrapper.appendChild(btnContainer);
+        }
+    });
+
+    // Intersection Observer untuk highlight sidebar
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+            if (link) {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    
+    sections.forEach(s => observer.observe(s));
 }
 
 // ================= MAIN INIT =================
@@ -519,14 +554,8 @@ document.addEventListener("DOMContentLoaded", function () {
   } else if (authBtn) {
     authBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      if (!redirectOverlay || !loadingText) { window.location.href = "login.html"; return; }
-      redirectOverlay.style.display = "flex";
-      loadingText.textContent = "";
-      typeEffect([
-        "Checking authentication...",
-        "User not logged in.",
-        "Redirecting to login page..."
-      ], loadingText, () => { window.location.href = "login.html"; });
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      window.location.href = "login.html";
     });
   }
 
@@ -624,6 +653,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+
+  // 🔥 Inisialisasi sidebar & collapsible sections (WIZARD MODE)
+  initSidebarAndCollapse();
 
   checkLoginAndDisplay();
   window.addEventListener("storage", checkLoginAndDisplay);

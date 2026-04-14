@@ -1,5 +1,5 @@
 /* ==========================================================
-   TutorialHTML.js  —  Versi Final dengan Perbaikan Navbar Scroll
+   TutorialHTML.js — Versi Final dengan Sidebar & Wizard Mode
    ========================================================== */
 
 "use strict";
@@ -127,7 +127,7 @@ function checkLoginAndDisplay() {
   }
 }
 
-// ================= DEMO INTERAKTIF (GAMBAR, WARNA, FORM) =================
+// ================= DEMO INTERAKTIF =================
 function applyImage() {
   const img = document.getElementById("gambarInteraktif");
   if (!img) return;
@@ -191,24 +191,139 @@ function setTextColor(color) {
 }
 
 function resetColors() {
-  // Reset background body
   document.body.style.removeProperty("background");
-  // Reset warna teks body
   document.body.style.removeProperty("color");
-  // Reset background semua section
   document.querySelectorAll("section").forEach(sec => {
     sec.style.removeProperty("background");
   });
-  // Reset background image jika ada (dari fitur lain)
   document.body.style.removeProperty("background-image");
   document.body.style.removeProperty("background-size");
   document.body.style.removeProperty("background-position");
-  // Opsional: reset juga warna teks dari palet (sudah di-removeProperty color)
+}
+
+// ================= SIDEBAR & COLLAPSIBLE SECTIONS (WIZARD MODE) =================
+function initSidebarAndCollapse() {
+    const mainContent = document.getElementById('mainContent');
+    if (!mainContent) return;
+
+    const sections = mainContent.querySelectorAll('section');
+    const sidebarNav = document.getElementById('sidebarNav');
+    if (!sidebarNav || sections.length === 0) return;
+
+    sidebarNav.innerHTML = '';
+
+    function toggleSection(section, forceExpand) {
+        const willCollapse = (forceExpand !== undefined) ? !forceExpand : !section.classList.contains('collapsed');
+        if (willCollapse) {
+            section.classList.add('collapsed');
+        } else {
+            section.classList.remove('collapsed');
+        }
+    }
+
+    sections.forEach((section, index) => {
+        const h2 = section.querySelector('h2');
+        if (!h2) return;
+
+        const title = h2.textContent.trim();
+        const sectionId = section.id || `section-${index}`;
+        section.id = sectionId;
+
+        const link = document.createElement('a');
+        link.href = `#${sectionId}`;
+        link.textContent = title;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+            if (section.classList.contains('collapsed')) {
+                toggleSection(section, true);
+            }
+        });
+        sidebarNav.appendChild(link);
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'section-content';
+        
+        const childrenAfterH2 = [];
+        let next = h2.nextSibling;
+        while (next) {
+            childrenAfterH2.push(next);
+            next = next.nextSibling;
+        }
+        childrenAfterH2.forEach(child => contentWrapper.appendChild(child));
+        section.appendChild(contentWrapper);
+
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'section-header';
+        h2.parentNode.insertBefore(headerDiv, h2);
+        headerDiv.appendChild(h2);
+        
+        const toggleIcon = document.createElement('span');
+        toggleIcon.className = 'toggle-icon';
+        toggleIcon.textContent = '▼';
+        toggleIcon.setAttribute('aria-hidden', 'true');
+        headerDiv.appendChild(toggleIcon);
+
+        headerDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(section);
+        });
+
+        section.classList.add('collapsed');
+    });
+
+    if (sections.length > 0) {
+        toggleSection(sections[0], true);
+    }
+
+    sections.forEach((section, index) => {
+        if (index === sections.length - 1) return;
+
+        const nextSection = sections[index + 1];
+        const nextH2 = nextSection.querySelector('h2');
+        const nextTitle = nextH2 ? nextH2.textContent.trim() : 'Berikutnya';
+
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'section-next-container';
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'section-next-btn';
+        nextBtn.innerHTML = `▶ Lanjut ke: ${nextTitle}`;
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(nextSection, true);
+            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        btnContainer.appendChild(nextBtn);
+        
+        const contentWrapper = section.querySelector('.section-content');
+        if (contentWrapper) {
+            contentWrapper.appendChild(btnContainer);
+        }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+            if (link) {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    
+    sections.forEach(s => observer.observe(s));
 }
 
 // ================= MAIN INIT =================
 document.addEventListener("DOMContentLoaded", function () {
-  // Simpan last page
   const currentPage = window.location.href;
   const pageName = currentPage.split("/").pop();
   localStorage.setItem("lastPage", currentPage);
@@ -227,8 +342,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutBtn = document.getElementById("logoutBtn");
   const loadingScreen = document.getElementById("loadingScreen");
   const terminal = document.getElementById("terminalText");
-  const redirectOverlay = document.getElementById("redirectLoading");
-  const loadingText = document.getElementById("loadingText");
   const searchMain = document.getElementById("searchInput");
   const searchMini = document.getElementById("searchMini");
 
@@ -236,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const displayName = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "";
 
-  // Avatar & dropdown
   if (displayName && authBtn) {
     const initial = displayName.charAt(0).toUpperCase();
     authBtn.innerHTML = `
@@ -252,14 +364,8 @@ document.addEventListener("DOMContentLoaded", function () {
   } else if (authBtn) {
     authBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      if (!redirectOverlay || !loadingText) { window.location.href = "login.html"; return; }
-      redirectOverlay.style.display = "flex";
-      loadingText.textContent = "";
-      typeEffect([
-        "Checking authentication...",
-        "User not logged in.",
-        "Redirecting to login page..."
-      ], loadingText, () => { window.location.href = "login.html"; });
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      window.location.href = "login.html";
     });
   }
 
@@ -267,7 +373,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove("active");
   });
 
-  // Sync search
   if (searchMain) {
     searchMain.addEventListener("input", () => {
       if (searchMini) searchMini.value = searchMain.value;
@@ -288,7 +393,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // SCROLL HANDLER (Perbaikan: sembunyikan header DAN topnav)
   let lastScrollY = window.scrollY;
   let isHidden = false;
   const SCROLL_TRIGGER = 100;
@@ -296,7 +400,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", function () {
     const currentScroll = window.scrollY;
     if (currentScroll > SCROLL_TRIGGER && currentScroll > lastScrollY && !isHidden) {
-      // Scroll ke bawah
       if (header) header.classList.add("hide-nav");
       if (topnav) topnav.classList.add("hide-nav");
       if (miniHeader) miniHeader.classList.add("active");
@@ -306,7 +409,6 @@ document.addEventListener("DOMContentLoaded", function () {
         isMoved = true;
       }
     } else if (currentScroll <= 0 && isHidden) {
-      // Scroll ke atas sampai posisi paling atas
       if (header) header.classList.remove("hide-nav");
       if (topnav) topnav.classList.remove("hide-nav");
       if (miniHeader) miniHeader.classList.remove("active");
@@ -319,7 +421,6 @@ document.addEventListener("DOMContentLoaded", function () {
     lastScrollY = currentScroll;
   }, { passive: true });
 
-  // Logout
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -352,6 +453,11 @@ document.addEventListener("DOMContentLoaded", function () {
               localStorage.removeItem("isLoggedIn");
               localStorage.removeItem("userEmail");
               localStorage.removeItem("userName");
+              localStorage.removeItem("userPhone");
+              localStorage.removeItem("userAddress");
+              localStorage.removeItem("userGender");
+              localStorage.removeItem("userPassword");
+              localStorage.removeItem("userComplaints");
               window.location.href = "login.html";
             }, 500);
           }, 18, 250);
@@ -363,7 +469,10 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLoginAndDisplay();
   window.addEventListener("storage", checkLoginAndDisplay);
 
-  // ===== FORM SISWA (tambahkan listener) =====
+  // Inisialisasi sidebar & collapsible sections (WIZARD MODE)
+  initSidebarAndCollapse();
+
+  // Form Siswa
   const studentForm = document.getElementById("studentForm");
   if (studentForm) {
     studentForm.addEventListener("submit", function (e) {
@@ -417,7 +526,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Fungsi bantu escape HTML
   function escapeHtml(str) {
     if (!str) return "";
     return str.replace(/[&<>]/g, function(m) {
