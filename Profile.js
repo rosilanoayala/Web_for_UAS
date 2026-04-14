@@ -1,38 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. PROTEKSI LOGIN
   if (localStorage.getItem("isLoggedIn") !== "true") {
     alert("🔒 Sesi Anda telah berakhir atau Anda belum masuk. Silakan login.");
     window.location.href = "login.html";
     return;
   }
 
-  // 2. REFERENSI ELEMEN
+  // Elemen
   const form = document.getElementById("profileForm");
   const inputNama = document.getElementById("inputNama");
   const inputEmail = document.getElementById("inputEmail");
   const inputTelepon = document.getElementById("inputTelepon");
   const inputAlamat = document.getElementById("inputAlamat");
-  
+  const genderRadios = document.querySelectorAll('input[name="gender"]');
   const displayNama = document.getElementById("displayNama");
   const displayEmail = document.getElementById("displayEmail");
   const userAvatar = document.getElementById("userAvatar");
   const statusNotice = document.getElementById("statusNotice");
   const logoutBtn = document.getElementById("logoutBtn");
 
-  // 3. LOAD DATA DARI LOCAL STORAGE
+  // Ganti password
+  const oldPass = document.getElementById("oldPassword");
+  const newPass = document.getElementById("newPassword");
+  const confirmPass = document.getElementById("confirmPassword");
+  const changePassBtn = document.getElementById("changePasswordBtn");
+
+  // Komplain
+  const complaintSubject = document.getElementById("complaintSubject");
+  const complaintMessage = document.getElementById("complaintMessage");
+  const sendComplaintBtn = document.getElementById("sendComplaintBtn");
+  const complaintListDiv = document.getElementById("complaintList");
+
+  // Load data profil
   function loadProfileInfo() {
     const nama = localStorage.getItem("userName") || "Pengguna";
     const email = localStorage.getItem("userEmail") || "";
     const telepon = localStorage.getItem("userPhone") || "";
     const alamat = localStorage.getItem("userAddress") || "";
+    const gender = localStorage.getItem("userGender") || "";
 
-    // Isi Form
     inputNama.value = nama;
     inputEmail.value = email;
     inputTelepon.value = telepon;
     inputAlamat.value = alamat;
+    genderRadios.forEach(radio => {
+      if (radio.value === gender) radio.checked = true;
+    });
 
-    // Tampilkan di Kartu
     displayNama.textContent = nama;
     displayEmail.textContent = email;
     userAvatar.textContent = nama.charAt(0).toUpperCase();
@@ -40,39 +53,129 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadProfileInfo();
 
-  // 4. SIMPAN PERUBAHAN
+  // Simpan data diri (termasuk gender)
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // Mencegah reload halaman
-
+    e.preventDefault();
     const namaBaru = inputNama.value.trim();
     const emailBaru = inputEmail.value.trim();
     const teleponBaru = inputTelepon.value.trim();
     const alamatBaru = inputAlamat.value.trim();
+    let selectedGender = "";
+    genderRadios.forEach(radio => {
+      if (radio.checked) selectedGender = radio.value;
+    });
 
     if (namaBaru === "" || emailBaru === "") {
       alert("Nama dan Email tidak boleh kosong!");
       return;
     }
 
-    // Simpan ke memory browser
     localStorage.setItem("userName", namaBaru);
     localStorage.setItem("userEmail", emailBaru);
     localStorage.setItem("userPhone", teleponBaru);
     localStorage.setItem("userAddress", alamatBaru);
+    localStorage.setItem("userGender", selectedGender);
 
-    // Update Banner
     loadProfileInfo();
-
-    // Munculkan notifikasi sukses
     statusNotice.textContent = "✅ Profil berhasil diperbarui!";
     statusNotice.style.display = "block";
-
-    setTimeout(() => {
-      statusNotice.style.display = "none";
-    }, 3000);
+    setTimeout(() => { statusNotice.style.display = "none"; }, 3000);
   });
 
-  // 5. TERMINAL LOGOUT HACKER
+  // Ganti password
+  changePassBtn.addEventListener("click", () => {
+    const old = oldPass.value;
+    const newPwd = newPass.value;
+    const confirm = confirmPass.value;
+    const storedPassword = localStorage.getItem("userPassword") || "";
+
+    if (!old || !newPwd || !confirm) {
+      alert("Harap isi semua field password.");
+      return;
+    }
+    if (old !== storedPassword) {
+      alert("Password lama salah.");
+      return;
+    }
+    if (newPwd.length < 6) {
+      alert("Password baru minimal 6 karakter.");
+      return;
+    }
+    if (newPwd !== confirm) {
+      alert("Password baru dan konfirmasi tidak cocok.");
+      return;
+    }
+
+    localStorage.setItem("userPassword", newPwd);
+    alert("✅ Password berhasil diubah!");
+    oldPass.value = "";
+    newPass.value = "";
+    confirmPass.value = "";
+  });
+
+  // Load & tampilkan komplain
+  function loadComplaints() {
+    const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
+    if (!complaintListDiv) return;
+    if (complaints.length === 0) {
+      complaintListDiv.innerHTML = "<p style='color:#94a3b8;'>Belum ada komplain.</p>";
+      return;
+    }
+    complaintListDiv.innerHTML = complaints.map((c, idx) => `
+      <div class="complaint-item" data-idx="${idx}">
+        <strong>📌 ${escapeHtml(c.subject)}</strong>
+        <small>${new Date(c.timestamp).toLocaleString()} - ${c.email}</small>
+        <p>${escapeHtml(c.message)}</p>
+        <button class="btn-delete-complaint" data-idx="${idx}">Hapus</button>
+      </div>
+    `).join("");
+
+    document.querySelectorAll(".btn-delete-complaint").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const idx = btn.getAttribute("data-idx");
+        let arr = JSON.parse(localStorage.getItem("userComplaints") || "[]");
+        arr.splice(idx, 1);
+        localStorage.setItem("userComplaints", JSON.stringify(arr));
+        loadComplaints();
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === "&") return "&amp;";
+      if (m === "<") return "&lt;";
+      if (m === ">") return "&gt;";
+      return m;
+    });
+  }
+
+  // Kirim komplain
+  sendComplaintBtn.addEventListener("click", () => {
+    const subject = complaintSubject.value.trim();
+    const message = complaintMessage.value.trim();
+    const email = localStorage.getItem("userEmail") || "anonymous";
+    if (!subject || !message) {
+      alert("Subjek dan pesan tidak boleh kosong.");
+      return;
+    }
+
+    const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
+    complaints.unshift({
+      subject: subject,
+      message: message,
+      email: email,
+      timestamp: Date.now()
+    });
+    localStorage.setItem("userComplaints", JSON.stringify(complaints));
+    complaintSubject.value = "";
+    complaintMessage.value = "";
+    loadComplaints();
+    alert("✅ Komplain terkirim. Terima kasih atas masukannya.");
+  });
+
+  // Logout dengan terminal & hapus semua data
   const loadingScreen = document.getElementById('loadingScreen');
   const terminalText = document.getElementById('terminalText');
   let typeInterval;
@@ -93,27 +196,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   logoutBtn.addEventListener("click", () => {
-    // Tampilkan terminal
     loadingScreen.style.display = 'flex';
-    
     const consoleLines = [
       "Initiating logout protocol...",
-      `Terminating active socket connection for [${localStorage.getItem("userName")}]...`,
-      "Clearing session vectors...",
-      "Flushing local memory cache...",
+      `Terminating session for [${localStorage.getItem("userName")}]...`,
+      "Clearing all local data...",
+      "Deleting credentials, profile, and history...",
       "Status: [OK]",
-      "Disconnection successful (0ms latency).",
+      "Disconnection successful.",
       "Goodbye."
     ].join('\n');
 
-    // Hapus data login namun biarkan data pendaftaran/akun
-    localStorage.setItem("isLoggedIn", "false");
-    
-    // Ketik tulisan ala hacker
+    // Hapus SEMUA data user (bukan hanya isLoggedIn)
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userPhone");
+    localStorage.removeItem("userAddress");
+    localStorage.removeItem("userGender");
+    localStorage.removeItem("userPassword");
+    localStorage.removeItem("userComplaints");
+    // Jangan hapus redirectAfterLogin jika ingin digunakan nanti
+
     typeWriter(consoleLines, terminalText, 30, () => {
       setTimeout(() => {
         window.location.href = 'login.html';
-      }, 500); // Redirect setelah teks habis diketik
+      }, 500);
     });
   });
+
+  // Muat komplain saat awal
+  loadComplaints();
 });

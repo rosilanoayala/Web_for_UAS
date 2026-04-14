@@ -1,24 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  // Simpan halaman terakhir yang dikunjungi (tanpa syarat)
-const currentPage = window.location.href;
-const pageName = currentPage.split("/").pop();
-localStorage.setItem("lastPage", currentPage);
-localStorage.setItem("lastPageName", pageName);
+  // Simpan halaman terakhir yang dikunjungi
+  const currentPage = window.location.href;
+  const pageName = currentPage.split("/").pop();
+  localStorage.setItem("lastPage", currentPage);
+  localStorage.setItem("lastPageName", pageName);
 
-// Hapus redirectAfterLogin yang tidak valid (kecuali jika sedang dalam proses login? tidak perlu)
-// Tapi agar aman, hapus saja setiap kali halaman dimuat untuk guest
-if (localStorage.getItem("isLoggedIn") !== "true") {
-  localStorage.removeItem("redirectAfterLogin");
-}
+  // Hapus redirectAfterLogin jika tidak login
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    localStorage.removeItem("redirectAfterLogin");
+  }
 
   const authBtn = document.getElementById("authButton");
   const wrapper = document.getElementById("accountWrapper");
   const logoutBtn = document.getElementById("logoutBtn");
   const loadingScreen = document.getElementById("loadingScreen");
   const terminal = document.getElementById("terminalText");
-  const redirectOverlay = document.getElementById("redirectLoading");
-  const loadingText = document.getElementById("loadingText");
 
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const userName = localStorage.getItem("userName");
@@ -43,44 +40,16 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
       e.preventDefault();
       if (wrapper) wrapper.classList.toggle("active");
     });
-    // Tampilkan logout button (jika disembunyikan sebelumnya)
     if (logoutBtn) logoutBtn.style.display = "block";
   } else {
     // Guest: sembunyikan logout button
     if (logoutBtn) logoutBtn.style.display = "none";
-    // Pastikan tombol sign in tetap mengarah ke login dengan efek
+    // Langsung redirect ke login tanpa gimmick
     if (authBtn && !isLoggedIn) {
       authBtn.addEventListener("click", function (e) {
         e.preventDefault();
-        if (!redirectOverlay || !loadingText) {
-          window.location.href = "login.html";
-          return;
-        }
-        redirectOverlay.style.display = "flex";
-        loadingText.textContent = "";
-        const lines = [
-          "Initializing login module...",
-          "Connecting to authentication server...",
-          "Preparing secure session...",
-          "Redirecting to login..."
-        ];
-        let i = 0, j = 0;
-        function type() {
-          if (i >= lines.length) {
-            localStorage.setItem("redirectAfterLogin", window.location.href);
-            setTimeout(() => { window.location.href = "login.html"; }, 500);
-            return;
-          }
-          if (j < lines[i].length) {
-            loadingText.textContent += lines[i][j++];
-            setTimeout(type, 20);
-          } else {
-            loadingText.textContent += "\n";
-            i++; j = 0;
-            setTimeout(type, 300);
-          }
-        }
-        type();
+        localStorage.setItem("redirectAfterLogin", window.location.href);
+        window.location.href = "login.html";
       });
     }
   }
@@ -92,7 +61,7 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
     }
   });
 
-  // LOGOUT dengan efek terminal (hanya jika tombol ada dan user login)
+  // LOGOUT dengan efek terminal (hanya jika user login)
   if (logoutBtn && loadingScreen && terminal && isLoggedIn) {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -124,9 +93,15 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
       function type() {
         if (i >= lines.length) {
           setTimeout(() => {
+            // Hapus semua data user
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("userEmail");
             localStorage.removeItem("userName");
+            localStorage.removeItem("userPhone");
+            localStorage.removeItem("userAddress");
+            localStorage.removeItem("userGender");
+            localStorage.removeItem("userPassword");
+            localStorage.removeItem("userComplaints");
             localStorage.setItem("lastPage", window.location.href);
             localStorage.setItem("lastPageName", window.location.href.split("/").pop());
             window.location.href = "HOME.html";

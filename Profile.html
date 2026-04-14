@@ -11,7 +11,6 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="topnav">
     <a href="HOME.html" class="nav-logo">
       <div class="logo-icon">_</div>
@@ -20,11 +19,9 @@
     <a href="HOME.html" class="nav-back">← Kembali ke Utama</a>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <div class="page-body">
     <div class="profile-card">
       
-      <!-- HEADER PROFIL -->
       <div class="profile-header">
         <div class="avatar" id="userAvatar">U</div>
         <div class="profile-titles">
@@ -34,36 +31,82 @@
       </div>
 
       <hr class="divider">
-
-      <!-- ALERT MESSAGE -->
       <div id="statusNotice" style="display: none;"></div>
 
-      <!-- FORM PROFIL -->
+      <!-- FORM DATA DIRI -->
       <form id="profileForm" class="profile-form">
         <div class="input-group">
           <label for="inputNama">Nama Lengkap</label>
           <input type="text" id="inputNama" required placeholder="Masukkan nama lengkap Anda">
         </div>
-
         <div class="input-group">
           <label for="inputEmail">Alamat Email (Gmail)</label>
           <input type="email" id="inputEmail" required placeholder="contoh@gmail.com">
         </div>
-
         <div class="input-group">
           <label for="inputTelepon">Nomor Telepon</label>
           <input type="tel" id="inputTelepon" placeholder="Contoh: 08123456789">
         </div>
-
         <div class="input-group">
           <label for="inputAlamat">Alamat Tempat Tinggal</label>
           <textarea id="inputAlamat" rows="3" placeholder="Masukkan alamat lengkap Anda"></textarea>
+        </div>
+
+        <!-- JENIS KELAMIN -->
+        <div class="input-group">
+          <label>Jenis Kelamin</label>
+          <div class="gender-group">
+            <label><input type="radio" name="gender" value="Laki-laki"> Laki-laki</label>
+            <label><input type="radio" name="gender" value="Perempuan"> Perempuan</label>
+            <label><input type="radio" name="gender" value="Lainnya"> Lainnya</label>
+          </div>
         </div>
 
         <div class="form-actions">
           <button type="submit" class="btn-save">💾 Simpan Perubahan</button>
         </div>
       </form>
+
+      <hr class="divider">
+
+      <!-- GANTI PASSWORD -->
+      <div class="password-section">
+        <h3>🔐 Ganti Kata Sandi</h3>
+        <div class="input-group">
+          <label>Password Lama</label>
+          <input type="password" id="oldPassword" placeholder="Masukkan password lama">
+        </div>
+        <div class="input-group">
+          <label>Password Baru</label>
+          <input type="password" id="newPassword" placeholder="Minimal 6 karakter">
+        </div>
+        <div class="input-group">
+          <label>Konfirmasi Password Baru</label>
+          <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
+        </div>
+        <button id="changePasswordBtn" class="btn-save" style="background:#2563eb;">🔄 Ubah Password</button>
+      </div>
+
+      <hr class="divider">
+
+      <!-- KOMPLAIN / SARAN -->
+      <div class="complaint-section">
+        <h3>📢 Kirim Komplain / Saran</h3>
+        <div class="input-group">
+          <label>Subjek</label>
+          <input type="text" id="complaintSubject" placeholder="Judul komplain/saran">
+        </div>
+        <div class="input-group">
+          <label>Pesan</label>
+          <textarea id="complaintMessage" rows="3" placeholder="Tulis pesan Anda..."></textarea>
+        </div>
+        <button id="sendComplaintBtn" class="btn-save" style="background:#7c3aed;">📨 Kirim</button>
+
+        <div id="complaintHistory" style="margin-top: 24px;">
+          <h4>Riwayat Komplain</h4>
+          <div id="complaintList" class="complaint-list"></div>
+        </div>
+      </div>
 
       <hr class="divider">
 
@@ -77,7 +120,7 @@
     </div>
   </div>
 
-  <!-- LOGOUT TERMINAL (HACKER STYLE) -->
+  <!-- LOGOUT TERMINAL -->
   <div id="loadingScreen" class="loading-screen">
     <div class="terminal">
       <div class="terminal-bar">

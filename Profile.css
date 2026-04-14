@@ -269,3 +269,63 @@ body {
   text-shadow: 0 0 5px rgba(34, 197, 94, 0.4);
   min-height: 100px;
 }
+
+/* tambahkan di akhir file */
+
+/* Gender radio group */
+.gender-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 6px;
+}
+.gender-group label {
+  font-weight: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Password & complaint sections */
+.password-section, .complaint-section {
+  margin-bottom: 20px;
+}
+.complaint-list {
+  margin-top: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.complaint-item {
+  background: #f8fafc;
+  border-left: 4px solid var(--accent);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.complaint-item strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.complaint-item small {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.complaint-item p {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+.btn-delete-complaint {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-top: 6px;
+  text-align: right;
+  width: 100%;
+}
+.btn-delete-complaint:hover {
+  text-decoration: underline;
+}
