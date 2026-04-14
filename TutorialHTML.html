@@ -2035,274 +2035,112 @@ tetapi tentang bagaimana manusia memahami informasi.
 </section>
 
 <section>
-<h2>12. Forms</h2>
+  <h2>12. HTML Forms (Formulir Interaktif)</h2>
+  <p>
+    Jika sebelumnya HTML hanya menampilkan informasi, di sinilah halaman mulai "hidup". 
+    <strong>Form</strong> adalah jembatan antara pengguna dan sistem, memungkinkan pengguna mengirim data ke server.
+  </p>
 
-<p>
-Jika HTML sebelumnya hanya menampilkan informasi,
-maka di sinilah sebuah halaman mulai “hidup”.
-</p>
-
-<p>
-Form adalah titik di mana pengguna tidak lagi hanya melihat,
-tetapi mulai <strong>berinteraksi</strong>.
-</p>
-
-<p>
-Ia menjadi jembatan antara manusia dan sistem.
-</p>
-
-<hr>
-
-<h3>📌 Struktur Dasar</h3>
-
-<div class="code">
-&lt;form&gt;
-  &lt;input type="text" placeholder="Nama"&gt;
-  &lt;button&gt;Kirim&lt;/button&gt;
-&lt;/form&gt;
-</div>
-
-<p>
-Di dalam form, data dikumpulkan,
-lalu dikirim ke suatu tujuan.
-</p>
-
-<hr>
-
-<h3>📌 Atribut Penting pada Form</h3>
-
-<p>
-Sebuah form biasanya memiliki dua atribut utama:
-</p>
-
-<ul>
-<li><strong>action</strong> → ke mana data dikirim</li>
-<li><strong>method</strong> → cara data dikirim (GET / POST)</li>
-</ul>
-
-<div class="code">
+  <h3>📌 Struktur Dasar Form</h3>
+  <div class="code">
 &lt;form action="/proses" method="post"&gt;
-&lt;/form&gt;
-</div>
-
-<p>
-GET biasanya digunakan untuk pencarian,
-sedangkan POST digunakan untuk data yang lebih penting.
-</p>
-
-<hr>
-
-<h3>📌 Jenis Input</h3>
-
-<ul>
-<li>text → teks biasa</li>
-<li>email → validasi email</li>
-<li>password → teks tersembunyi</li>
-<li>number → angka</li>
-<li>date → tanggal</li>
-<li>checkbox → pilihan lebih dari satu</li>
-<li>radio → pilihan satu dari banyak</li>
-</ul>
-
-<p>
-Setiap input memiliki perilaku yang berbeda,
-dan dirancang untuk kebutuhan tertentu.
-</p>
-
-<hr>
-
-<h3>📌 Label (Yang Sering Dilupakan)</h3>
-
-<p>
-Label digunakan untuk memberi nama pada input.
-</p>
-
-<div class="code">
-&lt;label&gt;Nama&lt;/label&gt;
-&lt;input type="text"&gt;
-</div>
-
-<p>
-Dengan label:
-</p>
-
-<ul>
-<li>form lebih mudah dipahami</li>
-<li>aksesibilitas meningkat</li>
-</ul>
-
-<p>
-💡 Dalam praktik terbaik, label selalu digunakan.
-</p>
-
-<hr>
-
-<h3>📌 Atribut "name"</h3>
-
-<p>
-Setiap input sebaiknya memiliki atribut <strong>name</strong>.
-</p>
-
-<div class="code">
-&lt;input type="text" name="username"&gt;
-</div>
-
-<p>
-Atribut ini penting karena:
-</p>
-
-<ul>
-<li>digunakan saat data dikirim</li>
-<li>menjadi “identitas” dari input</li>
-</ul>
-
-<p>
-Tanpa name, data tidak akan terbaca oleh sistem.
-</p>
-
-<hr>
-
-<h3>📌 Contoh Form Sederhana</h3>
-
-<div class="code">
-&lt;form&gt;
-  &lt;label&gt;Nama&lt;/label&gt;
+  &lt;label&gt;Nama:&lt;/label&gt;
   &lt;input type="text" name="nama"&gt;
-
-  &lt;label&gt;Email&lt;/label&gt;
-  &lt;input type="email" name="email"&gt;
-
-  &lt;button&gt;Kirim&lt;/button&gt;
+  &lt;button type="submit"&gt;Kirim&lt;/button&gt;
 &lt;/form&gt;
-</div>
+  </div>
+  <ul>
+    <li><code>action</code> → URL tujuan pengiriman data.</li>
+    <li><code>method</code> → <code>GET</code> (data tampil di URL) atau <code>POST</code> (data tersembunyi).</li>
+  </ul>
 
-<hr>
+  <h3>📌 Jenis Input Penting</h3>
+  <ul>
+    <li><code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code></li>
+    <li><code>radio</code> (pilih satu), <code>checkbox</code> (pilih banyak)</li>
+    <li><code>select</code> dengan <code>&lt;option&gt;</code> untuk dropdown</li>
+  </ul>
 
-<h3>🧠 Cara Berpikir</h3>
+  <h3>📌 Label & Atribut "name"</h3>
+  <p>
+    <strong>Label</strong> (<code>&lt;label&gt;</code>) meningkatkan aksesibilitas dan membuat form lebih mudah digunakan. 
+    <strong>Atribut <code>name</code></strong> wajib ada agar data dapat dikenali oleh server.
+  </p>
 
-<p>
-Form bukan sekadar kumpulan input.
-</p>
+  <div class="info-box" style="background: #fff8e1; border-left-color: #f7b32b; padding: 15px; border-radius: 8px; margin: 20px 0;">
+    <p>💡 <strong>Ingat!</strong> Kesalahan umum: tidak menggunakan <code>&lt;label&gt;</code>, lupa atribut <code>name</code>, atau salah memilih tipe input.</p>
+  </div>
 
-<p>
-Ia adalah sistem komunikasi:
-</p>
+  <hr>
 
-<ul>
-<li>pengguna → mengisi data</li>
-<li>sistem → menerima dan memproses</li>
-</ul>
+  <h3>📝 Demo Interaktif: Form Pendataan Siswa</h3>
+  <p>
+    Di bawah ini adalah contoh form lengkap yang menggunakan berbagai jenis input. Isi data lalu klik "Kirim Data" untuk melihat hasilnya dalam tabel.
+  </p>
 
-<p>
-Semakin jelas form,
-semakin mudah pengguna berinteraksi.
-</p>
+  <form id="studentForm" style="background: #f8fafc; padding: 24px; border-radius: 16px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div>
+        <label><strong>Nama Lengkap</strong></label><br>
+        <input type="text" id="nama" placeholder="Contoh: Andi Saputra" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>NIS</strong></label><br>
+        <input type="number" id="nis" placeholder="Contoh: 12345" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>Email</strong></label><br>
+        <input type="email" id="email" placeholder="andi@email.com" style="width: 100%;">
+      </div>
+      <div>
+        <label><strong>Kelas</strong></label><br>
+        <select id="kelas" style="width: 100%;">
+          <option value="">-- Pilih Kelas --</option>
+          <option>X</option>
+          <option>XI</option>
+          <option>XII</option>
+        </select>
+      </div>
+      <div>
+        <label><strong>Jenis Kelamin</strong></label><br>
+        <input type="radio" name="jk" value="L" id="jkL"> <label for="jkL" style="display: inline;">Laki-laki</label>
+        <input type="radio" name="jk" value="P" id="jkP" style="margin-left: 15px;"> <label for="jkP" style="display: inline;">Perempuan</label>
+      </div>
+      <div>
+        <label><strong>Konfirmasi</strong></label><br>
+        <input type="checkbox" id="validasi"> <label for="validasi" style="display: inline;">Saya menyatakan data ini benar</label>
+      </div>
+    </div>
 
-<hr>
+    <div style="margin-top: 20px; text-align: right;">
+      <button type="submit" style="background: #e67e22; color: white; padding: 10px 28px; font-size: 1rem;">📤 Kirim Data</button>
+      <button type="button" onclick="document.getElementById('studentForm').reset(); document.getElementById('formMessage').textContent='';" style="background: #64748b; color: white; padding: 10px 20px; margin-left: 10px;">🔄 Reset</button>
+    </div>
+  </form>
 
-<h3>⚠ Hal yang Sering Terjadi</h3>
+  <p id="formMessage" style="margin-top: 15px; font-weight: bold;"></p>
 
-<ul>
-<li>Tidak menggunakan label ❌</li>
-<li>Tidak memberi atribut name ❌</li>
-<li>Menggunakan tipe input yang salah ❌</li>
-</ul>
+  <h3 id="tableTitle" style="display: none; margin-top: 20px;">📊 Data Siswa Terkumpul</h3>
+  <table id="resultTable" style="display: none; width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);">
+    <thead style="background: #e67e22; color: white;">
+      <tr>
+        <th style="padding: 10px;">Nama</th>
+        <th style="padding: 10px;">NIS</th>
+        <th style="padding: 10px;">Email</th>
+        <th style="padding: 10px;">Kelas</th>
+        <th style="padding: 10px;">JK</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
 
-<p>
-Kesalahan kecil ini bisa membuat form sulit digunakan.
-</p>
+  <hr style="margin: 30px 0 10px;">
 
-<hr>
-
-<h3>🚀 Insight</h3>
-
-<p>
-Sebagian besar fitur penting di internet
-dibangun dari form:
-</p>
-
-<ul>
-<li>Login</li>
-<li>Register</li>
-<li>Pencarian</li>
-<li>Upload data</li>
-</ul>
-
-<p>
-Form mungkin terlihat sederhana,
-tetapi di baliknya terdapat alur komunikasi
-antara pengguna dan sistem.
-</p>
-
-<p>
-Dan di situlah sebuah website mulai benar-benar bekerja.
-</p>
-
-</section>
-
-<section>
-<h2>12(2). Form Pendataan Siswa</h2>
-
-<p>
-Form tidak selalu tentang login.
-Dalam kehidupan nyata, form digunakan untuk mengumpulkan data.
-</p>
-
-<p>
-Contoh sederhana adalah pendataan siswa.
-</p>
-
-<hr>
-
-<form id="studentForm">
-
-<label>Nama Lengkap</label><br>
-<input type="text" id="nama"><br><br>
-
-<label>NIS</label><br>
-<input type="number" id="nis"><br><br>
-
-<label>Email</label><br>
-<input type="email" id="email"><br><br>
-
-<label>Kelas</label><br>
-<select id="kelas">
-  <option value="">Pilih Kelas</option>
-  <option>X</option>
-  <option>XI</option>
-  <option>XII</option>
-</select><br><br>
-
-<label>Jenis Kelamin</label><br>
-<input type="radio" name="jk" value="L"> Laki-laki
-<input type="radio" name="jk" value="P"> Perempuan
-<br><br>
-
-<label>Data Benar?</label><br>
-<input type="checkbox" id="validasi"> Saya menyatakan data ini benar
-<br><br>
-
-<button type="submit">Kirim Data</button>
-
-</form>
-
-<p id="formMessage"></p>
-
-<h3 id="tableTitle" style="display:none;">📊 Data Siswa</h3>
-
-<table id="resultTable" style="display:none; border-collapse:collapse; margin-top:20px;">
-  <thead>
-    <tr>
-      <th>Nama</th>
-      <th>NIS</th>
-      <th>Email</th>
-      <th>Kelas</th>
-      <th>JK</th>
-    </tr>
-  </thead>
-  <tbody id="tableBody"></tbody>
-</table>
-
+  <h3>🚀 Insight</h3>
+  <p>
+    Sebagian besar fitur penting di internet—login, register, pencarian, upload—dibangun dari form. 
+    Memahami form dengan baik adalah langkah besar menuju pengembangan web yang interaktif dan profesional.
+  </p>
 </section>
 
 <section>
