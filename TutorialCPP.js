@@ -220,8 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutBtn = document.getElementById("logoutBtn");
   const loadingScreen = document.getElementById("loadingScreen");
   const terminal = document.getElementById("terminalText");
-  const redirectOverlay = document.getElementById("redirectLoading");
-  const loadingText = document.getElementById("loadingText");
   const searchMain = document.getElementById("searchInput");
   const searchMini = document.getElementById("searchMini");
 
@@ -244,16 +242,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (wrapper) wrapper.classList.toggle("active");
     });
   } else if (authBtn) {
+    // ✅ Perbaikan: langsung redirect ke login tanpa gimmick
     authBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      if (!redirectOverlay || !loadingText) { window.location.href = "login.html"; return; }
-      redirectOverlay.style.display = "flex";
-      loadingText.textContent = "";
-      typeEffect([
-        "Checking authentication...",
-        "User not logged in.",
-        "Redirecting to login page..."
-      ], loadingText, () => { window.location.href = "login.html"; });
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      window.location.href = "login.html";
     });
   }
 
@@ -345,6 +338,11 @@ document.addEventListener("DOMContentLoaded", function () {
               localStorage.removeItem("isLoggedIn");
               localStorage.removeItem("userEmail");
               localStorage.removeItem("userName");
+              localStorage.removeItem("userPhone");
+              localStorage.removeItem("userAddress");
+              localStorage.removeItem("userGender");
+              localStorage.removeItem("userPassword");
+              localStorage.removeItem("userComplaints");
               window.location.href = "login.html";
             }, 500);
           }, 18, 250);
