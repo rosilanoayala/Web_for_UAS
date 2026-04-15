@@ -3,115 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeSumsel · Direktori Kursus Coding Palembang</title>
+  <title>Direktori Kursus Coding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="Tempatkursus.css">
-  <style>
-    /* Tambahan kecil untuk loading screen dan dropdown */
-    .loading-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      flex-direction: column;
-      color: #0f0;
-      font-family: 'Fira Code', monospace;
-    }
-    .terminal-box {
-      background: #1e1e2e;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 80%;
-      max-width: 600px;
-      white-space: pre-wrap;
-      font-size: 0.9rem;
-      border: 1px solid #04aa6d;
-    }
-    .account-wrapper {
-      position: relative;
-    }
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      min-width: 160px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    .account-wrapper.active .dropdown-menu {
-      display: block;
-    }
-    .dropdown-menu a {
-      display: block;
-      padding: 10px 16px;
-      text-decoration: none;
-      color: #333;
-      font-size: 0.9rem;
-    }
-    .dropdown-menu a:hover {
-      background: #f0f0f0;
-    }
-    .back-to-home {
-      cursor: pointer;
-      background: #04aa6d;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .back-to-home:hover {
-      background: #038c5a;
-    }
-  </style>
 </head>
 <body>
 
-<!-- LOADING SCREEN UNTUK LOGOUT GIMMICK -->
+<!-- LOADING SCREEN (TERMINAL STYLE – SAMA DENGAN HOME) -->
 <div id="loadingScreen" class="loading-screen">
-  <div class="terminal-box">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span>🔐 SESSION TERMINAL // LOGOUT_PROCESS</span>
+      <span>_</span>
+    </div>
     <pre id="terminalText">></pre>
   </div>
 </div>
 
-<!-- NAVBAR DENGAN AKUN -->
+<!-- NAVBAR -->
 <nav class="topnav">
-  <a href="#" class="nav-logo">
+  <a href="home.html" class="nav-logo">
     <span class="logo-icon">&lt;/&gt;</span>
     <span class="logo-text">CodeSumsel</span>
   </a>
+  
+  <!-- Hamburger Menu (Mobile) -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+  <label for="menu-toggle" class="hamburger">☰</label>
+  <div class="nav-mobile">
+    <a href="#kursus" class="nav-link">Kursus</a>
+    <a href="#mitra" class="nav-link">Mitra</a>
+  </div>
+
   <div class="nav-right">
     <a href="#kursus" class="nav-link">Kursus</a>
     <a href="#mitra" class="nav-link">Mitra</a>
-    <a href="HOME.html" class="nav-link">Blog</a>
     <!-- Tombol Kembali ke HOME -->
-    <a href="#" class="back-to-home" style="margin-left: 10px;">🏠 Kembali ke HOME</a>
-    <!-- Area Akun (Login/Logout) -->
+    <a href="HOME.html" class="back-to-home">🏠 Kembali ke HOME</a>
+    <!-- Area Akun -->
     <div class="account-wrapper" id="accountWrapper">
       <a href="#" id="authButton" class="sign-btn">Masuk</a>
       <div class="dropdown-menu">
         <a href="#" id="logoutBtn" style="display: none;">🚪 Logout</a>
-        <a href="#">👤 Profil</a>
+        <a href="Profile.html">👤 Profil</a>
         <a href="#">📚 Kursus Saya</a>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- HERO SECTION (sama seperti sebelumnya) -->
+
+<!-- HERO SECTION -->
 <header class="site-hero">
   <div class="site-hero-content">
     <span class="badge">📍 Palembang · Sumatera Selatan</span>
@@ -124,7 +68,7 @@
       <div class="stat-divider"></div>
       <div class="stat"><span class="stat-num">4.9</span><span class="stat-label">Rating ★</span></div>
       <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Mitra Resmi</span></div>
+      <div class="stat"><span class="stat-num">8</span><span class="stat-label">Mitra Resmi</span></div>
     </div>
   </div>
   <div class="site-hero-code">
@@ -144,69 +88,28 @@
   </div>
 </header>
 
-<!-- KURSUS UNGGULAN (dengan komentar keunggulan) -->
+<!-- ... (bagian atas sama) ... -->
+
+<!-- SECTION KURSUS DENGAN TAB FILTER -->
 <section class="languages-section" id="kursus">
   <div class="section-header">
     <div class="section-label">// PILIH BAHASAMU</div>
     <h2 class="section-title">Kelas Intensif · Tatap Muka & Online</h2>
   </div>
 
-  <!-- HTML -->
-  <div class="lang-row html-row">
-    <div class="lang-stripe html-stripe"></div>
-    <div class="lang-info">
-      <div class="lang-header">
-        <span class="lang-icon html-icon">HTML</span>
-        <span class="lang-name html-name">HTML5</span>
-      </div>
-      <span class="lang-tag html-tag">Fundamental · Semua Umur</span>
-      <p class="lang-desc">Bangun struktur website modern dengan semantic HTML. Tersedia kelas offline di Palembang dan private online.</p>
-      <div class="lang-btns">
-        <a href="https://timedooracademy.com" target="_blank" class="lbtn primary html-primary protected-link">📘 Lihat Silabus (perlu login)</a>
-        <a href="#" class="lbtn secondary protected-link">🗓️ Jadwal Offline Palembang</a>
-      </div>
-    </div>
-    <div class="lang-code-panel">
-      <div class="code-panel-header">
-        <span class="code-panel-title">// Keunggulan kursus HTML di Palembang</span>
-      </div>
-      <div class="lang-comment">
-        /* ✅ Timedoor: Mentor bersertifikat, proyek akhir website daerah.<br>
-           ✅ PalComTech: Kelas fleksibel, gratis modul digital & sertifikat BNSP.<br>
-           ✅ LPK TTC: Online via Zoom + rekaman, cocok untuk karyawan. */
-      </div>
-    </div>
+  <!-- Tab Filter -->
+  <div class="tab-filter" role="tablist">
+    <button class="tab-btn active" data-lang="html" role="tab" aria-selected="true">HTML</button>
+    <button class="tab-btn" data-lang="css" role="tab" aria-selected="false">CSS</button>
+    <button class="tab-btn" data-lang="js" role="tab" aria-selected="false">JavaScript</button>
+    <button class="tab-btn" data-lang="cpp" role="tab" aria-selected="false">C++</button>
   </div>
 
-  <!-- CSS (singkat agar tidak terlalu panjang) -->
-  <div class="lang-row css-row">
-    <div class="lang-stripe css-stripe"></div>
-    <div class="lang-info">
-      <div class="lang-header">
-        <span class="lang-icon css-icon">CSS</span>
-        <span class="lang-name css-name">CSS3</span>
-      </div>
-      <span class="lang-tag css-tag">Flex · Grid · Animasi</span>
-      <p class="lang-desc">Kuasai styling modern, responsive design, dan animasi.</p>
-      <div class="lang-btns">
-        <a href="https://palcomtech.ac.id" target="_blank" class="lbtn primary css-primary protected-link">🎨 Lihat Project (login)</a>
-        <a href="#" class="lbtn secondary protected-link">📍 Lokasi Kursus</a>
-      </div>
-    </div>
-    <div class="lang-code-panel">
-      <div class="code-panel-header">
-        <span class="code-panel-title">// Keunggulan CSS</span>
-      </div>
-      <div class="lang-comment">
-        /* ✅ SyntaxLab: Kelompok kecil (max 8 orang), proyek landing page UMKM.<br>
-           ✅ CYBORG IT Center: Fokus CSS Grid & Flexbox modern. */
-      </div>
-    </div>
-  </div>
-
-  <!-- C++ dan JavaScript dapat ditambahkan serupa, namun untuk ringkas kita cukup 2 contoh -->
+  <!-- Grid Kursus (diisi oleh JavaScript) -->
+  <div id="courseListContainer" class="course-grid"></div>
 </section>
 
+<!-- ... (bagian bawah sama) ... -->
 <!-- MITRA & LOKASI KURSUS -->
 <section class="partner-section" id="mitra">
   <div class="section-header">
@@ -227,11 +130,16 @@
       <a href="https://palcomtech.ac.id" target="_blank" class="partner-link protected-link">🌐 palcomtech.ac.id ↗</a>
       <p class="partner-keunggulan">✅ Keunggulan: E-learning mandiri, uji kompetensi BNSP.</p>
     </div>
-    <!-- tambahkan mitra lain jika perlu -->
+    <div class="partner-card">
+      <div class="partner-name">LPK TTC <span class="partner-tag">Burlian</span></div>
+      <div class="partner-addr">Jl. Kolonel H. Burlian, Palembang</div>
+      <a href="https://ttc.web.id" target="_blank" class="partner-link protected-link">🌐 ttc.web.id ↗</a>
+      <p class="partner-keunggulan">✅ Keunggulan: Online via Zoom + rekaman, cocok untuk karyawan.</p>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER dengan tombol back-to-home -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -240,30 +148,13 @@
     </div>
     <div class="footer-text">Jl. Kapten A. Rivai No.88 · Palembang</div>
     <div class="footer-sub">
-      <a href="#" class="back-to-home" style="color:#04aa6d; text-decoration:none;">🏠 Kembali ke HOME</a>
+      <a href="home.html" class="back-to-home" style="color:#04aa6d; text-decoration:none;">🏠 Kembali ke HOME</a>
     </div>
     <div class="footer-sub">© 2025 · #BelajarDariSumsel</div>
   </div>
 </footer>
 
-<!-- SCRIPT AUTENTIKASI (HOME.js) -->
+<!-- SCRIPT -->
 <script src="Tempatkursus.js"></script>
-<!-- Script tambahan untuk memastikan protected-link bekerja dengan baik -->
-<script>
-  (function() {
-    // Jika pengguna belum login, semua link dengan class "protected-link" akan diarahkan ke login.html
-    document.querySelectorAll('.protected-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        if (!isLoggedIn) {
-          e.preventDefault();
-          localStorage.setItem('redirectAfterLogin', this.href);
-          localStorage.setItem('loginMessage', '🔒 Silakan login untuk mengakses konten ini.');
-          window.location.href = 'login.html';
-        }
-      });
-    });
-  })();
-</script>
 </body>
 </html>

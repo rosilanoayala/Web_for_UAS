@@ -82,36 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { statusNotice.style.display = "none"; }, 3000);
   });
 
-  // Ganti password
   changePassBtn.addEventListener("click", () => {
-    const old = oldPass.value;
-    const newPwd = newPass.value;
-    const confirm = confirmPass.value;
-    const storedPassword = localStorage.getItem("userPassword") || "";
+  const old = oldPass.value;
+  const newPwd = newPass.value;
+  const confirm = confirmPass.value;
+  const email = localStorage.getItem("userEmail");
+  if (!email) return alert("Email tidak ditemukan.");
 
-    if (!old || !newPwd || !confirm) {
-      alert("Harap isi semua field password.");
-      return;
-    }
-    if (old !== storedPassword) {
-      alert("Password lama salah.");
-      return;
-    }
-    if (newPwd.length < 6) {
-      alert("Password baru minimal 6 karakter.");
-      return;
-    }
-    if (newPwd !== confirm) {
-      alert("Password baru dan konfirmasi tidak cocok.");
-      return;
-    }
+  let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+  const userIndex = users.findIndex(u => u.email === email);
+  if (userIndex === -1) return alert("Akun tidak ditemukan.");
+  if (users[userIndex].password !== old) return alert("Password lama salah.");
+  if (newPwd.length < 6) return alert("Password baru minimal 6 karakter.");
+  if (newPwd !== confirm) return alert("Konfirmasi tidak cocok.");
 
-    localStorage.setItem("userPassword", newPwd);
-    alert("✅ Password berhasil diubah!");
-    oldPass.value = "";
-    newPass.value = "";
-    confirmPass.value = "";
-  });
+  users[userIndex].password = newPwd;
+  localStorage.setItem("registeredUsers", JSON.stringify(users));
+  alert("✅ Password berhasil diubah!");
+  oldPass.value = newPass.value = confirmPass.value = "";
+});
 
   // Load & tampilkan komplain
   function loadComplaints() {

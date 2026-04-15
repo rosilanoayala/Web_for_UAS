@@ -495,13 +495,45 @@
   </div>
 
   <script>
-    function setGuest() {
-      localStorage.setItem("isGuest", "true");
+    // ========== 1. INISIALISASI DEMO ACCOUNT (JIKA BELUM ADA AKUN TERDAFTAR) ==========
+    (function initRegisteredUsers() {
+      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      
+      if (users.length === 0) {
+        users.push({
+          email: 'demo@devportal.id',
+          password: 'demo123',
+          name: 'Demo User'
+        });
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
+      }
+    })();
+
+    // ========== 2. FUNGSI VALIDASI LOGIN ==========
+    function validateLogin(email, password) {
+      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      
+      if (!user) {
+        return { success: false, message: '❌ Akun belum terdaftar. Silakan daftar terlebih dahulu.' };
+      }
+      
+      if (user.password !== password) {
+        return { success: false, message: '❌ Password salah. Coba lagi.' };
+      }
+      
+      return { success: true, user };
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
+    // ========== 3. SET GUEST ==========
+    function setGuest() {
+      localStorage.setItem("isGuest", "true");
+      localStorage.removeItem("isLoggedIn");
+    }
 
-      // ── Tampilkan pesan dari localStorage ──────────────
+    // ========== 4. DOM CONTENT LOADED ==========
+    document.addEventListener("DOMContentLoaded", function () {
+      // Tampilkan pesan dari localStorage (misal dari signup)
       const notice = localStorage.getItem("loginMessage");
       if (notice) {
         const el = document.getElementById("loginNotice");
@@ -510,7 +542,7 @@
         localStorage.removeItem("loginMessage");
       }
 
-      // ── Jika sudah login → redirect ────────────────────
+      // Jika sudah login → redirect
       if (localStorage.getItem("isLoggedIn") === "true") {
         const redirectPage = localStorage.getItem("redirectAfterLogin");
         const lastPage     = localStorage.getItem("lastPage");
@@ -520,78 +552,114 @@
 
       const loginForm = document.getElementById("loginForm");
       const googleBtn = document.getElementById("googleBtn");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const noticeEl = document.getElementById("loginNotice");
 
+      // ========== LOGIN FORM SUBMIT ==========
       loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const email = document.getElementById("email").value;
-        runLoginAnimation(email);
-      });
-
-      googleBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        runLoginAnimation("googleuser@gmail.com");
-      });
-    });
-
-    // ── Login terminal animation ────────────────────────
-    function runLoginAnimation(email) {
-      const overlay  = document.getElementById("loginOverlay");
-      const terminal = document.getElementById("loginTerminal");
-
-      overlay.style.display = "flex";
-      terminal.textContent  = "";
-
-      const pageName    = localStorage.getItem("lastPageName");
-      const displayName = pageName
-        ? pageName.replace(".html", "").replace("Tutorial", "Tutorial ")
-        : "HOME";
-
-      const lines = [
-        "// Initializing Authentication Module",
-        "Connecting to secure server...",
-        "Encrypting credentials...",
-        "Validating session token...",
-        "Access Granted ✔",
-        `Redirecting to ${displayName}...`
-      ];
-
-      let i = 0, j = 0;
-
-      function type() {
-        if (i >= lines.length) {
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userEmail", email);
-
-          const redirectPage = localStorage.getItem("redirectAfterLogin");
-          const lastPage     = localStorage.getItem("lastPage");
-          let targetPage     = "HOME.html";
-
-          if (redirectPage) {
-            targetPage = redirectPage;
-            localStorage.removeItem("redirectAfterLogin");
-          } else if (lastPage) {
-            targetPage = lastPage;
-            localStorage.removeItem("lastPage");
-            localStorage.removeItem("lastPageName");
-          }
-
-          setTimeout(() => { window.location.href = targetPage; }, 1200);
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        
+        if (!email || !password) {
+          noticeEl.textContent = '⚠️ Email dan password harus diisi.';
+          noticeEl.classList.add('visible');
           return;
         }
-
-        if (j < lines[i].length) {
-          terminal.textContent += lines[i][j++];
-          setTimeout(type, 20);
-        } else {
-          terminal.textContent += "\n";
-          i++; j = 0;
-          setTimeout(type, 300);
+        
+        const validation = validateLogin(email, password);
+        
+        if (!validation.success) {
+          noticeEl.textContent = validation.message;
+          noticeEl.classList.add('visible');
+          return;
         }
+        
+        noticeEl.classList.remove('visible');
+        runLoginAnimation(email, validation.user.name || email);
+      });
+
+      // ========== GOOGLE LOGIN (DEMO) ==========
+      googleBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        const demoEmail = 'googleuser@gmail.com';
+        const demoName = 'Google User';
+        
+        let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        const existing = users.find(u => u.email === demoEmail);
+        if (!existing) {
+          users.push({ email: demoEmail, password: 'google123', name: demoName });
+          localStorage.setItem('registeredUsers', JSON.stringify(users));
+        }
+        
+        runLoginAnimation(demoEmail, demoName);
+      });
+
+      // ========== FUNGSI ANIMASI TERMINAL LOGIN ==========
+      function runLoginAnimation(email, displayName) {
+        const overlay  = document.getElementById("loginOverlay");
+        const terminal = document.getElementById("loginTerminal");
+
+        overlay.style.display = "flex";
+        terminal.textContent  = "";
+
+        const pageName    = localStorage.getItem("lastPageName");
+        const displayPage = pageName
+          ? pageName.replace(".html", "").replace("Tutorial", "Tutorial ")
+          : "HOME";
+
+        const lines = [
+          "// Initializing Authentication Module",
+          `User: ${email}`,
+          "Connecting to secure server...",
+          "Encrypting credentials...",
+          "Validating session token...",
+          "Access Granted ✔",
+          `Welcome, ${displayName || email}!`,
+          `Redirecting to ${displayPage}...`
+        ];
+
+        let i = 0, j = 0;
+
+        function type() {
+          if (i >= lines.length) {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userEmail", email);
+            if (displayName) localStorage.setItem("userName", displayName);
+            localStorage.removeItem("isGuest");
+
+            const redirectPage = localStorage.getItem("redirectAfterLogin");
+            const lastPage     = localStorage.getItem("lastPage");
+            let targetPage     = "HOME.html";
+
+            if (redirectPage) {
+              targetPage = redirectPage;
+              localStorage.removeItem("redirectAfterLogin");
+            } else if (lastPage) {
+              targetPage = lastPage;
+              localStorage.removeItem("lastPage");
+              localStorage.removeItem("lastPageName");
+            }
+
+            setTimeout(() => { window.location.href = targetPage; }, 1200);
+            return;
+          }
+
+          if (j < lines[i].length) {
+            terminal.textContent += lines[i][j++];
+            setTimeout(type, 20);
+          } else {
+            terminal.textContent += "\n";
+            i++; j = 0;
+            setTimeout(type, 300);
+          }
+        }
+
+        type();
       }
-
-      type();
-    }
+    });
   </script>
-
 </body>
 </html>

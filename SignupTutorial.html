@@ -531,7 +531,7 @@
         </button>
       </form>
 
-      <!-- Success box (tersembunyi, muncul setelah daftar) -->
+      <!-- Success box (tersembunyi) -->
       <div class="success-box" id="successBox">
         <div class="success-icon">🎉</div>
         <p class="success-title">Akun Berhasil Dibuat!</p>
@@ -582,31 +582,25 @@
       const bars  = [bar1, bar2, bar3];
       const reset = () => bars.forEach(b => b.style.background = "");
 
-      // Kosong → reset semua
       if (val.length === 0) { reset(); lbl.textContent = ""; return; }
 
-      // Hitung skor secara kumulatif & benar
       let score = 0;
-
-      if (val.length >= 6)  score++;           // minimal panjang
-      if (val.length >= 10) score++;           // panjang cukup
-      if (/[A-Z]/.test(val) && /[0-9!@#$%^&*]/.test(val)) score++; // ada huruf besar + angka/simbol
+      if (val.length >= 6)  score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val) && /[0-9!@#$%^&*]/.test(val)) score++;
 
       reset();
 
       if (score <= 1) {
-        // Lemah: hanya bar pertama merah
         bar1.style.background = "#ef4444";
         lbl.textContent = val.length < 6 ? "Terlalu Pendek" : "Lemah";
         lbl.style.color = "#ef4444";
       } else if (score === 2) {
-        // Sedang: dua bar kuning
         bar1.style.background = "#f59e0b";
         bar2.style.background = "#f59e0b";
         lbl.textContent = "Sedang";
         lbl.style.color = "#f59e0b";
       } else {
-        // Kuat: tiga bar hijau
         bar1.style.background = "#04aa6d";
         bar2.style.background = "#04aa6d";
         bar3.style.background = "#04aa6d";
@@ -626,7 +620,6 @@
       const agreed   = document.getElementById("agreeTerms").checked;
       const notice   = document.getElementById("signupNotice");
 
-      // Hide previous notice
       notice.classList.remove("visible");
 
       // Validation
@@ -653,6 +646,26 @@
       }
 
       document.getElementById("confirmPassword").classList.remove("error");
+
+      // --- SIMPAN KE registeredUsers ---
+      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+      // Cek apakah email sudah terdaftar
+      const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (existing) {
+        showNotice("❌ Email sudah terdaftar. Gunakan email lain atau login.");
+        return;
+      }
+
+      // Tambahkan user baru
+      users.push({
+        email: email,
+        password: pwd,     // ⚠️ Demo: plain text
+        name: name
+      });
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+
+      // Jalankan animasi sukses
       runSignupAnimation(name, email);
     });
 
@@ -674,9 +687,9 @@
       const lines = [
         "// Initializing Registration Module",
         `Creating account for: ${name}`,
+        `Email: ${email}`,
         "Encrypting credentials...",
         "Saving user profile...",
-        "Sending verification data...",
         "Account created successfully ✔",
         "Redirecting to login..."
       ];
@@ -685,9 +698,6 @@
 
       function type() {
         if (i >= lines.length) {
-          // Simpan state & redirect
-          localStorage.setItem("signupName",  name);
-          localStorage.setItem("signupEmail", email);
           localStorage.setItem("loginMessage", `✅ Akun berhasil dibuat! Silakan masuk, ${name}.`);
           setTimeout(() => { window.location.href = "login.html"; }, 1000);
           return;
@@ -706,6 +716,5 @@
       type();
     }
   </script>
-
 </body>
 </html>
