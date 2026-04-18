@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   localStorage.setItem("lastPage", currentPage);
   localStorage.setItem("lastPageName", pageName);
 
-  // Hapus redirectAfterLogin jika tidak login
-  if (localStorage.getItem("isLoggedIn") !== "true") {
+  // Hapus redirectAfterLogin jika tidak login (cek sessionStorage)
+  if (sessionStorage.getItem("isLoggedIn") !== "true") {
     localStorage.removeItem("redirectAfterLogin");
   }
 
@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadingScreen = document.getElementById("loadingScreen");
   const terminal = document.getElementById("terminalText");
 
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const userName = localStorage.getItem("userName");
-  const userEmail = localStorage.getItem("userEmail");
+  // Gunakan sessionStorage untuk status login
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+  const userName = sessionStorage.getItem("userName");
+  const userEmail = sessionStorage.getItem("userEmail");
   const displayName = userName || userEmail;
 
   // Fade in
@@ -42,9 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     if (logoutBtn) logoutBtn.style.display = "block";
   } else {
-    // Guest: sembunyikan logout button
     if (logoutBtn) logoutBtn.style.display = "none";
-    // Langsung redirect ke login tanpa gimmick
     if (authBtn && !isLoggedIn) {
       authBtn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -61,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // LOGOUT dengan efek terminal (hanya jika user login)
+  // LOGOUT dengan efek terminal
   if (logoutBtn && loadingScreen && terminal && isLoggedIn) {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -93,10 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
       function type() {
         if (i >= lines.length) {
           setTimeout(() => {
-            // Hapus semua data user
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userEmail");
-            localStorage.removeItem("userName");
+            sessionStorage.removeItem("isLoggedIn");
+            sessionStorage.removeItem("userEmail");
+            sessionStorage.removeItem("userName");
             localStorage.removeItem("userPhone");
             localStorage.removeItem("userAddress");
             localStorage.removeItem("userGender");
@@ -123,10 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // PROTEKSI "Try it by Yourself" – semua link dengan class protected-link
+  // PROTEKSI "Try it by Yourself"
   document.querySelectorAll(".protected-link").forEach(link => {
     link.addEventListener("click", function (e) {
-      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const loggedIn = sessionStorage.getItem("isLoggedIn") === "true";
       if (!loggedIn) {
         e.preventDefault();
         localStorage.setItem("redirectAfterLogin", this.href);

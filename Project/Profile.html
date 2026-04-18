@@ -8,6 +8,34 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Tambahan kecil untuk tombol toggle agar konsisten */
+    .toggle-section-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: 0.2s;
+      width: auto;
+      display: inline-block;
+    }
+    .toggle-section-btn:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+    }
+    .hidden-section {
+      display: none;
+    }
+    .section-wrapper {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+    }
+  </style>
 </head>
 <body>
 
@@ -33,7 +61,7 @@
       <hr class="divider">
       <div id="statusNotice" style="display: none;"></div>
 
-      <!-- FORM DATA DIRI -->
+      <!-- FORM DATA DIRI (tetap tampil) -->
       <form id="profileForm" class="profile-form">
         <div class="input-group">
           <label for="inputNama">Nama Lengkap</label>
@@ -69,42 +97,52 @@
 
       <hr class="divider">
 
-      <!-- GANTI PASSWORD -->
-      <div class="password-section">
-        <h3>🔐 Ganti Kata Sandi</h3>
-        <div class="input-group">
-          <label>Password Lama</label>
-          <input type="password" id="oldPassword" placeholder="Masukkan password lama">
+      <!-- ===== GANTI PASSWORD (toggle) ===== -->
+      <div class="section-wrapper">
+        <button id="togglePasswordBtn" class="toggle-section-btn">🔐 Ganti Password</button>
+        <div id="passwordSection" class="hidden-section">
+          <div class="password-section">
+            <h3>🔐 Ganti Kata Sandi</h3>
+            <div class="input-group">
+              <label>Password Lama</label>
+              <input type="password" id="oldPassword" placeholder="Masukkan password lama">
+            </div>
+            <div class="input-group">
+              <label>Password Baru</label>
+              <input type="password" id="newPassword" placeholder="Minimal 6 karakter">
+            </div>
+            <div class="input-group">
+              <label>Konfirmasi Password Baru</label>
+              <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
+            </div>
+            <button id="changePasswordBtn" class="btn-save" style="background:#2563eb;">🔄 Ubah Password</button>
+          </div>
         </div>
-        <div class="input-group">
-          <label>Password Baru</label>
-          <input type="password" id="newPassword" placeholder="Minimal 6 karakter">
-        </div>
-        <div class="input-group">
-          <label>Konfirmasi Password Baru</label>
-          <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
-        </div>
-        <button id="changePasswordBtn" class="btn-save" style="background:#2563eb;">🔄 Ubah Password</button>
       </div>
 
       <hr class="divider">
 
-      <!-- KOMPLAIN / SARAN -->
-      <div class="complaint-section">
-        <h3>📢 Kirim Komplain / Saran</h3>
-        <div class="input-group">
-          <label>Subjek</label>
-          <input type="text" id="complaintSubject" placeholder="Judul komplain/saran">
-        </div>
-        <div class="input-group">
-          <label>Pesan</label>
-          <textarea id="complaintMessage" rows="3" placeholder="Tulis pesan Anda..."></textarea>
-        </div>
-        <button id="sendComplaintBtn" class="btn-save" style="background:#7c3aed;">📨 Kirim</button>
+      <!-- ===== KOMPLAIN / SARAN (toggle) ===== -->
+      <div class="section-wrapper">
+        <button id="toggleComplaintBtn" class="toggle-section-btn">📢 Kirim Komplain / Saran</button>
+        <div id="complaintSection" class="hidden-section">
+          <div class="complaint-section">
+            <h3>📢 Kirim Komplain / Saran</h3>
+            <div class="input-group">
+              <label>Subjek</label>
+              <input type="text" id="complaintSubject" placeholder="Judul komplain/saran">
+            </div>
+            <div class="input-group">
+              <label>Pesan</label>
+              <textarea id="complaintMessage" rows="3" placeholder="Tulis pesan Anda..."></textarea>
+            </div>
+            <button id="sendComplaintBtn" class="btn-save" style="background:#7c3aed;">📨 Kirim</button>
 
-        <div id="complaintHistory" style="margin-top: 24px;">
-          <h4>Riwayat Komplain</h4>
-          <div id="complaintList" class="complaint-list"></div>
+            <div id="complaintHistory" style="margin-top: 24px;">
+              <h4>Riwayat Komplain</h4>
+              <div id="complaintList" class="complaint-list"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -131,6 +169,7 @@
     </div>
   </div>
 
+  <script src="shared.js"></script>
   <script src="Profile.js"></script>
 </body>
 </html>

@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Buat akun baru di DevPortal — Portal Tutorial Coding">
   <title>Daftar Akun — DevPortal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +42,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Navbar (identik semua halaman lain) ─────────────── */
+    /* ── Navbar ─────────────── */
     .topnav {
       display: flex;
       justify-content: space-between;
@@ -53,9 +52,7 @@
       background: var(--nav-bg);
       flex-shrink: 0;
     }
-
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
     .logo-icon {
       background: var(--accent);
       color: #fff;
@@ -65,13 +62,7 @@
       padding: 4px 9px;
       border-radius: 6px;
     }
-
-    .logo-text {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
+    .logo-text { font-size: 1.15rem; font-weight: 700; color: #fff; }
     .nav-back {
       text-decoration: none;
       color: #cdd5e0;
@@ -84,11 +75,7 @@
       gap: 6px;
       transition: background 0.2s, color 0.2s;
     }
-
-    .nav-back:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
+    .nav-back:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
     /* ── Page body ────────────────────────────────────────── */
     .page-body {
@@ -111,20 +98,15 @@
       box-shadow: var(--shadow-lg);
     }
 
-    /* Card header */
-    .card-header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
+    .card-header { text-align: center; margin-bottom: 28px; }
     .card-logo {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 52px;
       height: 52px;
-      background: rgba(4, 170, 109, 0.1);
-      border: 2px solid rgba(4, 170, 109, 0.25);
+      background: rgba(4,170,109,0.1);
+      border: 2px solid rgba(4,170,109,0.25);
       border-radius: 14px;
       font-family: var(--font-code);
       font-weight: 700;
@@ -132,21 +114,9 @@
       color: var(--accent);
       margin-bottom: 14px;
     }
+    .card-title { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+    .card-subtitle { font-size: 0.9rem; color: var(--text-sub); margin-top: 5px; }
 
-    .card-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.4px;
-    }
-
-    .card-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      margin-top: 5px;
-    }
-
-    /* Error notice */
     #signupNotice {
       background: var(--danger-bg);
       border: 1px solid var(--danger-bdr);
@@ -159,20 +129,10 @@
       margin-bottom: 18px;
       display: none;
     }
-
     #signupNotice.visible { display: block; }
 
-    /* Form */
     .form-group { margin-bottom: 16px; }
-
-    .form-label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
+    .form-label { display: block; font-size: 0.875rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
     .form-input {
       width: 100%;
       padding: 11px 14px;
@@ -185,81 +145,26 @@
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     .form-input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.15);
+      box-shadow: 0 0 0 3px rgba(4,170,109,0.15);
       background: #fff;
     }
 
-    .form-input.error {
-      border-color: var(--danger);
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
-    }
+    .strength-wrap { margin-top: 6px; display: flex; gap: 5px; align-items: center; }
+    .strength-bar { flex: 1; height: 4px; border-radius: 4px; background: var(--border); transition: background 0.3s; }
+    .strength-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); min-width: 50px; text-align: right; }
 
-    .field-hint {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Password strength bar */
-    .strength-wrap {
-      margin-top: 6px;
-      display: flex;
-      gap: 5px;
-      align-items: center;
-    }
-
-    .strength-bar {
-      flex: 1;
-      height: 4px;
-      border-radius: 4px;
-      background: var(--border);
-      transition: background 0.3s;
-    }
-
-    .strength-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      min-width: 50px;
-      text-align: right;
-    }
-
-    /* Checkbox */
     .checkbox-group {
       display: flex;
       align-items: flex-start;
       gap: 10px;
       margin: 18px 0 6px;
     }
+    .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--accent); cursor: pointer; }
+    .checkbox-group label { font-size: 0.875rem; color: var(--text-sub); cursor: pointer; }
+    .checkbox-group label a { color: var(--accent); font-weight: 700; text-decoration: none; }
 
-    .checkbox-group input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      margin-top: 2px;
-      accent-color: var(--accent);
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    .checkbox-group label {
-      font-size: 0.875rem;
-      color: var(--text-sub);
-      line-height: 1.5;
-      cursor: pointer;
-    }
-
-    .checkbox-group label a {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .checkbox-group label a:hover { text-decoration: underline; }
-
-    /* Submit button */
     .btn-primary {
       display: block;
       width: 100%;
@@ -275,94 +180,21 @@
       transition: background 0.2s, transform 0.15s;
       margin-top: 10px;
     }
+    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
 
-    .btn-primary:hover {
-      background: var(--accent-dk);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:active { transform: translateY(0); }
-
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Divider */
     .divider {
       display: flex;
       align-items: center;
       gap: 12px;
       margin: 22px 0;
     }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider span { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
 
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    .login-link { text-align: center; font-size: 0.875rem; color: var(--text-sub); }
+    .login-link a { color: var(--accent); font-weight: 700; text-decoration: none; }
 
-    .divider span {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* Has account link */
-    .login-link {
-      text-align: center;
-      font-size: 0.875rem;
-      color: var(--text-sub);
-    }
-
-    .login-link a {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .login-link a:hover { text-decoration: underline; color: var(--accent-dk); }
-
-    /* Success State */
-    .success-box {
-      display: none;
-      text-align: center;
-      padding: 8px 0;
-    }
-
-    .success-icon {
-      font-size: 2.6rem;
-      margin-bottom: 12px;
-    }
-
-    .success-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .success-msg {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      line-height: 1.65;
-    }
-
-    .countdown {
-      font-family: var(--font-code);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 10px;
-    }
-
-    .success-box.visible { display: block; }
-
-    /* ── Terminal overlay (identik Login) ─────────────────── */
+    /* Terminal overlay */
     #signupOverlay {
       position: fixed;
       inset: 0;
@@ -373,7 +205,6 @@
       z-index: 9999;
       backdrop-filter: blur(8px);
     }
-
     .terminal-box {
       background: #1e2230;
       border: 1px solid #3a3f55;
@@ -381,10 +212,8 @@
       width: 90%;
       max-width: 560px;
       overflow: hidden;
-      box-shadow: 0 0 60px rgba(4, 170, 109, 0.15);
       font-family: var(--font-code);
     }
-
     .terminal-bar {
       display: flex;
       align-items: center;
@@ -393,18 +222,11 @@
       background: #161929;
       border-bottom: 1px solid #3a3f55;
     }
-
     .dot { width: 12px; height: 12px; border-radius: 50%; }
     .dot.r { background: #ff5f57; }
     .dot.y { background: #febc2e; }
     .dot.g { background: #28c840; }
-
-    .terminal-label {
-      margin-left: 6px;
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-
+    .terminal-label { margin-left: 6px; font-size: 0.78rem; color: #6b7280; }
     #signupTerminal {
       padding: 20px 22px;
       font-size: 0.875rem;
@@ -414,7 +236,6 @@
       min-height: 80px;
     }
 
-    /* ── Footer ───────────────────────────────────────────── */
     .page-footer {
       background: var(--nav-bg);
       padding: 14px 36px;
@@ -424,17 +245,14 @@
       font-family: var(--font-code);
       flex-shrink: 0;
     }
-
-    /* ── Responsive ───────────────────────────────────────── */
     @media (max-width: 480px) {
       .signup-card { padding: 32px 20px; }
-      .topnav      { padding: 0 18px; }
+      .topnav { padding: 0 18px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <nav class="topnav">
     <a href="HOME.html" class="nav-logo">
       <span class="logo-icon">&lt;/&gt;</span>
@@ -443,154 +261,92 @@
     <a href="login.html" class="nav-back">← Sudah punya akun? Masuk</a>
   </nav>
 
-  <!-- ===== MAIN ===== -->
   <div class="page-body">
     <div class="signup-card">
-
-      <!-- Header -->
       <div class="card-header">
         <div class="card-logo">&lt;/&gt;</div>
         <h1 class="card-title">Buat Akun Baru</h1>
         <p class="card-subtitle">Bergabung dan mulai belajar coding secara gratis</p>
       </div>
 
-      <!-- Error notice -->
       <div id="signupNotice" role="alert"></div>
 
-      <!-- Signup Form -->
       <form id="signupForm" novalidate>
-
         <div class="form-group">
           <label for="fullName" class="form-label">Nama Lengkap</label>
-          <input
-            type="text"
-            id="fullName"
-            class="form-input"
-            placeholder="Masukkan nama lengkap"
-            required
-            autocomplete="name"
-          >
+          <input type="text" id="fullName" class="form-input" placeholder="Masukkan nama lengkap" required autocomplete="name">
         </div>
-
         <div class="form-group">
           <label for="email" class="form-label">Alamat Email</label>
-          <input
-            type="email"
-            id="email"
-            class="form-input"
-            placeholder="contoh@email.com"
-            required
-            autocomplete="email"
-          >
+          <input type="email" id="email" class="form-input" placeholder="contoh@email.com" required autocomplete="email">
         </div>
-
         <div class="form-group">
           <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-input"
-            placeholder="Minimal 6 karakter"
-            required
-            autocomplete="new-password"
-            oninput="checkStrength(this.value)"
-          >
-          <!-- Strength bar -->
+          <input type="password" id="password" class="form-input" placeholder="Minimal 6 karakter" required autocomplete="new-password" oninput="checkStrength(this.value)">
           <div class="strength-wrap">
             <div class="strength-bar" id="bar1"></div>
             <div class="strength-bar" id="bar2"></div>
             <div class="strength-bar" id="bar3"></div>
             <span class="strength-label" id="strengthLabel"></span>
           </div>
-          <p class="field-hint">Gunakan minimal 6 karakter</p>
         </div>
-
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            class="form-input"
-            placeholder="Ulangi password kamu"
-            required
-            autocomplete="new-password"
-          >
+          <input type="password" id="confirmPassword" class="form-input" placeholder="Ulangi password kamu" required>
         </div>
-
-        <!-- Terms checkbox -->
+        <div class="form-group">
+          <label for="securityQuestion" class="form-label">Pertanyaan Keamanan</label>
+          <select id="securityQuestion" class="form-input">
+            <option value="nama_hewan">Apa nama hewan peliharaanmu?</option>
+            <option value="tempat_lahir">Di mana kamu lahir?</option>
+            <option value="nama_ibu">Siapa nama ibu kandungmu?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="securityAnswer" class="form-label">Jawaban Keamanan</label>
+          <input type="text" id="securityAnswer" class="form-input" placeholder="Jawaban (akan di-hash)" required>
+        </div>
         <div class="checkbox-group">
           <input type="checkbox" id="agreeTerms">
-          <label for="agreeTerms">
-            Saya setuju dengan <a href="#">Syarat &amp; Ketentuan</a> dan
-            <a href="#">Kebijakan Privasi</a> DevPortal
-          </label>
+          <label for="agreeTerms">Saya setuju dengan <a href="#">Syarat &amp; Ketentuan</a></label>
         </div>
-
-        <button type="submit" class="btn-primary" id="signupBtn">
-          🚀 Buat Akun
-        </button>
+        <button type="submit" class="btn-primary">🚀 Buat Akun</button>
       </form>
 
-      <!-- Success box (tersembunyi) -->
-      <div class="success-box" id="successBox">
-        <div class="success-icon">🎉</div>
-        <p class="success-title">Akun Berhasil Dibuat!</p>
-        <p class="success-msg">
-          Selamat bergabung di DevPortal!<br>
-          Kamu akan diarahkan ke halaman login.
-        </p>
-        <p class="countdown" id="countdown"></p>
-      </div>
-
-      <!-- Divider -->
       <div class="divider"><span>atau</span></div>
-
-      <!-- Already have account -->
-      <p class="login-link">
-        Sudah punya akun? <a href="login.html">Masuk di sini</a>
-      </p>
-
+      <p class="login-link">Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="page-footer">
     © 2025 DevPortal — Portal Tutorial Coding · Rosilano Ayala KA2A
   </footer>
 
-  <!-- Terminal overlay (muncul saat daftar berhasil) -->
   <div id="signupOverlay">
     <div class="terminal-box">
       <div class="terminal-bar">
-        <span class="dot r"></span>
-        <span class="dot y"></span>
-        <span class="dot g"></span>
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
         <span class="terminal-label">terminal — register.sh</span>
       </div>
       <pre id="signupTerminal"></pre>
     </div>
   </div>
 
+  <script src="shared.js"></script>
   <script>
-    /* ── Password strength checker ───────────────────────── */
     function checkStrength(val) {
       const bar1 = document.getElementById("bar1");
       const bar2 = document.getElementById("bar2");
       const bar3 = document.getElementById("bar3");
-      const lbl  = document.getElementById("strengthLabel");
-
-      const bars  = [bar1, bar2, bar3];
+      const lbl = document.getElementById("strengthLabel");
+      const bars = [bar1, bar2, bar3];
       const reset = () => bars.forEach(b => b.style.background = "");
-
       if (val.length === 0) { reset(); lbl.textContent = ""; return; }
-
       let score = 0;
-      if (val.length >= 6)  score++;
+      if (val.length >= 6) score++;
       if (val.length >= 10) score++;
       if (/[A-Z]/.test(val) && /[0-9!@#$%^&*]/.test(val)) score++;
-
       reset();
-
       if (score <= 1) {
         bar1.style.background = "#ef4444";
         lbl.textContent = val.length < 6 ? "Terlalu Pendek" : "Lemah";
@@ -609,81 +365,49 @@
       }
     }
 
-    /* ── Form validation & submit ────────────────────────── */
-    document.getElementById("signupForm").addEventListener("submit", function (e) {
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
       e.preventDefault();
+      const name = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const pwd = document.getElementById("password").value;
+      const confirm = document.getElementById("confirmPassword").value;
+      const securityQuestion = document.getElementById("securityQuestion").value;
+      const securityAnswer = document.getElementById("securityAnswer").value.trim().toLowerCase();
+      const agreed = document.getElementById("agreeTerms").checked;
 
-      const name     = document.getElementById("fullName").value.trim();
-      const email    = document.getElementById("email").value.trim();
-      const pwd      = document.getElementById("password").value;
-      const confirm  = document.getElementById("confirmPassword").value;
-      const agreed   = document.getElementById("agreeTerms").checked;
-      const notice   = document.getElementById("signupNotice");
-
+      const notice = document.getElementById("signupNotice");
       notice.classList.remove("visible");
 
-      // Validation
-      if (!name) {
-        showNotice("⚠️ Nama lengkap tidak boleh kosong.");
-        return;
-      }
-      if (!email || !email.includes("@")) {
-        showNotice("⚠️ Masukkan alamat email yang valid.");
-        return;
-      }
-      if (pwd.length < 6) {
-        showNotice("⚠️ Password minimal 6 karakter.");
-        return;
-      }
-      if (pwd !== confirm) {
-        showNotice("⚠️ Konfirmasi password tidak cocok.");
-        document.getElementById("confirmPassword").classList.add("error");
-        return;
-      }
-      if (!agreed) {
-        showNotice("⚠️ Kamu harus menyetujui syarat & ketentuan.");
-        return;
-      }
+      if (!name) { showNotice('signupNotice', '⚠️ Nama lengkap tidak boleh kosong.', true); return; }
+      if (!isValidEmail(email)) { showNotice('signupNotice', '⚠️ Email tidak valid.', true); return; }
+      if (!isStrongPassword(pwd)) { showNotice('signupNotice', '⚠️ Password minimal 6 karakter dan harus mengandung angka.', true); return; }
+      if (pwd !== confirm) { showNotice('signupNotice', '⚠️ Konfirmasi password tidak cocok.', true); return; }
+      if (!securityAnswer) { showNotice('signupNotice', '⚠️ Jawaban keamanan harus diisi.', true); return; }
+      if (!agreed) { showNotice('signupNotice', '⚠️ Anda harus menyetujui syarat & ketentuan.', true); return; }
 
-      document.getElementById("confirmPassword").classList.remove("error");
-
-      // --- SIMPAN KE registeredUsers ---
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-
-      // Cek apakah email sudah terdaftar
-      const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-      if (existing) {
-        showNotice("❌ Email sudah terdaftar. Gunakan email lain atau login.");
+      if (users.find(u => u.email === email)) {
+        showNotice('signupNotice', '❌ Email sudah terdaftar.', true);
         return;
       }
 
-      // Tambahkan user baru
+      const hashedPwd = await hashPassword(pwd);
+      const hashedAnswer = await hashPassword(securityAnswer);
       users.push({
         email: email,
-        password: pwd,     // ⚠️ Demo: plain text
-        name: name
+        passwordHash: hashedPwd,
+        name: name,
+        securityQuestion: securityQuestion,
+        securityAnswerHash: hashedAnswer,
+        phone: '', address: '', gender: ''
       });
       localStorage.setItem('registeredUsers', JSON.stringify(users));
 
-      // Jalankan animasi sukses
-      runSignupAnimation(name, email);
-    });
-
-    function showNotice(msg) {
-      const el = document.getElementById("signupNotice");
-      el.textContent = msg;
-      el.classList.add("visible");
-      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-
-    /* ── Terminal animation ──────────────────────────────── */
-    function runSignupAnimation(name, email) {
-      const overlay  = document.getElementById("signupOverlay");
+      // Animasi terminal
+      const overlay = document.getElementById("signupOverlay");
       const terminal = document.getElementById("signupTerminal");
-
       overlay.style.display = "flex";
-      terminal.textContent  = "";
-
+      terminal.textContent = "";
       const lines = [
         "// Initializing Registration Module",
         `Creating account for: ${name}`,
@@ -693,16 +417,13 @@
         "Account created successfully ✔",
         "Redirecting to login..."
       ];
-
       let i = 0, j = 0;
-
       function type() {
         if (i >= lines.length) {
           localStorage.setItem("loginMessage", `✅ Akun berhasil dibuat! Silakan masuk, ${name}.`);
           setTimeout(() => { window.location.href = "login.html"; }, 1000);
           return;
         }
-
         if (j < lines[i].length) {
           terminal.textContent += lines[i][j++];
           setTimeout(type, 20);
@@ -712,9 +433,8 @@
           setTimeout(type, 280);
         }
       }
-
       type();
-    }
+    });
   </script>
 </body>
 </html>

@@ -378,7 +378,27 @@ section.collapsed .section-content {
     color: var(--cpp-dark);
 }
 
-
+/* Hamburger Menu (Mobile) */
+.menu-toggle { display: none; }
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-mobile {
+  display: none;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  right: 0;
+  background: #282a35;
+  flex-direction: column;
+  padding: 16px 0;
+  border-top: 1px solid #3a3f55;
+  z-index: 999;
+}
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {

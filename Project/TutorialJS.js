@@ -4,36 +4,114 @@
 function typeEffect(lines, target, callback, charSpeed = 18, lineSpeed = 250) {
   let i = 0, j = 0;
   function type() {
-    if (i >= lines.length) { if (callback) setTimeout(callback, 800); return; }
-    if (j < lines[i].length) { target.textContent += lines[i][j++]; setTimeout(type, charSpeed); }
-    else { target.textContent += "\n"; i++; j = 0; setTimeout(type, lineSpeed); }
+    if (i >= lines.length) {
+      if (typeof callback === "function") setTimeout(callback, 800);
+      return;
+    }
+    if (j < lines[i].length) {
+      target.textContent += lines[i][j++];
+      setTimeout(type, charSpeed);
+    } else {
+      target.textContent += "\n";
+      i++; j = 0;
+      setTimeout(type, lineSpeed);
+    }
   }
   type();
 }
 
-// ================= PENCARIAN =================
+// ================= PENCARIAN (HIGHLIGHT SYSTEM) =================
 let searchTimeout = null;
+let currentResults = [];
+let currentIndex = 0;
+
 function cariMateri() {
   clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    const keyword = document.getElementById("searchInput")?.value.trim().toLowerCase();
-    const sections = document.querySelectorAll("section");
-    sections.forEach(section => {
-      const text = section.innerText.toLowerCase();
-      if (keyword && text.includes(keyword)) {
-        section.style.backgroundColor = "#fff3cd";
-        section.scrollIntoView({ behavior: "smooth", block: "center" });
-        setTimeout(() => section.style.backgroundColor = "", 2000);
-      } else {
-        section.style.backgroundColor = "";
-      }
-    });
-  }, 250);
+  searchTimeout = setTimeout(runSearch, 250);
+}
+
+function runSearch() {
+  const input = document.getElementById("searchInput");
+  if (!input) return;
+  const keyword = input.value.trim();
+  removeHighlight();
+  currentResults = [];
+  currentIndex = 0;
+  if (!keyword) return;
+  currentResults = highlightAll(keyword);
+  if (currentResults.length > 0) focusResult(0);
+}
+
+function highlightAll(keyword) {
+  const results = [];
+  const root = document.getElementById("mainContent");
+  if (!root) return results;
+  const lowerKeyword = keyword.toLowerCase();
+  const kwLen = keyword.length;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  let node;
+  while ((node = walker.nextNode())) {
+    if (!node.nodeValue.trim()) continue;
+    if (node.parentElement.closest(".code, pre, code, [data-hl]")) continue;
+    if (!node.nodeValue.toLowerCase().includes(lowerKeyword)) continue;
+    textNodes.push(node);
+  }
+  textNodes.forEach(textNode => {
+    const text = textNode.nodeValue;
+    const lower = text.toLowerCase();
+    const parent = textNode.parentNode;
+    if (!parent) return;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    let pos = lower.indexOf(lowerKeyword, 0);
+    while (pos !== -1) {
+      if (pos > lastIndex)
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex, pos)));
+      const mark = document.createElement("mark");
+      mark.className = "highlight";
+      mark.textContent = text.slice(pos, pos + kwLen);
+      fragment.appendChild(mark);
+      results.push(mark);
+      lastIndex = pos + kwLen;
+      pos = lower.indexOf(lowerKeyword, lastIndex);
+    }
+    if (lastIndex < text.length)
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+    const wrapper = document.createElement("span");
+    wrapper.dataset.hl = "1";
+    wrapper.appendChild(fragment);
+    parent.replaceChild(wrapper, textNode);
+  });
+  return results;
+}
+
+function removeHighlight() {
+  const root = document.getElementById("mainContent");
+  if (!root) return;
+  root.querySelectorAll("mark.highlight").forEach(mark =>
+    mark.replaceWith(document.createTextNode(mark.textContent))
+  );
+  root.querySelectorAll("span[data-hl]").forEach(span => {
+    const parent = span.parentNode;
+    if (!parent) return;
+    while (span.firstChild) parent.insertBefore(span.firstChild, span);
+    parent.removeChild(span);
+  });
+  root.normalize();
+}
+
+function focusResult(index) {
+  const el = currentResults[index];
+  if (!el) return;
+  currentResults.forEach(m => m.classList.remove("active"));
+  el.classList.add("active");
+  setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
 }
 
 // ================= LOGIN WALL =================
 function checkLoginAndDisplay() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
   const wall = document.getElementById("loginWall");
   const extra = document.getElementById("extraContent");
   if (isLoggedIn) {
@@ -45,10 +123,11 @@ function checkLoginAndDisplay() {
   }
 }
 
-// ================= SIDEBAR & COLLAPSIBLE (WIZARD) =================
+// ================= SIDEBAR & COLLAPSIBLE SECTIONS (WIZARD MODE) =================
 function initSidebarAndCollapse() {
   const mainContent = document.getElementById("mainContent");
   if (!mainContent) return;
+
   const sections = mainContent.querySelectorAll("section");
   const sidebarNav = document.getElementById("sidebarNav");
   if (!sidebarNav || sections.length === 0) return;
@@ -57,12 +136,17 @@ function initSidebarAndCollapse() {
 
   function toggleSection(section, forceExpand) {
     const willCollapse = (forceExpand !== undefined) ? !forceExpand : !section.classList.contains("collapsed");
-    section.classList.toggle("collapsed", willCollapse);
+    if (willCollapse) {
+      section.classList.add("collapsed");
+    } else {
+      section.classList.remove("collapsed");
+    }
   }
 
   sections.forEach((section, index) => {
     const h2 = section.querySelector("h2");
     if (!h2) return;
+
     const title = h2.textContent.trim();
     const sectionId = section.id || `section-${index}`;
     section.id = sectionId;
@@ -70,7 +154,7 @@ function initSidebarAndCollapse() {
     const link = document.createElement("a");
     link.href = `#${sectionId}`;
     link.textContent = title;
-    link.addEventListener("click", e => {
+    link.addEventListener("click", (e) => {
       e.preventDefault();
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       document.querySelectorAll(".sidebar-nav a").forEach(a => a.classList.remove("active"));
@@ -81,21 +165,27 @@ function initSidebarAndCollapse() {
 
     const contentWrapper = document.createElement("div");
     contentWrapper.className = "section-content";
-    const children = [];
+    const childrenAfterH2 = [];
     let next = h2.nextSibling;
-    while (next) { children.push(next); next = next.nextSibling; }
-    children.forEach(c => contentWrapper.appendChild(c));
+    while (next) {
+      childrenAfterH2.push(next);
+      next = next.nextSibling;
+    }
+    childrenAfterH2.forEach(child => contentWrapper.appendChild(child));
     section.appendChild(contentWrapper);
 
     const headerDiv = document.createElement("div");
     headerDiv.className = "section-header";
     h2.parentNode.insertBefore(headerDiv, h2);
     headerDiv.appendChild(h2);
-    const icon = document.createElement("span");
-    icon.className = "toggle-icon";
-    icon.textContent = "▼";
-    headerDiv.appendChild(icon);
-    headerDiv.addEventListener("click", e => { e.stopPropagation(); toggleSection(section); });
+    const toggleIcon = document.createElement("span");
+    toggleIcon.className = "toggle-icon";
+    toggleIcon.textContent = "▼";
+    headerDiv.appendChild(toggleIcon);
+    headerDiv.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleSection(section);
+    });
 
     section.classList.add("collapsed");
   });
@@ -105,26 +195,29 @@ function initSidebarAndCollapse() {
   sections.forEach((section, index) => {
     if (index === sections.length - 1) return;
     const nextSection = sections[index + 1];
-    const nextTitle = nextSection.querySelector("h2")?.textContent.trim() || "Berikutnya";
-    const container = document.createElement("div");
-    container.className = "section-next-container";
-    const btn = document.createElement("button");
-    btn.className = "section-next-btn";
-    btn.innerHTML = `▶ Lanjut ke: ${nextTitle}`;
-    btn.addEventListener("click", e => {
+    const nextH2 = nextSection.querySelector("h2");
+    const nextTitle = nextH2 ? nextH2.textContent.trim() : "Berikutnya";
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "section-next-container";
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "section-next-btn";
+    nextBtn.innerHTML = `▶ Lanjut ke: ${nextTitle}`;
+    nextBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleSection(nextSection, true);
       nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-    container.appendChild(btn);
-    section.querySelector(".section-content")?.appendChild(container);
+    btnContainer.appendChild(nextBtn);
+    const contentWrapper = section.querySelector(".section-content");
+    if (contentWrapper) contentWrapper.appendChild(btnContainer);
   });
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      const link = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
       if (link) {
-        if (e.isIntersecting) {
+        if (entry.isIntersecting) {
           document.querySelectorAll(".sidebar-nav a").forEach(a => a.classList.remove("active"));
           link.classList.add("active");
         }
@@ -134,14 +227,14 @@ function initSidebarAndCollapse() {
   sections.forEach(s => observer.observe(s));
 }
 
-// ================= DEMO FUNCTIONS =================
+// ================= DEMO FUNCTIONS (semua interaktivitas JS) =================
 function setupDemos() {
-  // Demo 1
+  // Demo 1: Intro
   document.getElementById("runDemo1")?.addEventListener("click", () => {
     document.getElementById("demo1").innerHTML = "✅ Wah, robotnya hidup! JavaScript berhasil merespons dan mengubah teks ini secara instan.";
   });
 
-  // Output
+  // Output: innerHTML, alert, console
   document.getElementById("runInnerHTML")?.addEventListener("click", () => {
     const msg = document.getElementById("outputMsg")?.value || "Halo!";
     document.getElementById("outputDemo").innerHTML = msg;
@@ -172,7 +265,7 @@ function setupDemos() {
     `;
   });
 
-  // Operator (eval aman terbatas)
+  // Operator
   document.getElementById("runOperator")?.addEventListener("click", () => {
     const expr = document.getElementById("opExpr")?.value || "10 + 5 * 2";
     try {
@@ -202,7 +295,7 @@ function setupDemos() {
     document.getElementById("fungsiResult").innerHTML = `Halo selamat datang, Tuan ${nama}!`;
   });
 
-  // DOM
+  // DOM Manipulation
   document.getElementById("runDOM")?.addEventListener("click", () => {
     const el = document.getElementById("domDemo");
     const text = document.getElementById("domText")?.value || "Diubah!";
@@ -218,7 +311,7 @@ function setupDemos() {
     el.style.fontWeight = "";
   });
 
-  // Event
+  // Event Handler
   const hoverBtn = document.getElementById("hoverBtn");
   if (hoverBtn) {
     hoverBtn.addEventListener("mouseover", () => { hoverBtn.style.background = "#f97316"; hoverBtn.innerHTML = "Awas Panas! 🔥"; });
@@ -236,7 +329,7 @@ function setupDemos() {
     document.getElementById("arrayResult").innerHTML = "Nama: Budi, Umur: 17, Kelas: XII";
   });
 
-  // LocalStorage
+  // LocalStorage (tetap menggunakan localStorage untuk menyimpan data pengguna, tidak untuk session)
   document.getElementById("saveStorage")?.addEventListener("click", () => {
     const val = document.getElementById("storageInput")?.value;
     if (val) { localStorage.setItem("myData", val); document.getElementById("storageResult").innerHTML = "Data tersimpan!"; }
@@ -256,7 +349,7 @@ function setupDemos() {
 document.addEventListener("DOMContentLoaded", () => {
   localStorage.setItem("lastPage", window.location.href);
   localStorage.setItem("lastPageName", window.location.href.split("/").pop());
-  if (localStorage.getItem("isLoggedIn") !== "true") localStorage.removeItem("redirectAfterLogin");
+  if (sessionStorage.getItem("isLoggedIn") !== "true") localStorage.removeItem("redirectAfterLogin");
 
   const header = document.querySelector("header");
   const topnav = document.querySelector(".topnav");
@@ -271,47 +364,81 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchMain = document.getElementById("searchInput");
   const searchMini = document.getElementById("searchMini");
 
-  let isMoved = false;
-  const displayName = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "";
+  let lastScrollY = window.scrollY, isHidden = false, isMoved = false;
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+  const displayName = sessionStorage.getItem("userName") || sessionStorage.getItem("userEmail") || "";
 
+  // Avatar & dropdown
   if (displayName && authBtn) {
     const initial = displayName.charAt(0).toUpperCase();
     authBtn.innerHTML = `<span style="background:#16a34a;color:white;padding:6px 10px;border-radius:50%;margin-right:6px;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;font-weight:bold;">${initial}</span><span>${displayName}</span> ▼`;
     authBtn.href = "#";
     authBtn.addEventListener("click", e => { e.preventDefault(); wrapper?.classList.toggle("active"); });
   } else if (authBtn) {
-    authBtn.addEventListener("click", e => { e.preventDefault(); window.location.href = "login.html"; });
+    authBtn.addEventListener("click", e => { e.preventDefault(); localStorage.setItem("redirectAfterLogin", window.location.href); window.location.href = "login.html"; });
   }
 
   document.addEventListener("click", e => { if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove("active"); });
 
-  if (searchMain) { searchMain.addEventListener("input", () => { if (searchMini) searchMini.value = searchMain.value; cariMateri(); }); }
-  if (searchMini) { searchMini.addEventListener("input", () => { if (searchMain) searchMain.value = searchMini.value; cariMateri(); }); }
+  if (searchMain) searchMain.addEventListener("input", () => { if (searchMini) searchMini.value = searchMain.value; cariMateri(); });
+  if (searchMini) searchMini.addEventListener("input", () => { if (searchMain) searchMain.value = searchMini.value; cariMateri(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && currentResults.length > 0) {
+      e.preventDefault();
+      currentIndex = (currentIndex + 1) % currentResults.length;
+      focusResult(currentIndex);
+    }
+  });
 
-  let lastScrollY = window.scrollY, isHidden = false;
+  // Scroll handler untuk mini header
   window.addEventListener("scroll", () => {
     const current = window.scrollY;
     if (current > 100 && current > lastScrollY && !isHidden) {
-      header?.classList.add("hide-nav"); topnav?.classList.add("hide-nav"); miniHeader?.classList.add("active"); isHidden = true;
+      header?.classList.add("hide-nav");
+      topnav?.classList.add("hide-nav");
+      miniHeader?.classList.add("active");
+      isHidden = true;
       if (!isMoved && wrapper && miniAccount) { miniAccount.appendChild(wrapper); isMoved = true; }
     } else if (current <= 0 && isHidden) {
-      header?.classList.remove("hide-nav"); topnav?.classList.remove("hide-nav"); miniHeader?.classList.remove("active"); isHidden = false;
+      header?.classList.remove("hide-nav");
+      topnav?.classList.remove("hide-nav");
+      miniHeader?.classList.remove("active");
+      isHidden = false;
       if (isMoved && wrapper && navRight) { navRight.appendChild(wrapper); isMoved = false; }
     }
     lastScrollY = current;
   }, { passive: true });
 
+  // Logout
   if (logoutBtn) {
     logoutBtn.addEventListener("click", e => {
-      e.preventDefault(); wrapper?.classList.remove("active");
+      e.preventDefault();
+      wrapper?.classList.remove("active");
       if (!loadingScreen || !terminal) return;
-      loadingScreen.style.display = "flex"; terminal.textContent = "";
-      requestAnimationFrame(() => {
-        typeEffect(["Logging out...", "Clearing session...", "Done."], terminal, () => {
-          localStorage.clear();
+      loadingScreen.style.display = "flex";
+      terminal.textContent = "";
+      const lines = [
+        "#include <iostream>", "using namespace std;", "", "int main(){",
+        '    cout << "Destroying session...\\n";', '    cout << "Freeing memory...\\n";',
+        '    cout << "User logged out...\\n";', "    return 0;", "}", "",
+        "$ g++ logout.cpp -o logoutApp", "Compiling...", "Build successful.",
+        "Running program...", "Session terminated successfully ✔"
+      ];
+      typeEffect(lines, terminal, () => {
+        document.body.style.transition = "opacity 0.5s ease";
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          sessionStorage.removeItem("isLoggedIn");
+          sessionStorage.removeItem("userEmail");
+          sessionStorage.removeItem("userName");
+          localStorage.removeItem("userPhone");
+          localStorage.removeItem("userAddress");
+          localStorage.removeItem("userGender");
+          localStorage.removeItem("userPassword");
+          localStorage.removeItem("userComplaints");
           window.location.href = "login.html";
-        });
-      });
+        }, 500);
+      }, 18, 250);
     });
   }
 

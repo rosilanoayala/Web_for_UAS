@@ -1,21 +1,21 @@
 /* ============================================================
-   TUTORIAL CSS – FINAL THEME (BIRU KHAS CSS)
+   TUTORIAL HTML – FINAL THEME (ORANYE HANGAT KHAS HTML)
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ================= ROOT & VARIABEL ================= */
 :root {
-  --main-color: #2965f1;       /* Biru CSS */
-  --main-light: #eef3ff;
-  --main-dark: #1e4bd2;
-  --accent-color: #f39c12;     
-  --bg-color: #f4f7f9;
-  --text-color: #2d3e3a;
+  --main-color: #e67e22;       /* Oranye HTML */
+  --main-light: #fef3e7;
+  --main-dark: #d35400;
+  --accent-color: #e67e22;     /* Oranye untuk border kode */
+  --bg-color: #fef9f0;
+  --text-color: #4a3b2a;
   --section-bg: #ffffff;
-  --border-color: #dce5e8;
-  --shadow: 0 4px 12px rgba(41, 101, 241, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --shadow-hover: 0 12px 24px rgba(41, 101, 241, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
+  --border-color: #f0e0c0;
+  --shadow: 0 4px 12px rgba(230, 126, 34, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 12px 24px rgba(230, 126, 34, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
@@ -47,7 +47,7 @@ h1, h2, h3, h4 {
 
 h2 {
   font-size: 1.8rem;
-  border-bottom: 3px solid rgba(41, 101, 241, 0.2);
+  border-bottom: 3px solid rgba(230, 126, 34, 0.2);
   padding-bottom: 8px;
   margin-bottom: 20px;
   color: var(--main-color);
@@ -236,31 +236,6 @@ header.hide-nav {
   right: 20px;
 }
 
-/* ================= MAIN CONTENT & SECTION ================= */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-section {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
-  margin: 30px auto;
-  padding: 28px 36px;
-  border-radius: 28px;
-  border: 1px solid var(--border-color);
-  border-left: 6px solid var(--main-color);
-  box-shadow: var(--shadow);
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-section:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-3px);
-  border-left-width: 8px;
-}
-
 /* ================= KOTAK CONTOH KODE ================= */
 .code {
   background: #1e2a2e;
@@ -302,6 +277,63 @@ section:hover {
 .btn-login:hover {
   background: var(--main-dark);
   transform: translateY(-2px);
+}
+
+/* ================= PERBESAR TULISAN PADA FITUR INTERAKTIF ================= */
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+input, select, button {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  font-family: var(--font-body);
+}
+
+button {
+  background: var(--main-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.01);
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+div[onclick="setTextColor"] {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+div[onclick="setTextColor"]:hover {
+  transform: scale(1.05);
+}
+
+input[type="range"] {
+  width: 200px;
+  padding: 0;
+}
+
+#gambarInteraktif {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ================= TERMINAL LOGOUT ================= */
@@ -418,8 +450,8 @@ footer {
 
 .sidebar-header {
     padding: 18px 20px;
-    border-bottom: 1px solid rgba(41, 101, 241, 0.2);
-    background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+    border-bottom: 1px solid rgba(230, 126, 34, 0.2);
+    background: linear-gradient(135deg, #fff8f0 0%, #ffffff 100%);
     border-radius: 20px 20px 0 0;
 }
 
@@ -444,13 +476,13 @@ footer {
 }
 
 .sidebar-nav a:hover {
-    background: rgba(41, 101, 241, 0.05);
+    background: rgba(230, 126, 34, 0.05);
     color: var(--main-color);
     border-left-color: var(--main-color);
 }
 
 .sidebar-nav a.active {
-    background: rgba(41, 101, 241, 0.1);
+    background: rgba(230, 126, 34, 0.1);
     color: var(--main-color);
     border-left-color: var(--main-color);
     font-weight: 600;
@@ -465,6 +497,20 @@ footer {
 /* ===== COLLAPSIBLE SECTION ===== */
 section {
     position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #fefaf5 100%);
+    margin: 30px auto;
+    padding: 28px 36px;
+    border-radius: 28px;
+    border: 1px solid var(--border-color);
+    border-left: 6px solid var(--main-color);
+    box-shadow: var(--shadow);
+    transition: all 0.25s ease;
+}
+
+section:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+    border-left-width: 8px;
 }
 
 .section-header {
@@ -477,8 +523,13 @@ section {
 .section-header h2 {
     flex: 1;
     margin-bottom: 0;
-    border-bottom: none;
-    padding-bottom: 0;
+    border-bottom: 3px solid rgba(230, 126, 34, 0.2);
+    padding-bottom: 8px;
+    transition: border-color 0.2s;
+}
+
+section:hover .section-header h2 {
+    border-bottom-color: var(--main-color);
 }
 
 .section-header .toggle-icon {
@@ -488,7 +539,7 @@ section {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--main-light);
+    background: rgba(230, 126, 34, 0.1);
     border-radius: 50%;
     margin-left: 15px;
     transition: transform 0.2s;
@@ -512,7 +563,7 @@ section.collapsed .section-content {
 .section-next-container {
     margin-top: 32px;
     text-align: right;
-    border-top: 1px dashed rgba(41, 101, 241, 0.3);
+    border-top: 1px dashed rgba(230, 126, 34, 0.3);
     padding-top: 24px;
 }
 
@@ -526,7 +577,7 @@ section.collapsed .section-content {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 4px 8px rgba(41, 101, 241, 0.2);
+    box-shadow: 0 4px 8px rgba(230, 126, 34, 0.2);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -535,7 +586,7 @@ section.collapsed .section-content {
 .section-next-btn:hover {
     background: var(--main-dark);
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(41, 101, 241, 0.3);
+    box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
 }
 
 .section-next-btn:active {
@@ -553,6 +604,28 @@ section.collapsed .section-content {
         max-height: none;
         margin-bottom: 20px;
     }
+}
+
+/* Hamburger Menu (Mobile) */
+.menu-toggle { display: none; }
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-mobile {
+  display: none;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  right: 0;
+  background: #282a35;
+  flex-direction: column;
+  padding: 16px 0;
+  border-top: 1px solid #3a3f55;
+  z-index: 999;
 }
 
 @media (max-width: 768px) {
@@ -576,5 +649,8 @@ section.collapsed .section-content {
   }
   #searchInput {
     width: 220px;
+  }
+  #mainContent {
+    padding: 15px;
   }
 }

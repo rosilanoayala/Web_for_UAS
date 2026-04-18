@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Coding - HTML, CSS, C++, JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+    <!-- NAVBAR (gelap seperti HOME) -->
+    <nav class="topnav">
+        <div class="nav-logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span class="logo-text">DevPortal Quiz</span>
+        </div>
+        <div class="nav-right">
+            <a href="HOME.html" class="nav-link">Home</a>
+            <a href="TempatKursus.html" class="nav-link">Kursus</a>
+            <div class="account-wrapper" id="accountWrapper">
+                <a href="#" class="sign-btn" id="authButton">Sign In</a>
+                <div class="dropdown-menu">
+                    <a href="Profile.html">👤 Profile</a>
+                    <a href="#" id="logoutBtn">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <!-- Header progress -->
+        <div class="quiz-header">
+            <div class="quiz-progress">
+                <span id="questionCounter">Soal 1 / 20</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kartu Soal -->
+        <div class="quiz-card" id="quizCard">
+            <div class="question-text" id="questionText">Memuat soal...</div>
+            <div class="options-list" id="optionsList"></div>
+            <div class="feedback-area" id="feedbackArea" style="display: none;">
+                <div class="feedback-icon" id="feedbackIcon">✅</div>
+                <div class="feedback-message" id="feedbackMessage"></div>
+                <div class="feedback-explanation" id="feedbackExplanation"></div>
+                <button class="next-btn" id="nextBtn">➡ Soal Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Area Selesai -->
+        <div class="restart-area" id="restartArea" style="display: none;">
+            <div class="score-card">
+                <h2>🎉 Quiz Selesai! 🎉</h2>
+                <p>Skor Anda: <span id="finalScore">0</span> / <span id="totalQuestions">0</span></p>
+                <button class="restart-btn" id="restartBtn">🔄 Mulai Ulang (Soal Acak)</button>
+                <a href="HOME.html" class="home-link">← Kembali ke Beranda</a>
+            </div>
+        </div>
+    </div>
+
+<div class="leaderboard-container" id="leaderboardContainer" style="margin-top: 30px;">
+    <h3>🏆 Peringkat Tertinggi 🏆</h3>
+    <div id="leaderboardList" class="leaderboard-list"></div>
+    <div id="leaderboardForm" style="margin-top: 20px;">
+        <input type="text" id="playerName" placeholder="Masukkan nama untuk masuk peringkat" maxlength="20">
+        <button id="saveScoreBtn" class="save-score-btn">Simpan Skor ke Peringkat</button>
+    </div>
+    <button id="resetLeaderboardBtn" class="reset-leaderboard-btn" style="margin-top: 10px; background:#dc2626;">🗑 Reset Semua Peringkat</button>
+</div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

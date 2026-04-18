@@ -361,34 +361,6 @@
       min-height: 80px;
     }
 
-    /* ── Redirect overlay ─────────────────────────────────── */
-    #redirectLoading {
-      position: fixed;
-      inset: 0;
-      background: rgba(13,17,23,0.95);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      backdrop-filter: blur(8px);
-    }
-
-    .redirect-box {
-      background: #1e2230;
-      padding: 28px 36px;
-      border-radius: 14px;
-      border: 1px solid #3a3f55;
-      box-shadow: 0 0 40px rgba(4,170,109,0.15);
-    }
-
-    #loadingText {
-      font-family: var(--font-code);
-      font-size: 0.875rem;
-      color: var(--accent);
-      white-space: pre;
-      line-height: 1.8;
-    }
-
     /* ── Footer strip ─────────────────────────────────────── */
     .page-footer {
       background: var(--nav-bg);
@@ -422,18 +394,14 @@
   <!-- ===== MAIN ===== -->
   <div class="page-body">
     <div class="login-card">
-
-      <!-- Header -->
       <div class="card-header">
         <div class="card-logo">&lt;/&gt;</div>
         <h1 class="card-title">Selamat Datang!</h1>
         <p class="card-subtitle">Masuk ke akun DevPortal kamu</p>
       </div>
 
-      <!-- Notice block -->
       <div id="loginNotice" role="alert"></div>
 
-      <!-- Login form -->
       <form id="loginForm" novalidate>
         <div class="form-group">
           <label for="email" class="form-label">Alamat Email</label>
@@ -446,35 +414,28 @@
         <button type="submit" class="btn-primary" id="loginSubmit">Masuk</button>
       </form>
 
-      <!-- Google login -->
       <a href="#" class="google-btn" id="googleBtn">
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18" alt="Google">
         Masuk dengan Google
       </a>
 
-      <!-- Divider -->
       <div class="divider"><span>atau</span></div>
 
-      <!-- Guest button -->
       <a href="HOME.html" class="guest-btn" id="guestBtn" onclick="setGuest()">
         👤 Lanjut sebagai Guest <span style="font-weight:400;color:#94a3b8;">(Akses Terbatas)</span>
       </a>
 
-      <!-- Extra links -->
       <div class="extra-links">
         <span>Belum punya akun? <a href="SignupTutorial.html">Daftar</a></span>
         <a href="LupaPassword.html">Lupa password?</a>
       </div>
-
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="page-footer">
     © 2025 DevPortal — Portal Tutorial Coding · Rosilano Ayala KA2A
   </footer>
 
-  <!-- Terminal Login Overlay -->
   <div id="loginOverlay">
     <div class="terminal-box">
       <div class="terminal-bar">
@@ -487,53 +448,31 @@
     </div>
   </div>
 
-  <!-- Redirect Overlay -->
-  <div id="redirectLoading">
-    <div class="redirect-box">
-      <pre id="loadingText"></pre>
-    </div>
-  </div>
-
+  <script src="shared.js"></script>
   <script>
-    // ========== 1. INISIALISASI DEMO ACCOUNT (JIKA BELUM ADA AKUN TERDAFTAR) ==========
-    (function initRegisteredUsers() {
+    // ========== INISIALISASI DEMO AKUN (jika belum ada) ==========
+    (async function initRegisteredUsers() {
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      
       if (users.length === 0) {
+        const demoHash = await hashPassword('demo123');
         users.push({
           email: 'demo@devportal.id',
-          password: 'demo123',
-          name: 'Demo User'
+          passwordHash: demoHash,
+          name: 'Demo User',
+          securityQuestion: 'nama_hewan',
+          securityAnswerHash: await hashPassword('kucing'),
+          phone: '', address: '', gender: ''
         });
         localStorage.setItem('registeredUsers', JSON.stringify(users));
       }
     })();
 
-    // ========== 2. FUNGSI VALIDASI LOGIN ==========
-    function validateLogin(email, password) {
-      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-      
-      if (!user) {
-        return { success: false, message: '❌ Akun belum terdaftar. Silakan daftar terlebih dahulu.' };
-      }
-      
-      if (user.password !== password) {
-        return { success: false, message: '❌ Password salah. Coba lagi.' };
-      }
-      
-      return { success: true, user };
-    }
-
-    // ========== 3. SET GUEST ==========
     function setGuest() {
-      localStorage.setItem("isGuest", "true");
-      localStorage.removeItem("isLoggedIn");
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.setItem('isGuest', 'true');
     }
 
-    // ========== 4. DOM CONTENT LOADED ==========
     document.addEventListener("DOMContentLoaded", function () {
-      // Tampilkan pesan dari localStorage (misal dari signup)
       const notice = localStorage.getItem("loginMessage");
       if (notice) {
         const el = document.getElementById("loginNotice");
@@ -542,11 +481,10 @@
         localStorage.removeItem("loginMessage");
       }
 
-      // Jika sudah login → redirect
-      if (localStorage.getItem("isLoggedIn") === "true") {
-        const redirectPage = localStorage.getItem("redirectAfterLogin");
-        const lastPage     = localStorage.getItem("lastPage");
-        window.location.href = redirectPage || lastPage || "HOME.html";
+      if (sessionStorage.getItem("isLoggedIn") === "true") {
+        const redirectPage = localStorage.getItem("redirectAfterLogin") || "HOME.html";
+        localStorage.removeItem("redirectAfterLogin");
+        window.location.href = redirectPage;
         return;
       }
 
@@ -556,60 +494,49 @@
       const passwordInput = document.getElementById("password");
       const noticeEl = document.getElementById("loginNotice");
 
-      // ========== LOGIN FORM SUBMIT ==========
-      loginForm.addEventListener("submit", function (e) {
+      loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        
         const email = emailInput.value.trim();
         const password = passwordInput.value;
-        
         if (!email || !password) {
-          noticeEl.textContent = '⚠️ Email dan password harus diisi.';
-          noticeEl.classList.add('visible');
+          showNotice('loginNotice', '⚠️ Email dan password harus diisi.', true);
           return;
         }
-        
-        const validation = validateLogin(email, password);
-        
-        if (!validation.success) {
-          noticeEl.textContent = validation.message;
-          noticeEl.classList.add('visible');
+        const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        if (!user) {
+          showNotice('loginNotice', '❌ Akun belum terdaftar.', true);
           return;
         }
-        
+        const hashedInput = await hashPassword(password);
+        if (user.passwordHash !== hashedInput) {
+          showNotice('loginNotice', '❌ Password salah.', true);
+          return;
+        }
         noticeEl.classList.remove('visible');
-        runLoginAnimation(email, validation.user.name || email);
+        runLoginAnimation(email, user.name || email);
       });
 
-      // ========== GOOGLE LOGIN (DEMO) ==========
-      googleBtn.addEventListener("click", function (e) {
+      googleBtn.addEventListener("click", async function (e) {
         e.preventDefault();
         const demoEmail = 'googleuser@gmail.com';
         const demoName = 'Google User';
-        
         let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
         const existing = users.find(u => u.email === demoEmail);
         if (!existing) {
-          users.push({ email: demoEmail, password: 'google123', name: demoName });
+          const hashPwd = await hashPassword('google123');
+          users.push({ email: demoEmail, passwordHash: hashPwd, name: demoName, securityQuestion: '', securityAnswerHash: '', phone: '', address: '', gender: '' });
           localStorage.setItem('registeredUsers', JSON.stringify(users));
         }
-        
         runLoginAnimation(demoEmail, demoName);
       });
 
-      // ========== FUNGSI ANIMASI TERMINAL LOGIN ==========
       function runLoginAnimation(email, displayName) {
-        const overlay  = document.getElementById("loginOverlay");
+        const overlay = document.getElementById("loginOverlay");
         const terminal = document.getElementById("loginTerminal");
-
         overlay.style.display = "flex";
-        terminal.textContent  = "";
-
-        const pageName    = localStorage.getItem("lastPageName");
-        const displayPage = pageName
-          ? pageName.replace(".html", "").replace("Tutorial", "Tutorial ")
-          : "HOME";
-
+        terminal.textContent = "";
+        const pageName = localStorage.getItem("lastPageName") || "HOME";
         const lines = [
           "// Initializing Authentication Module",
           `User: ${email}`,
@@ -618,35 +545,27 @@
           "Validating session token...",
           "Access Granted ✔",
           `Welcome, ${displayName || email}!`,
-          `Redirecting to ${displayPage}...`
+          `Redirecting to ${pageName}...`
         ];
-
         let i = 0, j = 0;
-
         function type() {
           if (i >= lines.length) {
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("userEmail", email);
-            if (displayName) localStorage.setItem("userName", displayName);
-            localStorage.removeItem("isGuest");
-
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("userEmail", email);
+            if (displayName) sessionStorage.setItem("userName", displayName);
+            sessionStorage.removeItem("isGuest");
             const redirectPage = localStorage.getItem("redirectAfterLogin");
-            const lastPage     = localStorage.getItem("lastPage");
-            let targetPage     = "HOME.html";
-
+            const lastPage = localStorage.getItem("lastPage");
+            let targetPage = "HOME.html";
             if (redirectPage) {
               targetPage = redirectPage;
               localStorage.removeItem("redirectAfterLogin");
             } else if (lastPage) {
               targetPage = lastPage;
-              localStorage.removeItem("lastPage");
-              localStorage.removeItem("lastPageName");
             }
-
             setTimeout(() => { window.location.href = targetPage; }, 1200);
             return;
           }
-
           if (j < lines[i].length) {
             terminal.textContent += lines[i][j++];
             setTimeout(type, 20);
@@ -656,7 +575,6 @@
             setTimeout(type, 300);
           }
         }
-
         type();
       }
     });

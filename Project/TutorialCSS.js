@@ -1,5 +1,6 @@
 /* ==========================================================
    TutorialCSS.js — Versi Final dengan Sidebar & Wizard Mode
+   Semua perbaikan: sessionStorage, search, collapsible, demo
    ========================================================== */
 
 "use strict";
@@ -24,7 +25,7 @@ function typeEffect(lines, target, callback, charSpeed = 18, lineSpeed = 250) {
   type();
 }
 
-// ================= PENCARIAN =================
+// ================= PENCARIAN (HIGHLIGHT SYSTEM) =================
 let searchTimeout = null;
 let currentResults = [];
 let currentIndex = 0;
@@ -115,7 +116,7 @@ function focusResult(index) {
 
 // ================= LOGIN WALL =================
 function checkLoginAndDisplay() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
   const wall = document.getElementById("loginWall");
   const extra = document.getElementById("extraContent");
   if (isLoggedIn) {
@@ -127,7 +128,7 @@ function checkLoginAndDisplay() {
   }
 }
 
-// ================= SEMUA DEMO INTERAKTIF =================
+// ================= SEMUA DEMO INTERAKTIF (dari file asli) =================
 function initDemos() {
   // 1. Demo Colors
   const colorPicker = document.getElementById('colorPicker');
@@ -389,7 +390,6 @@ function initSidebarAndCollapse() {
 
     sidebarNav.innerHTML = '';
 
-    // Fungsi untuk toggle section
     function toggleSection(section, forceExpand) {
         const willCollapse = (forceExpand !== undefined) ? !forceExpand : !section.classList.contains('collapsed');
         if (willCollapse) {
@@ -399,7 +399,6 @@ function initSidebarAndCollapse() {
         }
     }
 
-    // Proses setiap section
     sections.forEach((section, index) => {
         const h2 = section.querySelector('h2');
         if (!h2) return;
@@ -408,7 +407,6 @@ function initSidebarAndCollapse() {
         const sectionId = section.id || `section-${index}`;
         section.id = sectionId;
 
-        // 1. Buat link di sidebar
         const link = document.createElement('a');
         link.href = `#${sectionId}`;
         link.textContent = title;
@@ -423,7 +421,6 @@ function initSidebarAndCollapse() {
         });
         sidebarNav.appendChild(link);
 
-        // 2. Bungkus konten setelah h2 ke dalam div.section-content
         const contentWrapper = document.createElement('div');
         contentWrapper.className = 'section-content';
         
@@ -436,7 +433,6 @@ function initSidebarAndCollapse() {
         childrenAfterH2.forEach(child => contentWrapper.appendChild(child));
         section.appendChild(contentWrapper);
 
-        // 3. Header dengan toggle icon
         const headerDiv = document.createElement('div');
         headerDiv.className = 'section-header';
         h2.parentNode.insertBefore(headerDiv, h2);
@@ -453,16 +449,13 @@ function initSidebarAndCollapse() {
             toggleSection(section);
         });
 
-        // 4. Semua section default COLLAPSED
         section.classList.add('collapsed');
     });
 
-    // --- Buka section pertama secara otomatis ---
     if (sections.length > 0) {
         toggleSection(sections[0], true);
     }
 
-    // --- Tambahkan tombol "Lanjut" di setiap section (kecuali terakhir) ---
     sections.forEach((section, index) => {
         if (index === sections.length - 1) return;
 
@@ -491,7 +484,6 @@ function initSidebarAndCollapse() {
         }
     });
 
-    // Intersection Observer untuk highlight sidebar
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const id = entry.target.id;
@@ -515,9 +507,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const pageName = currentPage.split("/").pop();
   localStorage.setItem("lastPage", currentPage);
   localStorage.setItem("lastPageName", pageName);
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    localStorage.removeItem("redirectAfterLogin");
-  }
+  if (sessionStorage.getItem("isLoggedIn") !== "true") localStorage.removeItem("redirectAfterLogin");
 
   const header = document.querySelector("header");
   const topnav = document.querySelector(".topnav");
@@ -529,14 +519,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutBtn = document.getElementById("logoutBtn");
   const loadingScreen = document.getElementById("loadingScreen");
   const terminal = document.getElementById("terminalText");
-  const redirectOverlay = document.getElementById("redirectLoading");
-  const loadingText = document.getElementById("loadingText");
   const searchMain = document.getElementById("searchInput");
   const searchMini = document.getElementById("searchMini");
 
+  let lastScrollY = window.scrollY;
+  let isHidden = false;
   let isMoved = false;
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const displayName = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "";
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+  const displayName = sessionStorage.getItem("userName") || sessionStorage.getItem("userEmail") || "";
 
   // Avatar & dropdown
   if (displayName && authBtn) {
@@ -584,33 +574,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // SCROLL HANDLER
-  let lastScrollY = window.scrollY;
-  let isHidden = false;
+  // SCROLL HANDLER untuk mini header
+  let ticking = false;
   const SCROLL_TRIGGER = 100;
-
   window.addEventListener("scroll", function () {
-    const currentScroll = window.scrollY;
-    if (currentScroll > SCROLL_TRIGGER && currentScroll > lastScrollY && !isHidden) {
-      header.classList.add("hide-nav");
-      topnav.classList.add("hide-nav");
-      miniHeader.classList.add("active");
-      isHidden = true;
-      if (!isMoved && wrapper && miniAccount) {
-        miniAccount.appendChild(wrapper);
-        isMoved = true;
-      }
-    } else if (currentScroll <= 0 && isHidden) {
-      header.classList.remove("hide-nav");
-      topnav.classList.remove("hide-nav");
-      miniHeader.classList.remove("active");
-      isHidden = false;
-      if (isMoved && wrapper && navRight) {
-        navRight.appendChild(wrapper);
-        isMoved = false;
-      }
+    if (!ticking) {
+      requestAnimationFrame(function () {
+        const currentScroll = window.scrollY;
+        if (currentScroll > SCROLL_TRIGGER && currentScroll > lastScrollY && !isHidden) {
+          if (header) header.classList.add("hide-nav");
+          if (topnav) topnav.classList.add("hide-nav");
+          if (miniHeader) miniHeader.classList.add("active");
+          isHidden = true;
+          if (!isMoved && wrapper && miniAccount) {
+            miniAccount.appendChild(wrapper);
+            isMoved = true;
+          }
+        } else if (currentScroll <= 0 && isHidden) {
+          if (header) header.classList.remove("hide-nav");
+          if (topnav) topnav.classList.remove("hide-nav");
+          if (miniHeader) miniHeader.classList.remove("active");
+          isHidden = false;
+          if (isMoved && wrapper && navRight) {
+            navRight.appendChild(wrapper);
+            isMoved = false;
+          }
+        }
+        lastScrollY = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
     }
-    lastScrollY = currentScroll;
   }, { passive: true });
 
   // Logout
@@ -643,9 +637,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.style.transition = "opacity 0.5s ease";
             document.body.style.opacity = "0";
             setTimeout(() => {
-              localStorage.removeItem("isLoggedIn");
-              localStorage.removeItem("userEmail");
-              localStorage.removeItem("userName");
+              sessionStorage.removeItem("isLoggedIn");
+              sessionStorage.removeItem("userEmail");
+              sessionStorage.removeItem("userName");
+              localStorage.removeItem("userPhone");
+              localStorage.removeItem("userAddress");
+              localStorage.removeItem("userGender");
+              localStorage.removeItem("userPassword");
+              localStorage.removeItem("userComplaints");
               window.location.href = "login.html";
             }, 500);
           }, 18, 250);
@@ -654,12 +653,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 🔥 Inisialisasi sidebar & collapsible sections (WIZARD MODE)
-  initSidebarAndCollapse();
-
   checkLoginAndDisplay();
   window.addEventListener("storage", checkLoginAndDisplay);
-
-  // Panggil semua demo interaktif
+  initSidebarAndCollapse();
   initDemos();
 });

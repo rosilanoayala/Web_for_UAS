@@ -173,7 +173,6 @@
     }
   }
 
-  // Fungsi untuk menghasilkan HTML daftar komentar (bisa mode collapsed/expanded)
   function generateCommentsHTML(comments, courseId, expanded = false) {
     if (!comments || comments.length === 0) {
       return '<div class="empty-review">Belum ada komentar. Jadilah yang pertama!</div>';
@@ -182,7 +181,6 @@
     const displayComments = expanded ? comments : comments.slice(-3);
     let html = displayComments.map(c => `<div class="review-item">“${c}”</div>`).join('');
     
-    // Tambahkan tombol expand/collapse jika komentar > 3
     if (comments.length > 3) {
       if (!expanded) {
         html += `<button class="expand-comments-btn" data-course-id="${courseId}" data-action="expand">📋 Lihat semua komentar (${comments.length})</button>`;
@@ -208,7 +206,6 @@
       const avgRating = calculateAverageRating(courseReviews.ratings);
       const comments = courseReviews.comments || [];
       
-      // Tentukan apakah link mengarah ke Instagram atau website biasa
       const isInstagram = place.website.includes('instagram.com');
       const linkText = isInstagram ? '📸 Instagram' : '🌐 Kunjungi Web';
       
@@ -224,16 +221,12 @@
           <div class="card-address">
             <span>📍</span> ${place.address}
           </div>
-          
-          <!-- Rating Bintang -->
           <div class="rating-container">
             <div class="stars" data-course-id="${place.id}">
               ${renderStars(avgRating, place.id)}
             </div>
             <span class="rating-value">${avgRating} (${courseReviews.ratings.length} ulasan)</span>
           </div>
-          
-          <!-- Komentar / Review -->
           <div class="review-section">
             <div class="review-list" id="review-list-${place.id}">
               ${generateCommentsHTML(comments, place.id, false)}
@@ -243,7 +236,6 @@
               <button class="review-send-btn" data-course-id="${place.id}">Kirim</button>
             </div>
           </div>
-          
           <div class="card-footer">
             <a href="${place.website}" target="_blank" rel="noopener noreferrer" class="website-link protected-link">
               ${linkText} <span style="font-size:1.2rem;">↗</span>
@@ -258,11 +250,8 @@
     attachRatingAndReviewListeners();
   }
 
-  // ---------- EVENT LISTENER UNTUK RATING, REVIEW, DAN EXPAND COMMENTS ----------
   function attachRatingAndReviewListeners() {
-    // Klik pada bintang atau tombol (delegasi)
     container.addEventListener('click', function(e) {
-      // Rating bintang
       if (e.target.classList.contains('star')) {
         const star = e.target;
         const rating = parseInt(star.dataset.rating);
@@ -285,7 +274,6 @@
         return;
       }
       
-      // Kirim komentar
       if (e.target.classList.contains('review-send-btn')) {
         const btn = e.target;
         const courseId = btn.dataset.courseId;
@@ -301,13 +289,11 @@
         
         const reviewList = document.getElementById(`review-list-${courseId}`);
         const comments = reviewsData[courseId].comments;
-        // Selalu tampilkan collapsed (3 terbaru) setelah menambah komentar
         reviewList.innerHTML = generateCommentsHTML(comments, courseId, false);
         input.value = '';
         return;
       }
       
-      // Expand / Collapse komentar
       if (e.target.classList.contains('expand-comments-btn')) {
         const btn = e.target;
         const courseId = btn.dataset.courseId;
@@ -325,7 +311,6 @@
     });
   }
 
-  // Ganti tab
   function switchTab(lang) {
     currentLang = lang;
     tabButtons.forEach(btn => {
@@ -352,11 +337,12 @@
     switchTab('html');
   }
 
+  // ================= PERBAIKAN: GUNAKAN SESSIONSTORAGE UNTUK AUTENTIKASI =================
   // ---------- PROTEKSI LINK ----------
   document.addEventListener('click', function(e) {
     const link = e.target.closest('.protected-link');
     if (!link) return;
-    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true';  // pakai sessionStorage
     if (!loggedIn) {
       e.preventDefault();
       localStorage.setItem('redirectAfterLogin', link.href);
@@ -372,8 +358,9 @@
   const loadingScreen = document.getElementById('loadingScreen');
   const terminal = document.getElementById('terminalText');
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const displayName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || '';
+  // Ambil dari sessionStorage
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  const displayName = sessionStorage.getItem('userName') || sessionStorage.getItem('userEmail') || '';
 
   if (isLoggedIn && displayName && authBtn) {
     const initial = displayName.charAt(0).toUpperCase();
@@ -406,7 +393,7 @@
     if (logoutBtn) logoutBtn.style.display = 'none';
   }
 
-  // ---------- LOGOUT DENGAN EFEK TERMINAL ----------
+  // ---------- LOGOUT DENGAN EFEK TERMINAL (bersihkan sessionStorage) ----------
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -414,9 +401,11 @@
       if (wrapper) wrapper.classList.remove('active');
       
       if (!loadingScreen || !terminal) {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userName');
+        // Hapus sessionStorage
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('userEmail');
+        sessionStorage.removeItem('userName');
+        // Hapus data lain yang tersimpan di localStorage (opsional)
         localStorage.removeItem('userPhone');
         localStorage.removeItem('userAddress');
         localStorage.removeItem('userGender');
@@ -451,9 +440,11 @@
         document.body.style.transition = 'opacity 0.5s ease';
         document.body.style.opacity = '0';
         setTimeout(() => {
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('userEmail');
-          localStorage.removeItem('userName');
+          // Hapus sessionStorage
+          sessionStorage.removeItem('isLoggedIn');
+          sessionStorage.removeItem('userEmail');
+          sessionStorage.removeItem('userName');
+          // Hapus data lokal lainnya
           localStorage.removeItem('userPhone');
           localStorage.removeItem('userAddress');
           localStorage.removeItem('userGender');
@@ -465,5 +456,5 @@
     });
   }
 
-  console.log('%c🗂️ CodeSumsel — direktori + rating & expandable comments', 'font-family:"Fira Code"; font-size:13px; background:#04aa6d; color:#fff; padding:4px 8px; border-radius:6px;');
+  console.log('%c🗂️ CodeSumsel — direktori + rating & expandable comments (sessionStorage fixed)', 'font-family:"Fira Code"; font-size:13px; background:#04aa6d; color:#fff; padding:4px 8px; border-radius:6px;');
 })();
