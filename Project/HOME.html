@@ -287,6 +287,82 @@ const greet = (name) => "Halo, " + name + "!";</textarea>
 
   </main>
 
+<!-- ===== QUIZ SECTION ===== -->
+<section class="quiz-section">
+    <div class="quiz-header-text">
+        <p class="section-label">// Uji Pemahamanmu</p>
+        <h2 class="section-title">Quiz Interaktif</h2>
+        <p class="quiz-subtitle">Pilih quiz sesuai bahasa yang kamu pelajari, atau coba quiz campuran.</p>
+    </div>
+
+    <!-- Quiz Campuran (umum) - Sendirian di baris pertama -->
+    <div class="quiz-featured">
+        <div class="quiz-card featured-card">
+            <div class="quiz-icon mixed-icon">🎲</div>
+            <div class="featured-content">
+                <h3 class="quiz-name">Quiz Campuran</h3>
+                <p class="quiz-desc">20 soal acak dari HTML, CSS, C++, dan JavaScript. Setiap sesi berbeda!</p>
+                <div class="quiz-stats">
+                    <span>📊 20 soal</span>
+                    <span>🎯 4 bahasa</span>
+                </div>
+                <a href="quiz.html" class="quiz-btn mixed-btn">Mulai Quiz →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid 2x2 untuk quiz per bahasa -->
+    <div class="quiz-grid-2x2">
+        <!-- Quiz HTML -->
+        <div class="quiz-card html-quiz">
+            <div class="quiz-icon html-icon">🟠</div>
+            <h3 class="quiz-name">Quiz HTML</h3>
+            <p class="quiz-desc">Kuasai tag, atribut, struktur, dan semantic HTML.</p>
+            <div class="quiz-stats">
+                <span>📄 10 soal</span>
+                <span>🏷️ HTML</span>
+            </div>
+            <a href="quiz-html.html" class="quiz-btn html-btn">Mulai Quiz →</a>
+        </div>
+
+        <!-- Quiz CSS -->
+        <div class="quiz-card css-quiz">
+            <div class="quiz-icon css-icon">🎨</div>
+            <h3 class="quiz-name">Quiz CSS</h3>
+            <p class="quiz-desc">Uji kemampuan styling, layout, dan animasi CSS.</p>
+            <div class="quiz-stats">
+                <span>🎨 10 soal</span>
+                <span>📐 CSS</span>
+            </div>
+            <a href="quiz-css.html" class="quiz-btn css-btn">Mulai Quiz →</a>
+        </div>
+
+        <!-- Quiz C++ -->
+        <div class="quiz-card cpp-quiz">
+            <div class="quiz-icon cpp-icon">⚙️</div>
+            <h3 class="quiz-name">Quiz C++</h3>
+            <p class="quiz-desc">Pointer, class, inheritance, dan logika pemrograman C++.</p>
+            <div class="quiz-stats">
+                <span>⚡ 10 soal</span>
+                <span>🧠 C++</span>
+            </div>
+            <a href="quiz-cpp.html" class="quiz-btn cpp-btn">Mulai Quiz →</a>
+        </div>
+
+        <!-- Quiz JavaScript -->
+        <div class="quiz-card js-quiz">
+            <div class="quiz-icon js-icon">🟡</div>
+            <h3 class="quiz-name">Quiz JavaScript</h3>
+            <p class="quiz-desc">DOM, event, array, object, dan konsep modern JS.</p>
+            <div class="quiz-stats">
+                <span>🚀 10 soal</span>
+                <span>✨ JavaScript</span>
+            </div>
+            <a href="quiz-js.html" class="quiz-btn js-btn">Mulai Quiz →</a>
+        </div>
+    </div>
+</section>
+
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="footer-inner">

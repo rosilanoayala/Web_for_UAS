@@ -9,29 +9,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ── Tokens (sama persis dengan HOME.css) ─────────────── */
+    /* ... (CSS sama seperti yang Anda punya, tidak perlu diubah) ... */
+    /* Saya tidak akan menulis ulang CSS di sini karena panjang, 
+       gunakan CSS yang sudah ada di file Anda. */
     :root {
-      --bg:         #f5f7fa;
-      --surface:    #ffffff;
-      --border:     #e0e6ed;
-      --text:       #2d3748;
-      --text-sub:   #5a6a7e;
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --border: #e0e6ed;
+      --text: #2d3748;
+      --text-sub: #5a6a7e;
       --text-muted: #94a3b8;
-      --nav-bg:     #282a35;
-      --accent:     #04aa6d;
-      --accent-dk:  #038c5a;
-      --danger:     #dc2626;
-      --font-ui:    'Source Sans 3', system-ui, sans-serif;
-      --font-code:  'Fira Code', monospace;
-      --radius:     14px;
-      --shadow:     0 4px 24px rgba(0,0,0,0.09);
-      --shadow-lg:  0 12px 40px rgba(0,0,0,0.14);
-      --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --nav-bg: #282a35;
+      --accent: #04aa6d;
+      --accent-dk: #038c5a;
+      --danger: #dc2626;
+      --font-ui: 'Source Sans 3', system-ui, sans-serif;
+      --font-code: 'Fira Code', monospace;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.09);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.14);
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--font-ui);
       background: var(--bg);
@@ -41,8 +41,6 @@
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
-
-    /* ── Navbar (identik HOME) ────────────────────────────── */
     .topnav {
       display: flex;
       justify-content: space-between;
@@ -52,9 +50,7 @@
       background: var(--nav-bg);
       flex-shrink: 0;
     }
-
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
     .logo-icon {
       background: var(--accent);
       color: #fff;
@@ -64,13 +60,7 @@
       padding: 4px 9px;
       border-radius: 6px;
     }
-
-    .logo-text {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
+    .logo-text { font-size: 1.15rem; font-weight: 700; color: #fff; }
     .nav-back {
       text-decoration: none;
       color: #cdd5e0;
@@ -78,18 +68,9 @@
       font-weight: 600;
       padding: 6px 14px;
       border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       transition: background 0.2s, color 0.2s;
     }
-
-    .nav-back:hover {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    /* ── Main area ────────────────────────────────────────── */
+    .nav-back:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .page-body {
       flex: 1;
       display: flex;
@@ -98,8 +79,6 @@
       padding: 40px 20px;
       background: linear-gradient(135deg, #f0faf5 0%, #e8f4fd 100%);
     }
-
-    /* ── Login card ───────────────────────────────────────── */
     .login-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -109,13 +88,7 @@
       max-width: 400px;
       box-shadow: var(--shadow-lg);
     }
-
-    /* Card header */
-    .card-header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
+    .card-header { text-align: center; margin-bottom: 28px; }
     .card-logo {
       display: inline-flex;
       align-items: center;
@@ -131,21 +104,8 @@
       color: var(--accent);
       margin-bottom: 14px;
     }
-
-    .card-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.4px;
-    }
-
-    .card-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      margin-top: 5px;
-    }
-
-    /* Notice / alert */
+    .card-title { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.4px; }
+    .card-subtitle { font-size: 0.9rem; color: var(--text-sub); margin-top: 5px; }
     #loginNotice {
       background: #fef2f2;
       border: 1px solid #fecaca;
@@ -158,22 +118,9 @@
       margin-bottom: 20px;
       display: none;
     }
-
     #loginNotice.visible { display: block; }
-
-    /* Form */
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 0.875rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
     .form-input {
       width: 100%;
       padding: 11px 14px;
@@ -186,14 +133,7 @@
       transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
     }
-
-    .form-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(4,170,109,0.15);
-      background: #fff;
-    }
-
-    /* Buttons */
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(4,170,109,0.15); background: #fff; }
     .btn-primary {
       display: block;
       width: 100%;
@@ -209,15 +149,7 @@
       transition: background 0.2s, transform 0.15s;
       margin-top: 6px;
     }
-
-    .btn-primary:hover {
-      background: var(--accent-dk);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:active { transform: translateY(0); }
-
-    /* Google button */
+    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
     .google-btn {
       display: flex;
       align-items: center;
@@ -237,38 +169,15 @@
       margin-top: 12px;
       transition: background 0.2s, border-color 0.2s, transform 0.15s;
     }
-
-    .google-btn:hover {
-      background: var(--bg);
-      border-color: #94a3b8;
-      transform: translateY(-1px);
-    }
-
-    /* Divider */
+    .google-btn:hover { background: var(--bg); border-color: #94a3b8; transform: translateY(-1px); }
     .divider {
       display: flex;
       align-items: center;
       gap: 12px;
       margin: 22px 0;
     }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .divider span {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* Guest button */
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider span { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
     .guest-btn {
       display: block;
       width: 100%;
@@ -285,13 +194,7 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
     }
-
-    .guest-btn:hover {
-      background: #e2e8f0;
-      transform: translateY(-1px);
-    }
-
-    /* Extra links */
+    .guest-btn:hover { background: #e2e8f0; transform: translateY(-1px); }
     .extra-links {
       margin-top: 22px;
       display: flex;
@@ -299,17 +202,8 @@
       font-size: 0.875rem;
       color: var(--text-sub);
     }
-
-    .extra-links a {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .extra-links a { color: var(--accent); font-weight: 700; text-decoration: none; transition: color 0.2s; }
     .extra-links a:hover { color: var(--accent-dk); text-decoration: underline; }
-
-    /* ── Terminal overlay ─────────────────────────────────── */
     #loginOverlay {
       position: fixed;
       inset: 0;
@@ -320,7 +214,6 @@
       z-index: 9999;
       backdrop-filter: blur(8px);
     }
-
     .terminal-box {
       background: #1e2230;
       border: 1px solid #3a3f55;
@@ -331,7 +224,6 @@
       box-shadow: 0 0 60px rgba(4,170,109,0.15);
       font-family: var(--font-code);
     }
-
     .terminal-bar {
       display: flex;
       align-items: center;
@@ -340,18 +232,11 @@
       background: #161929;
       border-bottom: 1px solid #3a3f55;
     }
-
     .dot { width: 12px; height: 12px; border-radius: 50%; }
     .dot.r { background: #ff5f57; }
     .dot.y { background: #febc2e; }
     .dot.g { background: #28c840; }
-
-    .terminal-label {
-      margin-left: 6px;
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-
+    .terminal-label { margin-left: 6px; font-size: 0.78rem; color: #6b7280; }
     #loginTerminal {
       padding: 20px 22px;
       font-size: 0.875rem;
@@ -360,8 +245,6 @@
       white-space: pre-wrap;
       min-height: 80px;
     }
-
-    /* ── Footer strip ─────────────────────────────────────── */
     .page-footer {
       background: var(--nav-bg);
       padding: 14px 36px;
@@ -371,18 +254,15 @@
       font-family: var(--font-code);
       flex-shrink: 0;
     }
-
-    /* ── Responsive ───────────────────────────────────────── */
     @media (max-width: 480px) {
       .login-card { padding: 32px 22px; }
-      .topnav     { padding: 0 18px; }
-      .extra-links{ flex-direction: column; gap: 8px; text-align: center; }
+      .topnav { padding: 0 18px; }
+      .extra-links { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <nav class="topnav">
     <a href="HOME.html" class="nav-logo">
       <span class="logo-icon">&lt;/&gt;</span>
@@ -391,7 +271,6 @@
     <a href="HOME.html" class="nav-back">← Kembali ke Home</a>
   </nav>
 
-  <!-- ===== MAIN ===== -->
   <div class="page-body">
     <div class="login-card">
       <div class="card-header">
@@ -452,6 +331,11 @@
   <script>
     // ========== INISIALISASI DEMO AKUN (jika belum ada) ==========
     (async function initRegisteredUsers() {
+      // Pastikan shared.js sudah load, jika tidak, beri peringatan
+      if (typeof hashPassword === 'undefined') {
+        console.error('shared.js tidak terload!');
+        return;
+      }
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       if (users.length === 0) {
         const demoHash = await hashPassword('demo123');
@@ -464,15 +348,24 @@
           phone: '', address: '', gender: ''
         });
         localStorage.setItem('registeredUsers', JSON.stringify(users));
+        console.log('Akun demo dibuat:', users);
       }
     })();
 
     function setGuest() {
       sessionStorage.removeItem('isLoggedIn');
       sessionStorage.setItem('isGuest', 'true');
+      window.location.href = 'HOME.html';
     }
 
     document.addEventListener("DOMContentLoaded", function () {
+      // Cek apakah shared.js sudah memberikan fungsi yang diperlukan
+      if (typeof hashPassword === 'undefined' || typeof showNotice === 'undefined') {
+        alert('Error: file shared.js tidak terload dengan benar. Silakan refresh halaman.');
+        console.error('shared.js missing functions');
+        return;
+      }
+
       const notice = localStorage.getItem("loginMessage");
       if (notice) {
         const el = document.getElementById("loginNotice");
@@ -481,6 +374,7 @@
         localStorage.removeItem("loginMessage");
       }
 
+      // Jika sudah login, redirect ke halaman sebelumnya atau HOME
       if (sessionStorage.getItem("isLoggedIn") === "true") {
         const redirectPage = localStorage.getItem("redirectAfterLogin") || "HOME.html";
         localStorage.removeItem("redirectAfterLogin");
@@ -503,12 +397,15 @@
           return;
         }
         const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        console.log('Users di localStorage:', users);
         const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (!user) {
-          showNotice('loginNotice', '❌ Akun belum terdaftar.', true);
+          showNotice('loginNotice', '❌ Akun belum terdaftar. Silakan daftar dulu.', true);
           return;
         }
         const hashedInput = await hashPassword(password);
+        console.log('Hash input:', hashedInput);
+        console.log('Hash tersimpan:', user.passwordHash);
         if (user.passwordHash !== hashedInput) {
           showNotice('loginNotice', '❌ Password salah.', true);
           return;
@@ -550,6 +447,7 @@
         let i = 0, j = 0;
         function type() {
           if (i >= lines.length) {
+            // Set sessionStorage setelah animasi selesai
             sessionStorage.setItem("isLoggedIn", "true");
             sessionStorage.setItem("userEmail", email);
             if (displayName) sessionStorage.setItem("userName", displayName);
@@ -563,6 +461,7 @@
             } else if (lastPage) {
               targetPage = lastPage;
             }
+            console.log('Login berhasil, redirect ke:', targetPage);
             setTimeout(() => { window.location.href = targetPage; }, 1200);
             return;
           }

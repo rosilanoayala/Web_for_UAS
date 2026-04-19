@@ -307,8 +307,36 @@ const questionBank = [
     }
 ];
 
-// Jumlah soal yang akan ditampilkan per sesi
 const QUESTIONS_PER_SESSION = 20;
+let quizActive = true; // status quiz
+
+function setNavbarLock(locked) {
+    const logoutBtn = document.getElementById('logoutBtn');
+    const profileLink = document.querySelector('.dropdown-menu a[href="Profile.html"]');
+    if (locked) {
+        if (logoutBtn) {
+            logoutBtn.style.pointerEvents = 'none';
+            logoutBtn.style.opacity = '0.5';
+            logoutBtn.title = 'Tidak bisa logout saat quiz berlangsung';
+        }
+        if (profileLink) {
+            profileLink.style.pointerEvents = 'none';
+            profileLink.style.opacity = '0.5';
+            profileLink.title = 'Tidak bisa buka profile saat quiz berlangsung';
+        }
+    } else {
+        if (logoutBtn) {
+            logoutBtn.style.pointerEvents = 'auto';
+            logoutBtn.style.opacity = '1';
+            logoutBtn.title = '';
+        }
+        if (profileLink) {
+            profileLink.style.pointerEvents = 'auto';
+            profileLink.style.opacity = '1';
+            profileLink.title = '';
+        }
+    }
+}
 
 // ================= SHUFFLE FUNCTION =================
 function shuffleArray(arr) {
@@ -319,9 +347,7 @@ function shuffleArray(arr) {
     return arr;
 }
 
-// ================= AMBIL N SOAL ACAK DARI BANK =================
 function selectRandomQuestions(n) {
-    // Shuffle bank soal terlebih dahulu, lalu ambil n pertama
     const shuffledBank = shuffleArray([...questionBank]);
     return shuffledBank.slice(0, n);
 }
@@ -342,11 +368,7 @@ function saveLeaderboard(leaderboard) {
 function addScoreToLeaderboard(name, score) {
     if (!name || name.trim() === '') name = 'Anonymous';
     name = name.trim().substring(0, 20);
-    const newEntry = {
-        name: name,
-        score: score,
-        date: new Date().toLocaleString()
-    };
+    const newEntry = { name, score, date: new Date().toLocaleString() };
     let leaderboard = getLeaderboard();
     leaderboard.push(newEntry);
     leaderboard.sort((a, b) => {
@@ -512,10 +534,11 @@ function finishQuiz() {
     if (playerNameInput) playerNameInput.value = loggedName;
     
     renderLeaderboard();
+    setNavbarLock(false); // Buka kunci navbar setelah quiz selesai
+    quizActive = false;
 }
 
 function restartQuiz() {
-    // Ambil 20 soal acak dari bank
     currentQuestions = selectRandomQuestions(QUESTIONS_PER_SESSION);
     currentIndex = 0;
     userAnswers = [];
@@ -523,6 +546,8 @@ function restartQuiz() {
     restartArea.style.display = 'none';
     renderCurrentQuestion();
     updateProgress();
+    setNavbarLock(true); // Kunci navbar saat restart (quiz aktif kembali)
+    quizActive = true;
 }
 
 function saveCurrentScore() {
@@ -538,7 +563,8 @@ function initQuiz() {
     totalQuestionsSpan.textContent = totalQuestions;
     renderCurrentQuestion();
     updateProgress();
-    renderLeaderboard();
+    setNavbarLock(true); // Kunci navbar saat quiz dimulai
+    quizActive = true;
 }
 
 // Event listeners
@@ -547,10 +573,21 @@ restartBtn.addEventListener('click', restartQuiz);
 if (saveScoreBtn) saveScoreBtn.addEventListener('click', saveCurrentScore);
 if (resetLeaderboardBtn) resetLeaderboardBtn.addEventListener('click', resetLeaderboard);
 
-// Mulai quiz
 initQuiz();
 
 // ========== SESSIONSTORAGE untuk autentikasi (navbar) ==========
+function handleLogout(e) {
+    e.preventDefault();
+    if (quizActive) {
+        alert('Tidak bisa logout saat quiz sedang berlangsung! Selesaikan quiz terlebih dahulu.');
+        return;
+    }
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userName');
+    window.location.href = 'login.html';
+}
+
 function updateNavbar() {
     const authBtn = document.getElementById('authButton');
     const wrapper = document.getElementById('accountWrapper');
@@ -563,6 +600,9 @@ function updateNavbar() {
         authBtn.href = '#';
         authBtn.addEventListener('click', (e) => { e.preventDefault(); wrapper.classList.toggle('active'); });
         if (logoutBtn) logoutBtn.style.display = 'block';
+        // Pasang ulang event listener logout
+        logoutBtn.removeEventListener('click', handleLogout);
+        logoutBtn.addEventListener('click', handleLogout);
     } else {
         if (authBtn) {
             authBtn.addEventListener('click', (e) => {
@@ -576,14 +616,7 @@ function updateNavbar() {
     document.addEventListener('click', (e) => {
         if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('active');
     });
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            sessionStorage.removeItem('isLoggedIn');
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userName');
-            window.location.href = 'login.html';
-        });
-    }
+    // Sinkronkan lock navbar setelah update (misal setelah login)
+    setNavbarLock(quizActive);
 }
 updateNavbar();

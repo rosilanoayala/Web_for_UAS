@@ -671,6 +671,212 @@ body {
 }
 
 /* ============================================================
+   QUIZ SECTION (Estetik: Umum sendirian, bahasa 2x2)
+   ============================================================ */
+.quiz-section {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 48px 64px;
+}
+
+.quiz-header-text {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.quiz-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    margin-top: 4px;
+}
+
+/* Featured Card (Quiz Campuran) - Lebar penuh */
+.quiz-featured {
+    margin-bottom: 40px;
+}
+
+.featured-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+}
+
+.featured-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.featured-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--nav-accent);
+    border-radius: 4px 4px 0 0;
+}
+
+.featured-card .quiz-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.featured-content {
+    flex: 1;
+}
+
+.featured-card .quiz-name {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.featured-card .quiz-desc {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.featured-card .quiz-stats {
+    margin-bottom: 16px;
+}
+
+/* Grid 2x2 untuk quiz bahasa */
+.quiz-grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* Card biasa (untuk quiz bahasa) */
+.quiz-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.quiz-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Strip tipis di atas (warna aksen) */
+.quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+}
+
+.html-quiz::before { background: var(--html); }
+.css-quiz::before  { background: var(--css); }
+.cpp-quiz::before  { background: var(--cpp); }
+.js-quiz::before   { background: var(--js); }
+
+.quiz-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+}
+
+.html-icon { background: var(--html-light); color: var(--html); }
+.css-icon  { background: var(--css-light);  color: var(--css); }
+.cpp-icon  { background: var(--cpp-light);  color: var(--cpp); }
+.js-icon   { background: var(--js-light);   color: var(--js-dark); }
+.mixed-icon{ background: #eef2ff; color: var(--nav-accent); }
+
+.quiz-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+}
+
+.quiz-desc {
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    line-height: 1.45;
+    margin-bottom: 12px;
+}
+
+.quiz-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.quiz-btn {
+    display: inline-block;
+    text-align: center;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    width: fit-content;
+}
+
+.quiz-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.95);
+}
+
+.mixed-btn { background: var(--nav-accent); color: white; }
+.html-btn   { background: var(--html); color: white; }
+.css-btn    { background: var(--css); color: white; }
+.cpp-btn    { background: var(--cpp); color: white; }
+.js-btn     { background: #e0a800; color: #1a1400; }
+
+/* Responsif */
+@media (max-width: 820px) {
+    .quiz-section {
+        padding: 0 24px 48px;
+    }
+    .quiz-grid-2x2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .featured-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    .featured-card .quiz-icon {
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quiz-section {
+        padding: 0 16px 40px;
+    }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1000px) {

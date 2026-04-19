@@ -20,7 +20,7 @@ function isStrongPassword(pwd) {
     return pwd.length >= 6 && /[0-9]/.test(pwd);
 }
 
-// ================= VALIDASI NOMOR TELEPON (opsional, minimal 10 digit) =================
+// ================= VALIDASI NOMOR TELEPON =================
 function isValidPhone(phone) {
     return /^[0-9]{10,13}$/.test(phone);
 }

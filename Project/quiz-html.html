@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Coding - HTML, CSS, C++, JavaScript</title>
+    <title>Quiz HTML - DevPortal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="quiz-html.css">
 </head>
 <body>
 
     <nav class="topnav">
         <div class="nav-logo">
             <span class="logo-icon">&lt;/&gt;</span>
-            <span class="logo-text">DevPortal Quiz</span>
+            <span class="logo-text">DevPortal Quiz HTML</span>
         </div>
         <div class="nav-right">
             <a href="HOME.html" class="nav-link">Home</a>
-            <a href="TempatKursus.html" class="nav-link">Kursus</a>
+            <a href="TutorialHTML.html" class="nav-link">Tutorial HTML</a>
             <div class="account-wrapper" id="accountWrapper">
                 <a href="#" class="sign-btn" id="authButton">Sign In</a>
                 <div class="dropdown-menu">
@@ -32,7 +32,7 @@
     <div class="quiz-container">
         <div class="quiz-header">
             <div class="quiz-progress">
-                <span id="questionCounter">Soal 1 / 20</span>
+                <span id="questionCounter">Soal 1 / 10</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -50,29 +50,28 @@
             </div>
         </div>
 
-        <!-- Area Selesai: leaderboard sekarang ada di dalam restart-area -->
         <div class="restart-area" id="restartArea" style="display: none;">
             <div class="score-card">
-                <h2>🎉 Quiz Selesai! 🎉</h2>
+                <h2>🎉 Quiz HTML Selesai! 🎉</h2>
                 <p>Skor Anda: <span id="finalScore">0</span> / <span id="totalQuestions">0</span></p>
                 <button class="restart-btn" id="restartBtn">🔄 Mulai Ulang (Soal Acak)</button>
-                <a href="HOME.html" class="home-link">← Kembali ke Beranda</a>
+                <a href="TutorialHTML.html" class="home-link">← Kembali ke Tutorial HTML</a>
             </div>
 
-            <!-- Leaderboard Container (hanya muncul saat quiz selesai) -->
             <div class="leaderboard-container">
-                <h3>🏆 Peringkat Tertinggi 🏆</h3>
+                <h3>🏆 Peringkat Tertinggi HTML 🏆</h3>
                 <div id="leaderboardList" class="leaderboard-list"></div>
                 <div id="leaderboardForm">
                     <input type="text" id="playerName" placeholder="Masukkan nama untuk masuk peringkat" maxlength="20">
-                    <button id="saveScoreBtn" class="save-score-btn">Simpan Skor ke Peringkat</button>
+                    <button id="saveScoreBtn" class="save-score-btn">Simpan Skor</button>
                 </div>
                 <button id="resetLeaderboardBtn" class="reset-leaderboard-btn">🗑 Reset Semua Peringkat</button>
             </div>
         </div>
     </div>
 
-    <script src="quiz.js"></script>
-    <script src="shared.js"></script>
+    <script src="quiz-html.js"></script>
+    <script src="shared.js">
+    </script>
 </body>
 </html>
