@@ -160,10 +160,10 @@
 
 <script>
   // ================= PROTEKSI LOGIN =================
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    alert("🔒 Anda harus login terlebih dahulu untuk menggunakan Try Editor!");
-    window.location.href = "login.html";
-  }
+  if (sessionStorage.getItem("isLoggedIn") !== "true") {
+  alert("🔒 Anda harus Sign In terlebih dahulu...");
+  window.location.href = "login.html";
+}
 
   // Simpan halaman terakhir (opsional)
   localStorage.setItem("lastPage", window.location.href);

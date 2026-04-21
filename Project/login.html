@@ -433,7 +433,29 @@
         const terminal = document.getElementById("loginTerminal");
         overlay.style.display = "flex";
         terminal.textContent = "";
-        const pageName = localStorage.getItem("lastPageName") || "HOME";
+
+        let targetPage = "HOME.html";
+        const redirectPage = localStorage.getItem("redirectAfterLogin");
+        const lastPage = localStorage.getItem("lastPage");
+        
+        if (redirectPage) {
+          targetPage = redirectPage;
+        } else if (lastPage) {
+          targetPage = lastPage;
+        }
+
+        let displayNamePage = targetPage.split('/').pop().split('?')[0].split('#')[0].replace('.html', '') || 'HOME';
+        if (displayNamePage === 'HOME') displayNamePage = 'Home';
+        else if (displayNamePage === 'TutorialCPP') displayNamePage = 'C++ Tutorial';
+        else if (displayNamePage === 'TutorialHTML') displayNamePage = 'HTML Tutorial';
+        else if (displayNamePage === 'TutorialCSS') displayNamePage = 'CSS Tutorial';
+        else if (displayNamePage === 'TutorialJS') displayNamePage = 'JS Tutorial';
+        else if (displayNamePage === 'Profile') displayNamePage = 'Profile Area';
+        else if (displayNamePage === 'Tempatkursus') displayNamePage = 'Tempat Kursus';
+        else if (displayNamePage.startsWith('quiz-')) displayNamePage = 'Quiz ' + displayNamePage.substring(5).toUpperCase();
+        else if (displayNamePage === 'Quiz') displayNamePage = 'Quiz Area';
+        else if (displayNamePage === 'tryCPP' || displayNamePage === 'tryHTML' || displayNamePage === 'tryJS') displayNamePage = 'Try It Editor';
+
         const lines = [
           "// Initializing Authentication Module",
           `User: ${email}`,
@@ -442,7 +464,7 @@
           "Validating session token...",
           "Access Granted ✔",
           `Welcome, ${displayName || email}!`,
-          `Redirecting to ${pageName}...`
+          `Redirecting to ${displayNamePage}...`
         ];
         let i = 0, j = 0;
         function type() {
@@ -452,15 +474,8 @@
             sessionStorage.setItem("userEmail", email);
             if (displayName) sessionStorage.setItem("userName", displayName);
             sessionStorage.removeItem("isGuest");
-            const redirectPage = localStorage.getItem("redirectAfterLogin");
-            const lastPage = localStorage.getItem("lastPage");
-            let targetPage = "HOME.html";
-            if (redirectPage) {
-              targetPage = redirectPage;
-              localStorage.removeItem("redirectAfterLogin");
-            } else if (lastPage) {
-              targetPage = lastPage;
-            }
+            localStorage.removeItem("redirectAfterLogin");
+
             console.log('Login berhasil, redirect ke:', targetPage);
             setTimeout(() => { window.location.href = targetPage; }, 1200);
             return;
