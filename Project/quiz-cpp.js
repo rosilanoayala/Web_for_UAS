@@ -1,6 +1,6 @@
 // ================= BANK SOAL C++ (50 SOAL MURNI) =================
 // Setiap sesi akan mengambil 10 soal secara acak dari 50 soal ini
-const questionBank = [
+const nkCpp = [
     // Dasar C++
     { text: "Apa output dari `cout << (5 / 2);` dalam C++?", options: ["2.5", "2", "2.0", "Error"], correct: 1, explanation: "Pembagian integer (5/2) menghasilkan 2 karena pecahan dibuang. Untuk hasil desimal, gunakan double atau float." },
     { text: "Manakah yang benar untuk mendeklarasikan pointer ke integer?", options: ["int ptr;", "int* ptr;", "&int ptr;", "ptr int*;"], correct: 1, explanation: "Pointer ke integer dideklarasikan dengan int* ptr; atau int *ptr;" },
@@ -54,13 +54,17 @@ const questionBank = [
     { text: "Apa output dari `int a[3] = {1,2,3}; cout << a[2];`?", options: ["1", "2", "3", "Error"], correct: 2, explanation: "Indeks array dimulai dari 0, a[2] adalah elemen ketiga yaitu 3." }
 ];
 
-// ================= KONFIGURASI =================
-const QUESTIONS_PER_SESSION = 10;   // 10 soal per sesi (acak dari 50)
-const LEADERBOARD_KEY = 'quiz_cpp_leaderboard';   // berbeda dengan quiz campuran
-const MAX_LEADERBOARD = 10;
-let quizActive = true;
+// ================= KONFIGURASI (GANTI SESUAI BAHASA) =================
+const QUESTIONS_PER_SESSION = 10;          // Jumlah soal per sesi
+const LEADERBOARD_KEY = 'quiz_cpp_leaderboard';  // Kunci localStorage (harus unik per bahasa)
+const MAX_LEADERBOARD = 10;                // Maksimal entri leaderboard
 
-// ================= FUNGSI MENGUNCI / MEMBUKA KUNCI NAVBAR =================
+let quizActive = true;                     // Status quiz (untuk proteksi navbar)
+let scoreSaved = false;                    // Pelacak: apakah skor sudah disimpan?
+
+// ================= FUNGSI UTILITAS =================
+
+/** Mengunci/membuka navbar saat quiz berlangsung */
 function setNavbarLock(locked) {
     const logoutBtn = document.getElementById('logoutBtn');
     const profileLink = document.querySelector('.dropdown-menu a[href="Profile.html"]');
@@ -89,7 +93,7 @@ function setNavbarLock(locked) {
     }
 }
 
-// ================= SHUFFLE FUNCTION =================
+/** Mengacak array (Fisher–Yates) */
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -98,12 +102,24 @@ function shuffleArray(arr) {
     return arr;
 }
 
+/** Memilih n soal acak dari bank soal */
 function selectRandomQuestions(n) {
-    const shuffledBank = shuffleArray([...questionBank]);
+    const shuffledBank = shuffleArray([...nkCpp]);
     return shuffledBank.slice(0, n);
 }
 
+/** Escape karakter HTML untuk mencegah XSS */
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
 // ================= LEADERBOARD STORAGE =================
+
 function getLeaderboard() {
     const data = localStorage.getItem(LEADERBOARD_KEY);
     return data ? JSON.parse(data) : [];
@@ -155,20 +171,11 @@ function renderLeaderboard() {
 }
 
 function resetLeaderboard() {
-    if (confirm('Hapus semua data peringkat C++? Tindakan ini tidak bisa dibatalkan.')) {
+    if (confirm('Hapus semua data peringkat? Tindakan ini tidak bisa dibatalkan.')) {
         localStorage.removeItem(LEADERBOARD_KEY);
         renderLeaderboard();
-        alert('Peringkat C++ telah direset.');
+        alert('Peringkat telah direset.');
     }
-}
-
-function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
 }
 
 // ================= STATE KUIS =================
@@ -193,6 +200,8 @@ const totalQuestionsSpan = document.getElementById('totalQuestions');
 const saveScoreBtn = document.getElementById('saveScoreBtn');
 const resetLeaderboardBtn = document.getElementById('resetLeaderboardBtn');
 const playerNameInput = document.getElementById('playerName');
+
+// ================= FUNGSI QUIZ =================
 
 function updateProgress() {
     questionCounter.textContent = `Soal ${currentIndex + 1} / ${totalQuestions}`;
@@ -224,8 +233,8 @@ function handleAnswer(selectedIdx) {
     if (userAnswers[currentIndex]) return;
     const q = currentQuestions[currentIndex];
     const isCorrect = (selectedIdx === q.correct);
-    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect: isCorrect };
-    
+    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect };
+
     document.querySelectorAll('.option-btn').forEach(btn => {
         btn.style.pointerEvents = 'none';
         btn.classList.add('disabled-opt');
@@ -235,7 +244,7 @@ function handleAnswer(selectedIdx) {
         if (idx === q.correct) btn.classList.add('correct-answer');
         if (idx === selectedIdx && !isCorrect) btn.classList.add('wrong-answer');
     });
-    
+
     const feedbackIcon = document.getElementById('feedbackIcon');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const feedbackExplanation = document.getElementById('feedbackExplanation');
@@ -269,7 +278,7 @@ function nextQuestion() {
 }
 
 function finishQuiz() {
-    let correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+    const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
     finalScore = correctCount;
     finalScoreSpan.textContent = correctCount;
     totalQuestionsSpan.textContent = totalQuestions;
@@ -277,10 +286,17 @@ function finishQuiz() {
     restartArea.style.display = 'block';
     progressFill.style.width = '100%';
     questionCounter.textContent = `Selesai! ${correctCount}/${totalQuestions}`;
-    
+
     const loggedName = sessionStorage.getItem('userName') || '';
     if (playerNameInput) playerNameInput.value = loggedName;
-    
+
+    // Reset status penyimpanan dan tampilkan form input leaderboard
+    scoreSaved = false;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'flex';
+    if (saveScoreBtn) saveScoreBtn.disabled = false;
+    if (playerNameInput) playerNameInput.disabled = false;
+
     renderLeaderboard();
     setNavbarLock(false);
     quizActive = false;
@@ -296,14 +312,27 @@ function restartQuiz() {
     updateProgress();
     setNavbarLock(true);
     quizActive = true;
+    scoreSaved = false;   // Reset pelacak penyimpanan
 }
 
 function saveCurrentScore() {
+    // Cegah penyimpanan ganda dalam satu sesi
+    if (scoreSaved) {
+        alert('Anda sudah menyimpan skor untuk sesi ini. Mulai ulang quiz untuk mencoba lagi.');
+        return;
+    }
+
     let name = playerNameInput ? playerNameInput.value.trim() : '';
     if (name === '') name = 'Anonymous';
+
     addScoreToLeaderboard(name, finalScore);
     renderLeaderboard();
     alert(`Skor ${finalScore} berhasil disimpan untuk ${name}!`);
+
+    // Tandai sudah disimpan dan SEMBUNYIKAN form input
+    scoreSaved = true;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'none';
 }
 
 function initQuiz() {
@@ -315,15 +344,16 @@ function initQuiz() {
     quizActive = true;
 }
 
-// Event listeners
+// ================= EVENT LISTENERS =================
 nextBtn.addEventListener('click', nextQuestion);
 restartBtn.addEventListener('click', restartQuiz);
 if (saveScoreBtn) saveScoreBtn.addEventListener('click', saveCurrentScore);
 if (resetLeaderboardBtn) resetLeaderboardBtn.addEventListener('click', resetLeaderboard);
 
+// ================= MULAI QUIZ =================
 initQuiz();
 
-// ========== SESSIONSTORAGE untuk autentikasi (navbar) ==========
+// ================= AUTENTIKASI NAVBAR (SESSIONSTORAGE) =================
 function handleLogout(e) {
     e.preventDefault();
     if (quizActive) {

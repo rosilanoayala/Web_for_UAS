@@ -1,5 +1,5 @@
 // ================= BANK SOAL CSS (50 soal berdasarkan materi TutorialCSS) =================
-const questionBankCss = [
+const nkCss = [
     // 1. Pengantar CSS
     { text: "Apa kepanjangan dari CSS?", options: ["Creative Style Sheets", "Computer Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"], correct: 2, explanation: "CSS adalah singkatan dari Cascading Style Sheets, bahasa untuk mengatur tampilan halaman web." },
     // 2. Cara menyisipkan CSS
@@ -102,12 +102,17 @@ const questionBankCss = [
     { text: "Apa perbedaan outline dan border?", options: ["Outline tidak mempengaruhi layout", "Outline selalu di luar margin", "Outline tidak bisa diwarnai", "Outline hanya untuk link"], correct: 0, explanation: "Outline tidak mempengaruhi ukuran/layout elemen, sedangkan border mempengaruhi." }
 ];
 
-const QUESTIONS_PER_SESSION = 10;
-const LEADERBOARD_KEY = 'quiz_css_leaderboard';
-const MAX_LEADERBOARD = 10;
-let quizActive = true;
+// ================= KONFIGURASI (GANTI SESUAI BAHASA) =================
+const QUESTIONS_PER_SESSION = 10;          // Jumlah soal per sesi
+const LEADERBOARD_KEY = 'quiz_css_leaderboard';  // Kunci localStorage (harus unik per bahasa)
+const MAX_LEADERBOARD = 10;                // Maksimal entri leaderboard
 
-// ================= FUNGSI MENGUNCI / MEMBUKA KUNCI NAVBAR =================
+let quizActive = true;                     // Status quiz (untuk proteksi navbar)
+let scoreSaved = false;                    // Pelacak: apakah skor sudah disimpan?
+
+// ================= FUNGSI UTILITAS =================
+
+/** Mengunci/membuka navbar saat quiz berlangsung */
 function setNavbarLock(locked) {
     const logoutBtn = document.getElementById('logoutBtn');
     const profileLink = document.querySelector('.dropdown-menu a[href="Profile.html"]');
@@ -136,7 +141,7 @@ function setNavbarLock(locked) {
     }
 }
 
-// ================= SHUFFLE FUNCTION =================
+/** Mengacak array (Fisher–Yates) */
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -145,12 +150,24 @@ function shuffleArray(arr) {
     return arr;
 }
 
+/** Memilih n soal acak dari bank soal */
 function selectRandomQuestions(n) {
-    const shuffledBank = shuffleArray([...questionBankCss]);
+    const shuffledBank = shuffleArray([...nkCss]);
     return shuffledBank.slice(0, n);
 }
 
+/** Escape karakter HTML untuk mencegah XSS */
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
 // ================= LEADERBOARD STORAGE =================
+
 function getLeaderboard() {
     const data = localStorage.getItem(LEADERBOARD_KEY);
     return data ? JSON.parse(data) : [];
@@ -209,15 +226,6 @@ function resetLeaderboard() {
     }
 }
 
-function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
-}
-
 // ================= STATE KUIS =================
 let currentQuestions = [];
 let currentIndex = 0;
@@ -240,6 +248,8 @@ const totalQuestionsSpan = document.getElementById('totalQuestions');
 const saveScoreBtn = document.getElementById('saveScoreBtn');
 const resetLeaderboardBtn = document.getElementById('resetLeaderboardBtn');
 const playerNameInput = document.getElementById('playerName');
+
+// ================= FUNGSI QUIZ =================
 
 function updateProgress() {
     questionCounter.textContent = `Soal ${currentIndex + 1} / ${totalQuestions}`;
@@ -271,8 +281,8 @@ function handleAnswer(selectedIdx) {
     if (userAnswers[currentIndex]) return;
     const q = currentQuestions[currentIndex];
     const isCorrect = (selectedIdx === q.correct);
-    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect: isCorrect };
-    
+    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect };
+
     document.querySelectorAll('.option-btn').forEach(btn => {
         btn.style.pointerEvents = 'none';
         btn.classList.add('disabled-opt');
@@ -282,7 +292,7 @@ function handleAnswer(selectedIdx) {
         if (idx === q.correct) btn.classList.add('correct-answer');
         if (idx === selectedIdx && !isCorrect) btn.classList.add('wrong-answer');
     });
-    
+
     const feedbackIcon = document.getElementById('feedbackIcon');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const feedbackExplanation = document.getElementById('feedbackExplanation');
@@ -316,7 +326,7 @@ function nextQuestion() {
 }
 
 function finishQuiz() {
-    let correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+    const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
     finalScore = correctCount;
     finalScoreSpan.textContent = correctCount;
     totalQuestionsSpan.textContent = totalQuestions;
@@ -324,12 +334,19 @@ function finishQuiz() {
     restartArea.style.display = 'block';
     progressFill.style.width = '100%';
     questionCounter.textContent = `Selesai! ${correctCount}/${totalQuestions}`;
-    
+
     const loggedName = sessionStorage.getItem('userName') || '';
     if (playerNameInput) playerNameInput.value = loggedName;
-    
+
+    // Reset status penyimpanan dan tampilkan form input leaderboard
+    scoreSaved = false;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'flex';
+    if (saveScoreBtn) saveScoreBtn.disabled = false;
+    if (playerNameInput) playerNameInput.disabled = false;
+
     renderLeaderboard();
-    setNavbarLock(false); // Buka kunci navbar setelah quiz selesai
+    setNavbarLock(false);
     quizActive = false;
 }
 
@@ -341,16 +358,29 @@ function restartQuiz() {
     restartArea.style.display = 'none';
     renderCurrentQuestion();
     updateProgress();
-    setNavbarLock(true); // Kunci navbar saat restart (quiz aktif kembali)
+    setNavbarLock(true);
     quizActive = true;
+    scoreSaved = false;   // Reset pelacak penyimpanan
 }
 
 function saveCurrentScore() {
+    // Cegah penyimpanan ganda dalam satu sesi
+    if (scoreSaved) {
+        alert('Anda sudah menyimpan skor untuk sesi ini. Mulai ulang quiz untuk mencoba lagi.');
+        return;
+    }
+
     let name = playerNameInput ? playerNameInput.value.trim() : '';
     if (name === '') name = 'Anonymous';
+
     addScoreToLeaderboard(name, finalScore);
     renderLeaderboard();
     alert(`Skor ${finalScore} berhasil disimpan untuk ${name}!`);
+
+    // Tandai sudah disimpan dan SEMBUNYIKAN form input
+    scoreSaved = true;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'none';
 }
 
 function initQuiz() {
@@ -358,18 +388,20 @@ function initQuiz() {
     totalQuestionsSpan.textContent = totalQuestions;
     renderCurrentQuestion();
     updateProgress();
-    setNavbarLock(true); // Kunci navbar saat quiz dimulai
+    setNavbarLock(true);
     quizActive = true;
 }
 
-// Event listeners
+// ================= EVENT LISTENERS =================
 nextBtn.addEventListener('click', nextQuestion);
 restartBtn.addEventListener('click', restartQuiz);
 if (saveScoreBtn) saveScoreBtn.addEventListener('click', saveCurrentScore);
 if (resetLeaderboardBtn) resetLeaderboardBtn.addEventListener('click', resetLeaderboard);
+
+// ================= MULAI QUIZ =================
 initQuiz();
 
-// ========== SESSIONSTORAGE untuk autentikasi (navbar) ==========
+// ================= AUTENTIKASI NAVBAR (SESSIONSTORAGE) =================
 function handleLogout(e) {
     e.preventDefault();
     if (quizActive) {
@@ -411,7 +443,6 @@ function updateNavbar() {
     document.addEventListener('click', (e) => {
         if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('active');
     });
-    // Sinkronkan status kunci navbar dengan quizActive
     setNavbarLock(quizActive);
 }
 updateNavbar();

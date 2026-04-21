@@ -208,9 +208,16 @@ const questionBank = [
     { text: "Apa fungsi dari fetch() dalam JavaScript?", options: ["Mengambil data dari server secara asinkron", "Mengubah style CSS", "Membuat elemen baru", "Menghapus data dari localStorage"], correct: 0, explanation: "fetch() digunakan untuk melakukan request HTTP ke server dan mengembalikan Promise, biasanya untuk mengambil data API." }
 ];
 
-const QUESTIONS_PER_SESSION = 50;;;;;;
-let quizActive = true; // status quiz
+// ================= KONFIGURASI =================
+const QUESTIONS_PER_SESSION = 50;
+const LEADERBOARD_KEY = 'quiz_leaderboard';
+const MAX_LEADERBOARD = 10;
+let quizActive = true;
+let scoreSaved = false;   // Pelacak penyimpanan skor
 
+// ================= FUNGSI UTILITAS =================
+
+/** Mengunci/membuka navbar saat quiz berlangsung */
 function setNavbarLock(locked) {
     const logoutBtn = document.getElementById('logoutBtn');
     const profileLink = document.querySelector('.dropdown-menu a[href="Profile.html"]');
@@ -239,7 +246,7 @@ function setNavbarLock(locked) {
     }
 }
 
-// ================= SHUFFLE FUNCTION =================
+/** Mengacak array (Fisher–Yates) */
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -248,14 +255,23 @@ function shuffleArray(arr) {
     return arr;
 }
 
+/** Memilih n soal acak dari bank soal */
 function selectRandomQuestions(n) {
     const shuffledBank = shuffleArray([...questionBank]);
     return shuffledBank.slice(0, n);
 }
 
+/** Escape karakter HTML untuk mencegah XSS */
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
 // ================= LEADERBOARD STORAGE =================
-const LEADERBOARD_KEY = 'quiz_leaderboard';
-const MAX_LEADERBOARD = 10;
 
 function getLeaderboard() {
     const data = localStorage.getItem(LEADERBOARD_KEY);
@@ -338,19 +354,12 @@ const saveScoreBtn = document.getElementById('saveScoreBtn');
 const resetLeaderboardBtn = document.getElementById('resetLeaderboardBtn');
 const playerNameInput = document.getElementById('playerName');
 
+// ================= FUNGSI QUIZ =================
+
 function updateProgress() {
     questionCounter.textContent = `Soal ${currentIndex + 1} / ${totalQuestions}`;
     const percent = (currentIndex / totalQuestions) * 100;
     progressFill.style.width = `${percent}%`;
-}
-
-function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
 }
 
 function renderCurrentQuestion() {
@@ -377,8 +386,8 @@ function handleAnswer(selectedIdx) {
     if (userAnswers[currentIndex]) return;
     const q = currentQuestions[currentIndex];
     const isCorrect = (selectedIdx === q.correct);
-    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect: isCorrect };
-    
+    userAnswers[currentIndex] = { selected: selectedIdx, isCorrect };
+
     document.querySelectorAll('.option-btn').forEach(btn => {
         btn.style.pointerEvents = 'none';
         btn.classList.add('disabled-opt');
@@ -388,7 +397,7 @@ function handleAnswer(selectedIdx) {
         if (idx === q.correct) btn.classList.add('correct-answer');
         if (idx === selectedIdx && !isCorrect) btn.classList.add('wrong-answer');
     });
-    
+
     const feedbackIcon = document.getElementById('feedbackIcon');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const feedbackExplanation = document.getElementById('feedbackExplanation');
@@ -422,7 +431,7 @@ function nextQuestion() {
 }
 
 function finishQuiz() {
-    let correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+    const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
     finalScore = correctCount;
     finalScoreSpan.textContent = correctCount;
     totalQuestionsSpan.textContent = totalQuestions;
@@ -430,12 +439,19 @@ function finishQuiz() {
     restartArea.style.display = 'block';
     progressFill.style.width = '100%';
     questionCounter.textContent = `Selesai! ${correctCount}/${totalQuestions}`;
-    
+
     const loggedName = sessionStorage.getItem('userName') || '';
     if (playerNameInput) playerNameInput.value = loggedName;
-    
+
+    // Reset status penyimpanan dan tampilkan form input leaderboard
+    scoreSaved = false;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'flex';
+    if (saveScoreBtn) saveScoreBtn.disabled = false;
+    if (playerNameInput) playerNameInput.disabled = false;
+
     renderLeaderboard();
-    setNavbarLock(false); // Buka kunci navbar setelah quiz selesai
+    setNavbarLock(false);
     quizActive = false;
 }
 
@@ -447,16 +463,29 @@ function restartQuiz() {
     restartArea.style.display = 'none';
     renderCurrentQuestion();
     updateProgress();
-    setNavbarLock(true); // Kunci navbar saat restart (quiz aktif kembali)
+    setNavbarLock(true);
     quizActive = true;
+    scoreSaved = false;   // Reset pelacak penyimpanan
 }
 
 function saveCurrentScore() {
+    // Cegah penyimpanan ganda dalam satu sesi
+    if (scoreSaved) {
+        alert('Anda sudah menyimpan skor untuk sesi ini. Mulai ulang quiz untuk mencoba lagi.');
+        return;
+    }
+
     let name = playerNameInput ? playerNameInput.value.trim() : '';
     if (name === '') name = 'Anonymous';
+
     addScoreToLeaderboard(name, finalScore);
     renderLeaderboard();
     alert(`Skor ${finalScore} berhasil disimpan untuk ${name}!`);
+
+    // Tandai sudah disimpan dan SEMBUNYIKAN form input
+    scoreSaved = true;
+    const leaderboardForm = document.getElementById('leaderboardForm');
+    if (leaderboardForm) leaderboardForm.style.display = 'none';
 }
 
 function initQuiz() {
@@ -464,19 +493,20 @@ function initQuiz() {
     totalQuestionsSpan.textContent = totalQuestions;
     renderCurrentQuestion();
     updateProgress();
-    setNavbarLock(true); // Kunci navbar saat quiz dimulai
+    setNavbarLock(true);
     quizActive = true;
 }
 
-// Event listeners
+// ================= EVENT LISTENERS =================
 nextBtn.addEventListener('click', nextQuestion);
 restartBtn.addEventListener('click', restartQuiz);
 if (saveScoreBtn) saveScoreBtn.addEventListener('click', saveCurrentScore);
 if (resetLeaderboardBtn) resetLeaderboardBtn.addEventListener('click', resetLeaderboard);
 
+// ================= MULAI QUIZ =================
 initQuiz();
 
-// ========== SESSIONSTORAGE untuk autentikasi (navbar) ==========
+// ================= AUTENTIKASI NAVBAR (SESSIONSTORAGE) =================
 function handleLogout(e) {
     e.preventDefault();
     if (quizActive) {
@@ -500,10 +530,11 @@ function updateNavbar() {
         authBtn.innerHTML = `<span style="background:#0f6e3f;color:white;padding:6px 10px;border-radius:50%;margin-right:8px;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;font-weight:bold;">${initial}</span>${displayName} ▼`;
         authBtn.href = '#';
         authBtn.addEventListener('click', (e) => { e.preventDefault(); wrapper.classList.toggle('active'); });
-        if (logoutBtn) logoutBtn.style.display = 'block';
-        // Pasang ulang event listener logout
-        logoutBtn.removeEventListener('click', handleLogout);
-        logoutBtn.addEventListener('click', handleLogout);
+        if (logoutBtn) {
+            logoutBtn.style.display = 'block';
+            logoutBtn.removeEventListener('click', handleLogout);
+            logoutBtn.addEventListener('click', handleLogout);
+        }
     } else {
         if (authBtn) {
             authBtn.addEventListener('click', (e) => {
@@ -517,7 +548,6 @@ function updateNavbar() {
     document.addEventListener('click', (e) => {
         if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('active');
     });
-    // Sinkronkan lock navbar setelah update (misal setelah login)
     setNavbarLock(quizActive);
 }
 updateNavbar();
