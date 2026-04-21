@@ -208,7 +208,7 @@ const questionBank = [
     { text: "Apa fungsi dari fetch() dalam JavaScript?", options: ["Mengambil data dari server secara asinkron", "Mengubah style CSS", "Membuat elemen baru", "Menghapus data dari localStorage"], correct: 0, explanation: "fetch() digunakan untuk melakukan request HTTP ke server dan mengembalikan Promise, biasanya untuk mengambil data API." }
 ];
 
-const QUESTIONS_PER_SESSION = 50;
+const QUESTIONS_PER_SESSION = 50;;;;;;
 let quizActive = true; // status quiz
 
 function setNavbarLock(locked) {
