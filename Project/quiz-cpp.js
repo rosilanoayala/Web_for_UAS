@@ -280,14 +280,6 @@ function nextQuestion() {
 function finishQuiz() {
     const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
     
-    // Cek apakah nilai di bawah 70%
-    const passingScore = Math.ceil(totalQuestions * 0.7);
-    if (correctCount < passingScore) {
-        alert("😔 Maaf, kecerdasan anda belum cukup. Mari kembali belajar.");
-        window.location.href = "TutorialCPP.html";
-        return;
-    }
-    
     finalScore = correctCount;
     finalScoreSpan.textContent = correctCount;
     totalQuestionsSpan.textContent = totalQuestions;
