@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROAMING · Perapian Hangat</title>
+  <!-- Font & Icon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- CSS Utama -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="wrapper">
+  <!-- Navigasi -->
+  <nav>
+    <div class="logo"><i class="fas fa-fire"></i> ROAMING</div>
+    <div class="nav-links">
+      <a href="index.html" class="active"><i class="fas fa-home"></i> Perapian</a>
+      <a href="market.html"><i class="fas fa-store-alt"></i> Market</a>
+      <a href="fanart.html"><i class="fas fa-palette"></i> Fan Art</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-greeting" id="greetingText">
+        <i class="fas fa-meteor"></i> Kau datang dengan lelah, kuterima dengan hangat.
+      </div>
+      <h1>Duduklah di Sini,<br>Dekat Perapianku</h1>
+      <p class="subhead">Aku Roaming. Dulu pemangsa emosi negatif, kini aku menjadi api unggun bagi jiwa-jiwa yang ingin beristirahat.</p>
+      <div class="btn-group">
+        <a href="#lore" class="btn btn-primary"><i class="fas fa-book-open"></i> Baca Kisahku</a>
+        <a href="market.html" class="btn btn-secondary"><i class="fas fa-tshirt"></i> Lihat Barang Hangat</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <i class="fas fa-dragon"></i>
+    </div>
+  </div>
+
+  <!-- Lore -->
+  <div id="lore" class="lore-section">
+    <div class="lore-text">
+      “Bertahun-tahun aku berkelana menyerap takut, sedih, dan amarah. Semua terasa sesak, sampai suatu hari kurasakan kehangatan dari sebuah kotak kecil bernama gadget. Seseorang tersenyum karena merasa dipahami. Sejak itu, aku memutuskan berhenti menjadi pemangsa emosi negatif. Aku memilih wujud Iblis Merah yang menyala hangat, dan menjadi VTuber. Aku ingin berkeliling—<em>roaming</em>—mencari hati yang masih beku, lalu menawarkan sedikit api kehangatan.”
+    </div>
+    <div class="lore-author">— Roaming, iblis yang memilih menjadi api, bukan abu.</div>
+  </div>
+
+  <!-- Area Perapian Interaktif -->
+  <div class="fireplace-spot">
+    <div class="message-box">
+      <i class="fas fa-campfire" style="font-size: 2.5rem; color: #d94a38; margin-bottom: 15px;"></i>
+      <div id="dynamicMessage">“Ambil napas. Di sini kau boleh melepas topengmu.”</div>
+      <button class="btn-ember" id="newMessageBtn"><i class="fas fa-sync-alt"></i> Dengar Bisikan Lain</button>
+    </div>
+
+    <!-- BARA HARAPAN -->
+    <div class="bara-harapan">
+      <p class="bara-label">Titipkan satu kata yang memberatimu...</p>
+      <div class="bara-input-group">
+        <input type="text" id="baraWordInput" placeholder="misal: Lelah" maxlength="20">
+        <button class="btn-bakar" id="bakarBtn"><i class="fas fa-fire"></i> Bakar & Lepaskan</button>
+      </div>
+    </div>
+
+    <!-- Kata yang telah hangus -->
+    <div id="burnedWordsContainer" class="burned-words"></div>
+  </div>
+
+  <!-- Footer Api -->
+<div class="fire-footer">
+  <!-- OVERLAY KERTAS TERBAKAR + API -->
+  <div id="burningPaperOverlay" class="burning-paper-overlay hidden">
+    <div id="burningPaper" class="burning-paper">
+      <span id="paperWord"></span>
+    </div>
+    <canvas id="flameCanvas" class="flame-canvas"></canvas>
+    <canvas id="sparkCanvas" class="spark-canvas"></canvas>
+  </div>
+
+  <canvas id="fireCanvas"></canvas>
+  <div class="footer-quote">“Selama bara ini menyala, kau selalu punya tempat di sini.”</div>
+  <div class="copyright">
+    © 2025 ROAMING · Dinyalakan dengan harapan, bukan amarah.<br>
+    <span style="font-size: 0.8rem;">🔥 Kembalilah kapan pun kau butuh hangat.</span>
+  </div>
+</div>
+
+<!-- AMBIENT SOUND -->
+<audio id="fireAmbient" loop preload="auto">
+  <source src="../assets/sounds/fire-ambient.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Tombol Suara -->
+<div id="soundControl" class="sound-control" title="Suara Perapian">
+  <i class="fas fa-volume-up"></i>
+</div>
+
+<script src="../js/script.js"></script>
+</body>
+</html>

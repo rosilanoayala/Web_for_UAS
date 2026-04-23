@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROAMING · FanArt</title>
+  <!-- Font & Icon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- CSS FanArt -->
+  <link rel="stylesheet" href="../css/fanart.css">
+</head>
+<body>
+  <!-- AMBIENT SOUND -->
+  <audio id="fireAmbient" loop preload="auto">
+    <source src="../assets/sounds/fire-ambient.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- TOMBOL SUARA -->
+  <div id="soundControl" class="sound-control" title="Suara Perapian">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <div class="wrapper">
+    <!-- Navigasi -->
+    <nav>
+      <div class="logo"><i class="fas fa-fire"></i> ROAMING</div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Perapian</a>
+        <a href="market.html"><i class="fas fa-store-alt"></i> Market</a>
+        <a href="fanart.html" class="active"><i class="fas fa-palette"></i> FanArt</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="fanart-header">
+      <h2>🎨 Bara Kreativitas</h2>
+      <div class="fanart-intro">
+        <p>“Setiap goresan adalah percikan api. Titipkan karyamu di sini, biar hangatnya menyebar.”</p>
+        <p class="fanart-sub">— Roaming, untuk para seniman yang membawa cahaya</p>
+      </div>
+    </div>
+
+    <!-- Galeri Grid -->
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- placeholder jika kosong -->
+      <div class="empty-gallery">
+        <i class="fas fa-fire" style="font-size: 3rem; opacity: 0.5;"></i>
+        <p>Belum ada bara yang dititipkan...</p>
+        <p class="small">Jadilah yang pertama ✨</p>
+      </div>
+    </div>
+
+    <!-- Form Unggah (Simbolis) -->
+    <div class="upload-section">
+      <h3><i class="fas fa-upload"></i> Titipkan Bara Karyamu</h3>
+      <p class="upload-note">Unggahanmu akan menjadi bagian dari perapian ini.</p>
+      
+      <form id="fanartForm" class="fanart-form">
+        <div class="form-group">
+          <label for="artistName">Nama Panggilan</label>
+          <input type="text" id="artistName" placeholder="misal: Pengembara Api" required>
+        </div>
+        <div class="form-group">
+          <label for="artTitle">Judul Karya</label>
+          <input type="text" id="artTitle" placeholder="Bara di Kegelapan" required>
+        </div>
+        <div class="form-group">
+          <label for="artImage">URL Gambar</label>
+          <input type="url" id="artImage" placeholder="https://..." required>
+          <small>Gunakan link gambar dari Imgur, PostImage, dsb.</small>
+        </div>
+        <div class="form-group">
+          <label for="artMessage">Pesan Hangat (opsional)</label>
+          <textarea id="artMessage" rows="2" placeholder="Tulis sesuatu untuk Roaming..."></textarea>
+        </div>
+        <button type="submit" class="btn-upload"><i class="fas fa-fire"></i> Bakar & Pajang</button>
+      </form>
+    </div>
+
+    <!-- Footer Api -->
+    <div class="fire-footer">
+      <canvas id="fireCanvas"></canvas>
+      <div class="footer-quote">“Setiap karya adalah bara. Jangan biarkan padam.”</div>
+      <div class="copyright">
+        © 2025 ROAMING · FanArt adalah ruang bersama.<br>
+        <span style="font-size: 0.8rem;">🔥 Karya yang diunggah akan ditampilkan di galeri ini.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EASTER EGG CONTAINER (Tersembunyi) -->
+  <div id="easterEgg" class="easter-egg hidden">
+    <div class="easter-content">
+      <i class="fas fa-dragon"></i>
+      <p>“Kau menemukanku di sela-sela bara...”</p>
+      <p class="small">— Roaming berbisik, lalu memberimu kehangatan ekstra.</p>
+      <button id="closeEaster" class="btn-ember"> Tutup </button>
+    </div>
+  </div>
+
+  <script src="../js/fanart.js"></script>
+</body>
+</html>

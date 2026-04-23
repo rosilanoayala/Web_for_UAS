@@ -1,0 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0b0707;
+  background-image: radial-gradient(circle at 30% 20%, #2c1510 0%, #0b0707 100%);
+  color: #f0e6dd;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 24px;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.6rem;
+  color: #e5b474;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+h2:after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #d94a38, transparent);
+  margin-top: 8px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0 20px;
+  border-bottom: 1px solid #3e231c;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e34f33;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px #b33b1f;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo i {
+  font-size: 1.8rem;
+  color: #ff8c42;
+}
+
+.nav-links a {
+  color: #dbb89c;
+  margin-left: 28px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: 0.2s;
+  font-size: 1.1rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #ffaa66;
+  text-shadow: 0 0 5px #ff5e1a;
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid #d94a38;
+  padding-bottom: 5px;
+}
+
+.market-header {
+  margin: 40px 0 20px;
+}
+
+.market-intro {
+  font-size: 1.2rem;
+  color: #c9b0a0;
+  margin-bottom: 30px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  margin: 40px 0 60px;
+}
+
+.product-card {
+  background: #160c08;
+  border-radius: 28px;
+  padding: 28px 22px 30px;
+  transition: 0.3s;
+  border: 1px solid #40261e;
+  box-shadow: 0 8px 0 #0c0604;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 28px #c94f2e55, 0 10px 0 #3e1e15;
+  border-color: #b84f31;
+}
+
+.product-icon {
+  font-size: 70px;
+  color: #ff884d;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 0 8px #d94a38);
+}
+
+.product-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  color: #eab78b;
+}
+
+.product-sub {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #c9704a;
+  margin-bottom: 15px;
+}
+
+.product-desc {
+  font-size: 0.95rem;
+  color: #c7afa1;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f3b27a;
+  margin: 15px 0 10px;
+}
+
+.price small {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #9f7c6b;
+}
+
+.btn-buy {
+  background: transparent;
+  border: 1.5px solid #b55a3e;
+  color: #f0bf97;
+  padding: 12px 20px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 8px;
+}
+
+.btn-buy:hover {
+  background: #a03d22;
+  border-color: #e68a5c;
+  color: #140a06;
+  box-shadow: 0 0 15px #d94a38;
+}
+
+.back-link {
+  text-align: center;
+  margin: 20px 0 40px;
+}
+
+.back-link a {
+  color: #d49c74;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.back-link a:hover {
+  color: #f5c09c;
+}
+
+.fire-footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+canvas#fireCanvas {
+  width: 100%;
+  max-width: 800px;
+  height: 80px;
+  margin: 0 auto 20px;
+  opacity: 0.9;
+  border-radius: 40px;
+}
+
+.footer-quote {
+  font-size: 1.2rem;
+  color: #bda79b;
+  margin: 20px 0 30px;
+  font-style: italic;
+}
+
+.copyright {
+  padding: 20px 0 40px;
+  color: #785a4c;
+  border-top: 1px dashed #5e3427;
+}
+
+@media (max-width: 700px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .nav-links a {
+    margin: 0 15px;
+  }
+}
+
+/* ===== TOMBOL SUARA (AMBIENT) ===== */
+.sound-control {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  background: #1b100bdd;
+  backdrop-filter: blur(4px);
+  border: 1.5px solid #a3533b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e58e5c;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+  box-shadow: 0 0 15px #c94f2e55;
+}
+
+.sound-control:hover {
+  background: #2c1812;
+  color: #ffb56b;
+  transform: scale(1.08);
+  border-color: #e57f4a;
+  box-shadow: 0 0 20px #d94a38;
+}
+
+.sound-control.muted {
+  color: #9f7c6b;
+  border-color: #5e3a2e;
+  box-shadow: 0 0 8px #3e1e15;
+}
+
+.sound-control.muted i {
+  opacity: 0.7;
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+  .sound-control {
+    bottom: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+  }
+}
+
+/* ===== CANVAS GLOBAL (BARA MENGAMBANG) ===== */
+#emberCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;  /* agar klik tetap tembus ke konten */
+  z-index: 1;
+}
+
+/* Pastikan wrapper dan konten utama di atas canvas */
+.wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tombol suara juga harus di atas canvas */
+.sound-control {
+  z-index: 100;
+}
