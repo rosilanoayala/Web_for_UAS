@@ -1,0 +1,103 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0b0707;
+  background-image: radial-gradient(circle at 30% 20%, #2c1510 0%, #0b0707 100%);
+  color: #f0e6dd;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+}
+.wrapper {
+  max-width: 1100px; width: 100%; padding: 0 24px;
+  position: relative; z-index: 2;
+}
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+h2 {
+  font-size: 2.6rem; color: #e5b474; margin-bottom: 0.5rem; display: inline-block;
+}
+h2::after {
+  content: ''; display: block; width: 60%; height: 3px;
+  background: linear-gradient(90deg, #d94a38, transparent); margin-top: 8px;
+}
+/* Nav */
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 0 20px; border-bottom: 1px solid #3e231c;
+}
+.logo {
+  font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900;
+  color: #e34f33; letter-spacing: 3px; text-shadow: 0 0 8px #b33b1f;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo i { font-size: 1.8rem; color: #ff8c42; }
+.nav-links a {
+  color: #dbb89c; margin-left: 28px; text-decoration: none; font-weight: 400;
+  transition: 0.2s; font-size: 1.1rem;
+}
+.nav-links a:hover, .nav-links a.active { color: #ffaa66; text-shadow: 0 0 5px #ff5e1a; }
+.nav-links a.active { border-bottom: 2px solid #d94a38; padding-bottom: 5px; }
+
+.page-header { margin: 40px 0 30px; }
+.subhead { font-size: 1.2rem; color: #c9b0a0; }
+
+.schedule-container { display: flex; flex-wrap: wrap; gap: 40px; margin: 20px 0 40px; }
+.next-stream { flex: 2; min-width: 300px; }
+.upcoming-list { flex: 1.5; min-width: 260px; }
+h3 { color: #d49c74; margin-bottom: 20px; font-size: 1.5rem; }
+
+.countdown-card {
+  background: #1b100b; border-radius: 30px; padding: 30px;
+  border: 1px solid #a3533b; box-shadow: 0 0 20px #c94f2e33;
+}
+.stream-info { margin-bottom: 25px; }
+.stream-title { font-size: 1.8rem; color: #f5cfb1; display: block; margin-bottom: 5px; }
+.stream-date { color: #b68b78; font-size: 1rem; }
+.countdown-timer {
+  display: flex; gap: 15px; justify-content: space-around;
+}
+.countdown-timer div {
+  text-align: center;
+  background: #2c1510; padding: 15px 5px; border-radius: 20px;
+  min-width: 70px; border: 1px solid #8b4a32;
+}
+.countdown-timer span { font-size: 2.5rem; font-weight: 700; color: #ffb56b; display: block; }
+.countdown-timer small { color: #b68b78; text-transform: uppercase; }
+
+.schedule-items { display: flex; flex-direction: column; gap: 15px; }
+.schedule-item {
+  display: flex; align-items: center; gap: 20px;
+  background: #160c08; padding: 18px 20px; border-radius: 20px;
+  border: 1px solid #40261e;
+}
+.item-date {
+  font-weight: 700; color: #e58e5c; text-align: center; min-width: 70px;
+  border-right: 1px dashed #a3533b; padding-right: 15px;
+}
+.item-date span { font-size: 1.2rem; display: block; color: #f0cfb0; }
+.item-desc { color: #dbb89c; }
+
+.footer-note { text-align: center; margin: 20px 0 40px; color: #b68b78; font-style: italic; }
+
+.fire-footer { margin-top: 30px; text-align: center; }
+canvas#fireCanvas {
+  width: 100%; max-width: 800px; height: 80px; margin: 0 auto 20px;
+  opacity: 0.9; border-radius: 40px;
+}
+.footer-quote { font-size: 1.2rem; color: #bda79b; margin: 20px 0 30px; }
+.copyright { padding: 20px 0 40px; color: #785a4c; border-top: 1px dashed #5e3427; }
+
+.sound-control {
+  position: fixed; bottom: 25px; right: 25px; width: 48px; height: 48px;
+  background: #1b100bdd; border: 1.5px solid #a3533b; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #e58e5c;
+  font-size: 1.4rem; cursor: pointer; z-index: 100; box-shadow: 0 0 15px #c94f2e55;
+}
+.sound-control:hover { background: #2c1812; color: #ffb56b; }
+.sound-control.muted { color: #9f7c6b; }
+
+#emberCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+@media (max-width: 700px) {
+  nav { flex-direction: column; gap: 12px; }
+  .nav-links a { margin: 0 12px; }
+}

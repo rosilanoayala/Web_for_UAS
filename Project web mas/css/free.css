@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0b0707;
+  background-image: radial-gradient(circle at 30% 20%, #2c1510 0%, #0b0707 100%);
+  color: #f0e6dd;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.6rem;
+  color: #e5b474;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #d94a38, transparent);
+  margin-top: 8px;
+}
+
+/* Navigasi */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0 20px;
+  border-bottom: 1px solid #3e231c;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e34f33;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px #b33b1f;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo i { font-size: 1.8rem; color: #ff8c42; }
+.nav-links a {
+  color: #dbb89c;
+  margin-left: 28px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: 0.2s;
+  font-size: 1.1rem;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: #ffaa66;
+  text-shadow: 0 0 5px #ff5e1a;
+}
+.nav-links a.active {
+  border-bottom: 2px solid #d94a38;
+  padding-bottom: 5px;
+}
+
+/* Header */
+.page-header {
+  margin: 40px 0 30px;
+}
+.subhead {
+  font-size: 1.2rem;
+  color: #c9b0a0;
+}
+
+/* Grid Freebies */
+.freebies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  margin: 30px 0 50px;
+}
+
+.free-card {
+  background: #160c08;
+  border-radius: 28px;
+  padding: 30px 20px;
+  border: 1px solid #40261e;
+  box-shadow: 0 5px 0 #0c0604;
+  text-align: center;
+  transition: 0.3s;
+}
+.free-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #c94f2e55, 0 8px 0 #3e1e15;
+  border-color: #b84f31;
+}
+.free-preview {
+  font-size: 60px;
+  color: #ff884d;
+  margin-bottom: 20px;
+}
+.free-card h3 {
+  font-size: 1.6rem;
+  color: #eab78b;
+  margin-bottom: 10px;
+}
+.free-card p {
+  color: #bda79b;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+.btn-download {
+  background: #d94a38;
+  color: #0b0707;
+  border: none;
+  border-radius: 40px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 12px #b33b1f66;
+}
+.btn-download:hover {
+  background: #e85f4a;
+  transform: scale(1.02);
+}
+
+.footer-note {
+  text-align: center;
+  margin: 20px 0 40px;
+  font-style: italic;
+  color: #b68b78;
+}
+
+/* Footer Api */
+.fire-footer {
+  margin-top: 30px;
+  text-align: center;
+}
+canvas#fireCanvas {
+  width: 100%;
+  max-width: 800px;
+  height: 80px;
+  margin: 0 auto 20px;
+  opacity: 0.9;
+  border-radius: 40px;
+}
+.footer-quote {
+  font-size: 1.2rem;
+  color: #bda79b;
+  margin: 20px 0 30px;
+  font-style: italic;
+}
+.copyright {
+  padding: 20px 0 40px;
+  color: #785a4c;
+  border-top: 1px dashed #5e3427;
+}
+
+/* Tombol Suara */
+.sound-control {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  background: #1b100bdd;
+  backdrop-filter: blur(4px);
+  border: 1.5px solid #a3533b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e58e5c;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 0 15px #c94f2e55;
+}
+.sound-control:hover {
+  background: #2c1812;
+  color: #ffb56b;
+}
+.sound-control.muted {
+  color: #9f7c6b;
+  border-color: #5e3a2e;
+}
+
+#emberCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  nav { flex-direction: column; gap: 12px; }
+  .nav-links a { margin: 0 12px; font-size: 1rem; }
+}
