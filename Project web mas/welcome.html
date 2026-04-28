@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROAMING · Selamat Datang di Perapian</title>
+  <!-- Font & Icon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- CSS Welcome -->
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0b0707;
+  background-image: radial-gradient(circle at 50% 30%, #2c1510 0%, #0b0707 100%);
+  color: #f0e6dd;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas Global Bara */
+#emberCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.welcome-container {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  width: 100%;
+  padding: 40px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Avatar */
+.avatar-section {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.avatar-ring {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #1b100b;
+  border: 3px solid #d94a38;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px #c94f2e, inset 0 0 20px #b33b1f55;
+  animation: pulseRing 3s ease-in-out infinite;
+}
+
+.avatar-icon {
+  font-size: 80px;
+  color: #ff6a2e;
+  filter: drop-shadow(0 0 15px #d94a38);
+}
+
+.avatar-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #d94a3822, transparent 70%);
+  animation: pulseGlow 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); border-color: #d94a38; }
+  50% { transform: scale(1.03); border-color: #ff6a2e; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Judul */
+.welcome-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #ffd9b3;
+  text-shadow: 0 0 20px #d94a3888;
+  margin-bottom: 10px;
+}
+
+.welcome-subtitle {
+  font-size: 1.15rem;
+  color: #c9b0a0;
+  max-width: 550px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.welcome-subtitle strong {
+  color: #e58e5c;
+}
+
+/* Info Card */
+.info-card {
+  background: #150d0aee;
+  backdrop-filter: blur(4px);
+  border-radius: 30px;
+  padding: 30px;
+  border: 1px solid #40261e;
+  margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
+}
+
+.info-section {
+  margin-bottom: 20px;
+}
+
+.info-section:last-child {
+  margin-bottom: 0;
+}
+
+.info-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #e5b474;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-section h3 i {
+  color: #d94a38;
+}
+
+.info-section p {
+  color: #c7afa1;
+  line-height: 1.7;
+}
+
+.rules-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rules-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #c7afa1;
+  line-height: 1.5;
+}
+
+.rules-list li i {
+  color: #d94a38;
+  margin-top: 3px;
+  font-size: 0.9rem;
+  min-width: 18px;
+}
+
+/* Tombol Masuk */
+.btn-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #d94a38;
+  color: #0b0707;
+  border: 1px solid #ff8f6b;
+  border-radius: 50px;
+  padding: 18px 40px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 8px 30px #b33b1f88;
+  margin-bottom: 15px;
+}
+
+.btn-enter:hover {
+  background: #e85f4a;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px #d94a38;
+  color: #fff7f0;
+}
+
+.enter-hint {
+  font-size: 0.9rem;
+  color: #9f7c6b;
+}
+
+.enter-hint a {
+  color: #d49c74;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.enter-hint a:hover {
+  color: #ffb56b;
+}
+
+/* Tombol Suara */
+.sound-control {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  background: #1b100bdd;
+  backdrop-filter: blur(4px);
+  border: 1.5px solid #a3533b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e58e5c;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+  box-shadow: 0 0 15px #c94f2e55;
+}
+
+.sound-control:hover {
+  background: #2c1812;
+  color: #ffb56b;
+  transform: scale(1.08);
+  border-color: #e57f4a;
+  box-shadow: 0 0 20px #d94a38;
+}
+
+.sound-control.muted {
+  color: #9f7c6b;
+  border-color: #5e3a2e;
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+  .welcome-title { font-size: 2.2rem; }
+  .avatar-ring { width: 120px; height: 120px; }
+  .avatar-icon { font-size: 60px; }
+  .btn-enter { padding: 15px 30px; font-size: 1.1rem; }
+  .info-card { padding: 20px; }
+}
+  </style>
+</head>
+<body>
+  <!-- AMBIENT SOUND -->
+  <audio id="fireAmbient" loop preload="auto">
+    <source src="../assets/sounds/fire-ambient.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- TOMBOL SUARA -->
+  <div id="soundControl" class="sound-control" title="Suara Perapian">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <div class="welcome-container">
+    <!-- Avatar Roaming -->
+    <div class="avatar-section">
+      <div class="avatar-ring">
+        <i class="fas fa-dragon avatar-icon"></i>
+      </div>
+      <div class="avatar-glow"></div>
+    </div>
+
+    <!-- Teks Selamat Datang -->
+    <h1 class="welcome-title">Selamat Datang di Perapian</h1>
+    <p class="welcome-subtitle">Aku <strong>Roaming</strong>, iblis merah yang dulu memakan emosi negatif, kini memilih menjadi api unggun bagi jiwa-jiwa yang lelah.</p>
+
+    <!-- Card Penjelasan & Aturan -->
+    <div class="info-card">
+      <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> Tentang Tempat Ini</h3>
+        <p>Di sini kau boleh melepas topengmu. Tak perlu berpura-pura kuat. Perapian ini menyala untukmu — tempat berbagi karya, menitipkan kata yang memberatkan, atau sekadar duduk mendengarkan derak api.</p>
+      </div>
+
+      <div class="info-section">
+        <h3><i class="fas fa-scroll"></i> Aturan Perapian</h3>
+        <ul class="rules-list">
+          <li><i class="fas fa-heart"></i> <strong>Hormati sesama pengunjung.</strong> Setiap orang punya beban masing-masing.</li>
+          <li><i class="fas fa-fire-extinguisher"></i> <strong>Jangan menyebarkan kebencian.</strong> Api ini untuk menghangatkan, bukan membakar.</li>
+          <li><i class="fas fa-paint-brush"></i> <strong>Bebas berekspresi.</strong> FanArt, klip, dan pesan diterima dengan hangat.</li>
+          <li><i class="fas fa-shield-alt"></i> <strong>Jaga kerahasiaan.</strong> Data tersimpan di browser masing-masing, tidak dikirim ke server.</li>
+          <li><i class="fas fa-gavel"></i> <strong>Moderator berhak menjaga kehangatan.</strong> Demi kenyamanan bersama.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tombol Masuk -->
+    <a href="../Project web mas/html/index.html" class="btn-enter">
+      <i class="fas fa-fire"></i> Mari Masuk ke Tempat yang Hangat
+    </a>
+    <p class="enter-hint">Atau langsung ke <a href="../Project web mas/html/market.html">Market</a> · <a href="../Project web mas/html/fanart.html">FanArt</a> · <a href="../Project web mas/html/schedule.html">Agenda</a></p>
+  </div>
+  <script>
+    (function() {
+  // ===== CANVAS GLOBAL (BARA MENGAMBANG) =====
+  const globalCanvas = document.createElement('canvas');
+  globalCanvas.id = 'emberCanvas';
+  document.body.prepend(globalCanvas);
+
+  const gCtx = globalCanvas.getContext('2d');
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  
+  function resizeGlobalCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    globalCanvas.width = width;
+    globalCanvas.height = height;
+  }
+  window.addEventListener('resize', resizeGlobalCanvas);
+  resizeGlobalCanvas();
+
+  const globalParticles = [];
+  const PARTICLE_COUNT = 50;
+
+  class GlobalEmber {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 5 + 2;
+      this.speedY = Math.random() * 0.4 + 0.15;
+      this.speedX = (Math.random() - 0.5) * 0.2;
+      this.opacity = Math.random() * 0.25 + 0.1;
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX;
+      if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+        this.reset();
+        this.y = height + 10;
+        this.x = Math.random() * width;
+      }
+    }
+    draw() {
+      gCtx.beginPath();
+      const gradient = gCtx.createRadialGradient(this.x, this.y, 1, this.x+2, this.y-1, this.size*1.5);
+      gradient.addColorStop(0, `rgba(255, 160, 80, ${this.opacity*1.2})`);
+      gradient.addColorStop(1, `rgba(200, 70, 20, ${this.opacity*0.5})`);
+      gCtx.fillStyle = gradient;
+      gCtx.shadowColor = '#d94a38';
+      gCtx.shadowBlur = 8;
+      gCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      gCtx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) globalParticles.push(new GlobalEmber());
+
+  function animateGlobal() {
+    gCtx.clearRect(0, 0, width, height);
+    globalParticles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateGlobal);
+  }
+  animateGlobal();
+
+  // ===== AUDIO =====
+  const ambientAudio = document.getElementById('fireAmbient');
+  const soundControl = document.getElementById('soundControl');
+  const soundIcon = soundControl?.querySelector('i');
+  if (ambientAudio && soundControl && soundIcon) {
+    ambientAudio.volume = 0.5;
+    let isMuted = false, hasInteracted = false;
+    function attemptPlay() {
+      ambientAudio.play().then(() => {
+        soundControl.classList.remove('muted');
+        soundIcon.className = 'fas fa-volume-up';
+        isMuted = false;
+      }).catch(() => {
+        soundControl.classList.add('muted');
+        soundIcon.className = 'fas fa-volume-mute';
+        isMuted = true;
+      });
+    }
+    attemptPlay();
+    function onFirstInteraction() {
+      if (!hasInteracted) {
+        hasInteracted = true;
+        if (isMuted) attemptPlay();
+        document.removeEventListener('click', onFirstInteraction);
+        document.removeEventListener('touchstart', onFirstInteraction);
+      }
+    }
+    document.addEventListener('click', onFirstInteraction);
+    document.addEventListener('touchstart', onFirstInteraction);
+    soundControl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isMuted) {
+        ambientAudio.play().then(() => {
+          soundControl.classList.remove('muted');
+          soundIcon.className = 'fas fa-volume-up';
+          isMuted = false;
+        }).catch(()=>{});
+      } else {
+        ambientAudio.pause();
+        soundControl.classList.add('muted');
+        soundIcon.className = 'fas fa-volume-mute';
+        isMuted = true;
+      }
+    });
+  }
+})();
+  </script>
+</body>
+</html>

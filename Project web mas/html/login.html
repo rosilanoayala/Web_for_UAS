@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROAMING · Bergabung dengan Perapian</title>
+  <!-- Font & Icon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- CSS Login -->
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <!-- AMBIENT SOUND -->
+  <audio id="fireAmbient" loop preload="auto">
+    <source src="../assets/sounds/fire-ambient.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- TOMBOL SUARA -->
+  <div id="soundControl" class="sound-control" title="Suara Perapian">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <div class="login-wrapper">
+    <!-- Logo kecil -->
+    <div class="login-logo">
+      <i class="fas fa-fire"></i>
+      <span>ROAMING</span>
+    </div>
+
+    <!-- Panel Register (tampil default) -->
+    <div id="registerPanel" class="form-panel">
+      <div class="form-header">
+        <h2>Bergabung dengan Perapian</h2>
+        <p>Buat akun untuk menitipkan bara.</p>
+      </div>
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="registerUsername">Nama Pengguna</label>
+          <input type="text" id="registerUsername" placeholder="Nama panggilanmu" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Kata Sandi</label>
+          <input type="password" id="registerPassword" placeholder="Kata sandi" required>
+        </div>
+        <div class="form-group">
+          <label for="registerConfirm">Konfirmasi Kata Sandi</label>
+          <input type="password" id="registerConfirm" placeholder="Ulangi kata sandi" required>
+        </div>
+        <div id="registerError" class="error-message hidden"></div>
+        <button type="submit" class="btn-auth"><i class="fas fa-user-plus"></i> Daftar</button>
+      </form>
+      <p class="switch-panel">Sudah punya akun? <a href="#" id="showLogin">Masuk di sini</a></p>
+    </div>
+
+    <!-- Panel Login (tersembunyi default) -->
+    <div id="loginPanel" class="form-panel hidden">
+      <div class="form-header">
+        <h2>Masuk ke Perapian</h2>
+        <p>Hangatkan diri dan bergabunglah.</p>
+      </div>
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="loginUsername">Nama Pengguna</label>
+          <input type="text" id="loginUsername" placeholder="Nama panggilanmu" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Kata Sandi</label>
+          <input type="password" id="loginPassword" placeholder="Kata sandi" required>
+        </div>
+        <div id="loginError" class="error-message hidden"></div>
+        <button type="submit" class="btn-auth"><i class="fas fa-sign-in-alt"></i> Masuk</button>
+      </form>
+      <p class="switch-panel">Belum punya akun? <a href="#" id="showRegister">Daftar di sini</a></p>
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+</body>
+</html>
