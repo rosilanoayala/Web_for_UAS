@@ -1,14 +1,13 @@
 (function() {
   // ===== KONFIGURASI =====
-  const MOD_PASSWORD = 'roamingapi'; // Ganti sesuai keinginan
+  const MOD_PASSWORD = 'roamingapi';
   const STORAGE_KEY = 'roamingSchedule';
   
-  // State
   let isModerator = false;
   let schedules = [];
-  let editIndex = -1; // -1 berarti tambah baru, >=0 berarti edit
+  let editIndex = -1;
   
-  // Elemen DOM
+  // Elemen DOM – pengecekan null disertakan di setiap blok
   const modPanel = document.getElementById('modPanel');
   const scheduleList = document.getElementById('scheduleList');
   const emptyState = document.getElementById('emptySchedule');
@@ -16,15 +15,44 @@
   const logoutBtn = document.getElementById('logoutModBtn');
   const addBtn = document.getElementById('addEventBtn');
   
-  // Form inputs
   const titleInput = document.getElementById('eventTitle');
   const dateInput = document.getElementById('eventDate');
   const timeInput = document.getElementById('eventTime');
   const linkInput = document.getElementById('eventLink');
   const descInput = document.getElementById('eventDesc');
   const imageInput = document.getElementById('eventImage');
+
+  // ===== COUNTDOWN & AURA ELEMENTS (SATU KANVAS BESAR) =====
+  const countdownSection = document.getElementById('countdownSection');
+  const digitDays = document.getElementById('digitDays');
+  const digitHours = document.getElementById('digitHours');
+  const digitMinutes = document.getElementById('digitMinutes');
+  const digitSeconds = document.getElementById('digitSeconds');
+  const countdownEventName = document.getElementById('countdownEventName');
+  const countdownTimer = document.getElementById('countdownTimer');
   
-  // ===== CANVAS GLOBAL (Bara) =====
+  // Hentikan inisialisasi countdown jika elemen wajib tidak ada
+  if (!countdownSection || !countdownTimer) {
+    console.warn('Elemen countdown tidak ditemukan. Countdown dinonaktifkan.');
+    // inisialisasi lainnya (global canvas, audio, schedule) tetap berjalan
+  }
+  
+  // Buat kanvas besar dan sisipkan ke dalam countdownTimer (hanya jika ada)
+  let auraCanvas = null;
+  let ctxAura = null;
+  let auraParticles = [];
+  const AURA_COUNT = 70;
+  
+  if (countdownTimer) {
+    auraCanvas = document.createElement('canvas');
+    auraCanvas.id = 'countdownAuraCanvas';
+    auraCanvas.className = 'countdown-aura-canvas';
+    countdownTimer.style.position = 'relative';
+    countdownTimer.prepend(auraCanvas);
+    ctxAura = auraCanvas.getContext('2d');
+  }
+  
+  // ===== CANVAS GLOBAL (BARA) =====
   const globalCanvas = document.createElement('canvas');
   globalCanvas.id = 'emberCanvas';
   document.body.prepend(globalCanvas);
@@ -155,176 +183,226 @@
   
   // ===== FUNGSI SCHEDULE =====
   function loadSchedules() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      schedules = JSON.parse(stored);
-    } else {
-      // Contoh data awal
-      schedules = [
-        { title: 'Perkenalan Roaming', date: '2025-05-01', time: '20:00', link: '#', desc: 'Stream perdana! Mari berkenalan dengan iblis merah.', image: '' },
-        { title: 'Ngobrol Santai di Perapian', date: '2025-05-08', time: '19:30', link: '#', desc: 'Sesi tanya jawab dan cerita.', image: '' }
-      ];
-      saveSchedules();
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const now = new Date();
+        const hasUpcoming = parsed.some(event => new Date(`${event.date}T${event.time}`) > now);
+        if (hasUpcoming) schedules = parsed;
+        else schedules = getDefaultSchedules();
+      } else {
+        schedules = getDefaultSchedules();
+      }
+    } catch(e) {
+      schedules = getDefaultSchedules();
     }
+    saveSchedules();
+  }
+  
+  function getDefaultSchedules() {
+    const now = new Date();
+    const tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1);
+    const nextWeek = new Date(now); nextWeek.setDate(nextWeek.getDate() + 7);
+    const formatDate = (d) => d.toISOString().split('T')[0];
+    return [
+      { title: 'Perkenalan Roaming', date: formatDate(tomorrow), time: '20:00', link: '#', desc: 'Stream perdana! Mari berkenalan dengan iblis merah.', image: '' },
+      { title: 'Ngobrol Santai di Perapian', date: formatDate(nextWeek), time: '19:30', link: '#', desc: 'Sesi tanya jawab dan cerita.', image: '' }
+    ];
   }
   
   function saveSchedules() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(schedules));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(schedules)); } catch(e) {}
   }
   
   function renderSchedules() {
     if (!scheduleList) return;
-    
-    // Urutkan berdasarkan tanggal & waktu (terdekat)
-    const sorted = [...schedules].sort((a, b) => {
-      const dateA = new Date(`${a.date}T${a.time}`);
-      const dateB = new Date(`${b.date}T${b.time}`);
-      return dateA - dateB;
-    });
-    
-    if (sorted.length === 0) {
-      scheduleList.innerHTML = '';
-      emptyState.classList.remove('hidden');
-      return;
-    }
-    
-    emptyState.classList.add('hidden');
+    const sorted = [...schedules].sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+    if (sorted.length === 0) { scheduleList.innerHTML = ''; if (emptyState) emptyState.classList.remove('hidden'); return; }
+    if (emptyState) emptyState.classList.add('hidden');
     let html = '';
-    sorted.forEach((event, index) => {
+    sorted.forEach((event) => {
       const originalIndex = schedules.indexOf(event);
       const dateObj = new Date(`${event.date}T${event.time}`);
       const formattedDate = dateObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       const formattedTime = dateObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-      
       html += `<div class="schedule-card" data-index="${originalIndex}">
-        <div class="schedule-image">
-          ${event.image ? `<img src="${event.image}" alt="${event.title}" onerror="this.parentElement.innerHTML='<i class=\'fas fa-fire\'></i>'">` : '<i class="fas fa-fire"></i>'}
-        </div>
+        <div class="schedule-image">${event.image ? `<img src="${event.image}" alt="${event.title}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-fire\\'></i>'">` : '<i class="fas fa-fire"></i>'}</div>
         <div class="schedule-content">
           <div class="schedule-title">${event.title}</div>
-          <div class="schedule-datetime">
-            <span><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
-            <span><i class="far fa-clock"></i> ${formattedTime} WIB</span>
-          </div>
+          <div class="schedule-datetime"><span><i class="far fa-calendar-alt"></i> ${formattedDate}</span><span><i class="far fa-clock"></i> ${formattedTime} WIB</span></div>
           ${event.desc ? `<div class="schedule-desc">${event.desc}</div>` : ''}
           ${event.link ? `<a href="${event.link}" target="_blank" class="schedule-link"><i class="fas fa-external-link-alt"></i> Tonton / Info</a>` : ''}
-          ${isModerator ? `
-            <div class="schedule-actions">
-              <button class="btn-edit" data-index="${originalIndex}"><i class="fas fa-edit"></i> Edit</button>
-              <button class="btn-delete" data-index="${originalIndex}"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </div>
-          ` : ''}
+          ${isModerator ? `<div class="schedule-actions"><button class="btn-edit" data-index="${originalIndex}"><i class="fas fa-edit"></i> Edit</button><button class="btn-delete" data-index="${originalIndex}"><i class="fas fa-trash-alt"></i> Hapus</button></div>` : ''}
         </div>
       </div>`;
     });
     scheduleList.innerHTML = html;
-    
-    // Attach event listener untuk tombol edit & delete jika moderator
     if (isModerator) {
-      document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const idx = parseInt(btn.dataset.index);
-          editSchedule(idx);
-        });
-      });
-      document.querySelectorAll('.btn-delete').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const idx = parseInt(btn.dataset.index);
-          deleteSchedule(idx);
-        });
-      });
+      document.querySelectorAll('.btn-edit').forEach(btn => btn.addEventListener('click', (e) => editSchedule(parseInt(btn.dataset.index))));
+      document.querySelectorAll('.btn-delete').forEach(btn => btn.addEventListener('click', (e) => deleteSchedule(parseInt(btn.dataset.index))));
     }
   }
   
   function editSchedule(index) {
     const event = schedules[index];
     if (!event) return;
-    titleInput.value = event.title || '';
-    dateInput.value = event.date || '';
-    timeInput.value = event.time || '';
-    linkInput.value = event.link || '';
-    descInput.value = event.desc || '';
-    imageInput.value = event.image || '';
+    if (titleInput) titleInput.value = event.title || '';
+    if (dateInput) dateInput.value = event.date || '';
+    if (timeInput) timeInput.value = event.time || '';
+    if (linkInput) linkInput.value = event.link || '';
+    if (descInput) descInput.value = event.desc || '';
+    if (imageInput) imageInput.value = event.image || '';
     editIndex = index;
-    addBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Perubahan';
-    // Scroll ke form
-    modPanel.scrollIntoView({ behavior: 'smooth' });
+    if (addBtn) addBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Perubahan';
+    if (modPanel) modPanel.scrollIntoView({ behavior: 'smooth' });
   }
   
   function deleteSchedule(index) {
     if (confirm('Hapus jadwal ini? Bara akan padam.')) {
       schedules.splice(index, 1);
-      saveSchedules();
-      renderSchedules();
-      if (editIndex === index) {
-        resetForm();
-      }
+      saveSchedules(); renderSchedules();
+      if (editIndex === index) resetForm();
     }
   }
   
   function resetForm() {
-    titleInput.value = '';
-    dateInput.value = '';
-    timeInput.value = '';
-    linkInput.value = '';
-    descInput.value = '';
-    imageInput.value = '';
+    if (titleInput) titleInput.value = '';
+    if (dateInput) dateInput.value = '';
+    if (timeInput) timeInput.value = '';
+    if (linkInput) linkInput.value = '';
+    if (descInput) descInput.value = '';
+    if (imageInput) imageInput.value = '';
     editIndex = -1;
-    addBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Jadwal';
+    if (addBtn) addBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Jadwal';
   }
   
   function handleAddOrUpdate() {
-    const title = titleInput.value.trim();
-    const date = dateInput.value;
-    const time = timeInput.value;
-    
-    if (!title || !date || !time) {
-      alert('Judul, Tanggal, dan Waktu wajib diisi!');
-      return;
-    }
-    
+    const title = titleInput?.value.trim();
+    const date = dateInput?.value;
+    const time = timeInput?.value;
+    if (!title || !date || !time) { alert('Judul, Tanggal, dan Waktu wajib diisi!'); return; }
     const newEvent = {
       title,
       date,
       time,
-      link: linkInput.value.trim(),
-      desc: descInput.value.trim(),
-      image: imageInput.value.trim()
+      link: linkInput?.value.trim() || '',
+      desc: descInput?.value.trim() || '',
+      image: imageInput?.value.trim() || ''
     };
-    
-    if (editIndex >= 0) {
-      schedules[editIndex] = newEvent;
-    } else {
-      schedules.push(newEvent);
-    }
-    
-    saveSchedules();
-    renderSchedules();
-    resetForm();
+    if (editIndex >= 0) schedules[editIndex] = newEvent;
+    else schedules.push(newEvent);
+    saveSchedules(); renderSchedules(); resetForm();
   }
   
-  // ===== LOGIN MODERATOR (klik logo 3x) =====
-  let clickCount = 0;
-  let clickTimer = null;
+  // ===== SATU PARTIKEL AURA UNTUK SELURUH COUNTDOWN =====
+  class AuraParticle {
+    constructor(canvasWidth, canvasHeight) {
+      this.canvasWidth = canvasWidth; this.canvasHeight = canvasHeight;
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * this.canvasWidth;
+      this.y = Math.random() * this.canvasHeight;
+      this.size = Math.random() * 4 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      this.speedY = (Math.random() - 0.5) * 1.5;
+      this.opacity = Math.random() * 0.6 + 0.3;
+      this.life = 1.0;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.life -= 0.003;
+      this.opacity = Math.max(0, this.life * 0.7);
+      if (this.life <= 0.05 || this.x < -20 || this.x > this.canvasWidth + 20 || this.y < -20 || this.y > this.canvasHeight + 20) {
+        this.reset();
+        this.life = 1.0;
+      }
+    }
+    draw(ctx) {
+      ctx.beginPath();
+      const gradient = ctx.createRadialGradient(this.x, this.y, 1, this.x+3, this.y-2, this.size);
+      gradient.addColorStop(0, `rgba(255, 200, 50, ${this.opacity})`);
+      gradient.addColorStop(0.6, `rgba(230, 80, 30, ${this.opacity*0.8})`);
+      gradient.addColorStop(1, `rgba(150, 20, 0, 0)`);
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = '#ff5e1a';
+      ctx.shadowBlur = 12;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
   
+  function resizeAuraCanvas() {
+    if (!auraCanvas || !countdownTimer) return;
+    const rect = countdownTimer.getBoundingClientRect();
+    auraCanvas.width = rect.width + 50;
+    auraCanvas.height = rect.height + 60;
+    auraParticles = [];
+    for (let i = 0; i < AURA_COUNT; i++) {
+      auraParticles.push(new AuraParticle(auraCanvas.width, auraCanvas.height));
+    }
+  }
+  
+  function animateAura() {
+    if (!ctxAura || !auraCanvas) return;
+    ctxAura.clearRect(0, 0, auraCanvas.width, auraCanvas.height);
+    auraParticles.forEach(p => { p.update(); p.draw(ctxAura); });
+    requestAnimationFrame(animateAura);
+  }
+  
+  function getNextSchedule() {
+    const now = new Date();
+    let nextEvent = null, nextDate = null;
+    schedules.forEach(event => {
+      const eventDate = new Date(`${event.date}T${event.time}`);
+      if (eventDate > now && (!nextDate || eventDate < nextDate)) { nextDate = eventDate; nextEvent = event; }
+    });
+    return { event: nextEvent, date: nextDate };
+  }
+  
+  function updateCountdown() {
+    if (!countdownSection || !digitDays || !digitHours || !digitMinutes || !digitSeconds) return;
+    const { event, date } = getNextSchedule();
+    if (!event || !date) {
+      countdownSection.classList.add('hidden');
+      return;
+    }
+    countdownSection.classList.remove('hidden');
+    if (countdownEventName) countdownEventName.textContent = `"${event.title}"`;
+    const diff = Math.max(0, date - new Date());
+    const totalSeconds = Math.floor(diff / 1000);
+    digitDays.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+    digitHours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+    digitMinutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    digitSeconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+  }
+  
+  function initCountdown() {
+    if (!countdownSection || !countdownTimer) return;
+    resizeAuraCanvas();
+    window.addEventListener('resize', resizeAuraCanvas);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    animateAura();
+  }
+  
+  // ===== MODERATOR LOGIN =====
+  let clickCount = 0, clickTimer = null;
   if (loginTrigger) {
     loginTrigger.addEventListener('click', () => {
       clickCount++;
       clearTimeout(clickTimer);
       clickTimer = setTimeout(() => { clickCount = 0; }, 800);
-      
-      if (clickCount >= 3) {
-        if (!isModerator) {
-          const pass = prompt('Masukkan password moderator:');
-          if (pass === MOD_PASSWORD) {
-            isModerator = true;
-            modPanel.classList.remove('hidden');
-            renderSchedules(); // re-render untuk menampilkan tombol edit/delete
-            alert('Selamat datang, Moderator. Api siap dikelola.');
-          } else {
-            alert('Password salah. Bara menolak.');
-          }
-        }
+      if (clickCount >= 3 && !isModerator) {
+        const pass = prompt('Masukkan password moderator:');
+        if (pass === MOD_PASSWORD) {
+          isModerator = true;
+          if (modPanel) modPanel.classList.remove('hidden');
+          renderSchedules();
+          alert('Selamat datang, Moderator. Api siap dikelola.');
+        } else alert('Password salah. Bara menolak.');
         clickCount = 0;
       }
     });
@@ -333,17 +411,16 @@
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       isModerator = false;
-      modPanel.classList.add('hidden');
+      if (modPanel) modPanel.classList.add('hidden');
       resetForm();
       renderSchedules();
     });
   }
   
-  if (addBtn) {
-    addBtn.addEventListener('click', handleAddOrUpdate);
-  }
+  if (addBtn) addBtn.addEventListener('click', handleAddOrUpdate);
   
-  // ===== INISIALISASI =====
+  // ===== INISIALISASI AKHIR =====
   loadSchedules();
   renderSchedules();
+  initCountdown();
 })();

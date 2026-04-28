@@ -456,6 +456,103 @@ canvas#fireCanvas {
   z-index: 1;
 }
 
+/* ===== COUNTDOWN SECTION ===== */
+.countdown-section {
+  text-align: center;
+  margin: 30px 0;
+  padding: 25px;
+  background: #150d0a66;
+  border-radius: 40px;
+  border: 1px solid #632f22;
+  backdrop-filter: blur(4px);
+}
+
+.countdown-section.hidden {
+  display: none;
+}
+
+.countdown-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #e5b474;
+  margin-bottom: 15px;
+}
+
+/* Timer sekarang posisinya relatif untuk menampung canvas aura besar */
+.countdown-timer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.countdown-digit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+/* Hapus digit-canvas (tidak lagi dipakai) - aturannya bisa dihapus */
+.digit-canvas {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: calc(100% + 30px);
+  height: calc(100% + 30px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.digit-value {
+  position: relative;
+  z-index: 1;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #f3b27a;
+  text-shadow: 0 0 15px #d94a38, 0 0 30px #b33b1f;
+  line-height: 1;
+}
+
+.digit-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+  color: #b68b78;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.countdown-separator {
+  font-size: 2.5rem;
+  color: #c9704a;
+  font-weight: 700;
+  margin: 0 -5px;
+}
+
+.countdown-event {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  color: #c9b0a0;
+  font-style: italic;
+}
+
+/* Canvas aura besar menyelimuti seluruh timer */
+.countdown-aura-canvas {
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Responsif */
 @media (max-width: 700px) {
   h2 { font-size: 2.2rem; }
@@ -469,5 +566,7 @@ canvas#fireCanvas {
 }
 
 @media (max-width: 500px) {
+  .digit-value { font-size: 2rem; }
+  .countdown-timer { gap: 5px; }
   .schedule-datetime { flex-direction: column; gap: 5px; align-items: flex-start; }
 }

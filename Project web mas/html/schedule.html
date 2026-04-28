@@ -44,6 +44,36 @@
       <p class="schedule-intro">Catat waktunya, datanglah, hangatkan diri bersama.</p>
     </div>
 
+        <!-- COUNTDOWN SECTION -->
+    <div id="countdownSection" class="countdown-section">
+      <div class="countdown-header">
+        <i class="fas fa-hourglass-half"></i> Menuju Acara Berikutnya
+      </div>
+      <div class="countdown-timer" id="countdownTimer">
+        <!-- Canvas aura akan disisipkan oleh JS -->
+        <div class="countdown-digit">
+          <span class="digit-value" id="digitDays">00</span>
+          <span class="digit-label">Hari</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-digit">
+          <span class="digit-value" id="digitHours">00</span>
+          <span class="digit-label">Jam</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-digit">
+          <span class="digit-value" id="digitMinutes">00</span>
+          <span class="digit-label">Menit</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-digit">
+          <span class="digit-value" id="digitSeconds">00</span>
+          <span class="digit-label">Detik</span>
+        </div>
+      </div>
+      <div class="countdown-event" id="countdownEventName">Mempersiapkan bara...</div>
+    </div>
+
     <!-- Panel Moderator (tersembunyi default) -->
     <div id="modPanel" class="mod-panel hidden">
       <div class="mod-header">
