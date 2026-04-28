@@ -3,82 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ROAMING · Agenda Hangat</title>
+  <title>ROAMING · Jadwal Api</title>
+  <!-- Font & Icon -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- CSS Schedule -->
   <link rel="stylesheet" href="../css/schedule.css">
 </head>
 <body>
+  <!-- AMBIENT SOUND -->
   <audio id="fireAmbient" loop preload="auto">
     <source src="../assets/sounds/fire-ambient.mp3" type="audio/mpeg">
   </audio>
-  <div id="soundControl" class="sound-control" title="Suara Perapian"><i class="fas fa-volume-up"></i></div>
 
+  <!-- TOMBOL SUARA -->
+  <div id="soundControl" class="sound-control" title="Suara Perapian">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <!-- MODE EDIT: Tombol login tersembunyi (klik logo 3x) -->
   <div class="wrapper">
+    <!-- Navigasi -->
     <nav>
-      <div class="logo"><i class="fas fa-fire"></i> ROAMING</div>
+      <div class="logo" id="secretLoginTrigger"><i class="fas fa-fire"></i> ROAMING</div>
       <div class="nav-links">
-        <a href="index.html"><i class="fas fa-home"></i> Perapian</a>
-        <a href="market.html"><i class="fas fa-store-alt"></i> Market</a>
-        <a href="fanart.html"><i class="fas fa-palette"></i> FanArt</a>
-        <a href="free.html"><i class="fas fa-gift"></i> Bara Gratis</a>
-        <a href="schedule.html" class="active"><i class="fas fa-calendar-alt"></i> Agenda</a>
+      <a href="index.html" ><i class="fas fa-home"></i> Perapian</a>
+      <a href="market.html"><i class="fas fa-store-alt"></i> Market</a>
+      <a href="fanart.html"><i class="fas fa-palette"></i> Fan Art</a>
+      <a href="free.html"><i class="fas fa-gift"></i> Bara Gratis</a>
+      <a href="schedule.html" class="active"><i class="fas fa-calendar-alt"></i> Agenda</a>
+      <a href="clip.html"><i class="fas fa-video"></i> Bara Rekam</a>
       </div>
     </nav>
 
-    <div class="page-header">
-      <h2>📅 Agenda Hangat</h2>
-      <p class="subhead">Catat waktunya. Aku akan menyalakan api lebih besar di hari itu.</p>
+    <!-- Header -->
+    <div class="schedule-header">
+      <h2><i class="fas fa-fire"></i> Jadwal Api Roaming</h2>
+      <p class="schedule-intro">Catat waktunya, datanglah, hangatkan diri bersama.</p>
     </div>
 
-    <div class="schedule-container">
-      <div class="next-stream">
-        <h3><i class="fas fa-clock"></i> Siaran Berikutnya</h3>
-        <div class="countdown-card">
-          <div class="stream-info">
-            <span class="stream-title">🔥 Malam Curhat Perapian</span>
-            <span class="stream-date">Sabtu, 26 April 2026 · 20:00 WIB</span>
-          </div>
-          <div id="countdown" class="countdown-timer">
-            <div><span id="days">00</span><small>Hari</small></div>
-            <div><span id="hours">00</span><small>Jam</small></div>
-            <div><span id="minutes">00</span><small>Menit</small></div>
-            <div><span id="seconds">00</span><small>Detik</small></div>
-          </div>
-        </div>
+    <!-- Panel Moderator (tersembunyi default) -->
+    <div id="modPanel" class="mod-panel hidden">
+      <div class="mod-header">
+        <h3><i class="fas fa-lock-open"></i> Mode Moderator</h3>
+        <button id="logoutModBtn" class="btn-mod-logout"><i class="fas fa-sign-out-alt"></i> Keluar</button>
       </div>
-
-      <div class="upcoming-list">
-        <h3><i class="fas fa-list"></i> Mendatang</h3>
-        <div class="schedule-items">
-          <div class="schedule-item">
-            <div class="item-date">28 Apr <span>19:00</span></div>
-            <div class="item-desc">🎮 Main Game Horror (tapi Roaming yang takut)</div>
-          </div>
-          <div class="schedule-item">
-            <div class="item-date">1 Mei <span>20:30</span></div>
-            <div class="item-desc">🎨 Review FanArt + Giveaway</div>
-          </div>
-          <div class="schedule-item">
-            <div class="item-date">5 Mei <span>19:00</span></div>
-            <div class="item-desc">☕ Ngobrol Santai: "Apa Itu Bahagia?"</div>
-          </div>
-        </div>
+      <div class="mod-form">
+        <input type="text" id="eventTitle" placeholder="Judul Kegiatan" maxlength="50">
+        <input type="date" id="eventDate">
+        <input type="time" id="eventTime">
+        <input type="text" id="eventLink" placeholder="Link Stream / Info (opsional)">
+        <textarea id="eventDesc" placeholder="Deskripsi singkat..." rows="2"></textarea>
+        <input type="text" id="eventImage" placeholder="URL Gambar (opsional)">
+        <button id="addEventBtn" class="btn-mod-add"><i class="fas fa-plus-circle"></i> Tambah Jadwal</button>
       </div>
+      <p class="mod-hint">Klik logo <strong>ROAMING</strong> 3x cepat untuk masuk/mode moderator. Password: <code>roamingapi</code></p>
     </div>
 
-    <div class="footer-note">
-      <p>“Jadwal bisa berubah seperti bara yang tertiup angin. Pantau terus.” — Roaming</p>
+    <!-- Daftar Jadwal -->
+    <div id="scheduleList" class="schedule-list">
+      <!-- Jadwal akan dimuat di sini oleh JavaScript -->
     </div>
 
+    <!-- Empty State -->
+    <div id="emptySchedule" class="empty-schedule hidden">
+      <i class="fas fa-calendar-times"></i>
+      <p>Belum ada jadwal yang dinyalakan.</p>
+      <p class="small">Nantikan api berikutnya.</p>
+    </div>
+
+    <!-- Footer Api -->
     <div class="fire-footer">
       <canvas id="fireCanvas"></canvas>
-      <div class="footer-quote">“Sampai jumpa di perapian.”</div>
-      <div class="copyright">© 2025 ROAMING · Setiap pertemuan adalah kehangatan.</div>
+      <div class="footer-quote">“Setiap jadwal adalah janji api yang akan datang.”</div>
+      <div class="copyright">
+        © 2025 ROAMING · Jadwal dapat berubah sewaktu-waktu.<br>
+        <span style="font-size: 0.8rem;">🔥 Jangan sampai ketinggalan hangatnya.</span>
+      </div>
     </div>
   </div>
+
   <script src="../js/schedule.js"></script>
 </body>
 </html>
