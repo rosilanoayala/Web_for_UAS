@@ -1,0 +1,40 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#0b0707; background-image:radial-gradient(circle at 30% 20%, #2c1510 0%, #0b0707 100%);
+  color:#f0e6dd; font-family:'Nunito',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center;
+}
+.wrapper { max-width:600px; width:100%; padding:0 24px; position:relative; z-index:2; }
+
+nav { display:flex; justify-content:space-between; align-items:center; padding:28px 0 20px; border-bottom:1px solid #3e231c; }
+.logo a { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#e34f33; letter-spacing:3px; text-shadow:0 0 8px #b33b1f; text-decoration:none; display:flex; align-items:center; gap:10px; }
+.logo a i { font-size:1.8rem; color:#ff8c42; }
+.nav-links a { color:#dbb89c; margin-left:28px; text-decoration:none; font-weight:400; transition:0.2s; font-size:1.1rem; }
+.nav-links a:hover { color:#ffaa66; }
+
+.receipt-box {
+  background:#150d0aee; backdrop-filter:blur(4px); border-radius:30px; padding:35px 30px; margin:40px 0;
+  border:1px solid #632f22; text-align:center; box-shadow:0 15px 30px -10px #00000055;
+}
+.receipt-icon { font-size:4rem; color:#4caf50; margin-bottom:15px; }
+h2 { font-family:'Playfair Display',serif; font-size:2rem; color:#e5b474; margin-bottom:5px; }
+.receipt-date { color:#9f7c6b; margin-bottom:25px; }
+
+.receipt-details { text-align:left; margin-bottom:20px; }
+.receipt-item { display:flex; justify-content:space-between; color:#c9b0a0; padding:6px 0; border-bottom:1px dashed #5e3427; }
+.receipt-total { font-weight:700; font-size:1.3rem; color:#f3b27a; padding-top:15px; border-top:1px solid #d94a38; margin-top:10px; }
+
+.receipt-note { color:#b68b78; margin:20px 0; }
+.btn-home { display:inline-block; background:#d94a38; color:#0b0707; border-radius:40px; padding:12px 28px; text-decoration:none; font-weight:600; transition:0.2s; }
+.btn-home:hover { background:#e85f4a; transform:translateY(-2px); }
+
+.fire-footer { margin-top:50px; text-align:center; position:relative; }
+canvas#fireCanvas { width:100%; max-width:800px; height:80px; margin:0 auto 20px; opacity:0.9; border-radius:40px; }
+.copyright { padding:20px 0 40px; color:#785a4c; }
+
+.sound-control { position:fixed; bottom:25px; right:25px; width:48px; height:48px; background:#1b100bdd; border:1.5px solid #a3533b; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#e58e5c; font-size:1.4rem; cursor:pointer; z-index:100; }
+.sound-control:hover { background:#2c1812; color:#ffb56b; }
+.sound-control.muted { color:#9f7c6b; }
+
+@media (max-width:600px) {
+  .nav-links a { margin:0 10px; font-size:1rem; }
+}

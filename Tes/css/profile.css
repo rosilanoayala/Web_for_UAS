@@ -264,3 +264,29 @@ canvas#fireCanvas {
   .nav-links a { margin: 0 10px; font-size: 1rem; }
   .profile-card { padding: 30px 20px; }
 }
+
+/* ===== IKON KERANJANG ===== */
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid #b0a090; /* silver hangat */
+  color: #d4cfc4; /* silver terang */
+  font-size: 1.1rem;
+  margin-left: 15px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.cart-link:hover {
+  background: #2c1812;
+  border-color: #d94a38;
+  color: #ffb56b;
+  box-shadow: 0 0 12px #c94f2e55;
+  transform: scale(1.08);
+}

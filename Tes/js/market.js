@@ -246,6 +246,45 @@
     soundControl.addEventListener('click', toggleSound);
   }
 
-  
+  // ===== KERANJANG (TAMBAH DARI MARKET) =====
+const CART_KEY = 'roamingCart';
+
+function getCart() {
+  const stored = localStorage.getItem(CART_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function addToCart(id, title, price, quantity = 1) {
+  const cart = getCart();
+  const existing = cart.find(item => item.id === id);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({ id, title, price, quantity });
+  }
+  saveCart(cart);
+  // Animasi notifikasi kecil (opsional)
+  const btn = event.target.closest('.add-to-cart');
+  if (btn) {
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => btn.style.transform = '', 150);
+  }
+  alert(`${title} telah ditambahkan ke keranjang! 🔥`);
+}
+
+// Event listener untuk semua tombol "Tambah ke Keranjang"
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const card = this.closest('.product-card');
+    const id = card.dataset.id;
+    const title = card.dataset.title;
+    const price = parseInt(card.dataset.price);
+    addToCart(id, title, price);
+  });
+});
 
 })();
