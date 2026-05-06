@@ -50,4 +50,43 @@
     document.addEventListener('click', interact); document.addEventListener('touchstart', interact);
     sndBtn.addEventListener('click', (e) => { e.stopPropagation(); muted ? play() : (audio.pause(), sndBtn.classList.add('muted'), sndBtn.querySelector('i').className = 'fas fa-volume-mute', muted = true); });
   }
+
+  (function() {
+  const RECEIPT_KEY = 'lastReceipt';
+  const receipt = JSON.parse(localStorage.getItem(RECEIPT_KEY) || 'null');
+  if (!receipt) {
+    document.querySelector('.receipt-box').innerHTML = '<h2>Tidak ada struk ditemukan</h2>';
+    return;
+  }
+
+  document.getElementById('receiptDate').textContent = new Date(receipt.date).toLocaleDateString('id-ID', {
+    weekday:'long', day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'
+  });
+
+  const itemsDiv = document.getElementById('receiptItems');
+  receipt.items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'receipt-item';
+    div.innerHTML = `<span>${item.title} (x${item.quantity})</span><span>Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</span>`;
+    itemsDiv.appendChild(div);
+  });
+
+  document.getElementById('receiptTotal').textContent = `Total: Rp ${receipt.total.toLocaleString('id-ID')}`;
+
+  // === TAMPILKAN BUKTI JIKA ADA ===
+  const proofDiv = document.getElementById('receiptProof');
+  const proofImg = document.getElementById('proofImage');
+  if (receipt.proof && proofDiv && proofImg) {
+    proofDiv.classList.remove('hidden');
+    proofImg.src = receipt.proof;
+  }
+
+  // Canvas & audio (standar)
+  const canvas = document.getElementById('fireCanvas');
+  if (canvas) { /* ... animasi api ... */ }
+  const audio = document.getElementById('fireAmbient');
+  const sndBtn = document.getElementById('soundControl');
+  if (audio && sndBtn) { /* ... audio handler ... */ }
+})();
+
 })();

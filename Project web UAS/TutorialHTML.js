@@ -267,19 +267,21 @@ function initSidebarAndCollapse() {
   sections.forEach(s => observer.observe(s));
 }
 
-// ================= FORM SISWA =================
+/* FORM MAHASISWA */
 function initStudentForm() {
   const studentForm = document.getElementById("studentForm");
   if (!studentForm) return;
   studentForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const nama = document.getElementById("nama")?.value.trim();
-    const nis = document.getElementById("nis")?.value.trim();
-    const email = document.getElementById("email")?.value.trim();
-    const kelas = document.getElementById("kelas")?.value;
+    const nama   = document.getElementById("nama")?.value.trim();
+    const nis    = document.getElementById("nis")?.value.trim();
+    const email  = document.getElementById("email")?.value.trim();
+    const alamat = document.getElementById("alamat")?.value.trim();   // ← TAMBAHKAN
+    const kelas  = document.getElementById("kelas")?.value;
     const validasi = document.getElementById("validasi")?.checked;
     const jk = document.querySelector('input[name="jk"]:checked');
     const msg = document.getElementById("formMessage");
+
     if (!nama || !nis || !email || !kelas || !jk) {
       if (msg) { msg.textContent = "❌ Semua data harus diisi"; msg.style.color = "red"; }
       return;
@@ -288,6 +290,7 @@ function initStudentForm() {
       if (msg) { msg.textContent = "❌ Harap konfirmasi bahwa data benar"; msg.style.color = "red"; }
       return;
     }
+
     if (msg) { msg.textContent = "⏳ Memproses data..."; msg.style.color = "orange"; }
     setTimeout(() => {
       if (msg) { msg.textContent = "✅ Data berhasil ditambahkan!"; msg.style.color = "green"; }
@@ -297,7 +300,14 @@ function initStudentForm() {
       if (resultTable) resultTable.style.display = "table";
       if (tableTitle) tableTitle.style.display = "block";
       if (tbody) {
-        tbody.innerHTML += `<tr><td>${escapeHtml(nama)}</td><td>${escapeHtml(nis)}</td><td>${escapeHtml(email)}</td><td>${escapeHtml(kelas)}</td><td>${escapeHtml(jk.value)}</td></tr>`;
+        tbody.innerHTML += `<tr>
+          <td>${escapeHtml(nama)}</td>
+          <td>${escapeHtml(nis)}</td>
+          <td>${escapeHtml(email)}</td>
+          <td>${escapeHtml(kelas)}</td>
+          <td>${escapeHtml(jk.value)}</td>
+          <td>${escapeHtml(alamat)}</td>   <!-- ← TAMBAHKAN KOLOM ALAMAT -->
+        </tr>`;
       }
       studentForm.reset();
     }, 800);

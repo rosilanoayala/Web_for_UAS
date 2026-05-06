@@ -38,3 +38,19 @@ canvas#fireCanvas { width:100%; max-width:800px; height:80px; margin:0 auto 20px
 @media (max-width:600px) {
   .nav-links a { margin:0 10px; font-size:1rem; }
 }
+
+.receipt-proof {
+  margin-top: 20px;
+  text-align: center;
+}
+.proof-label {
+  color: #d49c74;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.proof-image {
+  max-width: 100%;
+  border-radius: 15px;
+  border: 1px solid #632f22;
+  box-shadow: 0 8px 20px #00000033;
+}

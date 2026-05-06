@@ -60,7 +60,7 @@
     if (cartTotal) cartTotal.textContent = formatPrice(totalPrice);
     if (btnCheckout) btnCheckout.disabled = false;
 
-    // Event listeners
+    // Event listeners untuk tombol quantity dan hapus
     itemsContainer.querySelectorAll('.minus').forEach(btn => {
       btn.addEventListener('click', () => changeQty(btn.dataset.id, -1));
     });
@@ -95,7 +95,7 @@
     if (window.updateCartBadge) window.updateCartBadge();
   }
 
-  // Checkout
+  // ===== CHECKOUT =====
   const btnCheckout = document.getElementById('btnCheckout');
   if (btnCheckout) {
     btnCheckout.addEventListener('click', () => {
@@ -104,11 +104,12 @@
         alert('Keranjang masih kosong.');
         return;
       }
-      alert('Fitur pembayaran akan segera hadir! 🔥');
+      // Arahkan ke halaman pembayaran
+      window.location.href = 'payment.html';
     });
   }
 
-  // Clear cart
+  // ===== KOSONGKAN KERANJANG =====
   const btnClear = document.getElementById('btnClearCart');
   if (btnClear) {
     btnClear.addEventListener('click', () => {
@@ -120,7 +121,7 @@
     });
   }
 
-  // Canvas footer
+  // ===== CANVAS API FOOTER =====
   const canvas = document.getElementById('fireCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -175,7 +176,7 @@
     animateFire();
   }
 
-  // Audio
+  // ===== AUDIO =====
   const ambientAudio = document.getElementById('fireAmbient');
   const soundControl = document.getElementById('soundControl');
   const soundIcon = soundControl?.querySelector('i');
@@ -206,5 +207,6 @@
     });
   }
 
+  // Inisialisasi tampilan keranjang
   renderCart();
 })();

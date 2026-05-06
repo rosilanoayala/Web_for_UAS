@@ -39,7 +39,10 @@
     const errorDiv = document.getElementById('paymentError');
 
     if (!accountNumber || !accountName) {
-      if (errorDiv) { errorDiv.textContent = 'Mohon isi nomor rekening dan nama pemilik akun.'; errorDiv.classList.remove('hidden'); }
+      if (errorDiv) {
+        errorDiv.textContent = 'Mohon isi nomor rekening dan nama pemilik akun.';
+        errorDiv.classList.remove('hidden');
+      }
       return;
     }
 
@@ -61,17 +64,16 @@
 
   document.getElementById('paymentForm').addEventListener('submit', handleSubmit);
 
-  // Ganti opsi bank/e-wallet sesuai metode
   document.querySelectorAll('input[name="method"]').forEach(radio => {
     radio.addEventListener('change', function() {
-      const bankSelect = document.getElementById('bankSelect');
-      bankSelect.innerHTML = this.value === 'ewallet' 
+      const select = document.getElementById('bankSelect');
+      select.innerHTML = this.value === 'ewallet'
         ? `<option value="gopay">GoPay</option><option value="ovo">OVO</option><option value="dana">DANA</option><option value="shopeepay">ShopeePay</option>`
         : `<option value="bca">BCA</option><option value="mandiri">Mandiri</option><option value="bni">BNI</option><option value="bri">BRI</option>`;
     });
   });
 
-  // Canvas & audio
+  // Canvas api unggun footer
   const canvas = document.getElementById('fireCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -100,6 +102,146 @@
     document.addEventListener('click', interact); document.addEventListener('touchstart', interact);
     sndBtn.addEventListener('click', (e) => { e.stopPropagation(); muted ? play() : (audio.pause(), sndBtn.classList.add('muted'), sndBtn.querySelector('i').className = 'fas fa-volume-mute', muted = true); });
   }
+
+  function handleSubmit(e) {
+  e.preventDefault();
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Keranjang kosong.');
+    return;
+  }
+
+  const method = document.querySelector('input[name="method"]:checked')?.value || 'transfer';
+  const bank = document.getElementById('bankSelect').value;
+  const accountNumber = document.getElementById('accountNumber').value.trim();
+  const accountName = document.getElementById('accountName').value.trim();
+  const errorDiv = document.getElementById('paymentError');
+
+  if (!accountNumber || !accountName) {
+    if (errorDiv) {
+      errorDiv.textContent = 'Mohon isi nomor rekening dan nama pemilik akun.';
+      errorDiv.classList.remove('hidden');
+    }
+    return;
+  }
+
+  // === BACA FILE BUKTI ===
+  const proofInput = document.getElementById('paymentProof');
+  const proofFile = proofInput?.files[0];
+  
+  if (proofFile) {
+    // Batasi ukuran 2MB
+    if (proofFile.size > 2 * 1024 * 1024) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Ukuran bukti maksimal 2MB.';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    // Baca sebagai data URL (base64)
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const dataUrl = ev.target.result;
+      finalizePayment(method, bank, accountNumber, accountName, dataUrl);
+    };
+    reader.readAsDataURL(proofFile);
+  } else {
+    // Tidak ada bukti → langsung finalisasi
+    finalizePayment(method, bank, accountNumber, accountName, null);
+  }
+}
+
+function finalizePayment(method, bank, accountNumber, accountName, proofDataUrl) {
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Keranjang kosong.');
+    return;
+  }
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const receipt = {
+    date: new Date().toISOString(),
+    method,
+    bank,
+    accountNumber,
+    accountName,
+    proof: proofDataUrl,   // null atau data URL
+    items: [...cart],
+    total
+  };
+
+  localStorage.setItem(RECEIPT_KEY, JSON.stringify(receipt));
+  saveCart([]);
+  if (window.updateCartBadge) window.updateCartBadge();
+  window.location.href = 'receipt.html';
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Keranjang kosong.');
+    return;
+  }
+
+  const method = document.querySelector('input[name="method"]:checked')?.value || 'transfer';
+  const bank = document.getElementById('bankSelect').value;
+  const accountNumber = document.getElementById('accountNumber').value.trim();
+  const accountName = document.getElementById('accountName').value.trim();
+  const errorDiv = document.getElementById('paymentError');
+
+  if (!accountNumber || !accountName) {
+    if (errorDiv) {
+      errorDiv.textContent = 'Mohon isi nomor rekening dan nama pemilik akun.';
+      errorDiv.classList.remove('hidden');
+    }
+    return;
+  }
+
+  const proofInput = document.getElementById('paymentProof');
+  const proofFile = proofInput?.files[0];
+
+  if (proofFile) {
+    if (proofFile.size > 2 * 1024 * 1024) { // 2MB
+      if (errorDiv) {
+        errorDiv.textContent = 'Ukuran bukti maksimal 2MB.';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      finalizePayment(method, bank, accountNumber, accountName, ev.target.result);
+    };
+    reader.readAsDataURL(proofFile);
+  } else {
+    finalizePayment(method, bank, accountNumber, accountName, null);
+  }
+}
+
+function finalizePayment(method, bank, accountNumber, accountName, proofDataUrl) {
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const receipt = {
+    date: new Date().toISOString(),
+    method,
+    bank,
+    accountNumber,
+    accountName,
+    proof: proofDataUrl,   // null atau string data URL
+    items: [...cart],
+    total
+  };
+
+  localStorage.setItem(RECEIPT_KEY, JSON.stringify(receipt));
+  saveCart([]);
+  if (window.updateCartBadge) window.updateCartBadge();
+  window.location.href = 'receipt.html';
+}
 
   renderOrderSummary();
 })();
