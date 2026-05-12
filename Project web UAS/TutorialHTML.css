@@ -740,6 +740,23 @@ section.collapsed .section-content {
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(230, 126, 34, 0.35);
 }
+
+section {
+    transition: background 0.5s ease-in-out;
+    padding: 40px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Efek saat kursor di atas gambar agar user tahu itu bisa diklik */
+section img {
+    transition: transform 0.3s;
+}
+
+section img:hover {
+    transform: scale(1.1);
+}
+
 @media (max-width: 640px) {
     .quiz-card-featured { padding: 24px 20px; }
     .quiz-icon { width: 55px; height: 55px; font-size: 1.8rem; }

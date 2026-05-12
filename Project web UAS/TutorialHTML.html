@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Modul Lengkap HTML Interaktif</title>
 
+<link rel="icon" type="image/png" href="favicon.png"> 
+<link rel="apple-touch-icon" href="favicon.png">
 <link rel="stylesheet" href="TutorialHTML.css">
 
 </head>
@@ -1676,20 +1678,34 @@ tetapi juga <strong>mencoba langsung</strong>.
 
 <hr>
 
-<h3>🎛 C. Ubah Warna Halaman & Section</h3>
+<div class="color-control-group">
+    <label>Background Halaman:</label>
+    <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+        <input type="color" id="bgPicker" oninput="syncColor('bgPicker', 'bgInput')">
+        <input type="text" id="bgInput" placeholder="#ffffff" oninput="syncColor('bgInput', 'bgPicker')">
+    </div>
 
-<label>Background Halaman:</label><br>
-<input id="bgInput" placeholder="contoh: #f8fafc / rgb(200,200,200)"><br><br>
+    <label>Background Section:</label>
+    <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+        <input type="color" id="sectionPicker" oninput="syncColor('sectionPicker', 'sectionInput')">
+        <input type="text" id="sectionInput" placeholder="#ffffff" oninput="syncColor('sectionInput', 'sectionPicker')">
+    </div>
 
-<label>Background Section:</label><br>
-<input id="sectionInput" placeholder="contoh: white / hsl(0,0%,95%)"><br><br>
+    <label>Warna Teks:</label>
+    <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+        <input type="color" id="textPicker" oninput="syncColor('textPicker', 'textInput')">
+        <input type="text" id="textInput" placeholder="#000000 atau black" oninput="syncColor('textInput', 'textPicker')">
+    </div>
 
-<label>Warna Teks:</label><br>
-<input id="textInput" placeholder="contoh: black / #333"><br><br>
+    <label>Warna Aksen:</label>
+    <div style="display: flex; gap: 5px;">
+        <input type="color" id="accentPicker" oninput="syncColor('accentPicker', 'accentInput')">
+        <input type="text" id="accentInput" placeholder="#22c55e" oninput="syncColor('accentInput', 'accentPicker')">
+    </div>
+</div>
 
-<button onclick="applyColor()">Terapkan</button>
-<button onclick="resetColors()" style="background:#ef4444; margin-left:10px;">Reset Semua Warna</button>
-
+<button onclick="applyColor()" style="margin-top:15px;">Terapkan Semua</button>
+<button onclick="resetColors()" class="reset-btn" style="background:#ef4444; margin-left:10px;">Reset</button>
 <hr>
 
 <h3>📌 D. Contoh Cepat</h3>
@@ -1753,7 +1769,7 @@ tetapi selalu terasa nyaman.
   <h4>🎮 Demo Interaktif: Atur Tampilan Gambar</h4>
   <p>Gunakan kontrol di bawah untuk mengubah ukuran, posisi, float, dan sudut gambar. Ini akan membantu Anda memahami bagaimana CSS dapat memengaruhi gambar sebelum membuat image map.</p>
 
-  <img id="gambarInteraktif" src="komodo.jpg" style="display:block; margin:20px auto; max-width:300px;" alt="Gambar Komodo">
+  <img id="gambarInteraktif" src="komodo.jpg" onclick="changeBg(this)" style="cursor: pointer; width : 200px; display:block; margin:20px auto; max-width:500px;" alt="Gambar Komodo">
 
   <div style="background: #f8fafc; padding: 20px; border-radius: 16px; margin: 20px 0;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -1804,13 +1820,19 @@ body {
   <p>Masukkan URL gambar (lokal atau online) dan klik tombol untuk mengubah latar belakang halaman ini.</p>
 
   <div style="background: #f8fafc; padding: 20px; border-radius: 16px; margin: 20px 0;">
-    <label><strong>URL Gambar:</strong></label><br>
-    <input id="bgImageInput" placeholder="https://example.com/gambar.jpg" style="width: 100%; margin-bottom: 15px;">
-    <div style="display: flex; gap: 10px;">
-      <button onclick="applyBgImage()" style="flex: 1;">🖼️ Terapkan Background</button>
-      <button onclick="document.body.style.backgroundImage=''; document.body.style.backgroundSize=''; document.body.style.backgroundPosition='';" style="flex: 1; background: #64748b;">🗑️ Hapus Background</button>
-    </div>
-    <p style="margin-top: 10px; font-size: 0.9rem;">💡 Gunakan gambar dari internet atau lokal seperti "komodo.jpg".</p>
+      <label><strong>Pilih Gambar Background:</strong></label><br>
+    
+      <input id="bgImageInput" placeholder="https://example.com/gambar.jpg" style="width: 100%; margin-bottom: 10px;">
+    
+      <input type="file" id="bgFileInput" accept="image/*" style="margin-bottom: 15px; display: block;">
+    
+      <div style="display: flex; gap: 10px;">
+        <button onclick="applyBgImage()" style="flex: 1;">🖼️ Terapkan Background</button>
+      
+        <button onclick="document.body.style.backgroundImage=''; document.body.style.backgroundSize=''; document.body.style.backgroundPosition=''; document.body.style.backgroundAttachment='';" style="flex: 1; background: #64748b;">🗑️ Hapus Background</button>
+      </div>
+    
+      <p style="margin-top: 10px; font-size: 0.9rem;">💡 Anda bisa menempelkan link URL, <b>ATAU</b> memilih gambar langsung dari perangkat Anda.</p>
   </div>
 
   <!-- ===== BAGIAN 3: PICTURE ELEMENT ===== -->

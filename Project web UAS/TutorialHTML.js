@@ -143,39 +143,95 @@ function applyImage() {
 }
 
 function applyBgImage() {
-  const url = document.getElementById("bgImageInput")?.value.trim();
-  if (url) {
-    document.body.style.backgroundImage = `url('${url}')`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-  } else document.body.style.removeProperty("background-image");
+    const urlInput = document.getElementById('bgImageInput').value;
+    const fileInput = document.getElementById('bgFileInput');
+    let bgUrl = "";
+
+    // 1. Cek apakah pengguna memilih file lokal dari laptop/HP
+    if (fileInput.files && fileInput.files[0]) {
+        // Membuat "URL Sementara" dari file lokal yang dipilih
+        bgUrl = URL.createObjectURL(fileInput.files[0]);
+    } 
+    // 2. Jika tidak ada file lokal, cek apakah pengguna mengetik link URL
+    else if (urlInput) {
+        bgUrl = urlInput;
+    }
+
+    // 3. Terapkan ke background jika bgUrl memiliki isi
+    if (bgUrl) {
+        document.body.style.backgroundImage = `url('${bgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        
+        // Tetap menempel di layar (tidak buram saat discroll)
+        document.body.style.backgroundAttachment = 'fixed';
+    } else {
+        alert("Silakan masukkan URL gambar atau pilih file gambar dari perangkat Anda terlebih dahulu.");
+    }
 }
 
 function applyColor() {
-  const bg = document.getElementById("bgInput")?.value.trim();
-  const section = document.getElementById("sectionInput")?.value.trim();
-  const text = document.getElementById("textInput")?.value.trim();
-  if (bg) document.body.style.setProperty("background", bg, "important");
-  else document.body.style.removeProperty("background");
-  document.querySelectorAll("section").forEach(sec => {
-    if (section) sec.style.setProperty("background", section, "important");
-    else sec.style.removeProperty("background");
-  });
-  if (text) document.body.style.setProperty("color", text, "important");
-  else document.body.style.removeProperty("color");
+    const bgColor = document.getElementById('bgInput').value;
+    const sectionColor = document.getElementById('sectionInput').value;
+    const textColor = document.getElementById('textInput').value;
+    const accentColor = document.getElementById('accentInput').value;
+
+    // 🟡 Background halaman
+    if (bgColor) document.body.style.backgroundColor = bgColor;
+
+    // 🟡 Background section (TIMPA gradient dengan warna solid)
+    const sections = document.querySelectorAll('section');
+    sections.forEach(sec => {
+        if (sectionColor) {
+          sec.style.backgroundImage = 'none';
+          sec.style.backgroundColor = sectionColor;         
+        }
+        if (textColor) sec.style.color = textColor;
+    });
+
+    // 🟡 Warna aksen (tombol + border heading)
+    if (accentColor) {
+        // Semua tombol (kecuali yang memiliki class reset nanti)
+        document.querySelectorAll('button:not(.reset-btn)').forEach(btn => {
+            btn.style.backgroundColor = accentColor;
+        });
+        // Border pada heading
+        document.querySelectorAll('h2, h3').forEach(head => {
+            head.style.borderBottom = `3px solid ${accentColor}`;
+        });
+    }
 }
 
-function setTextColor(color) {
-  document.body.style.setProperty("color", color, "important");
+// Pastikan fungsi syncColor tetap ada
+function syncColor(sourceId, targetId) {
+    const source = document.getElementById(sourceId);
+    const target = document.getElementById(targetId);
+    target.value = source.value;
 }
 
 function resetColors() {
-  document.body.style.removeProperty("background");
-  document.body.style.removeProperty("color");
-  document.querySelectorAll("section").forEach(sec => sec.style.removeProperty("background"));
-  document.body.style.removeProperty("background-image");
-  document.body.style.removeProperty("background-size");
-  document.body.style.removeProperty("background-position");
+    // Kembalikan ke default awal seperti sebelum tombol "Terapkan Semua" ditekan
+    document.body.style.backgroundColor = "";
+
+    document.querySelectorAll('section').forEach(sec => {
+        sec.style.background = "";   // ⬅️ kembalikan gradient CSS
+        sec.style.color = "";
+    });
+
+    document.querySelectorAll('button').forEach(btn => {
+        btn.style.backgroundColor = "";
+    });
+
+    document.querySelectorAll('h2, h3').forEach(head => {
+        head.style.borderBottom = "";
+    });
+
+    // Reset nilai input picker ke default (opsional)
+    document.getElementById('bgInput').value = "#f8fafc";
+    document.getElementById('sectionInput').value = "#ffffff";
+    document.getElementById('textInput').value = "#000000";
+    document.getElementById('accentInput').value = "#22c55e";
 }
 
 // ================= SIDEBAR & COLLAPSIBLE =================
@@ -405,12 +461,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function changeBg(element) {
+    const parentSection = element.closest('section');
+    
+    if (parentSection) {
+        console.log("Mengubah background untuk:", parentSection.id);
+        parentSection.style.backgroundImage = `url('${element.src}')`;
+        parentSection.style.backgroundSize = 'cover';
+        parentSection.style.backgroundPosition = 'center';
+        parentSection.style.backgroundRepeat = 'no-repeat';
+        
+        // Agar teks tetap terbaca
+        parentSection.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+        parentSection.style.backgroundBlendMode = 'overlay';
+    } else {
+        console.error("Gagal: Gambar harus berada di dalam elemen <section>");
+    }
+}
   checkLoginAndDisplay();
   window.addEventListener("storage", checkLoginAndDisplay);
   initSidebarAndCollapse();
   initStudentForm();
 
   // Demo interaktif (fungsi global)
+  window.changeBg = changeBg;
   window.applyImage = applyImage;
   window.applyBgImage = applyBgImage;
   window.applyColor = applyColor;
